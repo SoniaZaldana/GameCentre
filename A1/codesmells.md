@@ -27,3 +27,8 @@ how would you refactor the code?]
 ==== End template ====
 
 # List of code smells
+## Code smell: Long method
+## Category: Bloater
+## Location: Class: WarehouseSimulation, Line 41, method start.
+## Description: Too many lines. More than 10-15 lines for a method make it too bloated.
+## Solution: Extract submethods.
