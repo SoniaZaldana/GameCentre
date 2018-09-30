@@ -5,12 +5,7 @@ easy to learn. Hash marks (the number sign) indicate headers. Asterisks indicate
 
 # Template
 
-Use the following Code Smell template (copy and paste it at the end of this file and then edit it; don't include the "Begin template" or "End template" lines):
-
 ==== Begin template ====
-## Code Smell: [Write the code smell name]
-
-### Code Smell Category: [Write the code smell category name]
 
 ### List of classes and line numbers involved:
 
@@ -27,17 +22,32 @@ how would you refactor the code?]
 ==== End template ====
 
 # List of code smells
+
 ## Code smell: Long method
 ## Category: Bloater
 ## Location: Class: WarehouseSimulation, Line 41, method start.
 ## Description: Too many lines. More than 10-15 lines for a method make it too bloated.
-## Solution: Extract submethods.
+## Solution: Extract submethods. Extract a method to deal with events which are orders, and one to deal with
+## events which are picers and sequencers.
+
+## Code smell: Large Class
+## Category: Bloater
+## Location: Class WarehouseManager
+## Description: Class has only one responsibility(manage warehouse), but it is too broad,
+## so it includes a lot of sub-responsibilities as a result.
+## Solution: Split the methods in WarehouseManager into 2 classes: A class PickingManager, and a class SequencingManager.
+## Class PickingManager will be in charge of addPickingOrders(), addPicker(), processPickEvent(), pickertoMarshalling().
+## Class SequencingManager will be in charge of addSequencingOrders(), addSequencer() sequencerSequenced(), processScanEvent.
+## Both classes have common responsibilities, so make them subclasses of the superclass WarehouseManager(alternatively
+## WareHouseManager can also be an interface with the given methods), and define
+## in it, the abstract methods addWorker(), addOrders(), processEvent(), which both classes will implement.
+
 
 
 ## Code smell: Switch statement
 ## Category: Object-orientation abuser.
 ## Objected oriented abuser in warehouseSimulation.
-## Location: Line 65-89 in WreHouseSimulation
+## Location: Line 65-89 in WareHouseSimulation
 ## Description:Both if statements which check for the type of worker do the same actions, which results in a complex
 ## and long if statement, with a lot of very similar code.
 ## Solution: Use polymorphism and make Picker and Sequencer both subclasses of Worker, so you don't even need
@@ -60,6 +70,4 @@ how would you refactor the code?]
 ## Description: addOrder(), size(), pickerSKUMatches()/sequencerSKUMatches, getIDs() follow the same logic. Only
 ## difference is the name of the variables.
 ## Solution: Extract a SuperClass OrderList which can be abstract and declare the methods both of them have in common.
-
-
 
