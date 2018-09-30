@@ -32,3 +32,13 @@ how would you refactor the code?]
 ## Location: Class: WarehouseSimulation, Line 41, method start.
 ## Description: Too many lines. More than 10-15 lines for a method make it too bloated.
 ## Solution: Extract submethods.
+
+## Code smell: Switch statement
+## Category: Object-orientation abuser.
+# Objected oriented abuser in warehouseSimulation.
+# Location: Line 65-89 in WreHouseSimulation
+# Description:Both if statements which check for the type of worker do the same actions, which results in a complex
+# and long if statement, with a lot of very similar code.
+# Solution: Use polymorphism and make Picker and Sequencer both subclasses of Worker, so you don't even need
+# to use an switch statement and instead execute the same code on Worker. Make Worker abstract and define in it the
+# methods that both subclasses already implement. At Runtime, the code for the appropriate subclass will be executed.
