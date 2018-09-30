@@ -35,10 +35,18 @@ how would you refactor the code?]
 
 ## Code smell: Switch statement
 ## Category: Object-orientation abuser.
-# Objected oriented abuser in warehouseSimulation.
-# Location: Line 65-89 in WreHouseSimulation
-# Description:Both if statements which check for the type of worker do the same actions, which results in a complex
-# and long if statement, with a lot of very similar code.
-# Solution: Use polymorphism and make Picker and Sequencer both subclasses of Worker, so you don't even need
-# to use an switch statement and instead execute the same code on Worker. Make Worker abstract and define in it the
-# methods that both subclasses already implement. At Runtime, the code for the appropriate subclass will be executed.
+## Objected oriented abuser in warehouseSimulation.
+## Location: Line 65-89 in WreHouseSimulation
+## Description:Both if statements which check for the type of worker do the same actions, which results in a complex
+## and long if statement, with a lot of very similar code.
+## Solution: Use polymorphism and make Picker and Sequencer both subclasses of Worker, so you don't even need
+## to use an switch statement and instead execute the same code on Worker. Make Worker abstract and define in it the
+## methods that both subclasses already implement. At Runtime, the code for the appropriate subclass will be executed.
+
+## Code smell: Data Class
+## Category: Dispensable
+## Location: Class: Order
+## Description: Contains only "fields and crude methods for accessing them (getters and setters)."(sourcemaking)
+## Order does not contain any functionality apart for containing data for other classes.
+## Solution: Find relevant methods and include them in the Order Class. Relevant methods could be cancelOrder() -> void,
+## isOrdered() -> bool, etc
