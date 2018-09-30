@@ -33,6 +33,7 @@ how would you refactor the code?]
 ## Description: Too many lines. More than 10-15 lines for a method make it too bloated.
 ## Solution: Extract submethods.
 
+
 ## Code smell: Switch statement
 ## Category: Object-orientation abuser.
 ## Objected oriented abuser in warehouseSimulation.
@@ -43,6 +44,7 @@ how would you refactor the code?]
 ## to use an switch statement and instead execute the same code on Worker. Make Worker abstract and define in it the
 ## methods that both subclasses already implement. At Runtime, the code for the appropriate subclass will be executed.
 
+
 ## Code smell: Data Class
 ## Category: Dispensable
 ## Location: Class: Order
@@ -50,3 +52,14 @@ how would you refactor the code?]
 ## Order does not contain any functionality apart for containing data for other classes.
 ## Solution: Find relevant methods and include them in the Order Class. Relevant methods could be cancelOrder() -> void,
 ## isOrdered() -> bool, etc
+
+
+## Code smell: Duplicate Code
+## Category: Dispensable
+## Location Class: Class PickerOrderList and SequencerOrderList
+## Description: addOrder(), size(), pickerSKUMatches()/sequencerSKUMatches, getIDs() follow the same logic. Only
+## difference is the name of the variables.
+## Solution: Extract a SuperClass OrderList which can be abstract and declare the methods both of them have in common.
+
+
+
