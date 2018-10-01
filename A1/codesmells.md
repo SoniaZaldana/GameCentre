@@ -25,10 +25,10 @@ how would you refactor the code?]
 
 ## Code smell: Long method
 ## Category: Bloater
-## Location: Class: WarehouseSimulation, Line 41, method start.
+## Location: Class: WarehouseSimulation, Line 41, method  start(WarehouseManager m,TranslationTable t).
 ## Description: Too many lines. More than 10-15 lines for a method make it too bloated.
 ## Solution: Extract submethods. Extract a method to deal with events which are orders, and one to deal with
-## events which are picers and sequencers.
+## events which are pickers and sequencers.
 
 ## Code smell: Large Class
 ## Category: Bloater
@@ -49,10 +49,10 @@ how would you refactor the code?]
 ## Objected oriented abuser in warehouseSimulation.
 ## Location: Line 65-89 in WareHouseSimulation
 ## Description:Both if statements which check for the type of worker do the same actions, which results in a complex
-## and long if statement, with a lot of very similar code.
-## Solution: Use polymorphism and make Picker and Sequencer both subclasses of Worker, so you don't even need
-## to use an switch statement and instead execute the same code on Worker. Make Worker abstract and define in it the
-## methods that both subclasses already implement. At Runtime, the code for the appropriate subclass will be executed.
+## and long if statement, with duplicate code.
+## Solution: Use polymorphism and make Picker and Sequencer both subclasses of Worker, so you don't need
+## to use a switch statement and instead execute the same code on Worker. Make Worker abstract and define in it the
+## methods that both subclasses already implement. The code for the appropriate subclass will be executed when run.
 
 
 ## Code smell: Data Class
