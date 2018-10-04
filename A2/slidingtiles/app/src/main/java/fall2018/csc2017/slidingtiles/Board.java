@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * The sliding tiles board.
- * TODO: Make this implement Iterable<Tile>.
+ * TODO: Test Iterable<Tile>.
  */
 public class Board extends Observable implements Serializable, Iterable<Tile>{
 
@@ -51,8 +51,9 @@ public class Board extends Observable implements Serializable, Iterable<Tile>{
      * @return the number of tiles on the board
      */
     int numTiles() {
-        // TODO: fix me
-        return -1;
+        // TODO: Test if it's right.
+        return NUM_ROWS * NUM_COLS;
+//        return -1;
     }
 
     /**
@@ -75,7 +76,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile>{
      * @param col2 the second tile col
      */
     void swapTiles(int row1, int col1, int row2, int col2) {
-        // TODO: swap
+        // TODO: Test if swap works
         Tile tempValue1 = tiles[row1][col1];
         tiles[row1][col1] = tiles[row2][col2];
         tiles[row2][col2] = tempValue1;

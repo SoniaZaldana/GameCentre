@@ -3,6 +3,7 @@ package fall2018.csc2017.slidingtiles;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -40,7 +41,7 @@ class BoardManager implements Serializable {
             tiles.add(new Tile(tileNum));
         }
 
-        Collections.shuffle(tiles);
+        //Collections.shuffle(tiles);
         this.board = new Board(tiles);
     }
 
@@ -50,9 +51,25 @@ class BoardManager implements Serializable {
      * @return whether the tiles are in row-major order
      */
     boolean puzzleSolved() {
-        boolean solved = true;
-        // TODO: fix me
-        return solved;
+        // TODO Check the logic. Make sure it's sound.
+        // blankId has the highest Id, therefore it will be last.
+        Iterator<Tile> iterator = board.iterator();
+        boolean inOrder = true;
+        int prevTileValue = 0;
+        while(iterator.hasNext() && inOrder){
+            Tile checkTile = iterator.next();
+            int currTileValue = checkTile.getId();
+            // If current value is not 1 + the last one, then it's not in order
+            if(currTileValue != prevTileValue +1 ){
+                inOrder = false;
+            }
+            if(currTileValue == board.numTiles()-1){
+
+            }
+            prevTileValue = currTileValue;
+        }
+
+        return inOrder;
     }
 
     /**
@@ -83,13 +100,30 @@ class BoardManager implements Serializable {
      * @param position the position
      */
     void touchMove(int position) {
-
+        //TODO touchMove stealscode from isValidTap. Put in same method.
         int row = position / Board.NUM_ROWS;
         int col = position % Board.NUM_COLS;
         int blankId = board.numTiles();
-
-        // TODO: figure out when to call board.swapTiles. Specifically, if any of the neighbouring
+        System.out.println("TileId: " + board.getTile(row, col).getId() + " Background: " + board.getTile(row, col).getBackground());
+        // If any of the neighbouring
         // tiles is the blank tile, swap by calling Board's swap method.
+        Tile above = row == 0 ? null : board.getTile(row - 1, col);
+        Tile below = row == Board.NUM_ROWS - 1 ? null : board.getTile(row + 1, col);
+        Tile left = col == 0 ? null : board.getTile(row, col - 1);
+        Tile right = col == Board.NUM_COLS - 1 ? null : board.getTile(row, col + 1);
+        if(above != null && above.getId() == blankId){
+            board.swapTiles(row, col, row-1, col);
+        }
+        else if(below != null && below.getId() == blankId){
+            board.swapTiles(row, col, row+1, col);
+        }
+        else if(left != null && left.getId() == blankId){
+            board.swapTiles(row, col, row, col-1);
+        }
+        else if(right != null && right.getId() == blankId){
+            board.swapTiles(row, col, row, col+1);
+        }
+        // TODO: figure out when to call board.swapTiles. S
     }
 
 }
