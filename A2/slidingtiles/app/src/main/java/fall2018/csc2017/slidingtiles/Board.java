@@ -1,5 +1,7 @@
 package fall2018.csc2017.slidingtiles;
 
+import android.support.annotation.NonNull;
+
 import java.util.Observable;
 
 import java.io.Serializable;
@@ -11,7 +13,7 @@ import java.util.List;
  * The sliding tiles board.
  * TODO: Make this implement Iterable<Tile>.
  */
-public class Board extends Observable implements Serializable {
+public class Board extends Observable implements Serializable, Iterable<Tile>{
 
     /**
      * The number of rows.
@@ -74,7 +76,9 @@ public class Board extends Observable implements Serializable {
      */
     void swapTiles(int row1, int col1, int row2, int col2) {
         // TODO: swap
-
+        Tile tempValue1 = tiles[row1][col1];
+        tiles[row1][col1] = tiles[row2][col2];
+        tiles[row2][col2] = tempValue1;
         setChanged();
         notifyObservers();
     }
@@ -85,4 +89,36 @@ public class Board extends Observable implements Serializable {
                 "tiles=" + Arrays.toString(tiles) +
                 '}';
     }
+
+    @NonNull
+    @Override
+    public Iterator<Tile> iterator() {
+        return new TileIterator();
+    }
+
+    private class TileIterator implements Iterator<Tile>{
+        private int rowIndex = 0;
+        private int columnIndex = 0;
+        @Override
+        public boolean hasNext() {
+            return isRowAvailable() && isColumnAvailable();
+        }
+        @Override
+        public Tile next() {
+            // get the data for the Tile, then move the index to the next one
+            Tile nextTile = tiles[rowIndex][columnIndex];
+            columnIndex +=1;
+            // If there is no more columns, move onto the next one.
+            if(! isColumnAvailable()){
+                // If it's on the last row, rowIndex will move to a nonexistent one.
+                rowIndex+=1;
+                columnIndex=0;
+            }
+            return nextTile;
+        }
+        private boolean isRowAvailable(){ return rowIndex<NUM_ROWS; }
+        private boolean isColumnAvailable(){ return columnIndex<NUM_COLS; }
+
+    }
+
 }
