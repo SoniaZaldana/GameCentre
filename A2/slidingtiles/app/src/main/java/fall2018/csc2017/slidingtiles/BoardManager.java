@@ -79,9 +79,8 @@ class BoardManager implements Serializable {
      * @return whether the tile at position is surrounded by a blank tile
      */
     boolean isValidTap(int position) {
-
-        int row = position / Board.NUM_COLS;
-        int col = position % Board.NUM_COLS;
+        int row = getRow(position);
+        int col = getCol(position);
         int blankId = board.numTiles();
         // Are any of the 4 the blank tile?
         Tile above = row == 0 ? null : board.getTile(row - 1, col);
@@ -99,12 +98,12 @@ class BoardManager implements Serializable {
      *
      * @param position the position
      */
+
     void touchMove(int position) {
         //TODO touchMove stealscode from isValidTap. Put in same method.
-        int row = position / Board.NUM_ROWS;
-        int col = position % Board.NUM_COLS;
+        int row = getRow(position);
+        int col = getCol(position);
         int blankId = board.numTiles();
-        System.out.println("TileId: " + board.getTile(row, col).getId() + " Background: " + board.getTile(row, col).getBackground());
         // If any of the neighbouring
         // tiles is the blank tile, swap by calling Board's swap method.
         Tile above = row == 0 ? null : board.getTile(row - 1, col);
@@ -125,5 +124,12 @@ class BoardManager implements Serializable {
         }
         // TODO: figure out when to call board.swapTiles. S
     }
+    int getRow(int position){
+        return position / Board.NUM_ROWS;
+    }
+    int getCol(int position){
+        return position % Board.NUM_COLS;
+    }
+
 
 }
