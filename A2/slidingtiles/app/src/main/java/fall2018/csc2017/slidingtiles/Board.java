@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * The sliding tiles board.
- * TODO: Test Iterable<Tile>.
+ *
  */
 public class Board extends Observable implements Serializable, Iterable<Tile>{
 
@@ -51,9 +51,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile>{
      * @return the number of tiles on the board
      */
     int numTiles() {
-        // TODO: Test if it's right.
         return NUM_ROWS * NUM_COLS;
-//        return -1;
     }
 
     /**
@@ -76,7 +74,6 @@ public class Board extends Observable implements Serializable, Iterable<Tile>{
      * @param col2 the second tile col
      */
     void swapTiles(int row1, int col1, int row2, int col2) {
-        // TODO: Test if swap works
         Tile tempValue1 = tiles[row1][col1];
         tiles[row1][col1] = tiles[row2][col2];
         tiles[row2][col2] = tempValue1;
@@ -91,25 +88,41 @@ public class Board extends Observable implements Serializable, Iterable<Tile>{
                 '}';
     }
 
+    /**
+     *
+     * @return an iterator of class TileIterator.
+     */
     @NonNull
     @Override
     public Iterator<Tile> iterator() {
         return new TileIterator();
     }
 
+    /**
+     * Represents the iterator for class Board.
+     */
     private class TileIterator implements Iterator<Tile>{
+        /**
+         * current row index
+         */
         private int rowIndex = 0;
+        /**
+         * current column Index
+         */
         private int columnIndex = 0;
+
+
         @Override
         public boolean hasNext() {
             return isRowAvailable() && isColumnAvailable();
         }
+
         @Override
         public Tile next() {
-            // get the data for the Tile, then move the index to the next one
+            // get the data for the current tile Tile, then move the index to the next Tile.
             Tile nextTile = tiles[rowIndex][columnIndex];
             columnIndex +=1;
-            // If there is no more columns, move onto the next one.
+            // If there is no more columns, move onto first column in next row.
             if(! isColumnAvailable()){
                 // If it's on the last row, rowIndex will move to a nonexistent one.
                 rowIndex+=1;
@@ -117,7 +130,17 @@ public class Board extends Observable implements Serializable, Iterable<Tile>{
             }
             return nextTile;
         }
+
+        /**
+         *
+         * @return if current row exists
+         */
         private boolean isRowAvailable(){ return rowIndex<NUM_ROWS; }
+
+        /**
+         *
+         * @return if current column exists
+         */
         private boolean isColumnAvailable(){ return columnIndex<NUM_COLS; }
 
     }

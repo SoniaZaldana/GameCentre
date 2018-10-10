@@ -2,7 +2,6 @@ package fall2018.csc2017.slidingtiles;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -51,8 +50,6 @@ class BoardManager implements Serializable {
      * @return whether the tiles are in row-major order
      */
     boolean puzzleSolved() {
-        // TODO Check the logic. Make sure it's sound.
-        // blankId has the highest Id, therefore it will be last.
         Iterator<Tile> iterator = board.iterator();
         boolean inOrder = true;
         int prevTileValue = 0;
@@ -62,9 +59,6 @@ class BoardManager implements Serializable {
             // If current value is not 1 + the last one, then it's not in order
             if(currTileValue != prevTileValue +1 ){
                 inOrder = false;
-            }
-            if(currTileValue == board.numTiles()-1){
-
             }
             prevTileValue = currTileValue;
         }
@@ -81,16 +75,27 @@ class BoardManager implements Serializable {
     boolean isValidTap(int position) {
         int row = getRow(position);
         int col = getCol(position);
+        // check if blank tile is tile above, below, to the left, or to the right in this order.
+        return   isBlankTile(row, 0,row -1, col)
+                || isBlankTile(row, Board.NUM_ROWS-1,row +1, col)
+                || isBlankTile(col, 0,row, col-1)
+                || isBlankTile(col, Board.NUM_COLS-1,row, col+1);
+    }
+
+    /**
+     *
+     * @param rowOrCol is either a row or a column which you want to compare to a boundary
+     * case depending on if you're checking up/down/left/right of existing tile.
+     * @param boundaryCase is the value of the edge case(occurs at row = 0, col = 0,
+     * @param rowToCheck is the row of the Tile to Check
+     * @param colToCheck is the column of the Tile To check
+     * @return whether the Tile with row rowToCheck and column colToCheck
+     * contains a blank Tile
+     */
+    private boolean isBlankTile(int rowOrCol, int boundaryCase, int rowToCheck, int colToCheck){
         int blankId = board.numTiles();
-        // Are any of the 4 the blank tile?
-        Tile above = row == 0 ? null : board.getTile(row - 1, col);
-        Tile below = row == Board.NUM_ROWS - 1 ? null : board.getTile(row + 1, col);
-        Tile left = col == 0 ? null : board.getTile(row, col - 1);
-        Tile right = col == Board.NUM_COLS - 1 ? null : board.getTile(row, col + 1);
-        return (below != null && below.getId() == blankId)
-                || (above != null && above.getId() == blankId)
-                || (left != null && left.getId() == blankId)
-                || (right != null && right.getId() == blankId);
+        Tile tile = rowOrCol == boundaryCase ? null : board.getTile(rowToCheck, colToCheck);
+        return tile != null && tile.getId() == blankId;
     }
 
     /**
@@ -100,30 +105,28 @@ class BoardManager implements Serializable {
      */
 
     void touchMove(int position) {
-        //TODO touchMove stealscode from isValidTap. Put in same method.
         int row = getRow(position);
         int col = getCol(position);
-        int blankId = board.numTiles();
-        // If any of the neighbouring
-        // tiles is the blank tile, swap by calling Board's swap method.
-        Tile above = row == 0 ? null : board.getTile(row - 1, col);
-        Tile below = row == Board.NUM_ROWS - 1 ? null : board.getTile(row + 1, col);
-        Tile left = col == 0 ? null : board.getTile(row, col - 1);
-        Tile right = col == Board.NUM_COLS - 1 ? null : board.getTile(row, col + 1);
-        if(above != null && above.getId() == blankId){
+        // If any of the neighbouring tiles is the blank tile, swap by calling Board's swap method.
+
+        // check if tile above is blank.
+        if(isBlankTile(row, 0,row -1, col)){
             board.swapTiles(row, col, row-1, col);
         }
-        else if(below != null && below.getId() == blankId){
+        // check tile below is blank.
+        else if (isBlankTile(row, Board.NUM_ROWS - 1,row +1, col)){
             board.swapTiles(row, col, row+1, col);
         }
-        else if(left != null && left.getId() == blankId){
+        // check if tile on right is blank.
+        else if(isBlankTile(col, 0,row, col-1)){
             board.swapTiles(row, col, row, col-1);
         }
-        else if(right != null && right.getId() == blankId){
+        // check if tile on the left is blank.
+        else if(isBlankTile(col, Board.NUM_COLS - 1, row, col+1)){
             board.swapTiles(row, col, row, col+1);
         }
-        // TODO: figure out when to call board.swapTiles. S
     }
+
     int getRow(int position){
         return position / Board.NUM_ROWS;
     }
