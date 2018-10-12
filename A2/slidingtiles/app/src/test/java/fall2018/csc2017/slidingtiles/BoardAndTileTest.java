@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 public class BoardAndTileTest {
 
     /** The board manager for testing. */
-    BoardManager boardManager;
+    private BoardManager boardManager;
 
     /**
      * Make a set of tiles that are in order.
@@ -91,7 +91,7 @@ public class BoardAndTileTest {
     public void testIsValidTap() {
         setUpCorrect();
         assertEquals(true, boardManager.isValidTap(11));
-        assertEquals(true, boardManager.isValidTap(15));
+        assertEquals(true, boardManager.isValidTap(14));
         assertEquals(false, boardManager.isValidTap(10));
     }
 }

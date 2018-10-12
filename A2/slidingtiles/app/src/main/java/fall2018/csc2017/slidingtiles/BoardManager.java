@@ -2,6 +2,7 @@ package fall2018.csc2017.slidingtiles;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -40,7 +41,7 @@ class BoardManager implements Serializable {
             tiles.add(new Tile(tileNum));
         }
 
-        //Collections.shuffle(tiles);
+        Collections.shuffle(tiles);
         this.board = new Board(tiles);
     }
 
@@ -127,10 +128,21 @@ class BoardManager implements Serializable {
         }
     }
 
-    int getRow(int position){
+    /**
+     *
+     * @param position of touch on screen
+     * @return the row number(Starts at 0).
+     */
+    private int getRow(int position){
         return position / Board.NUM_ROWS;
     }
-    int getCol(int position){
+
+    /**
+     *
+     * @param position of touch on screen
+     * @return the column number(Starts at 0).
+     */
+    private int getCol(int position){
         return position % Board.NUM_COLS;
     }
 
