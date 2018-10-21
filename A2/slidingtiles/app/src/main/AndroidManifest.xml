@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name="fall2018.csc2017.slidingtiles.GameActivity"></activity>
+        <activity android:name="fall2018.csc2017.slidingtiles.ChooseDimensionsActivity"></activity>
     </application>
 
 </manifest>

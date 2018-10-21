@@ -34,15 +34,16 @@ class BoardManager implements Serializable {
     /**
      * Manage a new shuffled board.
      */
-    BoardManager() {
+    //TODO consider putting the code that generates the list of tiles directly into board
+    BoardManager(int dimension) {
         List<Tile> tiles = new ArrayList<>();
-        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
+        final int numTiles = dimension * dimension;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new Tile(tileNum));
         }
 
         Collections.shuffle(tiles);
-        this.board = new Board(tiles);
+        this.board = new Board(dimension, tiles);
     }
 
     /**
@@ -78,9 +79,9 @@ class BoardManager implements Serializable {
         int col = getCol(position);
         // check if blank tile is tile above, below, to the left, or to the right in this order.
         return   isBlankTile(row, 0,row -1, col)
-                || isBlankTile(row, Board.NUM_ROWS-1,row +1, col)
+                || isBlankTile(row, board.getNumRows()-1,row +1, col)
                 || isBlankTile(col, 0,row, col-1)
-                || isBlankTile(col, Board.NUM_COLS-1,row, col+1);
+                || isBlankTile(col, board.getNumCols() -1,row, col+1);
     }
 
     /**
@@ -115,7 +116,7 @@ class BoardManager implements Serializable {
             board.swapTiles(row, col, row-1, col);
         }
         // check tile below is blank.
-        else if (isBlankTile(row, Board.NUM_ROWS - 1,row +1, col)){
+        else if (isBlankTile(row, board.getNumRows() - 1,row +1, col)){
             board.swapTiles(row, col, row+1, col);
         }
         // check if tile on right is blank.
@@ -123,7 +124,7 @@ class BoardManager implements Serializable {
             board.swapTiles(row, col, row, col-1);
         }
         // check if tile on the left is blank.
-        else if(isBlankTile(col, Board.NUM_COLS - 1, row, col+1)){
+        else if(isBlankTile(col, board.getNumCols() - 1, row, col+1)){
             board.swapTiles(row, col, row, col+1);
         }
     }
@@ -134,7 +135,7 @@ class BoardManager implements Serializable {
      * @return the row number(Starts at 0).
      */
     private int getRow(int position){
-        return position / Board.NUM_ROWS;
+        return position / board.getNumRows();
     }
 
     /**
@@ -143,7 +144,7 @@ class BoardManager implements Serializable {
      * @return the column number(Starts at 0).
      */
     private int getCol(int position){
-        return position % Board.NUM_COLS;
+        return position % board.getNumCols();
     }
 
 

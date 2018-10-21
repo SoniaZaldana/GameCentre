@@ -1,8 +1,6 @@
 package fall2018.csc2017.slidingtiles;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
-import android.widget.Button;
 
 import java.io.Serializable;
 
@@ -59,7 +57,9 @@ public class Tile implements Comparable<Tile>, Serializable {
      */
     public Tile(int backgroundId) {
         id = backgroundId + 1;
+        background = background + 1;
         // This looks so ugly.
+        /*
         switch (backgroundId + 1) {
             case 1:
                 background = R.drawable.tile_1;
@@ -106,12 +106,12 @@ public class Tile implements Comparable<Tile>, Serializable {
             case 15:
                 background = R.drawable.tile_15;
                 break;
-            case 16:
+            case 25:
                 background = R.drawable.tile_16;
                 break;
             default:
-                background = R.drawable.tile_16;
-        }
+                background = R.drawable.tile_2;
+        }*/
     }
 
     @Override

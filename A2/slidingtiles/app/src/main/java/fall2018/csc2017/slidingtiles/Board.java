@@ -18,29 +18,49 @@ public class Board extends Observable implements Serializable, Iterable<Tile>{
     /**
      * The number of rows.
      */
-    final static int NUM_ROWS = 4;
+    private int numRows;
 
     /**
      * The number of rows.
      */
-    final static int NUM_COLS = 4;
+    private int  numCols;
+
+
+    public int getNumCols() {
+        return numCols;
+    }
+
+    public int getNumRows() {
+        return numRows;
+    }
+
+    public void setNumCols(int numCols) {
+        this.numCols = numCols;
+    }
+
+    public void setNumRows(int numRows) {
+        this.numRows = numRows;
+    }
+
 
     /**
      * The tiles on the board in row-major order.
      */
-    private Tile[][] tiles = new Tile[NUM_ROWS][NUM_COLS];
+    private Tile[][] tiles;
 
     /**
      * A new board of tiles in row-major order.
-     * Precondition: len(tiles) == NUM_ROWS * NUM_COLS
+     * Precondition: len(tiles) == numRows * numCols
      *
      * @param tiles the tiles for the board
      */
-    Board(List<Tile> tiles) {
+    Board(int dimension, List<Tile> tiles) {
         Iterator<Tile> iter = tiles.iterator();
-
-        for (int row = 0; row != Board.NUM_ROWS; row++) {
-            for (int col = 0; col != Board.NUM_COLS; col++) {
+        this.numRows = dimension;
+        this.numCols = dimension;
+        this.tiles = new Tile[numRows][numCols];
+        for (int row = 0; row != this.numRows; row++) {
+            for (int col = 0; col != this.numCols; col++) {
                 this.tiles[row][col] = iter.next();
             }
         }
@@ -51,7 +71,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile>{
      * @return the number of tiles on the board
      */
     int numTiles() {
-        return NUM_ROWS * NUM_COLS;
+        return numRows * numCols;
     }
 
     /**
@@ -65,6 +85,13 @@ public class Board extends Observable implements Serializable, Iterable<Tile>{
         return tiles[row][col];
     }
 
+    /**
+     *
+     * @return the id of the blank tile
+     */
+    int getBlankId(){
+        return numTiles();
+    }
     /**
      * Swap the tiles at (row1, col1) and (row2, col2)
      *
@@ -135,13 +162,13 @@ public class Board extends Observable implements Serializable, Iterable<Tile>{
          *
          * @return if current row exists
          */
-        private boolean isRowAvailable(){ return rowIndex<NUM_ROWS; }
+        private boolean isRowAvailable(){ return rowIndex< numRows; }
 
         /**
          *
          * @return if current column exists
          */
-        private boolean isColumnAvailable(){ return columnIndex<NUM_COLS; }
+        private boolean isColumnAvailable(){ return columnIndex< numCols; }
 
     }
 
