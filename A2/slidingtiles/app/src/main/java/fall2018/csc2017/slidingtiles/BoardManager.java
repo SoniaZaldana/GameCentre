@@ -39,7 +39,7 @@ class BoardManager implements Serializable {
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = dimension * dimension;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(tileNum));
+            tiles.add(new Tile(tileNum+1));
         }
 
         Collections.shuffle(tiles);

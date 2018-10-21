@@ -56,21 +56,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         super.onCreate(savedInstanceState);
         boardManager = SaveAndLoad.loadFromFile(this, StartingActivity.TEMP_SAVE_FILENAME);
         setContentView(R.layout.activity_main);
-        // Add View to activity
         gridView = findViewById(R.id.grid);
-        // Get the dimension
-        /*Intent i = getIntent();
-        int value = i.getIntExtra("DIMENSION", 0);
-        if(value != 0){
-            for(int count=0;count<10;count++){
-                System.out.println(count);
-                System.out.println("------------------------------");
-                System.out.println(value);
-            }
-            Board board = boardManager.getBoard();
-            board.numRows = value;
-            board.numCols = value;
-        }*/
         createTileButtons(this);
         gridView.setNumColumns(boardManager.getBoard().getNumCols());
         gridView.setBoardManager(boardManager);
