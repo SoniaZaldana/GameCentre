@@ -128,6 +128,17 @@ class BoardManager implements Serializable {
         }
     }
 
+
+    /**
+     * Returns score
+     * @param moves number of moves made
+     * @return total score
+     */
+    private float calculateScore(int moves) {
+        return 1000 - (moves*2);
+    }
+
+
     /**
      *
      * @param position of touch on screen
@@ -145,6 +156,7 @@ class BoardManager implements Serializable {
     private int getCol(int position){
         return position % Board.NUM_COLS;
     }
+
 
 
 }
