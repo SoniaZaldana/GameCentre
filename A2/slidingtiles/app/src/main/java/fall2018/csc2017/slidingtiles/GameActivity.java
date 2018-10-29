@@ -109,13 +109,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
         for (Button b : tileButtons) {
             int row = nextPos / board.getNumRows();
             int col = nextPos % board.getNumCols();
-            //b.setBackgroundResource(board.getTile(row, col).getBackground());
             b.setBackgroundResource(R.drawable.tile_16);
             numberOnTile = board.getTile(row, col).getId();
             if(numberOnTile != board.getBlankId()){
                 b.setText(String.valueOf(numberOnTile));
-                //TODO make text auto adjustable
-                b.setAutoSizeTextTypeWithDefaults(AUTO_SIZE_TEXT_TYPE_UNIFORM);
             }
             else{
                 b.setText("");
@@ -124,7 +121,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
         }
 
     }
-
     /**
      * Dispatch onPause() to fragments.
      */
