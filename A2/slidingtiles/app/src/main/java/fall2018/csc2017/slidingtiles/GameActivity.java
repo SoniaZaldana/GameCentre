@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.view.View;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Stack;
 
 /**
  * The game activity.
@@ -30,6 +32,14 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * The buttons to display.
      */
     private ArrayList<Button> tileButtons;
+
+
+    /**
+     * The stack for save and load.
+     */
+    private Stack<String> stack= new Stack<String>();
+
+    private static int count = 0;
 
     /**
      * Constants for swiping directions. Should be an enum, probably.
@@ -59,6 +69,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         loadFromFile(StartingActivity.TEMP_SAVE_FILENAME);
         createTileButtons(this);
         setContentView(R.layout.activity_main);
+        addUndoButtonListener();
 
         // Add View to activity
         gridView = findViewById(R.id.grid);
@@ -101,6 +112,19 @@ public class GameActivity extends AppCompatActivity implements Observer {
     }
 
     /**
+     * Activate the undo button.
+     */
+    private void addUndoButtonListener() {
+        Button undoButton = findViewById(R.id.UndoButton);
+        undoButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        undo();
+                    }
+        });
+    }
+
+    /**
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
@@ -112,6 +136,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
             b.setBackgroundResource(board.getTile(row, col).getBackground());
             nextPos++;
         }
+        String name = Integer.toString(count);
+        this.saveToFile(name);
+        this.stack.push(name);
+        count++;
     }
 
     /**
@@ -159,6 +187,22 @@ public class GameActivity extends AppCompatActivity implements Observer {
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+    /**
+     * Undo the board manager.
+     */
+    public void undo() {
+        int num = 0;
+        while ((num < 2) && (!this.stack.empty())) {
+            this.stack.pop();
+            num++;
+        }
+        if ((!this.stack.empty())) {
+            String fileLoad = this.stack.pop();
+            loadFromFile(fileLoad);
+            updateTileButtons();
         }
     }
 
