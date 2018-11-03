@@ -28,13 +28,15 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
         String text = inputText.getText().toString();
         try {
             Integer dimension = Integer.parseInt(text);
-            Intent tmp = new Intent(this, GameActivity.class);
-            /*Bundle extras = new Bundle();
-            extras.putInt("DIMENSION", dimension);
-            tmp.putExtras(extras);*/
-            BoardManager boardManager = new BoardManager(dimension);
-            SaveAndLoad.saveToFile(this, StartingActivity.TEMP_SAVE_FILENAME, boardManager);
-            startActivity(tmp);
+            if(dimension>19){
+                instructions.setText("Please enter a valid number less than 20!");
+            }
+            else{
+                Intent tmp = new Intent(this, GameActivity.class);
+                BoardManager boardManager = new BoardManager(dimension);
+                SaveAndLoad.saveToFile(this, StartingActivity.TEMP_SAVE_FILENAME, boardManager);
+                startActivity(tmp);
+            }
             }
         catch(NumberFormatException e){
             instructions.setText("Please enter a valid number!");
