@@ -44,8 +44,6 @@ public class ScoreActivity extends AppCompatActivity {
         });
 
     }
-    //TODO: Clean up these methods cause they are pretty smelly.
-
 
     private void saveToFile(String fileName, String user, int score) {
         try {
