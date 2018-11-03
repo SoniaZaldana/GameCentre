@@ -39,6 +39,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
      */
     private Stack<String> stack= new Stack<String>();
 
+
+
     /**
      * Constants for swiping directions. Should be an enum, probably.
      */
