@@ -17,7 +17,8 @@ class BoardManager implements Serializable {
      * The board being managed.
      */
     private Board board;
-    private Stack stack;
+    private ArrayList<Integer> lst;
+    private UndoStack stack;
 
     /**
      * Manage a board that has been pre-populated.
@@ -25,7 +26,7 @@ class BoardManager implements Serializable {
      */
     BoardManager(Board board) {
         this.board = board;
-        this.stack = new Stack();
+        this.stack = new UndoStack(3);
     }
 
     /**
@@ -39,7 +40,7 @@ class BoardManager implements Serializable {
      * Manage a new shuffled board.
      */
     BoardManager() {
-        this.stack = new Stack();
+        this.stack = new UndoStack(3);
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
@@ -142,8 +143,12 @@ class BoardManager implements Serializable {
     }
 
     void undo(){
-        int[] lst = (int[]) this.stack.pop();
-        board.swapTiles(lst[0], lst[1], lst[2], lst[3]) ;
+        if (this.stack.getSize() == 0){
+            return;
+        } else {
+            int[] lst = (int[]) this.stack.pop();
+            board.swapTiles(lst[0], lst[1], lst[2], lst[3]);
+        }
     }
 
     /**
