@@ -33,12 +33,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
      */
     private ArrayList<Button> tileButtons;
 
-
-    /**
-     * The stack for save and load.
-     */
-    private Stack<String> stack= new Stack<String>();
-
     /**
      * Constants for swiping directions. Should be an enum, probably.
      */
