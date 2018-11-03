@@ -68,7 +68,7 @@ public class ScoreActivity extends AppCompatActivity {
             boolean highScore = false;
             while ((line = bufferedReader.readLine()) != null) {
                 int index = line.indexOf(",");
-                int score = valueOf(line.substring(index + 1, line.length()));
+                int score = valueOf(line.substring(index + 1, line.length()-1));
                 if (userScore > score) {
                     highScore = true;
                 }
