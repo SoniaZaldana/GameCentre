@@ -12,7 +12,7 @@
     <string name="new_high_score">New High Score!</string>
     <string name="back" tools:ignore="DuplicateDefinition">Back to Main Menu</string>
     <string name="your_scoreboard">Your Scoreboard</string>
-    <string name="back">Back</string>
+    <string name="back2">Back</string>
     <string name="game">Game</string>
     <string name="scores">Score</string>
     <string name="sliding_tiles">Sliding Tiles</string>
