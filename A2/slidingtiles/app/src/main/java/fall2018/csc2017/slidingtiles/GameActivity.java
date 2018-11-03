@@ -175,6 +175,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
         }
     }
 
+    /**
+     * Auto-saves the game every 5 seconds
+     *
+     */
     public void autoSave(){
         SaveTask task = new SaveTask(this);
         timer.schedule(task, 5000, 5000);
@@ -185,6 +189,9 @@ public class GameActivity extends AppCompatActivity implements Observer {
         display();
     }
 
+    /**
+     * A task for the timer to do.
+     */
     public class SaveTask extends TimerTask {
         private GameActivity gameActivity;
 
@@ -195,7 +202,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
 
         public void run(){
             this.gameActivity.saveToFile(StartingActivity.SAVE_FILENAME);
-            //Toast.makeText(this.gameActivity, "Game Saved", Toast.LENGTH_SHORT).show();
         }
     }
 }
