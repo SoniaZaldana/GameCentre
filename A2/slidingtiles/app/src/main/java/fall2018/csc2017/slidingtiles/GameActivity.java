@@ -1,6 +1,10 @@
 package fall2018.csc2017.slidingtiles;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +24,8 @@ import java.util.Observer;
  * The game activity.
  */
 public class GameActivity extends AppCompatActivity implements Observer {
+
+    public static String gameID = "SlidingTiles";
 
     /**
      * The board manager.
@@ -100,6 +106,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         }
     }
 
+
     /**
      * Update the backgrounds on the buttons to match the tiles.
      */
@@ -121,6 +128,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
     protected void onPause() {
         super.onPause();
         saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
+        //edit for receiver
+        unregisterReceiver(sr);
     }
 
     /**
@@ -166,4 +175,30 @@ public class GameActivity extends AppCompatActivity implements Observer {
     public void update(Observable o, Object arg) {
         display();
     }
+
+    //TODO: get username out of somewhere?
+    private void switchToScore() {
+            Intent intent = new Intent(this, ScoreActivity.class);
+            float score = getIntent().getIntExtra("Score", 0);
+
+            intent.putExtra("USERNAME", username);
+            intent.putExtra("SCORE", score);
+            intent.putExtra("GAME_ID", gameID);
+            startActivity(intent);
+    }
+
+
+    // this code?
+    IntentFilter f = new IntentFilter("com.pycitup.BroadcastReceiver");
+    SolvedReceiver sr = new SolvedReceiver();
+    context.registerReceiver(sr, f)
+
+    public class SolvedReceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //This method does something when we are notified that the game has ended
+            switchToScore();
+        }
+    }
+
 }
