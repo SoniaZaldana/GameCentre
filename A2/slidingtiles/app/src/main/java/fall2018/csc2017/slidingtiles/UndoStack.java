@@ -17,7 +17,7 @@ public class UndoStack implements Serializable  {
     /**
      * Initialize a stack.
      */
-    public UndoStack(int size){
+    UndoStack(int size){
         this.items = new ArrayList();
         this.size = size;
     }
@@ -25,7 +25,7 @@ public class UndoStack implements Serializable  {
     /**
      * Push object item into a stack.
      */
-    public void push(Object item){
+    void push(Object item){
         if (this.items.size() < this.size){
             this.items.add(item);
         } else {
@@ -37,7 +37,7 @@ public class UndoStack implements Serializable  {
     /**
      * Pop object item from a stack.
      */
-    public Object pop(){
+    Object pop(){
             Object item = this.items.get(this.items.size() - 1);
             this.items.remove(this.items.size() - 1);
             return item;
