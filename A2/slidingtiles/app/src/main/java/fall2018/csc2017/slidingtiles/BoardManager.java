@@ -104,7 +104,6 @@ class BoardManager implements Serializable {
      *
      * @param position the position
      */
-
     void touchMove(int position) {
         int row = getRow(position);
         int col = getCol(position);

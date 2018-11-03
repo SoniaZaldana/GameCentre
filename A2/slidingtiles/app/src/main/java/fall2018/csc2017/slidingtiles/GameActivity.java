@@ -15,6 +15,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * The game activity.
@@ -43,6 +45,9 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private GestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
 
+    // AutoSave Timer
+    private Timer timer = new Timer();
+
     /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
@@ -56,9 +61,11 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(StartingActivity.TEMP_SAVE_FILENAME);
+        loadFromFile(StartingActivity.SAVE_FILENAME);
         createTileButtons(this);
         setContentView(R.layout.activity_main);
+        autoSave();
+
 
         // Add View to activity
         gridView = findViewById(R.id.grid);
@@ -120,7 +127,13 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onPause() {
         super.onPause();
-        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
+        saveToFile(StartingActivity.SAVE_FILENAME);
+        timer.cancel();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     /**
@@ -162,8 +175,33 @@ public class GameActivity extends AppCompatActivity implements Observer {
         }
     }
 
+    /**
+     * Auto-saves the game every 5 seconds
+     *
+     */
+    public void autoSave(){
+        SaveTask task = new SaveTask(this);
+        timer.schedule(task, 5000, 5000);
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         display();
+    }
+
+    /**
+     * A task for the timer to do.
+     */
+    public class SaveTask extends TimerTask {
+        private GameActivity gameActivity;
+
+        SaveTask(GameActivity gameActivity){
+            super();
+            this.gameActivity = gameActivity;
+        }
+
+        public void run(){
+            this.gameActivity.saveToFile(StartingActivity.SAVE_FILENAME);
+        }
     }
 }
