@@ -13,7 +13,7 @@ public class ScoreboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
 
-        //TODO: fix so that it goes to gamelauncher activity instead of game activity
+        //TODO: fix so that it goes to Game Launcher activity instead of Game Activity
         Button menu = findViewById(R.id.MainMenuButton);
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
