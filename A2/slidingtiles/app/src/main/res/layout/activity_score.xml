@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ScoreActivity">
 
+
     <EditText
         android:id="@+id/ScoreTitleLabel"
         android:layout_width="69dp"
