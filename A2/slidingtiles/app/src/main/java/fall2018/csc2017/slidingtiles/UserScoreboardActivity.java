@@ -18,7 +18,7 @@ import static java.lang.Integer.valueOf;
 
 public class UserScoreboardActivity extends AppCompatActivity {
 
-    //TODO: Figure out where to get the gameID and user from
+    //TODO: Figure out where to get the gameID and user from. Do it by adding a fixed list of values.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
