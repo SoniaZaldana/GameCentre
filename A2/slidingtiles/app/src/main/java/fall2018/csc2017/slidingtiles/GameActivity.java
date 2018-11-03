@@ -39,7 +39,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
      */
     private Stack<String> stack= new Stack<String>();
 
-    private static int count = 0;
+
 
     /**
      * Constants for swiping directions. Should be an enum, probably.
@@ -136,10 +136,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
             b.setBackgroundResource(board.getTile(row, col).getBackground());
             nextPos++;
         }
-        String name = Integer.toString(count);
-        this.saveToFile(name);
-        this.stack.push(name);
-        count++;
     }
 
     /**
@@ -194,17 +190,9 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * Undo the board manager.
      */
     public void undo() {
-        int num = 0;
-        while ((num < 2) && (!this.stack.empty())) {
-            this.stack.pop();
-            num++;
+        this.boardManager.undo();
         }
-        if ((!this.stack.empty())) {
-            String fileLoad = this.stack.pop();
-            loadFromFile(fileLoad);
-            updateTileButtons();
-        }
-    }
+
 
     @Override
     public void update(Observable o, Object arg) {

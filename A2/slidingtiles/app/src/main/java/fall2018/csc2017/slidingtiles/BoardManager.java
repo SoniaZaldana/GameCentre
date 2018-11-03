@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Stack;
+import java.util.Arrays;
 
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
@@ -15,6 +17,7 @@ class BoardManager implements Serializable {
      * The board being managed.
      */
     private Board board;
+    private Stack stack;
 
     /**
      * Manage a board that has been pre-populated.
@@ -22,6 +25,7 @@ class BoardManager implements Serializable {
      */
     BoardManager(Board board) {
         this.board = board;
+        this.stack = new Stack();
     }
 
     /**
@@ -35,6 +39,7 @@ class BoardManager implements Serializable {
      * Manage a new shuffled board.
      */
     BoardManager() {
+        this.stack = new Stack();
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
@@ -113,19 +118,32 @@ class BoardManager implements Serializable {
         // check if tile above is blank.
         if(isBlankTile(row, 0,row -1, col)){
             board.swapTiles(row, col, row-1, col);
+            int[] lst = {row, col, row - 1, col};
+            this.stack.push(lst);
         }
         // check tile below is blank.
         else if (isBlankTile(row, Board.NUM_ROWS - 1,row +1, col)){
             board.swapTiles(row, col, row+1, col);
+            int[] lst = {row, col, row + 1, col};
+            this.stack.push(lst);
         }
         // check if tile on right is blank.
         else if(isBlankTile(col, 0,row, col-1)){
             board.swapTiles(row, col, row, col-1);
+            int[] lst = {row, col, row, col - 1};
+            this.stack.push(lst);
         }
         // check if tile on the left is blank.
         else if(isBlankTile(col, Board.NUM_COLS - 1, row, col+1)){
             board.swapTiles(row, col, row, col+1);
+            int[] lst = {row, col, row, col + 1};
+            this.stack.push(lst);
         }
+    }
+
+    void undo(){
+        int[] lst = (int[]) this.stack.pop();
+        board.swapTiles(lst[0], lst[1], lst[2], lst[3]) ;
     }
 
     /**
