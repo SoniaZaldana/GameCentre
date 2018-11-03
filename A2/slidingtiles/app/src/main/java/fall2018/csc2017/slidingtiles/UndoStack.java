@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class UndoStack implements Serializable  {
 
     /**
-     * The arraylist works as stack.
+     * The ArrayList works as stack.
      */
     private ArrayList items;
 
@@ -38,10 +38,9 @@ public class UndoStack implements Serializable  {
      * Pop object item from a stack.
      */
     public Object pop(){
-        Object item = this.items.get(this.items.size() - 1);
-        this.items.remove(this.items.size() - 1);
-        return item;
-
+            Object item = this.items.get(this.items.size() - 1);
+            this.items.remove(this.items.size() - 1);
+            return item;
     }
 
     /**
