@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+
 /**
  * The sliding tiles board.
  *
@@ -144,5 +145,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile>{
         private boolean isColumnAvailable(){ return columnIndex<NUM_COLS; }
 
     }
+
+
 
 }
