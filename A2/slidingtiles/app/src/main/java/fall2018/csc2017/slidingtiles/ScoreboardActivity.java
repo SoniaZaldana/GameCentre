@@ -30,6 +30,7 @@ public class ScoreboardActivity extends AppCompatActivity {
             }
         });
 
+
         Button sliding = findViewById(R.id.SlidingTilesScoreboardLabel);
         sliding.setOnClickListener(new View.OnClickListener() {
             @Override
