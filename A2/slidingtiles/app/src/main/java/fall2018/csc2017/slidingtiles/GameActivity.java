@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.view.View;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Stack;
 
 /**
  * The game activity.
@@ -66,6 +68,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         setContentView(R.layout.activity_main);
         autoSave();
 
+        addUndoButtonListener();
 
         // Add View to activity
         gridView = findViewById(R.id.grid);
@@ -105,6 +108,19 @@ public class GameActivity extends AppCompatActivity implements Observer {
                 this.tileButtons.add(tmp);
             }
         }
+    }
+
+    /**
+     * Activate the undo button.
+     */
+    private void addUndoButtonListener() {
+        Button undoButton = findViewById(R.id.UndoButton);
+        undoButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        undo();
+                    }
+        });
     }
 
     /**
@@ -183,6 +199,14 @@ public class GameActivity extends AppCompatActivity implements Observer {
         SaveTask task = new SaveTask(this);
         timer.schedule(task, 5000, 5000);
     }
+
+    /**
+     * Undo the board manager.
+     */
+    public void undo() {
+        this.boardManager.undo();
+        }
+
 
     @Override
     public void update(Observable o, Object arg) {
