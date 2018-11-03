@@ -31,6 +31,10 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
             if(dimension>19){
                 instructions.setText("Please enter a valid number less than 20!");
             }
+            else if(dimension==1){
+                instructions.setText("Too easy :) Try something harder!");
+
+            }
             else{
                 Intent tmp = new Intent(this, GameActivity.class);
                 BoardManager boardManager = new BoardManager(dimension);
