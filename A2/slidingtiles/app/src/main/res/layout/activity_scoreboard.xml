@@ -40,7 +40,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/SlidingTilesLabel"
+        android:id="@+id/SlidingTilesScoreboardLabel"
         android:layout_width="179dp"
         android:layout_height="77dp"
         android:layout_marginStart="8dp"
