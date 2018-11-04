@@ -1,6 +1,7 @@
 package fall2018.csc2017.slidingtiles;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +16,8 @@ public class ScoreboardActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
-        user = getIntent().getStringExtra("Username");
+        SharedPreferences currentUsername = getApplicationContext().getSharedPreferences("sharedUser", MODE_PRIVATE);
+        user = currentUsername.getString("thisUser", "User");
         menu = findViewById(R.id.MainMenuButton);
         myScoreboard = findViewById(R.id.MyScoreboardLabel);
         sliding = findViewById(R.id.SlidingTilesScoreboardLabel);
@@ -32,10 +34,10 @@ public class ScoreboardActivity extends AppCompatActivity implements View.OnClic
                 startActivity(new Intent(this, Gamelauncheractivity.class));
                 break;
             case R.id.MyScoreboardLabel:
-                startActivity(new Intent(this, UserScoreboardActivity.class).putExtra("Username", user));
+                startActivity(new Intent(this, UserScoreboardActivity.class));
                 break;
             case R.id.SlidingTilesScoreboardLabel:
-                startActivity(new Intent(this, SlidingScoreboardActivity.class).putExtra("Username", user));
+                startActivity(new Intent(this, SlidingScoreboardActivity.class));
         }
     }
 }
