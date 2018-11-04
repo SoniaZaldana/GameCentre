@@ -155,8 +155,8 @@ class BoardManager implements Serializable {
      * @param moves number of moves made
      * @return total score
      */
-    public float calculateScore(int moves) {
-        return 1000 - (moves*2);
+    public int calculateScore(int moves) {
+        return 1000 - (moves * 5);
     }
 
 
