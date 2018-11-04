@@ -27,19 +27,20 @@ public class ScoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_score);
         TextView scoreValue = findViewById(R.id.ScoreValueLabel);
         TextView highScore = findViewById(R.id.HighScoreLabel);
+
         int score = getIntent().getIntExtra("SCORE", 0);
         String user = getIntent().getStringExtra("USERNAME");
         String gameID = getIntent().getStringExtra("GAME_ID");
         scoreValue.setText(score);
+
         if (isHighScore(gameID, score))
             highScore.setText("New High Score");
         saveToFile(gameID, user, score);
-        // TODO: I need to change this button so it goes to game launcher.
         Button btn = findViewById(R.id.MainMenuButton);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ScoreActivity.this, GameActivity.class));
+                startActivity(new Intent(ScoreActivity.this, Gamelauncheractivity.class));
             }
         });
 
@@ -56,6 +57,7 @@ public class ScoreActivity extends AppCompatActivity {
                 outputWriter.flush();
                 outputWriter.close();
             }
+            outputWriter.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
@@ -72,7 +74,7 @@ public class ScoreActivity extends AppCompatActivity {
                 if (userScore > score) {
                     highScore = true;
                 }
-            }
+            } bufferedReader.close();
             return highScore;
         } catch (FileNotFoundException e) {
             Log.e("Exception", "Unable to open file: " + e.toString());
@@ -103,6 +105,8 @@ public class ScoreActivity extends AppCompatActivity {
                 outputWriter.flush();
                 outputWriter.close();
             }
+            outputWriter.close();
+            bufferedReader.close();
             File oldFile = new File(fileName);
             oldFile.delete();
             fixedFile.renameTo(new File(fileName));
