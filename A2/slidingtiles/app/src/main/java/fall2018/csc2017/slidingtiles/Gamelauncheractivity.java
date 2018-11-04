@@ -1,6 +1,7 @@
 package fall2018.csc2017.slidingtiles;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -21,6 +22,11 @@ public class Gamelauncheractivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.gamelauncheractivity);
 
         UsersInfo = getIntent().getStringExtra("Username");
+        SharedPreferences currentUsername = getApplicationContext().getSharedPreferences("sharedUser", MODE_PRIVATE);
+        SharedPreferences.Editor editor = currentUsername.edit();
+        editor.putString("thisUser", UsersInfo);
+        editor.apply();
+
         TilesGame = findViewById(R.id.TilesGame);
         SignOff = findViewById(R.id.signoff);
         Scoreboards = findViewById(R.id.ScoreboardButton);
@@ -47,14 +53,14 @@ public class Gamelauncheractivity extends AppCompatActivity implements View.OnCl
         switch (view.getId()) {
             case R.id.TilesGame:
                 startActivity(new Intent(this,
-                        StartingActivity.class).putExtra("Username", UsersInfo));
+                        StartingActivity.class));
                 break;
             case R.id.signoff:
                 startActivity(new Intent(this, Loginactivity.class));
                 break;
             case R.id.ScoreboardButton:
                 startActivity(new Intent(this,
-                        ScoreboardActivity.class).putExtra("Username", UsersInfo));
+                        ScoreboardActivity.class));
                 break;
         }
     }
