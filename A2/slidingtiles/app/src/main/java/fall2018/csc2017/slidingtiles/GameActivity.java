@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -69,6 +70,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         autoSave();
 
         addUndoButtonListener();
+        addSaveButtonListener();
 
         // Add View to activity
         gridView = findViewById(R.id.grid);
@@ -121,6 +123,27 @@ public class GameActivity extends AppCompatActivity implements Observer {
                         undo();
                     }
         });
+    }
+
+    /**
+     * Activate save button.
+     */
+    private void addSaveButtonListener() {
+        Button saveButton = findViewById(R.id.SaveButton);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveToFile(StartingActivity.SAVE_FILENAME);
+                makeToastSavedText();
+            }
+        });
+    }
+
+    /**
+     * Display that a game was saved successfully.
+     */
+    private void makeToastSavedText() {
+        Toast.makeText(this, "Game Saved", Toast.LENGTH_SHORT).show();
     }
 
     /**
