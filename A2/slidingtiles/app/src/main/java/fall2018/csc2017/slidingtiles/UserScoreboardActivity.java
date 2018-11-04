@@ -17,12 +17,13 @@ import java.io.IOException;
 import static java.lang.Integer.valueOf;
 
 public class UserScoreboardActivity extends AppCompatActivity {
+    String user;
 
-    //TODO: Figure out where to get the gameID and user from. Do it by adding a fixed list of values.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String user = getIntent().getStringExtra("Username");
+        SharedPreferences currentUsername = getApplicationContext().getSharedPreferences("sharedUser", MODE_PRIVATE);
+        user = currentUsername.getString("thisUser", "User");
         setContentView(R.layout.activity_user_scoreboard);
         TextView gameName = findViewById(R.id.GameNameLabel);
         TextView gameScore = findViewById(R.id.ScoreLabel);
