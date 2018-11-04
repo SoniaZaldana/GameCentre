@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import static android.app.PendingIntent.getActivity;
+
 
 public class MovementController {
 
@@ -26,11 +28,11 @@ public class MovementController {
             if (boardManager.puzzleSolved()) {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
                 int score = boardManager.calculateScore(moves);
-                Intent intent = new Intent();
-                intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                intent.setAction("com.pycitup.BroadcastReceiver");
+                Intent intent = new Intent(context, ScoreCalculatorActivity.class);
                 intent.putExtra("Score", score);
-                context.sendBroadcast(intent);
+                intent.putExtra("Game", "SlidingTiles.txt");
+                context.startActivity(intent);
+
             }
         } else {
             Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
