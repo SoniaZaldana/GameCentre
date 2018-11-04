@@ -1,5 +1,7 @@
 package fall2018.csc2017.slidingtiles;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -34,18 +36,20 @@ public class Gamelauncheractivity extends AppCompatActivity implements View.OnCl
         SignOff.setOnClickListener(this);
         Scoreboards.setOnClickListener(this);
         try {
-            createFiles();
+            //TODO: change this when osman's null error is fixed
+            ContextWrapper cw = new ContextWrapper(this);
+            File directory = cw.getDir("media", MODE_PRIVATE);
+
+
+            File userScoreFile = new File( "Sonia.txt");
+            File slidingFile = new File("SlidingTiles.txt");
+            userScoreFile.createNewFile();
+            slidingFile.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void createFiles() throws IOException {
-        File userScoreFile = new File(UsersInfo + ".txt");
-        File slidingFile = new File("SlidingTiles.txt");
-        userScoreFile.createNewFile();
-        slidingFile.createNewFile();
-    }
 
     @Override
     public void onClick(View view) {
