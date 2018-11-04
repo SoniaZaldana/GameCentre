@@ -7,7 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-public class GameLauncherActivity extends AppCompatActivity implements View.OnClickListener {
+import java.io.File;
+import java.io.IOException;
+
+public class Gamelauncheractivity extends AppCompatActivity implements View.OnClickListener {
     Button SignOff;
     Button Scoreboards;
     ImageView TilesGame;
@@ -24,8 +27,20 @@ public class GameLauncherActivity extends AppCompatActivity implements View.OnCl
         TilesGame.setOnClickListener(this);
         SignOff.setOnClickListener(this);
         Scoreboards.setOnClickListener(this);
-
+        try {
+            createFiles();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+    private void createFiles() throws IOException {
+        File userScoreFile = new File(UsersInfo + ".txt");
+        File slidingFile = new File("SlidingTiles.txt");
+        userScoreFile.createNewFile();
+        slidingFile.createNewFile();
+    }
+
     @Override
     public void onClick(View view) {
 
