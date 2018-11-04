@@ -6,42 +6,31 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class ScoreboardActivity extends AppCompatActivity {
-
+public class ScoreboardActivity extends AppCompatActivity implements View.OnClickListener {
+    String user = getIntent().getStringExtra("Username");
+    Button menu = findViewById(R.id.MainMenuButton);
+    Button myScoreboard = findViewById(R.id.MyScoreboardLabel);
+    Button sliding = findViewById(R.id.SlidingTilesScoreboardLabel);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
+        menu.setOnClickListener(this);
+        myScoreboard.setOnClickListener(this);
+        sliding.setOnClickListener(this);
 
-        Button menu = findViewById(R.id.MainMenuButton);
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ScoreboardActivity.this, Gamelauncheractivity.class));
-            }
-        });
-
-        Button myScoreboard = findViewById(R.id.MyScoreboardLabel);
-        myScoreboard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ScoreboardActivity.this, UserScoreboardActivity.class));
-            }
-        });
-
-
-        Button sliding = findViewById(R.id.SlidingTilesScoreboardLabel);
-        sliding.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ScoreboardActivity.this, SlidingScoreboardActivity.class));
-            }
-        });
     }
-
-
-
-
-
-
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.MainMenuButton:
+                startActivity(new Intent(this, Gamelauncheractivity.class));
+                break;
+            case R.id.MyScoreboardLabel:
+                startActivity(new Intent(this, UserScoreboardActivity.class).putExtra("Username", user));
+                break;
+            case R.id.SlidingTilesScoreboardLabel:
+                startActivity(new Intent(this, SlidingScoreboardActivity.class).putExtra("Username", user));
+        }
+    }
 }
