@@ -1,37 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ScoreActivity">
+    tools:context=".ScoreCalculatorActivity">
 
 
-    <EditText
+    <TextView
         android:id="@+id/ScoreTitleLabel"
-        android:layout_width="69dp"
-        android:layout_height="62dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="80dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
         android:text="@string/score"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints=""
-        tools:ignore="LabelFor" />
+        android:layout_centerHorizontal="true"
+        />
 
     <TextView
         android:id="@+id/AchievedLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/you_achieved_a_total_score_of"
-        tools:layout_editor_absoluteX="111dp"
-        tools:layout_editor_absoluteY="153dp"
-        tools:ignore="MissingConstraints" />
+        android:layout_below="@id/ScoreTitleLabel"
+        android:layout_centerHorizontal="true"
+         />
 
     <TextView
         android:id="@+id/HighScoreLabel"
@@ -40,20 +33,20 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:text="@string/new_high_score"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="274dp"
-        tools:text="Good Job!" />
+        android:layout_below="@id/ScoreValueLabel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        />
 
     <TextView
         android:id="@+id/ScoreValueLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/_500"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="180dp"
-        tools:layout_editor_absoluteY="204dp" />
+        android:layout_below="@id/AchievedLabel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+         />
 
     <Button
         android:id="@+id/MainMenuButton"
@@ -64,10 +57,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/back_to_main_menu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.827" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+         />
+</RelativeLayout>
