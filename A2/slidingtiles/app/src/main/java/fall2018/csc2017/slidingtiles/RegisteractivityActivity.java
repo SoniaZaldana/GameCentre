@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 public class RegisteractivityActivity extends AppCompatActivity implements View.OnClickListener {
     Button RegisterButton, BackToLogIn;
     EditText eUsername, ePassword, reEnteredPassword;
