@@ -7,19 +7,24 @@ import android.view.View;
 import android.widget.Button;
 
 public class ScoreboardActivity extends AppCompatActivity implements View.OnClickListener {
-    String user = getIntent().getStringExtra("Username");
-    Button menu = findViewById(R.id.MainMenuButton);
-    Button myScoreboard = findViewById(R.id.MyScoreboardLabel);
-    Button sliding = findViewById(R.id.SlidingTilesScoreboardLabel);
+    Button menu;
+    Button myScoreboard;
+    Button sliding;
+    String user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
+        user = getIntent().getStringExtra("Username");
+        menu = findViewById(R.id.MainMenuButton);
+        myScoreboard = findViewById(R.id.MyScoreboardLabel);
+        sliding = findViewById(R.id.SlidingTilesScoreboardLabel);
         menu.setOnClickListener(this);
         myScoreboard.setOnClickListener(this);
         sliding.setOnClickListener(this);
 
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
