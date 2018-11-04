@@ -25,7 +25,7 @@ public class MovementController {
             moves++;
             if (boardManager.puzzleSolved()) {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
-                float score = boardManager.calculateScore(moves);
+                int score = boardManager.calculateScore(moves);
                 Intent intent = new Intent();
                 intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                 intent.setAction("com.pycitup.BroadcastReceiver");
