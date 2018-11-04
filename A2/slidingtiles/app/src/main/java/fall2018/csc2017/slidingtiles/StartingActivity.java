@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * The initial activity for the sliding puzzle tile game.
@@ -36,7 +38,7 @@ public class StartingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         boardManager = new BoardManager();
-        saveToFile(TEMP_SAVE_FILENAME);
+        saveToFile(SAVE_FILENAME);
 
         setContentView(R.layout.activity_starting_);
         addStartButtonListener();
@@ -67,7 +69,7 @@ public class StartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadFromFile(SAVE_FILENAME);
-                saveToFile(TEMP_SAVE_FILENAME);
+                saveToFile(SAVE_FILENAME);
                 makeToastLoadedText();
                 switchToGame();
             }
@@ -90,7 +92,7 @@ public class StartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveToFile(SAVE_FILENAME);
-                saveToFile(TEMP_SAVE_FILENAME);
+                saveToFile(SAVE_FILENAME);
                 makeToastSavedText();
             }
             });
@@ -108,7 +110,7 @@ public class StartingActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadFromFile(TEMP_SAVE_FILENAME);
+        loadFromFile(SAVE_FILENAME);
     }
 
     /**
@@ -116,7 +118,7 @@ public class StartingActivity extends AppCompatActivity {
      */
     private void switchToGame() {
         Intent tmp = new Intent(this, GameActivity.class);
-        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
+        saveToFile(StartingActivity.SAVE_FILENAME);
         startActivity(tmp);
     }
 

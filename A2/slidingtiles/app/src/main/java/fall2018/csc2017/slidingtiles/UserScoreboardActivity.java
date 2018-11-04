@@ -28,8 +28,8 @@ public class UserScoreboardActivity extends AppCompatActivity {
         TextView gameName = findViewById(R.id.GameNameLabel);
         TextView gameScore = findViewById(R.id.ScoreLabel);
         gameName.setText("Sliding Tiles");
-
-        gameScore.setText(getScorePerGame(gameID, user));
+        //TODO get gameID, user
+        gameScore.setText(getScorePerGame("gameID", "user"));
 
     }
 
