@@ -3,22 +3,19 @@ package fall2018.csc2017.slidingtiles;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.view.View;
+import android.widget.Toast;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Stack;
+
+import static android.widget.TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM;
 
 /**
  * The game activity.
@@ -62,17 +59,20 @@ public class GameActivity extends AppCompatActivity implements Observer {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //TODO Make sure everything is in the right order. Only if new game, then you take value from dimensions
+        //TODO Make sure we don't switch up the values.
         super.onCreate(savedInstanceState);
-        loadFromFile(StartingActivity.SAVE_FILENAME);
-        createTileButtons(this);
+        boardManager = SaveAndLoad.loadFromFile(this, StartingActivity.SAVE_FILENAME);
         setContentView(R.layout.activity_main);
         autoSave();
 
         addUndoButtonListener();
+        addSaveButtonListener();
 
         // Add View to activity
         gridView = findViewById(R.id.grid);
-        gridView.setNumColumns(Board.NUM_COLS);
+        createTileButtons(this);
+        gridView.setNumColumns(boardManager.getBoard().getNumCols());
         gridView.setBoardManager(boardManager);
         boardManager.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
@@ -85,8 +85,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
                         int displayWidth = gridView.getMeasuredWidth();
                         int displayHeight = gridView.getMeasuredHeight();
 
-                        columnWidth = displayWidth / Board.NUM_COLS;
-                        columnHeight = displayHeight / Board.NUM_ROWS;
+                        columnWidth = displayWidth / boardManager.getBoard().getNumCols();
+                        columnHeight = displayHeight / boardManager.getBoard().getNumRows();
 
                         display();
                     }
@@ -101,11 +101,14 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private void createTileButtons(Context context) {
         Board board = boardManager.getBoard();
         tileButtons = new ArrayList<>();
-        for (int row = 0; row != Board.NUM_ROWS; row++) {
-            for (int col = 0; col != Board.NUM_COLS; col++) {
+        for (int row = 0; row != board.getNumRows(); row++) {
+            for (int col = 0; col != board.getNumCols(); col++) {
                 Button tmp = new Button(context);
-                tmp.setBackgroundResource(board.getTile(row, col).getBackground());
+               // tmp.setBackgroundResource(board.getTile(row, col).getBackground());
+                // tmp.setBackgroundResource(R.drawable.tile_16);
                 this.tileButtons.add(tmp);
+                /*TextView tvId = (TextView) findViewById(R.id.number);
+                tvId.setText("1");*/
             }
         }
     }
@@ -124,26 +127,56 @@ public class GameActivity extends AppCompatActivity implements Observer {
     }
 
     /**
+     * Activate save button.
+     */
+    private void addSaveButtonListener() {
+        Button saveButton = findViewById(R.id.SaveButton);
+        final GameActivity gameActivity = this;
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SaveAndLoad.saveToFile(gameActivity, StartingActivity.SAVE_FILENAME, boardManager);
+                makeToastSavedText();
+            }
+        });
+    }
+
+    /**
+     * Display that a game was saved successfully.
+     */
+    private void makeToastSavedText() {
+        Toast.makeText(this, "Game Saved", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
         Board board = boardManager.getBoard();
         int nextPos = 0;
+        int numberOnTile;
         for (Button b : tileButtons) {
-            int row = nextPos / Board.NUM_ROWS;
-            int col = nextPos % Board.NUM_COLS;
-            b.setBackgroundResource(board.getTile(row, col).getBackground());
+            int row = nextPos / board.getNumRows();
+            int col = nextPos % board.getNumCols();
+            b.setBackgroundResource(R.drawable.tile_16);
+            numberOnTile = board.getTile(row, col).getId();
+            if(numberOnTile != board.getBlankId()){
+                b.setText(String.valueOf(numberOnTile));
+            }
+            else{
+                b.setText("");
+            }
             nextPos++;
         }
-    }
 
+    }
     /**
      * Dispatch onPause() to fragments.
      */
     @Override
     protected void onPause() {
         super.onPause();
-        saveToFile(StartingActivity.SAVE_FILENAME);
+        SaveAndLoad.saveToFile(this, StartingActivity.SAVE_FILENAME, boardManager);
         timer.cancel();
     }
 
@@ -152,44 +185,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
         super.onResume();
     }
 
-    /**
-     * Load the board manager from fileName.
-     *
-     * @param fileName the name of the file
-     */
-    private void loadFromFile(String fileName) {
-
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                boardManager = (BoardManager) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
-
-    /**
-     * Save the board manager to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(boardManager);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
 
     /**
      * Auto-saves the game every 5 seconds
@@ -225,7 +220,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
         }
 
         public void run(){
-            this.gameActivity.saveToFile(StartingActivity.SAVE_FILENAME);
+            SaveAndLoad.saveToFile(this.gameActivity, StartingActivity.SAVE_FILENAME, boardManager);
+
         }
     }
 }
