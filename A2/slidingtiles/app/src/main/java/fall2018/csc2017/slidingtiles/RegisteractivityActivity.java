@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 public class RegisteractivityActivity extends AppCompatActivity implements View.OnClickListener {
     Button registerButton, backToLogIn;
     EditText usernameText, passwordText, reEnteredPasswordText;
@@ -56,7 +57,8 @@ public class RegisteractivityActivity extends AppCompatActivity implements View.
                     SharedPreferences.Editor Accounts = users.edit();
                     Accounts.putString(username, password);
                     Accounts.apply();
-                    startActivity(new Intent(this, Gamelauncheractivity.class));
+                    startActivity(new Intent(this,
+                            Gamelauncheractivity.class).putExtra("Username", username));
                 }
                 break;
         }

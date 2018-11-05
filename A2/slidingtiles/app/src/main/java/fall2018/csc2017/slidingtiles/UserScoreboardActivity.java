@@ -17,19 +17,18 @@ import java.io.IOException;
 import static java.lang.Integer.valueOf;
 
 public class UserScoreboardActivity extends AppCompatActivity {
+    String user;
 
-    //TODO: Figure out where to get the gameID and user from. Do it by adding a fixed list of values.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        SharedPreferences currentUsername = getApplicationContext().getSharedPreferences("sharedUser", MODE_PRIVATE);
+        user = currentUsername.getString("thisUser", "User");
         setContentView(R.layout.activity_user_scoreboard);
         TextView gameName = findViewById(R.id.GameNameLabel);
         TextView gameScore = findViewById(R.id.ScoreLabel);
         gameName.setText("Sliding Tiles");
-        //TODO get gameID, user
-        gameScore.setText(getScorePerGame("gameID", "user"));
+        gameScore.setText(getScorePerGame("SlidingTiles.txt", user));
 
     }
 
@@ -39,23 +38,23 @@ public class UserScoreboardActivity extends AppCompatActivity {
     }
 
     public String getScorePerGame(String fileName, String targetUser){
+        String score = "0";
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
             String line;
-            String score = "0";
             while ((line = bufferedReader.readLine()) != null) {
                 int index = line.indexOf(",");
                 String user = line.substring(0, index-1);
                 if (user.equals(targetUser)){
                     score = line.substring(index + 1, line.length()-1);
                 }
-            } return score;
+            } bufferedReader.close();
         } catch (FileNotFoundException e) {
             Log.e("Exception", "Unable to open file: " + e.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "0";
+        return score;
     }
 
 

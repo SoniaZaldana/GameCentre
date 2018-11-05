@@ -13,7 +13,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Stack;
 
 import static android.widget.TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM;
 
@@ -196,11 +195,20 @@ public class GameActivity extends AppCompatActivity implements Observer {
     }
 
     /**
+     * Returns score
+     * @param moves - number of moves made by player
+     */
+    public int calculateScore(int moves) {
+        return 10000 - (10*moves);
+    }
+
+    /**
      * Undo the board manager.
      */
     public void undo() {
         this.boardManager.undo();
         }
+
 
 
     @Override

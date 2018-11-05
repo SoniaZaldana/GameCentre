@@ -1,5 +1,6 @@
 package fall2018.csc2017.slidingtiles;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +34,7 @@ public class StartingActivity extends AppCompatActivity {
      * The board manager.
      */
     private BoardManager boardManager;
+
     private Context context;
     //TODO Get rid of all the extra Save and Loads here. Only use when necessary.
     @Override
@@ -135,5 +137,4 @@ public class StartingActivity extends AppCompatActivity {
 
 
     }
-
 }
