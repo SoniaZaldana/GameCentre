@@ -46,7 +46,7 @@ class BoardManager implements Serializable {
         }
 
 
-        Collections.shuffle(tiles);
+        //Collections.shuffle(tiles);
         this.board = new Board(dimension, tiles);
     }
 

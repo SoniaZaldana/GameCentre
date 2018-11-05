@@ -11,13 +11,11 @@ public class ScoreboardActivity extends AppCompatActivity implements View.OnClic
     Button menu;
     Button myScoreboard;
     Button sliding;
-    String user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
-        SharedPreferences currentUsername = getApplicationContext().getSharedPreferences("sharedUser", MODE_PRIVATE);
-        user = currentUsername.getString("thisUser", "User");
         menu = findViewById(R.id.MainMenuButton);
         myScoreboard = findViewById(R.id.MyScoreboardLabel);
         sliding = findViewById(R.id.SlidingTilesScoreboardLabel);
