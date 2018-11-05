@@ -75,9 +75,15 @@ public class StartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 boardManager = SaveAndLoad.loadFromFile(context, SAVE_FILENAME);
+                if(boardManager == null){
+                    Toast.makeText(getApplicationContext(),"No previously saved game.",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    makeToastLoadedText();
+                    loadGame();
+                }
                 //SaveAndLoad.saveToFile(context,SAVE_FILENAME , boardManager);
-                makeToastLoadedText();
-                loadGame();
+
             }
         });
     }
