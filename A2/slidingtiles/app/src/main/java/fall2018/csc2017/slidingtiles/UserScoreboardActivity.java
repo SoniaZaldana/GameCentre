@@ -1,7 +1,6 @@
 package fall2018.csc2017.slidingtiles;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +12,6 @@ import java.io.IOException;
 
 public class UserScoreboardActivity extends AppCompatActivity {
     String user;
-    SharedPreferences currentUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +19,7 @@ public class UserScoreboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_scoreboard);
         TextView gameName = findViewById(R.id.GameNameLabel);
         TextView gameScore = findViewById(R.id.ScoreLabel);
-        currentUsername = getApplicationContext().getSharedPreferences("sharedUser", MODE_PRIVATE);
-        user = currentUsername.getString("thisUser", "User");
+        user = SharedPreferenceManager.getSharedValue(this, "sharedUser", "thisUser");
         gameName.setText("Sliding Tiles");
         gameScore.setText(getScorePerGame("SlidingTiles.txt", user));
 
