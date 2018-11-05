@@ -16,9 +16,9 @@ import java.io.IOException;
 import java.util.function.ToLongBiFunction;
 
 public class Gamelauncheractivity extends AppCompatActivity implements View.OnClickListener {
-    Button SignOff;
     Button Scoreboards, TilesGame;
-    String UsersInfo;
+    String user;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,8 @@ public class Gamelauncheractivity extends AppCompatActivity implements View.OnCl
         Scoreboards = findViewById(R.id.ScoreboardButton);
         TilesGame.setOnClickListener(this);
         Scoreboards.setOnClickListener(this);
-        createFiles(UsersInfo);
+        user = SharedPreferenceManager.getSharedValue(this, "sharedUser", "thisUser");
+        createFiles(user);
     }
 
     @Override
@@ -51,8 +52,9 @@ public class Gamelauncheractivity extends AppCompatActivity implements View.OnCl
 
     }
 
-        public void createFiles(String userFile) {
-        File userScoreFile = new File(this.getFilesDir(), userFile + ".txt");
+
+    public void createFiles(String userFile) {
+        File userScoreFile = new File(this.getFilesDir(), userFile + "Score.txt");
         File slidingFile = new File(this.getFilesDir(), "SlidingTiles.txt");
         try {
             userScoreFile.createNewFile();

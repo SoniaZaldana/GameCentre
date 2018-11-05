@@ -21,8 +21,7 @@ public class UserScoreboardActivity extends AppCompatActivity {
         TextView gameScore = findViewById(R.id.ScoreLabel);
         user = SharedPreferenceManager.getSharedValue(this, "sharedUser", "thisUser");
         gameName.setText("Sliding Tiles");
-        gameScore.setText(getScorePerGame("SlidingTiles.txt", user));
-
+        gameScore.setText(getScorePerGame(user+"Score.txt", "SlidingTiles"));
     }
 
     public void goToScoreboardMenu (View view){
@@ -30,7 +29,7 @@ public class UserScoreboardActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public String getScorePerGame(String fileName, String targetUser) {
+    public String getScorePerGame(String fileName, String targetGame) {
         String score = "0";
         String line;
         BufferedReader reader;
@@ -39,8 +38,8 @@ public class UserScoreboardActivity extends AppCompatActivity {
             reader = new BufferedReader(new FileReader(new File(this.getFilesDir(), fileName)));
             while ((line = reader.readLine()) != null) {
                 index = line.indexOf(",");
-                String user = line.substring(0, index - 1);
-                if (user.equals(targetUser)) {
+                String game = line.substring(1, index);
+                if (game.equals(targetGame)) {
                     score = line.substring(index + 1, line.length() - 1);
                 }
             }
@@ -49,7 +48,6 @@ public class UserScoreboardActivity extends AppCompatActivity {
             System.err.format("Exception occurred trying to read '%s'.", fileName);
             e.printStackTrace();
         } return score;
-
         }
     }
 

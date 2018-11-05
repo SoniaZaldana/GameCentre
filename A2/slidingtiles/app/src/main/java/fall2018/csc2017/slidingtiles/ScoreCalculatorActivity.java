@@ -42,6 +42,9 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         if (isHighScore(gameFile, score))
             highScore.setText("New High Score");
         saveToFile(gameFile, user, score);
+        saveToFile(user + "Score.txt", score);
+
+
         btn = findViewById(R.id.MainMenuButton);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,19 +55,40 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
 
     }
 
-    private void saveToFile(String fileName, String user, int score) {
+    private void saveToFile(String fileName, String user, int scoreSave) {
         String entry = "[" + user + "," + score + "]";
         File scoreFile = new File(this.getFilesDir(), fileName);
         FileWriter fr = null;
         try {
             fr = new FileWriter(scoreFile);
-            if (isHighScore(fileName, score)) {
-                deletePreviousHighScore(fileName, user);
+            if (isHighScore(fileName, scoreSave)) {
+                //deletePreviousHighScore(fileName, user);
                 fr.write(entry);
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }finally{
+        } finally {
+            try {
+                fr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void saveToFile(String fileName, int scoreSave) {
+        String entry = "[SlidingTiles, " + scoreSave + "]";
+        File scoreFile = new File(this.getFilesDir(), fileName);
+        FileWriter fr = null;
+        try {
+            fr = new FileWriter(scoreFile);
+            if (isHighScore(fileName, scoreSave)) {
+            //deletePreviousHighScore(fileName, user);
+            fr.write(entry);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
             try {
                 fr.close();
             } catch (IOException e) {
@@ -78,54 +102,54 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         String line;
         BufferedReader reader;
         int index;
-        int score;
+        int scoreSaved;
         try {
             reader = new BufferedReader(new FileReader(new File(this.getFilesDir(), fileName)));
             if ((line = reader.readLine()) == null) {
-                return true;
+                highScore = true;
             }
             while ((line = reader.readLine()) != null) {
                 index = line.indexOf(",");
-                score = valueOf(line.substring(index + 1, line.length()-1));
-                if (userScore > score) {
+                scoreSaved = valueOf(line.substring(index + 1, line.length() - 1));
+                if (userScore > scoreSaved) {
                     highScore = true;
                 }
             }
             reader.close();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.err.format("Exception occurred trying to read '%s'.", fileName);
             e.printStackTrace();
         }
         return highScore;
     }
 
-    private void deletePreviousHighScore(String fileName, String targetUser) {
-        String line;
-        int index;
-        BufferedReader reader;
-        File fixedFile = new File(this.getFilesDir(), fileName);
-        FileWriter fr = null;
-        try {
-            reader = new BufferedReader(new FileReader(new File(this.getFilesDir(), fileName)));
-            fr = new FileWriter(fixedFile);
-            while ((line = reader.readLine()) != null) {
-                index = line.indexOf(",");
-                if (!line.substring(0, index - 1).equals(targetUser)) {
-                    fr.write(line);
-                }
-            }
-            fr.close();
-            reader.close();
-            File oldFile = new File(this.getFilesDir(), fileName);
-            oldFile.delete();
-            fixedFile.renameTo(new File(this.getFilesDir(), fileName));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
+
+//    private void deletePreviousHighScore(String fileName, String targetUser) {
+//        String line;
+//        int index;
+//        BufferedReader reader;
+//        File fixedFile = new File(this.getFilesDir(), fileName);
+//        FileWriter fr = null;
+//        try {
+//            reader = new BufferedReader(new FileReader(new File(this.getFilesDir(), fileName)));
+//            fr = new FileWriter(fixedFile);
+//            while ((line = reader.readLine()) != null) {
+//                index = line.indexOf(",");
+//                if (!line.substring(1, index - 1).equals(targetUser)) {
+//                    fr.write(line);
+//                }
+//            }
+//            fr.close();
+//            reader.close();
+//            File oldFile = new File(this.getFilesDir(), fileName);
+//            oldFile.delete();
+//            fixedFile.renameTo(new File(this.getFilesDir(), fileName));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
 
 
 
