@@ -203,7 +203,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     }
 
     /**
-     * Undo the board manager.
+     * Undoes the previous step.
      */
     public void undo() {
         boolean undone = this.boardManager.undo();
@@ -212,6 +212,9 @@ public class GameActivity extends AppCompatActivity implements Observer {
         }
         }
 
+    /**
+     * The toast created when undo fails.
+     */
     private void makeUndoFailedText() {
         Toast.makeText(this, "Maximum Undo reached", Toast.LENGTH_SHORT).show();
     }
@@ -228,11 +231,20 @@ public class GameActivity extends AppCompatActivity implements Observer {
     public class SaveTask extends TimerTask {
         private GameActivity gameActivity;
 
+        /**
+         * An autosave timer
+         *
+         * @param gameActivity The gameActivity that uses this timer
+         */
         SaveTask(GameActivity gameActivity){
             super();
             this.gameActivity = gameActivity;
         }
 
+        /**
+         * The command being ran by the timer.
+         *
+         */
         public void run(){
             SaveAndLoad.saveToFile(this.gameActivity, StartingActivity.SAVE_FILENAME, boardManager);
 
