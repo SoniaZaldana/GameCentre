@@ -19,8 +19,6 @@ public class ScoreboardActivity extends AppCompatActivity implements View.OnClic
         menu = findViewById(R.id.MainMenuButton);
         myScoreboard = findViewById(R.id.MyScoreboardLabel);
         sliding = findViewById(R.id.SlidingTilesScoreboardLabel);
-
-
         menu.setOnClickListener(this);
         myScoreboard.setOnClickListener(this);
         sliding.setOnClickListener(this);
