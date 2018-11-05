@@ -131,10 +131,11 @@ public class GameActivity extends AppCompatActivity implements Observer {
      */
     private void addSaveButtonListener() {
         Button saveButton = findViewById(R.id.SaveButton);
+        final GameActivity gameActivity = this;
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SaveAndLoad.saveToFile(this, StartingActivity.SAVE_FILENAME, boardManager);
+                SaveAndLoad.saveToFile(gameActivity, StartingActivity.SAVE_FILENAME, boardManager);
                 makeToastSavedText();
             }
         });
