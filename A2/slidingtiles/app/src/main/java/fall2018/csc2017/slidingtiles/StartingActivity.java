@@ -44,7 +44,6 @@ public class StartingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_starting_);
         addStartButtonListener();
         addLoadButtonListener();
-        addSaveButtonListener();
 
         SharedPreferences currentUsername = getApplicationContext().getSharedPreferences("sharedUser", MODE_PRIVATE);
         String user = currentUsername.getString("thisUser", "User");
@@ -90,27 +89,7 @@ public class StartingActivity extends AppCompatActivity {
         Toast.makeText(this, "Loaded Game", Toast.LENGTH_SHORT).show();
     }
 
-    /**
-     * Activate the save button.
-     */
-    private void addSaveButtonListener() {
-        Button saveButton = findViewById(R.id.SaveButton);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SaveAndLoad.saveToFile(context, SAVE_FILENAME, boardManager);
-                //SaveAndLoad.saveToFile(context, SAVE_FILENAME, boardManager);
-                makeToastSavedText();
-            }
-            });
-    }
 
-    /**
-     * Display that a game was saved successfully.
-     */
-    private void makeToastSavedText() {
-        Toast.makeText(this, "Game Saved", Toast.LENGTH_SHORT).show();
-    }
     /**
      * Read the temporary board from disk.
      */
