@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -66,6 +67,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
         autoSave();
 
         addUndoButtonListener();
+        addSaveButtonListener();
+
         // Add View to activity
         gridView = findViewById(R.id.grid);
         createTileButtons(this);
@@ -121,6 +124,28 @@ public class GameActivity extends AppCompatActivity implements Observer {
                         undo();
                     }
         });
+    }
+
+    /**
+     * Activate save button.
+     */
+    private void addSaveButtonListener() {
+        Button saveButton = findViewById(R.id.SaveButton);
+        final GameActivity gameActivity = this;
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SaveAndLoad.saveToFile(gameActivity, StartingActivity.SAVE_FILENAME, boardManager);
+                makeToastSavedText();
+            }
+        });
+    }
+
+    /**
+     * Display that a game was saved successfully.
+     */
+    private void makeToastSavedText() {
+        Toast.makeText(this, "Game Saved", Toast.LENGTH_SHORT).show();
     }
 
     /**
