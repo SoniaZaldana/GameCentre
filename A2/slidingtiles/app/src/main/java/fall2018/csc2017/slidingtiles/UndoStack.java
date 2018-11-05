@@ -2,10 +2,14 @@ package fall2018.csc2017.slidingtiles;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+
+/**
+ * A stack with a maximum size, used for undoing moves.
+ */
 public class UndoStack implements Serializable  {
 
     /**
-     * A Stack with a maximum size.
+     * The stack of items.
      */
     private ArrayList items;
 
