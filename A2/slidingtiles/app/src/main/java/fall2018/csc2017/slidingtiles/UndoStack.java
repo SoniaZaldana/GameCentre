@@ -20,6 +20,8 @@ public class UndoStack implements Serializable  {
 
     /**
      * Initialize a stack.
+     *
+     * @param size The maximum size of the stack.
      */
     UndoStack(int size){
         this.items = new ArrayList();
@@ -28,6 +30,8 @@ public class UndoStack implements Serializable  {
 
     /**
      * Push an object item into the stack.
+     *
+     * @param item The object being pushed.
      */
     void push(Object item){
         if (this.items.size() < this.maxSize){
