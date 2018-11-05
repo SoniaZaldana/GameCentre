@@ -72,7 +72,7 @@ public class StartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 boardManager = SaveAndLoad.loadFromFile(context, SAVE_FILENAME);
-                SaveAndLoad.saveToFile(context, SAVE_FILENAME, boardManager);
+                //SaveAndLoad.saveToFile(context,SAVE_FILENAME , boardManager);
                 makeToastLoadedText();
                 loadGame();
             }
@@ -95,7 +95,7 @@ public class StartingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SaveAndLoad.saveToFile(context, SAVE_FILENAME, boardManager);
-                SaveAndLoad.saveToFile(context, SAVE_FILENAME, boardManager);
+                //SaveAndLoad.saveToFile(context, SAVE_FILENAME, boardManager);
                 makeToastSavedText();
             }
             });
@@ -121,7 +121,7 @@ public class StartingActivity extends AppCompatActivity {
      */
     private void loadGame() {
         Intent tmp = new Intent(this, GameActivity.class);
-        SaveAndLoad.saveToFile(this, StartingActivity.SAVE_FILENAME, boardManager);
+        //SaveAndLoad.saveToFile(this, StartingActivity.SAVE_FILENAME, boardManager);
         startActivity(tmp);
 
 
