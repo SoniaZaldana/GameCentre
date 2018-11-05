@@ -61,7 +61,8 @@ public class RegisteractivityActivity extends AppCompatActivity implements View.
                     Accounts.apply();
                     startActivity(new Intent(this,
                             Gamelauncheractivity.class));
-                    SharedPreferenceManager.setSharedValue(this, "sharedUser", "thisUser", username);
+                    SharedPreferenceManager.setSharedValue(this, "sharedUser",
+                            "thisUser", username);
                     usernameText.setText("");
                     passwordText.setText("");
                     reEnteredPasswordText.setText("");
