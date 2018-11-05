@@ -21,7 +21,8 @@ public class UserScoreboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_scoreboard);
         TextView gameName = findViewById(R.id.GameNameLabel);
         TextView gameScore = findViewById(R.id.ScoreLabel);
-        user = getIntent().getStringExtra("User");
+        currentUsername = getApplicationContext().getSharedPreferences("sharedUser", MODE_PRIVATE);
+        user = currentUsername.getString("thisUser", "User");
         gameName.setText("Sliding Tiles");
         gameScore.setText(getScorePerGame("SlidingTiles.txt", user));
 
