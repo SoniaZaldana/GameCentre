@@ -5,28 +5,28 @@ import java.util.ArrayList;
 public class UndoStack implements Serializable  {
 
     /**
-     * The ArrayList works as stack.
+     * A Stack with a maximum size.
      */
     private ArrayList items;
 
     /**
      * The size of a stack.
      */
-    private int size;
+    private int maxSize;
 
     /**
      * Initialize a stack.
      */
     UndoStack(int size){
         this.items = new ArrayList();
-        this.size = size;
+        this.maxSize = size;
     }
 
     /**
-     * Push object item into a stack.
+     * Push an object item into the stack.
      */
     void push(Object item){
-        if (this.items.size() < this.size){
+        if (this.items.size() < this.maxSize){
             this.items.add(item);
         } else {
             this.items.remove(0);
@@ -35,7 +35,7 @@ public class UndoStack implements Serializable  {
     }
 
     /**
-     * Pop object item from a stack.
+     * Pop an object item from the stack.
      */
     Object pop(){
             Object item = this.items.get(this.items.size() - 1);
@@ -44,7 +44,7 @@ public class UndoStack implements Serializable  {
     }
 
     /**
-     * Return the size of an item from a stack.
+     * Return the size of the stack.
      */
     public int getSize(){
         return this.items.size();
