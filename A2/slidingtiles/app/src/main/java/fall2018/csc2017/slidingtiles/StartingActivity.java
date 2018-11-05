@@ -3,6 +3,7 @@ package fall2018.csc2017.slidingtiles;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,11 +26,8 @@ public class StartingActivity extends AppCompatActivity {
     /**
      * The main save file.
      */
-    public static final String SAVE_FILENAME = "save_file.ser";
-    /**
-     * A temporary save file.
-     */
-    public static final String TEMP_SAVE_FILENAME = "save_file_tmp.ser";
+    public static String SAVE_FILENAME = "save_file.ser";
+
     /**
      * The board manager.
      */
@@ -47,6 +45,10 @@ public class StartingActivity extends AppCompatActivity {
         addStartButtonListener();
         addLoadButtonListener();
         addSaveButtonListener();
+
+        SharedPreferences currentUsername = getApplicationContext().getSharedPreferences("sharedUser", MODE_PRIVATE);
+        String user = currentUsername.getString("thisUser", "User");
+        SAVE_FILENAME = user + SAVE_FILENAME;
 
     }
 
