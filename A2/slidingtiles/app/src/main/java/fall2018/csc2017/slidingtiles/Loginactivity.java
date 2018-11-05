@@ -12,37 +12,40 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class Loginactivity extends AppCompatActivity implements View.OnClickListener{
-    Button bLogin, register;
-    EditText eUsername, ePassword;
+    Button loginButton, registerButton;
+    EditText usernameText, passwordText;
     SharedPreferences accounts;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        accounts = getApplicationContext().getSharedPreferences("Users", Context.MODE_PRIVATE);
-        eUsername =  findViewById(R.id.IDPassword2);
-        ePassword =  findViewById(R.id.IDPassword);
-        bLogin = findViewById(R.id.login);
-        register = findViewById(R.id.registerbutton);
-        register.setOnClickListener(this);
-        bLogin.setOnClickListener(this);
+        accounts = getApplicationContext().getSharedPreferences("users", Context.MODE_PRIVATE);
+        usernameText =  findViewById(R.id.username);
+        passwordText =  findViewById(R.id.IDPassword);
+        loginButton = findViewById(R.id.login);
+        registerButton = findViewById(R.id.registerbutton);
+        registerButton.setOnClickListener(this);
+        loginButton.setOnClickListener(this);
 
     }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login:
-                String Username = eUsername.getText().toString();
-                String Password = ePassword.getText().toString();
-                String AuthenticationPassword = accounts.getString(Username,
+                String username = usernameText.getText().toString();
+                String password = passwordText.getText().toString();
+                String authenticationPassword = accounts.getString(username,
                         "Account does not exists");
-                Toast.makeText(this , AuthenticationPassword, Toast.LENGTH_SHORT).show();
-                if (AuthenticationPassword.equals(Password)) {
-                    startActivity(new Intent(String.valueOf(Gamelauncheractivity.class))
-                            .putExtra("Username", Username));
+                if (!accounts.contains(username)) {
+                    Toast.makeText(this , String.format("Account with name " +
+                            "\"%s\" does not exist", username), Toast.LENGTH_SHORT).show();
+                } else if (!authenticationPassword.equals(password)) {
+                    Toast.makeText(this, "Invalid Password", Toast.LENGTH_SHORT).show();
+                } else {
+                    startActivity(new Intent(this, Gamelauncheractivity.class)
+                            .putExtra("Username", username));
                 }
-//                Toast.makeText(this , "Invalid Password", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.registerbutton:
                 startActivity(new Intent(this ,RegisteractivityActivity.class));

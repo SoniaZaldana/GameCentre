@@ -12,21 +12,21 @@ import android.widget.Toast;
 
 
 public class RegisteractivityActivity extends AppCompatActivity implements View.OnClickListener {
-    Button RegisterButton, BackToLogIn;
-    EditText eUsername, ePassword, reEnteredPassword;
-    SharedPreferences Users;
+    Button registerButton, backToLogIn;
+    EditText usernameText, passwordText, reEnteredPasswordText;
+    SharedPreferences users;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        Users =  getApplicationContext().getSharedPreferences("Users", Context.MODE_PRIVATE);
-        eUsername = findViewById(R.id.IDPassword2);
-        ePassword = findViewById(R.id.IDPassword);
-        reEnteredPassword = findViewById(R.id.IDPassword2);
-        RegisterButton = findViewById(R.id.registerbutton);
-        BackToLogIn = findViewById(R.id.login);
-        RegisterButton.setOnClickListener(this);
-        BackToLogIn.setOnClickListener(this);
+        users =  getApplicationContext().getSharedPreferences("users", Context.MODE_PRIVATE);
+        usernameText = findViewById(R.id.username);
+        passwordText = findViewById(R.id.IDPassword);
+        reEnteredPasswordText = findViewById(R.id.IDPassword2);
+        registerButton = findViewById(R.id.registerbutton);
+        backToLogIn = findViewById(R.id.login);
+        registerButton.setOnClickListener(this);
+        backToLogIn.setOnClickListener(this);
 
 
     }
@@ -37,27 +37,41 @@ public class RegisteractivityActivity extends AppCompatActivity implements View.
                 startActivity(new Intent(this, Loginactivity.class));
                 break;
             case R.id.registerbutton:
-                String Username = eUsername.getText().toString();
-                String Password = ePassword.getText().toString();
-                String reEnteredPassword2 = reEnteredPassword.getText().toString();
-                if (isValid(Password) && Password.equals(reEnteredPassword2)) {
-                    SharedPreferences.Editor Accounts = Users.edit();
-                    Accounts.putString(Username, Password);
-                    Accounts.apply();
-                    startActivity(new Intent(this, Gamelauncheractivity.class));
-                }
-                else {
-                    Toast.makeText(this, "Passwords does not match",
+                String username = usernameText.getText().toString();
+                String password = passwordText.getText().toString();
+                String reEnteredPassword = reEnteredPasswordText.getText().toString();
+                if (users.contains(username)) {
+                    Toast.makeText(this, String.format("Account with the name \"%s\" " +
+                                    "already exists, please try another username", username),
                             Toast.LENGTH_SHORT).show();
+                } else if (isValidUsername(username)) {
+                    Toast.makeText(this, "Your username should contain at least 5 characters",
+                            Toast.LENGTH_SHORT).show();
+                } else if (isValid(password)) {
+                    Toast.makeText(this, "Your password should contain at least 5 characters",
+                            Toast.LENGTH_SHORT).show();
+                } else if (!password.equals(reEnteredPassword)) {
+                    Toast.makeText(this, "Your passwords do not match",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    SharedPreferences.Editor Accounts = users.edit();
+                    Accounts.putString(username, password);
+                    Accounts.apply();
+                    startActivity(new Intent(this,
+                            Gamelauncheractivity.class).putExtra("Username", username));
                 }
                 break;
         }
 
     }
 
-    private boolean isValid(String ePassword) {
-//        if(ePassword.length() <= 25) return false;
-        return true;
+    private boolean isValidUsername(String username) {
+        return username.length() <= 4;
+    }
+
+    private boolean isValid(String password) {
+        return password.length() <= 4;
+
 
     }
 }

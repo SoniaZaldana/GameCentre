@@ -18,14 +18,16 @@ public class Gamelauncheractivity extends AppCompatActivity implements View.OnCl
     Button Scoreboards;
     ImageView TilesGame;
     String UsersInfo;
+    SharedPreferences currentUsername;
+    SharedPreferences.Editor editor;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gamelauncheractivity);
 
         UsersInfo = getIntent().getStringExtra("Username");
-        SharedPreferences currentUsername = getApplicationContext().getSharedPreferences("sharedUser", MODE_PRIVATE);
-        SharedPreferences.Editor editor = currentUsername.edit();
+        currentUsername = getApplicationContext().getSharedPreferences("sharedUser", MODE_PRIVATE);
+        editor = currentUsername.edit();
         editor.putString("thisUser", UsersInfo);
         editor.apply();
 
@@ -35,13 +37,10 @@ public class Gamelauncheractivity extends AppCompatActivity implements View.OnCl
         TilesGame.setOnClickListener(this);
         SignOff.setOnClickListener(this);
         Scoreboards.setOnClickListener(this);
-
-        // TODO: add parameter user once Osman's error is fixed.
-        createFiles();
+        createFiles(UsersInfo);
     }
-        // TODO: Same here with the parameter.
-    public void createFiles() {
-        File userScoreFile = new File(this.getFilesDir(), "Sonia.txt");
+    public void createFiles(String userFile) {
+        File userScoreFile = new File(this.getFilesDir(), userFile + ".txt");
         File slidingFile = new File(this.getFilesDir(), "SlidingTiles.txt");
         try {
             userScoreFile.createNewFile();

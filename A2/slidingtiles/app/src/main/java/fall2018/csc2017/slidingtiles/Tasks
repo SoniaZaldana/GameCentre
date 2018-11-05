@@ -10,7 +10,9 @@ Osman:
 
 
 Nick:
-
+1. Allow user to choose dimensions of the board arbitrarily.
+2. Generate tiles automatically.
+3. Choose background for tiles.
 
 
 Alex:
@@ -19,7 +21,7 @@ Alex:
 
 
 
-Suguru:
+Sugur
 1. Implement Autosave with Alex.
 2. Implement Undo with Alex.
 
