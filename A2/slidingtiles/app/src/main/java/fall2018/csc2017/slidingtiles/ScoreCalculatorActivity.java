@@ -42,6 +42,9 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         if (isHighScore(gameFile, score))
             highScore.setText("New High Score");
         saveToFile(gameFile, user, score);
+        saveToFile(user+"Score.txt", score);
+
+
         btn = findViewById(R.id.MainMenuButton);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +57,26 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
 
     private void saveToFile(String fileName, String user, int score) {
         String entry = "[" + user + "," + score + "]";
+        File scoreFile = new File(this.getFilesDir(), fileName);
+        FileWriter fr = null;
+        try {
+            fr = new FileWriter(scoreFile);
+            if (isHighScore(fileName, score)) {
+                deletePreviousHighScore(fileName, user);
+                fr.write(entry);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally{
+            try {
+                fr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private void saveToFile(String fileName, int score) {
+        String entry = "[SlidingTiles, " + score + "]";
         File scoreFile = new File(this.getFilesDir(), fileName);
         FileWriter fr = null;
         try {
