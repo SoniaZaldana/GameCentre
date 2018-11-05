@@ -4,15 +4,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
+import fall2018.csc2017.slidingtiles.SharedPreferenceManager;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -37,9 +34,7 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         scoreValue = findViewById(R.id.ScoreValueLabel);
         highScore = findViewById(R.id.HighScoreLabel);
 
-        currentUsername = getApplicationContext().getSharedPreferences("sharedUser", MODE_PRIVATE);
-        user = currentUsername.getString("thisUser", "User");
-
+        user = SharedPreferenceManager.getSharedValue(this, "sharedUser", "thisUser");
         gameFile = getIntent().getStringExtra("Game");
         score = getIntent().getIntExtra("Score", 0);
         scoreValue.setText(Integer.toString(score));
@@ -78,7 +73,6 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         }
     }
 
-
     private boolean isHighScore(String fileName, int userScore) {
         boolean highScore = false;
         String line;
@@ -107,9 +101,6 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         return highScore;
     }
 
-
-
-
     private void deletePreviousHighScore(String fileName, String targetUser) {
         String line;
         int index;
@@ -134,8 +125,6 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-
 }
 
 
