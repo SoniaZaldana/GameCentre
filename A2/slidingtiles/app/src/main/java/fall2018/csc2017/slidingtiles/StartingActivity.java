@@ -26,7 +26,7 @@ public class StartingActivity extends AppCompatActivity {
     /**
      * The main save file.
      */
-    public static String SAVE_FILENAME = "save_file.ser";
+    public static String SAVE_FILENAME;
 
     /**
      * The board manager.
@@ -47,7 +47,7 @@ public class StartingActivity extends AppCompatActivity {
 
         SharedPreferences currentUsername = getApplicationContext().getSharedPreferences("sharedUser", MODE_PRIVATE);
         String user = currentUsername.getString("thisUser", "User");
-        SAVE_FILENAME = user + SAVE_FILENAME;
+        SAVE_FILENAME = user  + "save_file.ser";
 
     }
 
