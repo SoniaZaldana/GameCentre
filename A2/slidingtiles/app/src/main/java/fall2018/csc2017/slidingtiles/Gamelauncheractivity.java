@@ -24,13 +24,11 @@ public class Gamelauncheractivity extends AppCompatActivity implements View.OnCl
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gamelauncheractivity);
-
         UsersInfo = getIntent().getStringExtra("Username");
         currentUsername = getApplicationContext().getSharedPreferences("sharedUser", MODE_PRIVATE);
         editor = currentUsername.edit();
         editor.putString("thisUser", UsersInfo);
         editor.apply();
-
         TilesGame = findViewById(R.id.TilesGame);
         SignOff = findViewById(R.id.signoff);
         Scoreboards = findViewById(R.id.ScoreboardButton);

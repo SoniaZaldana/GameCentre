@@ -45,6 +45,7 @@ public class Loginactivity extends AppCompatActivity implements View.OnClickList
                 } else {
                     startActivity(new Intent(this, Gamelauncheractivity.class)
                             .putExtra("Username", username));
+                    passwordText.setText("");
                 }
                 break;
             case R.id.registerbutton:
