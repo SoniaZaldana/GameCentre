@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Stack;
-import java.util.Arrays;
 
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
@@ -39,8 +37,8 @@ class BoardManager implements Serializable {
      * Manage a new shuffled board.
      */
 
-    BoardManager(int dimension) {
-        this.stack = new UndoStack(3);
+    BoardManager(int dimension, int undoMax) {
+        this.stack = new UndoStack(undoMax);
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = dimension * dimension;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
@@ -142,12 +140,13 @@ class BoardManager implements Serializable {
         }
     }
 
-    void undo(){
+    boolean undo(){
         if (this.stack.getSize() == 0){
-            return;
+            return false;
         } else {
             int[] lst = (int[]) this.stack.pop();
             board.swapTiles(lst[0], lst[1], lst[2], lst[3]);
+            return true;
         }
     }
 

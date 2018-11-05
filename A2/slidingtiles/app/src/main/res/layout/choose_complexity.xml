@@ -10,24 +10,41 @@
         android:text="Choose Dimension less than 20"
         android:layout_centerHorizontal="true"
         android:textSize="20dp"
-        android:layout_above="@+id/EditText"
+        android:layout_above="@+id/EditDimension"
         android:textColor="@color/colorPrimary"
-        android:id="@+id/instructions"/>
+        android:id="@+id/dimensionInstructions"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/EditText"
+        android:id="@+id/EditDimension"
+        android:layout_centerInParent="true"
+        android:layout_margin="30dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Maximum Undo Turns"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:textColor="@color/colorPrimary"
+        android:layout_below="@id/EditDimension"
+        android:id="@+id/undoInstructions"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editUndo"
+        android:layout_below="@id/undoInstructions"
         android:layout_centerInParent="true"
         android:layout_margin="30dp"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/EditText"
+        android:layout_below="@id/editUndo"
         android:layout_centerHorizontal="true"
         android:text="Submit"
         android:onClick="submitInput"
         android:textColor="@color/colorPrimary"
-        android:id="@+id/submitDimension"/>
+        android:id="@+id/submitEverything"/>
 
 </RelativeLayout>

@@ -9,41 +9,50 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class ChooseDimensionsActivity extends AppCompatActivity {
-    EditText inputText;
+    EditText dimensionInput;
     Button submitInput;
-    TextView instructions;
+    TextView dimensionInstructions;
+    EditText undoInput;
+    TextView undoInstructions;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose_complexity);
-        inputText = (EditText)findViewById(R.id.EditText);
-        submitInput = (Button) findViewById(R.id.submitDimension);
-        instructions = (TextView) findViewById(R.id.instructions);
+        dimensionInput = (EditText)findViewById(R.id.EditDimension);
+        submitInput = (Button) findViewById(R.id.submitEverything);
+        dimensionInstructions = (TextView) findViewById(R.id.dimensionInstructions);
+        undoInput = (EditText) findViewById(R.id.editUndo);
+        undoInstructions = (TextView) findViewById(R.id.undoInstructions);
+
+
 
     }
     public void submitInput(View view) {
 
-        String text = inputText.getText().toString();
+        String text = dimensionInput.getText().toString();
+        String undoMaxText = undoInput.getText().toString();
         try {
+            Integer undoMax = Integer.parseInt(undoMaxText);
             Integer dimension = Integer.parseInt(text);
             if(dimension>19){
-                instructions.setText("Please enter a valid number less than 20!");
+                dimensionInstructions.setText("Please enter a valid number less than 20!");
             }
             else if(dimension==1){
-                instructions.setText("Too easy :) Try something harder!");
+                dimensionInstructions.setText("Too easy :) Try something harder!");
 
             }
             else{
                 Intent tmp = new Intent(this, GameActivity.class);
-                BoardManager boardManager = new BoardManager(dimension);
+                BoardManager boardManager = new BoardManager(dimension, undoMax);
                 SaveAndLoad.saveToFile(this, StartingActivity.SAVE_FILENAME, boardManager);
                 startActivity(tmp);
             }
             }
         catch(NumberFormatException e){
-            instructions.setText("Please enter a valid number!");
+            dimensionInstructions.setText("Please enter a valid number!");
         }
     }
 }

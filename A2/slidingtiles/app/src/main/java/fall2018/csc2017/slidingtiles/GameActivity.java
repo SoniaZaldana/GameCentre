@@ -206,9 +206,15 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * Undo the board manager.
      */
     public void undo() {
-        this.boardManager.undo();
+        boolean undone = this.boardManager.undo();
+        if (!undone){
+            makeUndoFailedText();
+        }
         }
 
+    private void makeUndoFailedText() {
+        Toast.makeText(this, "Maximum Undo reached", Toast.LENGTH_SHORT).show();
+    }
 
 
     @Override
