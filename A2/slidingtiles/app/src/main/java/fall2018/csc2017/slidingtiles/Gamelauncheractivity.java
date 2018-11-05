@@ -35,21 +35,21 @@ public class Gamelauncheractivity extends AppCompatActivity implements View.OnCl
         TilesGame.setOnClickListener(this);
         SignOff.setOnClickListener(this);
         Scoreboards.setOnClickListener(this);
+
+        // TODO: add parameter user once Osman's error is fixed.
+        createFiles();
+    }
+        // TODO: Same here with the parameter.
+    public void createFiles() {
+        File userScoreFile = new File(this.getFilesDir(), "Sonia.txt");
+        File slidingFile = new File(this.getFilesDir(), "SlidingTiles.txt");
         try {
-            //TODO: change this when osman's null error is fixed
-            ContextWrapper cw = new ContextWrapper(this);
-            File directory = cw.getDir("media", MODE_PRIVATE);
-
-
-            File userScoreFile = new File( "Sonia.txt");
-            File slidingFile = new File("SlidingTiles.txt");
             userScoreFile.createNewFile();
             slidingFile.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
     @Override
     public void onClick(View view) {
