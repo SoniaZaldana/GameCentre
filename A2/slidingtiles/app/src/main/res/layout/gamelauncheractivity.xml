@@ -7,31 +7,19 @@
     android:layout_height="match_parent">
 
 
-    <ImageView
-        android:id="@+id/TilesGame"
-        android:layout_width="131dp"
-        android:layout_height="194dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="34dp"
-        android:layout_marginTop="332dp"
-        android:layout_marginEnd="219dp"
-        app:srcCompat="@drawable/tile_11"
-        tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="50dp" />
-
-    <Button
-        android:id="@+id/signoff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="293dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="3dp"
-        android:text="SignOff" />
+    <!--<ImageView-->
+        <!--android:id="@+id/TilesGame"-->
+        <!--android:layout_width="131dp"-->
+        <!--android:layout_height="194dp"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_marginStart="30dp"-->
+        <!--android:layout_marginTop="373dp"-->
+        <!--android:layout_marginEnd="223dp"-->
+        <!--app:srcCompat="@drawable/tile_11"-->
+        <!--tools:layout_editor_absoluteX="34dp"-->
+        <!--tools:layout_editor_absoluteY="50dp" />-->
 
     <Button
         android:id="@+id/ScoreboardButton"
@@ -40,22 +28,60 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="383dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginBottom="125dp"
+        android:layout_marginTop="488dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="20dp"
         android:text="Scoreboards" />
+
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
+        android:layout_marginBottom="1dp"
         android:background="?attr/colorError"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" />
+        android:theme="?attr/actionBarTheme"
+        app:title="GameCenter"
+        tools:ignore="UnknownId"></android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="430dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="99dp"
+        android:fillViewport="true"
+        tools:layout_marginLeft="30dp"
+        tools:layout_marginTop="150dp">
+
+        <LinearLayout
+            android:id="@+id/myid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/TilesGame"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="100dp"
+                android:layout_weight="1"
+                android:autoText="false"
+                android:background="@drawable/iconshape"
+                android:text="SlidingTIles"
+                android:textSize="18sp"
+                tools:layout_marginLeft="30dp" />
+
+        </LinearLayout>
+    </ScrollView>
 
 
 </RelativeLayout>
