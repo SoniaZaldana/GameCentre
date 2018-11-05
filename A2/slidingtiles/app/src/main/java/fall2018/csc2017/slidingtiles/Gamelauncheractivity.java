@@ -15,7 +15,7 @@ public class Gamelauncheractivity extends AppCompatActivity implements View.OnCl
     Button SignOff;
     Button Scoreboards;
     ImageView TilesGame;
-    String UsersInfo;
+    String user;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,10 +27,11 @@ public class Gamelauncheractivity extends AppCompatActivity implements View.OnCl
         TilesGame.setOnClickListener(this);
         SignOff.setOnClickListener(this);
         Scoreboards.setOnClickListener(this);
-        createFiles(UsersInfo);
+        user = SharedPreferenceManager.getSharedValue(this, "sharedUser", "thisUser");
+        createFiles(user);
     }
     public void createFiles(String userFile) {
-        File userScoreFile = new File(this.getFilesDir(), userFile + ".txt");
+        File userScoreFile = new File(this.getFilesDir(), userFile + "Score.txt");
         File slidingFile = new File(this.getFilesDir(), "SlidingTiles.txt");
         try {
             userScoreFile.createNewFile();
