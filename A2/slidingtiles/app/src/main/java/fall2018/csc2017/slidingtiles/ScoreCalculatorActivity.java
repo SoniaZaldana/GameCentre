@@ -130,11 +130,11 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         String line;
         int index;
         BufferedReader reader;
-        File fixedFile = new File(this.getFilesDir(), fileName);
+        File fixedFile = new File(this.getFilesDir(), "OtherFile.txt");
         FileWriter fr = null;
         try {
             reader = new BufferedReader(new FileReader(new File(this.getFilesDir(), fileName)));
-            fr = new FileWriter(fixedFile);
+            fr = new FileWriter(fixedFile, true);
             while ((line = reader.readLine()) != null) {
                 index = line.indexOf(",");
                 if (!line.substring(1, index - 1).equals(targetUser)) {
