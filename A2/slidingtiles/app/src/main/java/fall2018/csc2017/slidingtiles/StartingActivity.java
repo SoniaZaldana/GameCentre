@@ -38,8 +38,6 @@ public class StartingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //boardManager = new BoardManager();
-        //saveToFile(SAVE_FILENAME);
         context = this;
         setContentView(R.layout.activity_starting_);
         addStartButtonListener();
@@ -59,8 +57,6 @@ public class StartingActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //make default 3
-                //boardManager = new BoardManager(3);
                 newGame();
             }
         });
@@ -82,7 +78,6 @@ public class StartingActivity extends AppCompatActivity {
                     makeToastLoadedText();
                     loadGame();
                 }
-                //SaveAndLoad.saveToFile(context,SAVE_FILENAME , boardManager);
 
             }
         });
@@ -110,7 +105,6 @@ public class StartingActivity extends AppCompatActivity {
      */
     private void loadGame() {
         Intent tmp = new Intent(this, GameActivity.class);
-        //SaveAndLoad.saveToFile(this, StartingActivity.SAVE_FILENAME, boardManager);
         startActivity(tmp);
 
 
@@ -119,7 +113,6 @@ public class StartingActivity extends AppCompatActivity {
         //TODO make sure that even if i have a loaded game. If I choose to play a new game, it plays a new game.
         //TODO Figure out difference between temp_save and save_file
         Intent tmp = new Intent(this, ChooseDimensionsActivity.class);
-        //SaveAndLoad.saveToFile(this, StartingActivity.TEMP_SAVE_FILENAME, boardManager);
         startActivity(tmp);
 
 
