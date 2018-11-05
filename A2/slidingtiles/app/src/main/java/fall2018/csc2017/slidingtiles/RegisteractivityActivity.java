@@ -45,10 +45,12 @@ public class RegisteractivityActivity extends AppCompatActivity implements View.
                                     "already exists, please try another username", username),
                             Toast.LENGTH_SHORT).show();
                 } else if (isValidUsername(username)) {
-                    Toast.makeText(this, "Your username should contain at least 5 characters",
+                    Toast.makeText(this, "Your username should contain at least 5 " +
+                                    "characters",
                             Toast.LENGTH_SHORT).show();
                 } else if (isValid(password)) {
-                    Toast.makeText(this, "Your password should contain at least 5 characters",
+                    Toast.makeText(this, "Your password should contain at least 5 " +
+                                    "characters",
                             Toast.LENGTH_SHORT).show();
                 } else if (!password.equals(reEnteredPassword)) {
                     Toast.makeText(this, "Your passwords do not match",
@@ -58,7 +60,11 @@ public class RegisteractivityActivity extends AppCompatActivity implements View.
                     Accounts.putString(username, password);
                     Accounts.apply();
                     startActivity(new Intent(this,
-                            Gamelauncheractivity.class).putExtra("Username", username));
+                            Gamelauncheractivity.class));
+                    SharedPreferenceManager.setSharedValue(this, "sharedUser", "thisUser", username);
+                    usernameText.setText("");
+                    passwordText.setText("");
+                    reEnteredPasswordText.setText("");
                 }
                 break;
         }
@@ -70,9 +76,6 @@ public class RegisteractivityActivity extends AppCompatActivity implements View.
     }
 
     private boolean isValid(String password) {
-        return password.length() <= 4;
-
-
-    }
+        return password.length() <= 4; }
 }
 

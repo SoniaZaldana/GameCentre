@@ -1,9 +1,6 @@
 package fall2018.csc2017.slidingtiles;
 
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,39 +9,31 @@ import android.widget.ImageView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.function.ToLongBiFunction;
 
 public class Gamelauncheractivity extends AppCompatActivity implements View.OnClickListener {
     Button SignOff;
     Button Scoreboards;
     ImageView TilesGame;
-    String UsersInfo;
-    SharedPreferences currentUsername;
-    SharedPreferences.Editor editor;
+    String user;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gamelauncheractivity);
-
-        UsersInfo = getIntent().getStringExtra("Username");
-        currentUsername = getApplicationContext().getSharedPreferences("sharedUser", MODE_PRIVATE);
-        editor = currentUsername.edit();
-        editor.putString("thisUser", UsersInfo);
-        editor.apply();
-
         TilesGame = findViewById(R.id.TilesGame);
         SignOff = findViewById(R.id.signoff);
         Scoreboards = findViewById(R.id.ScoreboardButton);
         TilesGame.setOnClickListener(this);
         SignOff.setOnClickListener(this);
         Scoreboards.setOnClickListener(this);
+        user = SharedPreferenceManager.getSharedValue(this, "sharedUser", "thisUser");
+        createFiles(user);
+    }
+    public void createFiles(String userFile) {
+        File userScoreFile = new File(this.getFilesDir(), userFile + "Score.txt");
+        File slidingFile = new File(this.getFilesDir(), "SlidingTiles.txt");
         try {
-            //TODO: change this when osman's null error is fixed
-            ContextWrapper cw = new ContextWrapper(this);
-            File directory = cw.getDir("media", MODE_PRIVATE);
-
-
-            File userScoreFile = new File( "Sonia.txt");
-            File slidingFile = new File("SlidingTiles.txt");
             userScoreFile.createNewFile();
             slidingFile.createNewFile();
         } catch (IOException e) {
@@ -52,10 +41,8 @@ public class Gamelauncheractivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-
     @Override
     public void onClick(View view) {
-
         switch (view.getId()) {
             case R.id.TilesGame:
                 startActivity(new Intent(this,

@@ -23,7 +23,7 @@ public class StartingActivity extends AppCompatActivity {
     /**
      * The main save file.
      */
-    public static String SAVE_FILENAME = "save_file.ser";
+    public static String SAVE_FILENAME;
 
     /**
      * The board manager.
@@ -39,8 +39,6 @@ public class StartingActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //boardManager = new BoardManager();
-        //saveToFile(SAVE_FILENAME);
         context = this;
         setContentView(R.layout.activity_starting_);
         addStartButtonListener();
@@ -49,7 +47,7 @@ public class StartingActivity extends AppCompatActivity {
 
         SharedPreferences currentUsername = getApplicationContext().getSharedPreferences("sharedUser", MODE_PRIVATE);
         String user = currentUsername.getString("thisUser", "User");
-        SAVE_FILENAME = user + SAVE_FILENAME;
+        SAVE_FILENAME = user  + "save_file.ser";
 
     }
 
@@ -61,8 +59,6 @@ public class StartingActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //make default 3
-                //boardManager = new BoardManager(3);
                 newGame();
             }
         });
@@ -84,7 +80,6 @@ public class StartingActivity extends AppCompatActivity {
                     makeToastLoadedText();
                     loadGame();
                 }
-                //SaveAndLoad.saveToFile(context,SAVE_FILENAME , boardManager);
 
             }
         });
@@ -145,7 +140,6 @@ public class StartingActivity extends AppCompatActivity {
      */
     private void loadGame() {
         Intent tmp = new Intent(this, GameActivity.class);
-        //SaveAndLoad.saveToFile(this, StartingActivity.SAVE_FILENAME, boardManager);
         startActivity(tmp);
 
 
@@ -158,8 +152,12 @@ public class StartingActivity extends AppCompatActivity {
             tmp.putExtra("TileImage", tilePicture);
         }
         //SaveAndLoad.saveToFile(this, StartingActivity.TEMP_SAVE_FILENAME, boardManager);
+
         startActivity(tmp);
 
 
     }
+
+
+
 }

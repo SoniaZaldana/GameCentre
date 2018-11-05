@@ -43,8 +43,9 @@ public class Loginactivity extends AppCompatActivity implements View.OnClickList
                 } else if (!authenticationPassword.equals(password)) {
                     Toast.makeText(this, "Invalid Password", Toast.LENGTH_SHORT).show();
                 } else {
-                    startActivity(new Intent(this, Gamelauncheractivity.class)
-                            .putExtra("Username", username));
+                    startActivity(new Intent(this, Gamelauncheractivity.class));
+                    SharedPreferenceManager.setSharedValue(this, "sharedUser", "thisUser", username);
+                    passwordText.setText("");
                 }
                 break;
             case R.id.registerbutton:

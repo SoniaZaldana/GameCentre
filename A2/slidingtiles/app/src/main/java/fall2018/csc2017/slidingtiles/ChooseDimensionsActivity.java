@@ -41,7 +41,6 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
         String text = dimensionInput.getText().toString();
         String undoMaxText = undoInput.getText().toString();
         try {
-            Integer undoMax = Integer.parseInt(undoMaxText);
             Integer dimension = Integer.parseInt(text);
             if(dimension>19){
                 dimensionInstructions.setText("Please enter a valid number less than 20!");
@@ -52,12 +51,26 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
             }
             else{
                 Intent tmp = new Intent(this, GameActivity.class);
-                BoardManager boardManager = new BoardManager(dimension, undoMax);
-                if(tileImage!=null){
-                    boardManager.getBoard().setPicturePath(tileImage.toString());
+
+                try {
+                    Integer undoMax = Integer.parseInt(undoMaxText);
+
+                    if (undoMax <= 0) {
+                        undoInstructions.setText("Please enter a number greater than 0");
+                    }
+                    else {
+
+                        BoardManager boardManager = new BoardManager(dimension, undoMax);
+                        if(tileImage!=null){
+                            boardManager.getBoard().setPicturePath(tileImage.toString());
+                        }
+                        SaveAndLoad.saveToFile(this, StartingActivity.SAVE_FILENAME, boardManager);
+                        startActivity(tmp);
+                    }
+                } catch(NumberFormatException e){
+                    undoInstructions.setText("Please enter a valid number!");
                 }
-                SaveAndLoad.saveToFile(this, StartingActivity.SAVE_FILENAME, boardManager);
-                startActivity(tmp);
+
             }
             }
         catch(NumberFormatException e){
