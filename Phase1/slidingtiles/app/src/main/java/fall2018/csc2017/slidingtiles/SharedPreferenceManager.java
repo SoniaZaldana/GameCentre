@@ -37,7 +37,13 @@ class SharedPreferenceManager {
         return sp.getString(key, "User");
     }
 
-    static void deleteUser(Context c, String spName, String key) {
+    /**
+     * Deletes a key-value pair from a shared preference file
+     * @param c - the activity's context
+     * @param spName - shared preference's file name
+     * @param key - the key for the value we are deleting
+     */
+    static void deleteSharedValue(Context c, String spName, String key) {
         SharedPreferences sp = c.getApplicationContext().getSharedPreferences(spName, MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(key);
