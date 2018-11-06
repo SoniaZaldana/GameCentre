@@ -157,7 +157,7 @@ class BoardManager implements Serializable {
      * @param moves number of moves
      * @return total score
      */
-    public int calculateScore(int moves) {
+    int calculateScore(int moves) {
         int dimensions = board.getNumRows();
         return dimensions * 500 - (moves * 5);
     }

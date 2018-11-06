@@ -13,7 +13,6 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.view.View;
 import android.widget.Toast;
-
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -69,7 +68,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         //TODO Make sure everything is in the right order. Only if new game, then you take value from dimensions
         //TODO Make sure we don't switch up the values.
         super.onCreate(savedInstanceState);
-        boardManager = SaveAndLoad.loadFromFile(this, SlidingTilesActivity.SAVE_FILENAME);
+        boardManager = SaveAndLoad.loadFromFile(this, SlidingTilesStartingActivity.SAVE_FILENAME);
         setContentView(R.layout.activity_main);
         autoSave();
 
@@ -142,7 +141,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SaveAndLoad.saveToFile(gameActivity, SlidingTilesActivity.SAVE_FILENAME, boardManager);
+                SaveAndLoad.saveToFile(gameActivity, SlidingTilesStartingActivity.SAVE_FILENAME, boardManager);
                 makeToastSavedText();
             }
         });
@@ -188,8 +187,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
             }
         } else {
             createButtonGUI(ContextCompat.getDrawable(this, R.drawable.tile_16));
-
-
         }
 
     }
@@ -221,7 +218,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onPause() {
         super.onPause();
-        SaveAndLoad.saveToFile(this, SlidingTilesActivity.SAVE_FILENAME, boardManager);
+        SaveAndLoad.saveToFile(this, SlidingTilesStartingActivity.SAVE_FILENAME, boardManager);
         timer.cancel();
     }
 
@@ -319,7 +316,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
          * The command being ran by the timer.
          */
         public void run() {
-            SaveAndLoad.saveToFile(this.gameActivity, SlidingTilesActivity.SAVE_FILENAME, boardManager);
+            SaveAndLoad.saveToFile(this.gameActivity, SlidingTilesStartingActivity.SAVE_FILENAME, boardManager);
 
         }
     }
