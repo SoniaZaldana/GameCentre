@@ -1,6 +1,7 @@
 package fall2018.csc2017.slidingtiles;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,12 +9,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+/**
+ * The Board Dimension + Undo Number Activity
+ */
 public class ChooseDimensionsActivity extends AppCompatActivity {
     EditText dimensionInput;
     Button submitInput;
     TextView dimensionInstructions;
     EditText undoInput;
     TextView undoInstructions;
+    Uri tileImage;
 
 
 
@@ -26,10 +31,16 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
         dimensionInstructions = (TextView) findViewById(R.id.dimensionInstructions);
         undoInput = (EditText) findViewById(R.id.editUndo);
         undoInstructions = (TextView) findViewById(R.id.undoInstructions);
-
-
-
+        String tileImgAsStr = getIntent().getStringExtra("TileImage");
+        if(tileImgAsStr != null){
+            tileImage = Uri.parse(tileImgAsStr);
+        }
     }
+
+    /**
+     * Checks for valid inputs. Returns messages to request for valid inputs.
+     * @param view The view.
+     */
     public void submitInput(View view) {
 
         String text = dimensionInput.getText().toString();
@@ -45,6 +56,7 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
             }
             else{
                 Intent tmp = new Intent(this, GameActivity.class);
+
                 try {
                     Integer undoMax = Integer.parseInt(undoMaxText);
 
@@ -52,7 +64,11 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
                         undoInstructions.setText("Please enter a number greater than 0");
                     }
                     else {
+
                         BoardManager boardManager = new BoardManager(dimension, undoMax);
+                        if(tileImage!=null){
+                            boardManager.getBoard().setPicturePath(tileImage.toString());
+                        }
                         SaveAndLoad.saveToFile(this, StartingActivity.SAVE_FILENAME, boardManager);
                         startActivity(tmp);
                     }
