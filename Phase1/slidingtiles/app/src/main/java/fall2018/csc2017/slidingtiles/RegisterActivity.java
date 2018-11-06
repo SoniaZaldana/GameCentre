@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
-    Button registerButton, backToLogIn;
+    Button registerButton;
     EditText usernameText, passwordText, reEnteredPasswordText;
     SharedPreferences users;
 
@@ -32,17 +32,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         passwordText = findViewById(R.id.IDPassword);
         reEnteredPasswordText = findViewById(R.id.IDPassword2);
         registerButton = findViewById(R.id.registerbutton);
-        backToLogIn = findViewById(R.id.login);
         registerButton.setOnClickListener(this);
-        backToLogIn.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.login:
-                startActivity(new Intent(this, LoginActivity.class));
-                break;
             case R.id.registerbutton:
                 String username = usernameText.getText().toString();
                 String password = passwordText.getText().toString();

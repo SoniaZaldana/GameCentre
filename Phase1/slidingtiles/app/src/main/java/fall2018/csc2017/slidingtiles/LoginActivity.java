@@ -22,7 +22,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         accounts = getApplicationContext().getSharedPreferences("users", Context.MODE_PRIVATE);
         setUpVisuals();
-
     }
 
     /**
@@ -59,9 +58,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             case R.id.registerbutton:
-
                 startActivity(new Intent(this ,RegisterActivity.class));
-                finish();
+                usernameText.setText("");
+                passwordText.setText("");
                 break;
         }
 
