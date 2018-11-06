@@ -5,20 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
-import static java.lang.Integer.valueOf;
 
 /**
  * Top scores of each user in the Sliding Tiles Game
@@ -33,7 +27,7 @@ public class SlidingScoreboardActivity extends AppCompatActivity implements View
         HashMap<String, String> usernamesAndScores  = getValue("SlidingTiles.txt");
         back = findViewById(R.id.GoBack);
         back.setOnClickListener(this);
-        ListView listView = (ListView)findViewById(R.id.listView);
+        ListView listView = findViewById(R.id.listView);
         ScoreBoardArrayAdapter my_adapter = new ScoreBoardArrayAdapter(this, usernamesAndScores);
         listView.setAdapter(my_adapter);
     }
@@ -47,6 +41,11 @@ public class SlidingScoreboardActivity extends AppCompatActivity implements View
         }
     }
 
+    /**
+     * Returns a hash map containing coupled values for the contents of fileName
+     * @param fileName - the file from which we are pulling the contents from
+     * @return A hashmap containing coupled values <user><score> or <game><score>
+     */
     private HashMap<String, String> getValue(String fileName) {
         HashMap<String, String> usernamesAndScores =  new LinkedHashMap<>();
         try {
