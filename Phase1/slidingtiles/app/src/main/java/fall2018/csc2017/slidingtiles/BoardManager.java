@@ -46,7 +46,7 @@ class BoardManager implements Serializable {
         }
 
 
-        //Collections.shuffle(tiles);
+        Collections.shuffle(tiles);
         this.board = new Board(dimension, tiles);
     }
 
@@ -152,8 +152,8 @@ class BoardManager implements Serializable {
 
 
     /**
-     * Returns score
-     * @param moves number of moves made
+     * Returns score based on dimensions of puzzle
+     * @param moves number of moves
      * @return total score
      */
     public int calculateScore(int moves) {
