@@ -62,42 +62,30 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         File scoreFile = new File(this.getFilesDir(), fileName);
         FileWriter fr = null;
         try {
-            fr = new FileWriter(scoreFile, true);
             if (isHighScore(fileName, scoreSave)) {
-                //deletePreviousHighScore(fileName, user);
+                deletePreviousHighScore(fileName, user);
+                fr = new FileWriter(scoreFile, true);
                 fr.write(entry+"\n");
+                fr.close();
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                fr.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
     private void saveToFile(String fileName, int scoreSave) {
-        String entry = "[SlidingTiles, " + scoreSave + "]";
+        String entry = "[SlidingTiles," + scoreSave + "]";
         File scoreFile = new File(this.getFilesDir(), fileName);
         FileWriter fr = null;
         try {
-            fr = new FileWriter(scoreFile, true);
             if (isHighScore(fileName, scoreSave)) {
-                deletePreviousHighScore(fileName, user);
-                fr.close();
+                deletePreviousHighScore(fileName, "SlidingTiles");
                 fr = new FileWriter(scoreFile, true);
                 fr.write(entry+"\n");
+                fr.close();
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                fr.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -128,7 +116,7 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         }
         return highScore;
     }
-    private void deletePreviousHighScore(String fileName, String targetUser) {
+    private void deletePreviousHighScore(String fileName, String targetValue) {
         String line;
         int index;
         BufferedReader reader;
@@ -139,7 +127,7 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
             fr = new FileWriter(fixedFile);
             while ((line = reader.readLine()) != null) {
                 index = line.indexOf(",");
-                if (!line.substring(1, index).equals(targetUser)) {
+                if (!line.substring(1, index).equals(targetValue)) {
                     fr.write(line);
                 }
             }

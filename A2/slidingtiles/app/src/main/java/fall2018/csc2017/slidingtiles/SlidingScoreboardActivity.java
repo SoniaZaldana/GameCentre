@@ -44,7 +44,7 @@ boolean USERS = true;
         ArrayList<String> usernames = new ArrayList<String>();
         ArrayList<String> scores = new ArrayList<String>();
         try{
-            BufferedReader reader = new BufferedReader(new FileReader(new File(this.getFilesDir(), fileName)))
+            BufferedReader reader = new BufferedReader(new FileReader(new File(this.getFilesDir(), fileName)));
             String line;
             while ((line = reader.readLine()) != null) {
                 int index = line.indexOf(",");
