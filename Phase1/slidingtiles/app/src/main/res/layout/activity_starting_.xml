@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="20dp"
-    tools:context="fall2018.csc2017.slidingtiles.StartingActivity">
+    tools:context="fall2018.csc2017.GameCentre.StartingActivity">
 
     <TextView
         android:id="@+id/GameText"

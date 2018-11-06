@@ -1,4 +1,4 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017.GameCentre;
 
 import android.Manifest;
 import android.content.Context;

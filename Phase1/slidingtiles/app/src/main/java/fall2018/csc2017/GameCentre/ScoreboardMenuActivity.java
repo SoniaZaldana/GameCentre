@@ -1,7 +1,6 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017.GameCentre;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
