@@ -21,11 +21,11 @@ and the android development kit, specifically using the SDK for Oreo with API le
 
 ## Authors
 
-Nicolae Stroncea
-Alex Wong
-Osman Afandiyev
-Suguru Seo
-Sonia Zaldana Calles
+* Nicolae Stroncea
+* Alex Wong
+* Osman Afandiyev
+* Suguru Seo
+* Sonia Zaldana Calles
 
 ## Acknowledgments
 
