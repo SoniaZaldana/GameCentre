@@ -11,7 +11,7 @@ These instructions will get you a copy of the project up and running on your loc
 3. For URL:  https://markus.teach.cs.toronto.edu/git/csc207-2018-09-reg/group_0477; for directory: choose a new folder. Click Clone.
 4. Answer Accept to question " Would you like to create an Android Studio project for the sources you have checked out"?
 5. Click on "Import project from external model", choose "Gradle".
-6. Add "Phase1\slidingtiles" to the path for the Gradle project(first line). Leave all other properties the same. Click Finish.
+6. Add "Phase1\GameCentre" to the path for the Gradle project(first line). Leave all other properties the same. Click Finish.
 7. Enjoy a super cool project
 
 ## Prerequisites
