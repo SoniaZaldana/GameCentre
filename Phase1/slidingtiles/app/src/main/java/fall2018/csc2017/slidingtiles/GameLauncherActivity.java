@@ -70,7 +70,7 @@ public class GameLauncherActivity extends AppCompatActivity implements View.OnCl
         switch (view.getId()) {
             case R.id.TilesGame:
                 startActivity(new Intent(this,
-                        SlidingTilesActivity.class));
+                        SlidingTilesStartingActivity.class));
                 break;
             case R.id.ScoreboardButton:
                 startActivity(new Intent(this,
