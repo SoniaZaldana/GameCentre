@@ -30,6 +30,13 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_score);
         scoreValue = findViewById(R.id.ScoreValueLabel);
         highScore = findViewById(R.id.HighScoreLabel);
+        btn = findViewById(R.id.MainMenuButton);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ScoreCalculatorActivity.this, GameLauncherActivity.class));
+            }
+        });
 
         user = SharedPreferenceManager.getSharedValue(this, "sharedUser", "thisUser");
         gameFile = getIntent().getStringExtra("Game");
@@ -43,17 +50,15 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         saveToFile(gameFile, user, score);
         saveToFile(user + "Score.txt", "SlidingTiles", score);
 
-
-        btn = findViewById(R.id.MainMenuButton);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ScoreCalculatorActivity.this, GameLauncherActivity.class));
-            }
-        });
-
     }
 
+    /**
+     * Saves scores into the corresponding text files (either the userScore.txt or game.txt)
+     * @param fileName - File in which we are saving into
+     * @param firstVariable - The corresponding variable to which score is saved
+     *                      either user or game
+     * @param scoreSave - The score that will be saved
+     */
     private void saveToFile(String fileName, String firstVariable, int scoreSave) {
         String entry = "[" + firstVariable + "," + scoreSave + "]";
         File scoreFile = new File(this.getFilesDir(), fileName);
@@ -70,6 +75,12 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Checks whether the new score obtained is a high score for the given user
+     * @param fileName - file we are checking for previous high score (if any)
+     * @param userScore - the user's new score achieved
+     * @return whether it is a new high score or not
+     */
     private boolean isHighScore(String fileName, int userScore) {
         boolean highScore = false;
         String line;
@@ -78,6 +89,7 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         int scoreSaved;
         try {
             reader = new BufferedReader(new FileReader(new File(this.getFilesDir(), fileName)));
+            // Checks whether file is empty, because empty file implies automatically a new high score
             if ((line = reader.readLine()) == null) {
                 highScore = true;
             }
@@ -97,6 +109,12 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         }
         return highScore;
     }
+
+    /**
+     * Deletes the previous high score in the existing files for game and user scores
+     * @param fileName - file from which we are deleting previous high score
+     * @param targetValue - the score we are trying to find to delete that entry in the file
+     */
     private void deletePreviousHighScore(String fileName, String targetValue) {
         String line;
         int index;
