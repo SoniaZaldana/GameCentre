@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,7 +18,7 @@
         android:layout_alignParentBottom="true"></Button>
 
     <TextView
-        android:id="@+id/SlidingTIlesScoreboard"
+        android:id="@+id/SlidingTilesScoreboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -28,26 +27,35 @@
         android:layout_marginBottom="50dp"
         android:text="Sliding Tiles Scoreboard" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Username"
-        android:layout_below="@id/SlidingTIlesScoreboard"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="30dp"
-        android:layout_marginRight="50dp"
-        android:id="@+id/usernameText" />
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="1"
+            android:id="@+id/mainColumns"
+            android:layout_marginBottom="30dp"
+            android:layout_below="@+id/SlidingTilesScoreboard"
+            android:layout_margin="10dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Username"
+                android:id="@+id/usernameText"
+                android:layout_column="0"
+                android:layout_gravity="left"
+                />
 
-    <TextView
-        android:id="@+id/scoreText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/usernameText"
-        android:layout_alignRight="@id/usernameText"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginRight="-177dp"
-        android:text="HighScore per User" />
+            <TextView
+                android:id="@+id/scoreText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HighScore per User"
+                android:layout_column="1"
+                android:layout_gravity="right"/>
+        </GridLayout>
+
+
 
 
 
@@ -58,7 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:layout_below="@id/usernameText"/>
+        android:layout_below="@id/mainColumns"/>
 
 
 
