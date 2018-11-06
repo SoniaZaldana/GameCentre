@@ -1,6 +1,7 @@
 package fall2018.csc2017.slidingtiles;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,6 +15,7 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
     TextView dimensionInstructions;
     EditText undoInput;
     TextView undoInstructions;
+    Uri tileImage;
 
 
 
@@ -26,6 +28,10 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
         dimensionInstructions = (TextView) findViewById(R.id.dimensionInstructions);
         undoInput = (EditText) findViewById(R.id.editUndo);
         undoInstructions = (TextView) findViewById(R.id.undoInstructions);
+        String tileImgAsStr = getIntent().getStringExtra("TileImage");
+        if(tileImgAsStr != null){
+            tileImage = Uri.parse(tileImgAsStr);
+        }
 
 
 
@@ -45,6 +51,7 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
             }
             else{
                 Intent tmp = new Intent(this, GameActivity.class);
+
                 try {
                     Integer undoMax = Integer.parseInt(undoMaxText);
 
@@ -52,7 +59,11 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
                         undoInstructions.setText("Please enter a number greater than 0");
                     }
                     else {
+
                         BoardManager boardManager = new BoardManager(dimension, undoMax);
+                        if(tileImage!=null){
+                            boardManager.getBoard().setPicturePath(tileImage.toString());
+                        }
                         SaveAndLoad.saveToFile(this, StartingActivity.SAVE_FILENAME, boardManager);
                         startActivity(tmp);
                     }
