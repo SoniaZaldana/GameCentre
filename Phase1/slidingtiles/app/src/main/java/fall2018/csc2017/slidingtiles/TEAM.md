@@ -1,7 +1,7 @@
 ## Contact information
 * Alex: alexu.wong@mail.utoronto.ca, 416-821-0618
 * Nick: stroncea.nicolae@gmail.com, no phone #.
-* Osman: email, phone
+* Osman: osman.afandiyev@mail.utoronto.ca, +6477676687
 * Sonia: sonia.zaldana@mail.utoronto.ca, phone: (416) 890 - 3475
 * Suguru:email, phone
 
@@ -37,6 +37,13 @@ current user from any activity/class.
 
 
 ### Osman:
+1 Implement acitvity_register and RegisterActivity class which allows user to register in the system within
+the requirements of the system.
+2 Implement shared preference to store registered users information, username and password, for
+authentication purposes.
+3 Implement activity_login and LoginActivity to allow previously registered user to login into the system.
+4 Implement gamelauncheractivity which has to be flexible for future games.
+5 Maintain logical flow of backstack in between activity_login, activity_register and gamelauncheractivity.
 
 ### Nick:
 1. Allow user to choose dimensions of the board arbitrarily.
