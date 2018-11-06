@@ -1,13 +1,15 @@
-Contact information
-Alex: alexu.wong@mail.utoronto.ca, 416-821-0618
-Nick: stroncea.nicolae@gmail.com, no phone #.
-Osman: email, phone
-Sonia: sonia.zaldana@mail.utoronto.ca, phone: (416) 890 - 3475
-Suguru:email, phone
+## Contact information
+* Alex: alexu.wong@mail.utoronto.ca, 416-821-0618
+* Nick: stroncea.nicolae@gmail.com, no phone #.
+* Osman: email, phone
+* Sonia: sonia.zaldana@mail.utoronto.ca, phone: (416) 890 - 3475
+* Suguru:email, phone
 
-Main communication tool: Facebook
+#### Main communication tool
+Facebook
 
-Team Contract:
+## Team Contract:
+
     I will get my allotted work done on time.
     I will attend every team meeting and actively participate.
     Should an emergency arise that prevents me from attending a team meeting, I will notify my team immediately.
@@ -17,9 +19,9 @@ Team Contract:
 
 Signatures: Alex, Nick, Osman, Sonia, Suguru.
 
-Tasks:
+## Tasks:
 
-Sonia:
+### Sonia:
 1. Implement calculateScore() method and add it into the flow of the program to be able to calculate
 score when the game ends.
 2. Implement ScoreCalculatorActivity which assigns the scores to its respective text file (either the
@@ -33,20 +35,20 @@ current user from any activity/class.
 
 
 
-Osman:
+### Osman:
 
-Nick:
+### Nick:
 1. Allow user to choose dimensions of the board arbitrarily.
 2. Generate tiles automatically.
 3. Choose background for tiles.
 
-Alex:
+### Alex:
 1. Implement AutoSave
 2. Implement Undo
 3. Implement Undo bonus - allows user to choose the maximum number of steps they can go back in
 4. Helped with ScoreCalculatorActivity
 
-Suguru
+### Suguru
 1. Implement Autosave with Alex.
 2. Implement Undo with Alex.
 
