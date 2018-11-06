@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class ScoreboardActivity extends AppCompatActivity implements View.OnClickListener {
+public class ScoreboardMenuActivity extends AppCompatActivity implements View.OnClickListener {
     Button menu;
     Button myScoreboard;
     Button sliding;
