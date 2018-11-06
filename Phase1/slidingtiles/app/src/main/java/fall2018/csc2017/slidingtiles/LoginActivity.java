@@ -53,13 +53,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 } else {
                     SharedPreferenceManager.setSharedValue(this, "sharedUser",
                             "thisUser", username);
-                    startActivity(new Intent(this, Gamelauncheractivity.class));
+                    startActivity(new Intent(this, GameLauncherActivity.class));
                     finish();
 
                 }
                 break;
             case R.id.registerbutton:
-                startActivity(new Intent(this ,RegisteractivityActivity.class));
+
+                startActivity(new Intent(this ,RegisterActivity.class));
                 finish();
                 break;
         }

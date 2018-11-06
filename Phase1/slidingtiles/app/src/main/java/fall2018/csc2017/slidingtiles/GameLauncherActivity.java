@@ -45,8 +45,9 @@ public class GameLauncherActivity extends AppCompatActivity implements View.OnCl
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_signoff:
-                startActivity(new Intent(this, Loginactivity.class));
+                startActivity(new Intent(this, LoginActivity.class));
                 SharedPreferenceManager.deleteUser(this, "sharedUser", "thisUser");
+
                 return true;
         }
         return true;

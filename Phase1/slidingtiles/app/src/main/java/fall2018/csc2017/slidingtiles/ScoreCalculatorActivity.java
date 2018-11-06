@@ -51,7 +51,7 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ScoreCalculatorActivity.this, Gamelauncheractivity.class));
+                startActivity(new Intent(ScoreCalculatorActivity.this, GameLauncherActivity.class));
             }
         });
 

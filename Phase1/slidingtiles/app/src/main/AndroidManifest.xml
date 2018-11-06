@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Loginactivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,8 +21,8 @@
         <activity android:name=".UserScoreboardActivity" />
         <activity android:name=".ScoreCalculatorActivity" />
         <activity android:name=".SlidingScoreboardActivity"/>
-        <activity android:name=".Gamelauncheractivity"/>
-        <activity android:name=".RegisteractivityActivity"/>
+        <activity android:name=".GameLauncherActivity"/>
+        <activity android:name=".RegisterActivity"/>
         <activity android:name=".ChooseDimensionsActivity"/>
         <activity android:name=".StartingActivity"/>
 

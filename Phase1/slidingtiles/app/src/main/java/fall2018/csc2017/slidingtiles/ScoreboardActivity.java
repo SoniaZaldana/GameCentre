@@ -29,7 +29,7 @@ public class ScoreboardActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.MainMenuButton:
-                startActivity(new Intent(this, Gamelauncheractivity.class));
+                startActivity(new Intent(this, GameLauncherActivity.class));
                 break;
             case R.id.MyScoreboardLabel:
                 startActivity(new Intent(this, UserScoreboardActivity.class));
