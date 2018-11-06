@@ -41,6 +41,8 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
 
         if (isHighScore(gameFile, score))
             highScore.setText("New High Score");
+        else
+            highScore.setText("Not a new high score, but pretty good!");
         saveToFile(gameFile, user, score);
         saveToFile(user + "Score.txt", score);
 
@@ -60,10 +62,10 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         File scoreFile = new File(this.getFilesDir(), fileName);
         FileWriter fr = null;
         try {
-            fr = new FileWriter(scoreFile);
+            fr = new FileWriter(scoreFile, true);
             if (isHighScore(fileName, scoreSave)) {
                 //deletePreviousHighScore(fileName, user);
-                fr.write(entry);
+                fr.write(entry+"\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -81,10 +83,12 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         File scoreFile = new File(this.getFilesDir(), fileName);
         FileWriter fr = null;
         try {
-            fr = new FileWriter(scoreFile);
+            fr = new FileWriter(scoreFile, true);
             if (isHighScore(fileName, scoreSave)) {
-            //deletePreviousHighScore(fileName, user);
-            fr.write(entry);
+                deletePreviousHighScore(fileName, user);
+                fr.close();
+                fr = new FileWriter(scoreFile, true);
+                fr.write(entry+"\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -108,6 +112,8 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
             if ((line = reader.readLine()) == null) {
                 highScore = true;
             }
+            reader.close();
+            reader = new BufferedReader(new FileReader(new File(this.getFilesDir(), fileName)));
             while ((line = reader.readLine()) != null) {
                 index = line.indexOf(",");
                 scoreSaved = valueOf(line.substring(index + 1, line.length() - 1));
@@ -122,33 +128,31 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         }
         return highScore;
     }
-
+    private void deletePreviousHighScore(String fileName, String targetUser) {
+        String line;
+        int index;
+        BufferedReader reader;
+        File fixedFile = new File(this.getFilesDir(), fileName + "temp");
+        FileWriter fr = null;
+        try {
+            reader = new BufferedReader(new FileReader(new File(this.getFilesDir(), fileName)));
+            fr = new FileWriter(fixedFile);
+            while ((line = reader.readLine()) != null) {
+                index = line.indexOf(",");
+                if (!line.substring(1, index).equals(targetUser)) {
+                    fr.write(line);
+                }
+            }
+            fr.close();
+            reader.close();
+            File oldFile = new File(this.getFilesDir(), fileName);
+            oldFile.delete();
+            fixedFile.renameTo(new File(this.getFilesDir(), fileName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
-
-//    private void deletePreviousHighScore(String fileName, String targetUser) {
-//        String line;
-//        int index;
-//        BufferedReader reader;
-//        File fixedFile = new File(this.getFilesDir(), fileName);
-//        FileWriter fr = null;
-//        try {
-//            reader = new BufferedReader(new FileReader(new File(this.getFilesDir(), fileName)));
-//            fr = new FileWriter(fixedFile);
-//            while ((line = reader.readLine()) != null) {
-//                index = line.indexOf(",");
-//                if (!line.substring(1, index - 1).equals(targetUser)) {
-//                    fr.write(line);
-//                }
-//            }
-//            fr.close();
-//            reader.close();
-//            File oldFile = new File(this.getFilesDir(), fileName);
-//            oldFile.delete();
-//            fixedFile.renameTo(new File(this.getFilesDir(), fileName));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
 
 
