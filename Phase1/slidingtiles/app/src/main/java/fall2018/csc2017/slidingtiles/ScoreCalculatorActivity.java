@@ -16,6 +16,9 @@ import java.io.IOException;
 
 import static java.lang.Integer.valueOf;
 
+/**
+ * The end screen after the puzzle is solved
+ */
 public class ScoreCalculatorActivity extends AppCompatActivity {
     int score;
     String user;

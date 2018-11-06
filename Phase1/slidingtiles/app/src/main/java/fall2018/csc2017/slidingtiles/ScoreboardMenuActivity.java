@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * The Scoreboard Menu
+ */
 public class ScoreboardMenuActivity extends AppCompatActivity implements View.OnClickListener {
     Button menu;
     Button myScoreboard;

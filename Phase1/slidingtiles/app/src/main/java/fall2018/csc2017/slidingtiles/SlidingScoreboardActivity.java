@@ -15,6 +15,9 @@ import java.util.ArrayList;
 
 import static java.lang.Integer.valueOf;
 
+/**
+ * Top scores of each user in the Sliding Tiles Game
+ */
 public class SlidingScoreboardActivity extends AppCompatActivity implements View.OnClickListener {
     Button back;
     boolean USERS = true;

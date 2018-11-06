@@ -11,6 +11,9 @@ import android.widget.Button;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The Game Launcher Screen
+ */
 public class GameLauncherActivity extends AppCompatActivity implements View.OnClickListener {
     Button Scoreboards, TilesGame;
     String user;
