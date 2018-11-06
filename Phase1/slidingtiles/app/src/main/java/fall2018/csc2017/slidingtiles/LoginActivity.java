@@ -11,7 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+/**
+ * The login screen
+ */
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     Button loginButton, registerButton;
     EditText usernameText, passwordText;
     SharedPreferences accounts;
@@ -22,15 +25,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         accounts = getApplicationContext().getSharedPreferences("users", Context.MODE_PRIVATE);
         setUpVisuals();
-
     }
 
     /**
      * Sets up the visuals for the activities such as buttons and labels
      */
     private void setUpVisuals() {
-        usernameText =  findViewById(R.id.username);
-        passwordText =  findViewById(R.id.IDPassword);
+        usernameText = findViewById(R.id.username);
+        passwordText = findViewById(R.id.IDPassword);
         loginButton = findViewById(R.id.login);
         registerButton = findViewById(R.id.registerbutton);
         registerButton.setOnClickListener(this);
@@ -46,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 String authenticationPassword = accounts.getString(username,
                         "Account does not exists");
                 if (!accounts.contains(username)) {
-                    Toast.makeText(this , String.format("Account with name " +
+                    Toast.makeText(this, String.format("Account with name " +
                             "\"%s\" does not exist", username), Toast.LENGTH_SHORT).show();
                 } else if (!authenticationPassword.equals(password)) {
                     Toast.makeText(this, "Invalid Password", Toast.LENGTH_SHORT).show();
@@ -59,9 +61,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             case R.id.registerbutton:
-
-                startActivity(new Intent(this ,RegisterActivity.class));
-                finish();
+                startActivity(new Intent(this, RegisterActivity.class));
+                usernameText.setText("");
+                passwordText.setText("");
                 break;
         }
 

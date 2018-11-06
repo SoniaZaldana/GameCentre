@@ -28,13 +28,14 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
         undoInput = findViewById(R.id.editUndo);
         undoInstructions = findViewById(R.id.undoInstructions);
         String tileImgAsStr = getIntent().getStringExtra("TileImage");
-        if(tileImgAsStr != null){
+        if (tileImgAsStr != null) {
             tileImage = Uri.parse(tileImgAsStr);
         }
     }
 
     /**
      * Checks for valid inputs. Returns messages to request for valid inputs.
+     *
      * @param view The view.
      */
     public void submitInput(View view) {
@@ -43,14 +44,12 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
         String undoMaxText = undoInput.getText().toString();
         try {
             Integer dimension = Integer.parseInt(text);
-            if(dimension>19){
+            if (dimension > 19) {
                 dimensionInstructions.setText("Please enter a valid number less than 20!");
-            }
-            else if(dimension==1){
+            } else if (dimension == 1) {
                 dimensionInstructions.setText("Too easy :) Try something harder!");
 
-            }
-            else{
+            } else {
                 Intent tmp = new Intent(this, GameActivity.class);
 
                 try {
@@ -58,23 +57,21 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
 
                     if (undoMax <= 0) {
                         undoInstructions.setText("Please enter a number greater than 0");
-                    }
-                    else {
+                    } else {
 
                         BoardManager boardManager = new BoardManager(dimension, undoMax);
-                        if(tileImage!=null){
+                        if (tileImage != null) {
                             boardManager.getBoard().setPicturePath(tileImage.toString());
                         }
-                        SaveAndLoad.saveToFile(this, StartingActivity.SAVE_FILENAME, boardManager);
+                        SaveAndLoad.saveToFile(this, SlidingTilesStartingActivity.SAVE_FILENAME, boardManager);
                         startActivity(tmp);
                     }
-                } catch(NumberFormatException e){
+                } catch (NumberFormatException e) {
                     undoInstructions.setText("Please enter a valid number!");
                 }
 
             }
-            }
-        catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             dimensionInstructions.setText("Please enter a valid number!");
         }
     }

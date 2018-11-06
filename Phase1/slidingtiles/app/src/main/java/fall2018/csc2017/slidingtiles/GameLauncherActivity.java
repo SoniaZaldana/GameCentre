@@ -11,6 +11,9 @@ import android.widget.Button;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The Game Launcher Screen
+ */
 public class GameLauncherActivity extends AppCompatActivity implements View.OnClickListener {
     Button Scoreboards, TilesGame;
     String user;
@@ -67,7 +70,7 @@ public class GameLauncherActivity extends AppCompatActivity implements View.OnCl
         switch (view.getId()) {
             case R.id.TilesGame:
                 startActivity(new Intent(this,
-                        StartingActivity.class));
+                        SlidingTilesStartingActivity.class));
                 break;
             case R.id.ScoreboardButton:
                 startActivity(new Intent(this,
