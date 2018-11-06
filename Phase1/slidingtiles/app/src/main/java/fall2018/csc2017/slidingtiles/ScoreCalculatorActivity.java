@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -13,9 +14,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 
-
 import static java.lang.Integer.valueOf;
 
+/**
+ * The end screen after the puzzle is solved
+ */
 public class ScoreCalculatorActivity extends AppCompatActivity {
     int score;
     String user;
@@ -54,10 +57,11 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
 
     /**
      * Saves scores into the corresponding text files (either the userScore.txt or game.txt)
-     * @param fileName - File in which we are saving into
+     *
+     * @param fileName      - File in which we are saving into
      * @param firstVariable - The corresponding variable to which score is saved
      *                      either user or game
-     * @param scoreSave - The score that will be saved
+     * @param scoreSave     - The score that will be saved
      */
     private void saveToFile(String fileName, String firstVariable, int scoreSave) {
         String entry = "[" + firstVariable + "," + scoreSave + "]";
@@ -67,7 +71,7 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
             if (isHighScore(fileName, scoreSave)) {
                 deletePreviousHighScore(fileName, firstVariable);
                 fr = new FileWriter(scoreFile, true);
-                fr.write(entry+"\n");
+                fr.write(entry + "\n");
                 fr.close();
             }
         } catch (IOException e) {
@@ -77,7 +81,8 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
 
     /**
      * Checks whether the new score obtained is a high score for the given user
-     * @param fileName - file we are checking for previous high score (if any)
+     *
+     * @param fileName  - file we are checking for previous high score (if any)
      * @param userScore - the user's new score achieved
      * @return whether it is a new high score or not
      */
@@ -112,7 +117,8 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
 
     /**
      * Deletes the previous high score in the existing files for game and user scores
-     * @param fileName - file from which we are deleting previous high score
+     *
+     * @param fileName    - file from which we are deleting previous high score
      * @param targetValue - the score we are trying to find to delete that entry in the file
      */
     private void deletePreviousHighScore(String fileName, String targetValue) {
@@ -127,7 +133,7 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
             while ((line = reader.readLine()) != null) {
                 index = line.indexOf(",");
                 if (!line.substring(1, index).equals(targetValue)) {
-                    fr.write(line+"\n");
+                    fr.write(line + "\n");
                 }
             }
             fr.close();

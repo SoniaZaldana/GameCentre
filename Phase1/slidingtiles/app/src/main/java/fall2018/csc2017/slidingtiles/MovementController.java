@@ -33,6 +33,7 @@ public class MovementController {
 
     /**
      * Performs actions in order to calculate score and move on to score activity
+     *
      * @param context
      */
     private void moveOnToScoreActivity(Context context) {

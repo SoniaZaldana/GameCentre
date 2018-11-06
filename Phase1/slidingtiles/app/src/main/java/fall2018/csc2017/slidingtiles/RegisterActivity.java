@@ -10,7 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
+/**
+ * The Activity to Register a new user
+ */
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     Button registerButton;
     EditText usernameText, passwordText, reEnteredPasswordText;

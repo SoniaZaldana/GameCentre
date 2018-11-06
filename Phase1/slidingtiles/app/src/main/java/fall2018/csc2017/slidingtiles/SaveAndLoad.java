@@ -2,13 +2,19 @@ package fall2018.csc2017.slidingtiles;
 
 import android.content.Context;
 import android.util.Log;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
 import static android.content.Context.MODE_PRIVATE;
 
+
+/**
+ * Handles Saving and Loading
+ */
 public class SaveAndLoad {
 
     /**

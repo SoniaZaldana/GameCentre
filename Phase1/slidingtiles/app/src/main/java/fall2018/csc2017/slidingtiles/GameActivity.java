@@ -13,6 +13,7 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.view.View;
 import android.widget.Toast;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -110,7 +111,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         for (int row = 0; row != board.getNumRows(); row++) {
             for (int col = 0; col != board.getNumCols(); col++) {
                 Button tmp = new Button(context);
-               // tmp.setBackgroundResource(board.getTile(row, col).getBackground());
+                // tmp.setBackgroundResource(board.getTile(row, col).getBackground());
                 // tmp.setBackgroundResource(R.drawable.tile_16);
                 this.tileButtons.add(tmp);
                 /*TextView tvId = (TextView) findViewById(R.id.number);
@@ -125,10 +126,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private void addUndoButtonListener() {
         Button undoButton = findViewById(R.id.UndoButton);
         undoButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        undo();
-                    }
+            @Override
+            public void onClick(View v) {
+                undo();
+            }
         });
     }
 
@@ -160,8 +161,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private void updateTileButtons() {
         Board board = boardManager.getBoard();
         // See if you need the permission. Code taken from Developer Website for Android.
-        if(board.getPicturePath() != null){
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+        if (board.getPicturePath() != null) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                         Manifest.permission.READ_EXTERNAL_STORAGE)) {
                     //TODO See what to do here
@@ -179,15 +180,13 @@ public class GameActivity extends AppCompatActivity implements Observer {
                     // result of the request.
                 }
 
-            }
-            else{
+            } else {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                         MY_PERMISSIONS_REQUEST_READ_STORAGE);
                 //ButtonsWithGalleryBckgrnd();
             }
-        }
-        else{
+        } else {
             createButtonGUI(ContextCompat.getDrawable(this, R.drawable.tile_16));
 
 
@@ -206,16 +205,14 @@ public class GameActivity extends AppCompatActivity implements Observer {
             b.setBackground(d);
 
             numberOnTile = board.getTile(row, col).getId();
-            if(numberOnTile != board.getBlankId()){
+            if (numberOnTile != board.getBlankId()) {
                 b.setText(String.valueOf(numberOnTile));
-            }
-            else{
+            } else {
                 b.setText("");
             }
             nextPos++;
         }
     }
-
 
 
     /**
@@ -236,9 +233,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
 
     /**
      * Auto-saves the game every 5 seconds
-     *
      */
-    public void autoSave(){
+    public void autoSave() {
         SaveTask task = new SaveTask(this);
         timer.schedule(task, 5000, 5000);
     }
@@ -248,7 +244,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
      */
     public void undo() {
         boolean undone = this.boardManager.undo();
-        if (!undone){
+        if (!undone) {
             makeUndoFailedText();
         }
     }
@@ -259,6 +255,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private void makeUndoFailedText() {
         Toast.makeText(this, "Maximum Undo reached", Toast.LENGTH_SHORT).show();
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
@@ -290,8 +287,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
             InputStream stream = getContentResolver().openInputStream(Uri.parse(boardManager.getBoard().getPicturePath()));
             Drawable d = Drawable.createFromStream(stream, "UserTilePic");
             createButtonGUI(d);
-        }
-        catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
             Toast.makeText(this, "Image not found", Toast.LENGTH_SHORT).show();
         }
@@ -314,16 +310,15 @@ public class GameActivity extends AppCompatActivity implements Observer {
          *
          * @param gameActivity The gameActivity that uses this timer
          */
-        SaveTask(GameActivity gameActivity){
+        SaveTask(GameActivity gameActivity) {
             super();
             this.gameActivity = gameActivity;
         }
 
         /**
          * The command being ran by the timer.
-         *
          */
-        public void run(){
+        public void run() {
             SaveAndLoad.saveToFile(this.gameActivity, SlidingTilesActivity.SAVE_FILENAME, boardManager);
 
         }
