@@ -29,7 +29,7 @@ Sonia Zaldana Calles
 
 ## Acknowledgments
 
-To that sushi restaurant on dundas that saw us go through the 5 stages of depresssion as we couldn't finish our all you can eat order.
+To that sushi restaurant on dundas that saw us go through the 5 stages of depresssion, as we couldn't finish our all you can eat order.
 You really brought us closer as a team.
 
 
