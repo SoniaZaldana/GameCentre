@@ -23,14 +23,13 @@
 
     <Button
         android:id="@+id/ScoreboardButton"
-        android:layout_width="148dp"
-        android:layout_height="59dp"
-        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="488dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/iconshape"
         android:text="Scoreboards" />
 
 
@@ -52,36 +51,89 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="430dp"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
         android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="99dp"
-        android:fillViewport="true"
-        tools:layout_marginLeft="30dp"
-        tools:layout_marginTop="150dp">
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="83dp">
 
         <LinearLayout
-            android:id="@+id/myid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <Button
-                android:id="@+id/TilesGame"
-                style="@style/Widget.AppCompat.Button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="100dp"
-                android:layout_weight="1"
-                android:autoText="false"
-                android:background="@drawable/iconshape"
-                android:text="SlidingTIles"
-                android:textSize="18sp"
-                tools:layout_marginLeft="30dp" />
 
+                android:id="@+id/TilesGame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SlidingTiles" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MyButton"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MyButton"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MyButton"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MyButton"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MyButton"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MyButton"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MyButton"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MyButton"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MyButton"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MyButton"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MyButton"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hi" />
+
+            <Button
+                android:id="@+id/TIlesGame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MyButton" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MyButton"/>
         </LinearLayout>
     </ScrollView>
+
 
 
 </RelativeLayout>
