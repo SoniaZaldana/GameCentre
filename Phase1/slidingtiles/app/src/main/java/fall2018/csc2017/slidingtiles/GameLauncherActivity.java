@@ -15,7 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.function.ToLongBiFunction;
 
-public class Gamelauncheractivity extends AppCompatActivity implements View.OnClickListener {
+public class GameLauncherActivity extends AppCompatActivity implements View.OnClickListener {
     Button Scoreboards, TilesGame;
     String user;
 
