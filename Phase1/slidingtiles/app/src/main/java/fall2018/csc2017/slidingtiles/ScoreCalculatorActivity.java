@@ -46,7 +46,7 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         score = getIntent().getIntExtra("Score", 0);
         scoreValue.setText(Integer.toString(score));
 
-        if (isHighScore(gameFile, score))
+        if (isHighScore(gameFile, user, score))
             highScore.setText("New High Score");
         else
             highScore.setText("Not a new high score, but pretty good!");
@@ -68,7 +68,7 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         File scoreFile = new File(this.getFilesDir(), fileName);
         FileWriter fr;
         try {
-            if (isHighScore(fileName, scoreSave)) {
+            if (isHighScore(fileName, firstVariable, scoreSave)) {
                 deletePreviousHighScore(fileName, firstVariable);
                 fr = new FileWriter(scoreFile, true);
                 fr.write(entry + "\n");
@@ -86,8 +86,9 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
      * @param userScore - the user's new score achieved
      * @return whether it is a new high score or not
      */
-    private boolean isHighScore(String fileName, int userScore) {
+    private boolean isHighScore(String fileName, String targetValue, int userScore) {
         boolean highScore = false;
+        boolean userExists = false;
         String line;
         BufferedReader reader;
         int index;
@@ -102,12 +103,18 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
             reader = new BufferedReader(new FileReader(new File(this.getFilesDir(), fileName)));
             while ((line = reader.readLine()) != null) {
                 index = line.indexOf(",");
-                scoreSaved = valueOf(line.substring(index + 1, line.length() - 1));
-                if (userScore > scoreSaved) {
-                    highScore = true;
+                if (line.substring(1, index).equals(targetValue)) {
+                    userExists = true;
+                    scoreSaved = valueOf(line.substring(index + 1, line.length() - 1));
+                    if (userScore > scoreSaved) {
+                        highScore = true;
+                    }
                 }
             }
             reader.close();
+            if (!userExists){
+                highScore = true;
+            }
         } catch (Exception e) {
             System.err.format("Exception occurred trying to read '%s'.", fileName);
             e.printStackTrace();
