@@ -1,20 +1,14 @@
 package fall2018.csc2017.slidingtiles;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-
-import static java.lang.Integer.valueOf;
 
 public class UserScoreboardActivity extends AppCompatActivity {
     String user;
@@ -22,14 +16,12 @@ public class UserScoreboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences currentUsername = getApplicationContext().getSharedPreferences("sharedUser", MODE_PRIVATE);
-        user = currentUsername.getString("thisUser", "User");
         setContentView(R.layout.activity_user_scoreboard);
         TextView gameName = findViewById(R.id.GameNameLabel);
         TextView gameScore = findViewById(R.id.ScoreLabel);
+        user = SharedPreferenceManager.getSharedValue(this, "sharedUser", "thisUser");
         gameName.setText("Sliding Tiles");
-        gameScore.setText(getScorePerGame("SlidingTiles.txt", user));
-
+        gameScore.setText(getScorePerGame(user+"Score.txt", "SlidingTiles"));
     }
 
     public void goToScoreboardMenu (View view){
@@ -37,26 +29,30 @@ public class UserScoreboardActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public String getScorePerGame(String fileName, String targetUser){
+    public String getScorePerGame(String fileName, String targetGame) {
         String score = "0";
+        String line;
+        BufferedReader reader;
+        int index;
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                int index = line.indexOf(",");
-                String user = line.substring(0, index-1);
-                if (user.equals(targetUser)){
-                    score = line.substring(index + 1, line.length()-1);
+            reader = new BufferedReader(new FileReader(new File(this.getFilesDir(), fileName)));
+            while ((line = reader.readLine()) != null) {
+                index = line.indexOf(",");
+                String game = line.substring(1, index);
+                if (game.equals(targetGame)) {
+                    score = line.substring(index + 1, line.length() - 1);
                 }
-            } bufferedReader.close();
-        } catch (FileNotFoundException e) {
-            Log.e("Exception", "Unable to open file: " + e.toString());
+            }
+            reader.close();
         } catch (IOException e) {
+            System.err.format("Exception occurred trying to read '%s'.", fileName);
             e.printStackTrace();
+        } return score;
         }
-        return score;
     }
 
 
 
-}
+
+
+

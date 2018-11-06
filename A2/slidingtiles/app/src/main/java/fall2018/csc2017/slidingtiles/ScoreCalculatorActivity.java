@@ -4,15 +4,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
+import fall2018.csc2017.slidingtiles.SharedPreferenceManager;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -27,6 +24,8 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
     String gameFile;
     TextView scoreValue;
     TextView highScore;
+    SharedPreferences currentUsername;
+    Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,16 +34,20 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         scoreValue = findViewById(R.id.ScoreValueLabel);
         highScore = findViewById(R.id.HighScoreLabel);
 
-        SharedPreferences currentUsername = getApplicationContext().getSharedPreferences("sharedUser", MODE_PRIVATE);
-        user = currentUsername.getString("thisUser", "User");
+        user = SharedPreferenceManager.getSharedValue(this, "sharedUser", "thisUser");
         gameFile = getIntent().getStringExtra("Game");
         score = getIntent().getIntExtra("Score", 0);
         scoreValue.setText(Integer.toString(score));
 
         if (isHighScore(gameFile, score))
             highScore.setText("New High Score");
+        else
+            highScore.setText("Not a new high score, but pretty good!");
         saveToFile(gameFile, user, score);
-        Button btn = findViewById(R.id.MainMenuButton);
+        saveToFile(user + "Score.txt", score);
+
+
+        btn = findViewById(R.id.MainMenuButton);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,75 +57,101 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
 
     }
 
-    private void saveToFile(String fileName, String user, int score) {
+    private void saveToFile(String fileName, String user, int scoreSave) {
+        String entry = "[" + user + "," + score + "]";
+        File scoreFile = new File(this.getFilesDir(), fileName);
+        FileWriter fr = null;
         try {
-            BufferedWriter outputWriter = new BufferedWriter(new FileWriter(fileName));
-            if (isHighScore(fileName, score)) {
-                deletePreviousHighScore(fileName, user);
-                String entry = "[" + user + "," + score + "]";
-                outputWriter.write(entry);
-                outputWriter.newLine();
-                outputWriter.flush();
-                outputWriter.close();
+            fr = new FileWriter(scoreFile, true);
+            if (isHighScore(fileName, scoreSave)) {
+                //deletePreviousHighScore(fileName, user);
+                fr.write(entry+"\n");
             }
-            outputWriter.close();
         } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
+            e.printStackTrace();
+        } finally {
+            try {
+                fr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void saveToFile(String fileName, int scoreSave) {
+        String entry = "[SlidingTiles, " + scoreSave + "]";
+        File scoreFile = new File(this.getFilesDir(), fileName);
+        FileWriter fr = null;
+        try {
+            fr = new FileWriter(scoreFile, true);
+            if (isHighScore(fileName, scoreSave)) {
+            deletePreviousHighScore(fileName, user);
+            fr.write(entry+"\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     private boolean isHighScore(String fileName, int userScore) {
+        boolean highScore = false;
+        String line;
+        BufferedReader reader;
+        int index;
+        int scoreSaved;
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
-            String line;
-            boolean highScore = false;
-            while ((line = bufferedReader.readLine()) != null) {
-                int index = line.indexOf(",");
-                int score = valueOf(line.substring(index + 1, line.length()-1));
-                if (userScore > score) {
+            reader = new BufferedReader(new FileReader(new File(this.getFilesDir(), fileName)));
+            if ((line = reader.readLine()) == null) {
+                highScore = true;
+            }
+            reader.close();
+            reader = new BufferedReader(new FileReader(new File(this.getFilesDir(), fileName)));
+            while ((line = reader.readLine()) != null) {
+                index = line.indexOf(",");
+                scoreSaved = valueOf(line.substring(index + 1, line.length() - 1));
+                if (userScore > scoreSaved) {
                     highScore = true;
                 }
-            } bufferedReader.close();
-            return highScore;
-        } catch (FileNotFoundException e) {
-            Log.e("Exception", "Unable to open file: " + e.toString());
-        } catch (IOException e) {
+            }
+            reader.close();
+        } catch (Exception e) {
+            System.err.format("Exception occurred trying to read '%s'.", fileName);
             e.printStackTrace();
         }
-        return false;
+        return highScore;
     }
-
-
-    private static void deletePreviousHighScore(String fileName, String targetUser) {
+    private void deletePreviousHighScore(String fileName, String targetUser) {
+        String line;
+        int index;
+        BufferedReader reader;
+        File fixedFile = new File(this.getFilesDir(), "OtherFile.txt");
+        FileWriter fr = null;
         try {
-            File fixedFile = new File("fixed.txt");
-            try {
-                fixedFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            BufferedWriter outputWriter = new BufferedWriter(new FileWriter("fixed.txt"));
-            BufferedReader bufferedReader = new BufferedReader(new BufferedReader(new FileReader(fileName)));
-            String currentUser;
-            while ((currentUser = bufferedReader.readLine()) != null) {
-                int index = currentUser.indexOf(",");
-                if (!currentUser.substring(0, index - 1).equals(targetUser)) {
-                    outputWriter.write(currentUser.substring(0, index - 1));
-                    outputWriter.newLine();
+            reader = new BufferedReader(new FileReader(new File(this.getFilesDir(), fileName)));
+            fr = new FileWriter(fixedFile, true);
+            while ((line = reader.readLine()) != null) {
+                index = line.indexOf(",");
+                if (!line.substring(1, index - 1).equals(targetUser)) {
+                    fr.write(line);
                 }
-                outputWriter.flush();
-                outputWriter.close();
             }
-            outputWriter.close();
-            bufferedReader.close();
-            File oldFile = new File(fileName);
+            fr.close();
+            reader.close();
+            File oldFile = new File(this.getFilesDir(), fileName);
             oldFile.delete();
-            fixedFile.renameTo(new File(fileName));
+            fixedFile.renameTo(new File(this.getFilesDir(), fileName));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
+
 
 
 

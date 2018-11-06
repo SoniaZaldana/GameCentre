@@ -8,21 +8,25 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.Buffer;
+import java.util.ArrayList;
 
 import static java.lang.Integer.valueOf;
 
 public class SlidingScoreboardActivity extends AppCompatActivity implements View.OnClickListener {
 Button back;
+boolean USERS = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sliding_scoreboard);
         TextView userScore = findViewById(R.id.UserScore);
-        StringBuilder text = getScore("SlidingTiles.txt");
-        userScore.setText(text);
+        ArrayList<String> usernames = getValue("SlidingTiles.txt", USERS);
+        ArrayList<String> scores = getValue("SlidingTiles.txt", !USERS);
         back = findViewById(R.id.GoBack);
         back.setOnClickListener(this);
 
@@ -36,24 +40,28 @@ Button back;
         }
     }
 
-    private StringBuilder getScore(String fileName) {
-        StringBuilder text = new StringBuilder();
+    private ArrayList<String> getValue(String fileName, boolean wantUsers) {
+        ArrayList<String> usernames = new ArrayList<String>();
+        ArrayList<String> scores = new ArrayList<String>();
         try{
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
+            BufferedReader reader = new BufferedReader(new FileReader(new File(this.getFilesDir(), fileName)))
             String line;
-            while ((line = bufferedReader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 int index = line.indexOf(",");
+                String user = line.substring(1, index);
                 String score = line.substring(index + 1, line.length()-1);
-                String user = line.substring(0, index);
-                text.append(user + score);
-                text.append('\n');
+                usernames.add(user);
+                scores.add(score);
         }
-        bufferedReader.close();
+        reader.close();
     } catch (IOException e) {
             e.printStackTrace();
         }
-        return text;
+        if (wantUsers)
+                return usernames;
+        return scores;
     }
+
 
 
 }
