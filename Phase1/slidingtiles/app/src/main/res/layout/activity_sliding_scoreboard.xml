@@ -47,7 +47,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="0dp"
         android:layout_marginRight="-177dp"
-        android:text="Score" />
+        android:text="HighScore per User" />
 
 
 

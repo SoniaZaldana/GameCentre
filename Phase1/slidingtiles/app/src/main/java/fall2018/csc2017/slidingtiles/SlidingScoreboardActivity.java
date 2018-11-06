@@ -14,6 +14,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static java.lang.Integer.valueOf;
 
@@ -22,18 +25,16 @@ import static java.lang.Integer.valueOf;
  */
 public class SlidingScoreboardActivity extends AppCompatActivity implements View.OnClickListener {
     Button back;
-    boolean USERS = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sliding_scoreboard);
-        ArrayList<String> usernames = getValue("SlidingTiles.txt", USERS);
-        ArrayList<String> scores = getValue("SlidingTiles.txt", !USERS);
+        HashMap<String, String> usernamesAndScores  = getValue("SlidingTiles.txt");
         back = findViewById(R.id.GoBack);
         back.setOnClickListener(this);
         ListView listView = (ListView)findViewById(R.id.listView);
-        ScoreBoardArrayAdapter my_adapter = new ScoreBoardArrayAdapter(this, usernames, scores);
+        ScoreBoardArrayAdapter my_adapter = new ScoreBoardArrayAdapter(this, usernamesAndScores);
         listView.setAdapter(my_adapter);
     }
 
@@ -46,9 +47,8 @@ public class SlidingScoreboardActivity extends AppCompatActivity implements View
         }
     }
 
-    private ArrayList<String> getValue(String fileName, boolean wantUsers) {
-        ArrayList<String> usernames = new ArrayList<String>();
-        ArrayList<String> scores = new ArrayList<String>();
+    private HashMap<String, String> getValue(String fileName) {
+        HashMap<String, String> usernamesAndScores =  new LinkedHashMap<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(new File(this.getFilesDir(), fileName)));
             String line;
@@ -56,17 +56,12 @@ public class SlidingScoreboardActivity extends AppCompatActivity implements View
                 int index = line.indexOf(",");
                 String user = line.substring(1, index);
                 String score = line.substring(index + 1, line.length() - 1);
-                usernames.add(user);
-                scores.add(score);
+                usernamesAndScores.put(user, score);
             }
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (wantUsers)
-            return usernames;
-        return scores;
+        return usernamesAndScores;
     }
-
-
 }
