@@ -43,7 +43,8 @@ Nick:
 Alex:
 1. Implement AutoSave
 2. Implement Undo
-
+3. Implement Undo bonus - allows user to choose the maximum number of steps they can go back in
+4. Helped with ScoreCalculatorActivity
 
 Suguru
 1. Implement Autosave with Alex.
