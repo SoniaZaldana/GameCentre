@@ -44,8 +44,8 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
         String undoMaxText = undoInput.getText().toString();
         try {
             Integer dimension = Integer.parseInt(text);
-            if (dimension > 19) {
-                dimensionInstructions.setText("Please enter a valid number less than 20!");
+            if (dimension > 9) {
+                dimensionInstructions.setText("Please enter a valid number less than 10!");
             } else if (dimension == 1) {
                 dimensionInstructions.setText("Too easy :) Try something harder!");
 
