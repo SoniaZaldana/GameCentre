@@ -7,13 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.function.ToLongBiFunction;
 
 public class GameLauncherActivity extends AppCompatActivity implements View.OnClickListener {
     Button Scoreboards, TilesGame;
@@ -75,7 +71,7 @@ public class GameLauncherActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.ScoreboardButton:
                 startActivity(new Intent(this,
-                        ScoreboardActivity.class));
+                        ScoreboardMenuActivity.class));
                 break;
         }
     }

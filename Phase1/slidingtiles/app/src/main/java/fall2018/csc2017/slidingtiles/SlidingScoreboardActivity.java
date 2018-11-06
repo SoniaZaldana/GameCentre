@@ -11,7 +11,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.Buffer;
 import java.util.ArrayList;
 
 import static java.lang.Integer.valueOf;
@@ -35,7 +34,7 @@ boolean USERS = true;
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.GoBack:
-                startActivity(new Intent(this, ScoreboardActivity.class));
+                startActivity(new Intent(this, ScoreboardMenuActivity.class));
                 break;
         }
     }
