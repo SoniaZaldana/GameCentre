@@ -1,6 +1,7 @@
 package fall2018.csc2017.slidingtiles;
 
 import android.support.annotation.NonNull;
+
 import java.util.Observable;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -10,9 +11,8 @@ import java.util.List;
 
 /**
  * The sliding tiles board.
- *
  */
-public class Board extends Observable implements Serializable, Iterable<Tile>{
+public class Board extends Observable implements Serializable, Iterable<Tile> {
 
     /**
      * The number of rows.
@@ -22,12 +22,12 @@ public class Board extends Observable implements Serializable, Iterable<Tile>{
     /**
      * The number of rows.
      */
-    private int  numCols;
+    private int numCols;
 
     private String picturePath;
 
-    public void setPicturePath(String picturePath){
-        this.picturePath=picturePath;
+    public void setPicturePath(String picturePath) {
+        this.picturePath = picturePath;
     }
 
     public String getPicturePath() {
@@ -68,6 +68,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile>{
 
     /**
      * Return the number of tiles on the board.
+     *
      * @return the number of tiles on the board
      */
     int numTiles() {
@@ -86,12 +87,12 @@ public class Board extends Observable implements Serializable, Iterable<Tile>{
     }
 
     /**
-     *
      * @return the id of the blank tile
      */
-    int getBlankId(){
+    int getBlankId() {
         return numTiles();
     }
+
     /**
      * Swap the tiles at (row1, col1) and (row2, col2)
      *
@@ -116,7 +117,6 @@ public class Board extends Observable implements Serializable, Iterable<Tile>{
     }
 
     /**
-     *
      * @return an iterator of class TileIterator.
      */
     @NonNull
@@ -128,7 +128,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile>{
     /**
      * Represents the iterator for class Board.
      */
-    private class TileIterator implements Iterator<Tile>{
+    private class TileIterator implements Iterator<Tile> {
         /**
          * current row index
          */
@@ -148,30 +148,31 @@ public class Board extends Observable implements Serializable, Iterable<Tile>{
         public Tile next() {
             // get the data for the current tile Tile, then move the index to the next Tile.
             Tile nextTile = tiles[rowIndex][columnIndex];
-            columnIndex +=1;
+            columnIndex += 1;
             // If there is no more columns, move onto first column in next row.
-            if(! isColumnAvailable()){
+            if (!isColumnAvailable()) {
                 // If it's on the last row, rowIndex will move to a nonexistent one.
-                rowIndex+=1;
-                columnIndex=0;
+                rowIndex += 1;
+                columnIndex = 0;
             }
             return nextTile;
         }
 
         /**
-         *
          * @return if current row exists
          */
-        private boolean isRowAvailable(){ return rowIndex< numRows; }
+        private boolean isRowAvailable() {
+            return rowIndex < numRows;
+        }
 
         /**
-         *
          * @return if current column exists
          */
-        private boolean isColumnAvailable(){ return columnIndex< numCols; }
+        private boolean isColumnAvailable() {
+            return columnIndex < numCols;
+        }
 
     }
-
 
 
 }

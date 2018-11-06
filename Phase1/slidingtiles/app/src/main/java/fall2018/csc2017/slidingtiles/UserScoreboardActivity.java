@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -21,11 +22,11 @@ public class UserScoreboardActivity extends AppCompatActivity {
         TextView gameScore = findViewById(R.id.ScoreLabel);
         user = SharedPreferenceManager.getSharedValue(this, "sharedUser", "thisUser");
         gameName.setText("Sliding Tiles");
-        gameScore.setText(getScorePerGame(user+"Score.txt", "SlidingTiles"));
+        gameScore.setText(getScorePerGame(user + "Score.txt", "SlidingTiles"));
     }
 
-    public void goToScoreboardMenu (View view){
-        Intent intent = new Intent (this, ScoreboardMenuActivity.class);
+    public void goToScoreboardMenu(View view) {
+        Intent intent = new Intent(this, ScoreboardMenuActivity.class);
         startActivity(intent);
     }
 
@@ -47,9 +48,10 @@ public class UserScoreboardActivity extends AppCompatActivity {
         } catch (IOException e) {
             System.err.format("Exception occurred trying to read '%s'.", fileName);
             e.printStackTrace();
-        } return score;
         }
+        return score;
     }
+}
 
 
 

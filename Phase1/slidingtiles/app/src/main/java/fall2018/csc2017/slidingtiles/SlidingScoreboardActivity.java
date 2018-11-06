@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import static java.lang.Integer.valueOf;
 
 public class SlidingScoreboardActivity extends AppCompatActivity implements View.OnClickListener {
-Button back;
-boolean USERS = true;
+    Button back;
+    boolean USERS = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,7 @@ boolean USERS = true;
         back.setOnClickListener(this);
 
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -42,25 +43,24 @@ boolean USERS = true;
     private ArrayList<String> getValue(String fileName, boolean wantUsers) {
         ArrayList<String> usernames = new ArrayList<String>();
         ArrayList<String> scores = new ArrayList<String>();
-        try{
+        try {
             BufferedReader reader = new BufferedReader(new FileReader(new File(this.getFilesDir(), fileName)));
             String line;
             while ((line = reader.readLine()) != null) {
                 int index = line.indexOf(",");
                 String user = line.substring(1, index);
-                String score = line.substring(index + 1, line.length()-1);
+                String score = line.substring(index + 1, line.length() - 1);
                 usernames.add(user);
                 scores.add(score);
-        }
-        reader.close();
-    } catch (IOException e) {
+            }
+            reader.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
         if (wantUsers)
-                return usernames;
+            return usernames;
         return scores;
     }
-
 
 
 }

@@ -43,6 +43,7 @@ public class SlidingTilesActivity extends AppCompatActivity {
 
     private Context context;
     private static final int PICK_IMAGE_REQ_CODE = 50;
+
     //TODO Get rid of all the extra Save and Loads here. Only use when necessary.
     @Override
 
@@ -57,7 +58,7 @@ public class SlidingTilesActivity extends AppCompatActivity {
 
         SharedPreferences currentUsername = getApplicationContext().getSharedPreferences("sharedUser", MODE_PRIVATE);
         String user = currentUsername.getString("thisUser", "User");
-        SAVE_FILENAME = user  + "save_file.ser";
+        SAVE_FILENAME = user + "save_file.ser";
 
     }
 
@@ -83,10 +84,9 @@ public class SlidingTilesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 boardManager = SaveAndLoad.loadFromFile(context, SAVE_FILENAME);
-                if(boardManager == null){
-                    Toast.makeText(getApplicationContext(),"No previously saved game.",Toast.LENGTH_SHORT).show();
-                }
-                else{
+                if (boardManager == null) {
+                    Toast.makeText(getApplicationContext(), "No previously saved game.", Toast.LENGTH_SHORT).show();
+                } else {
                     makeToastLoadedText();
                     loadGame();
                 }
@@ -94,11 +94,11 @@ public class SlidingTilesActivity extends AppCompatActivity {
             }
         });
     }
+
     /**
-     *
-    Activate the choose picture
+     * Activate the choose picture
      */
-    private void addPictureButtonListener(){
+    private void addPictureButtonListener() {
         Button choosePicture = findViewById(R.id.ChooseTilePicture);
         choosePicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +109,7 @@ public class SlidingTilesActivity extends AppCompatActivity {
             }
         });
     }
+
     /**
      * Get the picture
      */
@@ -120,10 +121,10 @@ public class SlidingTilesActivity extends AppCompatActivity {
             // data returns the Uri(address) of the selected picture
             tilePicture = data.getData().toString();
             boardManager = SaveAndLoad.loadFromFile(context, SAVE_FILENAME);
-            if(boardManager!= null){
+            if (boardManager != null) {
                 Board board = boardManager.getBoard();
                 board.setPicturePath(tilePicture);
-                SaveAndLoad.saveToFile(context,SAVE_FILENAME, boardManager);
+                SaveAndLoad.saveToFile(context, SAVE_FILENAME, boardManager);
             }
         }
     }
@@ -155,11 +156,12 @@ public class SlidingTilesActivity extends AppCompatActivity {
 
 
     }
-    private void newGame(){
+
+    private void newGame() {
         //TODO make sure that even if i have a loaded game. If I choose to play a new game, it plays a new game.
         //TODO Figure out difference between temp_save and save_file
         Intent tmp = new Intent(this, ChooseDimensionsActivity.class);
-        if(tilePicture!=null){
+        if (tilePicture != null) {
             tmp.putExtra("TileImage", tilePicture);
         }
 
