@@ -128,7 +128,7 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
             while ((line = reader.readLine()) != null) {
                 index = line.indexOf(",");
                 if (!line.substring(1, index).equals(targetValue)) {
-                    fr.write(line);
+                    fr.write(line+"\n");
                 }
             }
             fr.close();
