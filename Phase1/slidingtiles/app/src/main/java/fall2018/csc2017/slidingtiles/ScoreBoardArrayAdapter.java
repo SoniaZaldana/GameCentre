@@ -14,12 +14,21 @@ import java.util.List;
 public class ScoreBoardArrayAdapter extends ArrayAdapter {
 
     private Context context;
+    /**
+     * HashMap which contains the users as keys and their HighScores as the values
+     */
     private HashMap<String, String> usernameAndScores;
+    /**
+     * List of userNames
+     */
     private List<String> userNames;
 
 
-
-
+    /**
+     * ArrayAdapter which fills a row with 2 elements: 1 for the username and 1 for the HighScore
+     * @param context current context
+     * @param usernameAndScores HashMap which contains the users as keys and their HighScores as the values
+     */
     public ScoreBoardArrayAdapter(Context context, HashMap<String, String> usernameAndScores)
     {
         super(context, android.R.layout.simple_list_item_1, new ArrayList<>(usernameAndScores.keySet()));
