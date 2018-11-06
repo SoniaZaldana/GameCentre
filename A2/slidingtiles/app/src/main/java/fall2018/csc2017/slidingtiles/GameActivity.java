@@ -248,14 +248,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
     }
 
     /**
-     * Returns score
-     * @param moves - number of moves made by player
-     */
-    public int calculateScore(int moves) {
-        return 10000 - (10*moves);
-    }
-
-    /**
      * Undoes the previous step.
      */
     public void undo() {
@@ -263,7 +255,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         if (!undone){
             makeUndoFailedText();
         }
-        }
+    }
 
     /**
      * The toast created when undo fails.
