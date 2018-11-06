@@ -24,7 +24,7 @@
         <activity android:name=".GameLauncherActivity"/>
         <activity android:name=".RegisterActivity"/>
         <activity android:name=".ChooseDimensionsActivity"/>
-        <activity android:name=".SlidingTilesActivity"/>
+        <activity android:name=".SlidingTilesStartingActivity"/>
 
     </application>
 
