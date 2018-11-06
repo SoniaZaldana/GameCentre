@@ -13,24 +13,20 @@ import android.widget.TextView;
  * The Board Dimension + Undo Number Activity
  */
 public class ChooseDimensionsActivity extends AppCompatActivity {
-    EditText dimensionInput;
+    EditText dimensionInput, undoInput;
     Button submitInput;
-    TextView dimensionInstructions;
-    EditText undoInput;
-    TextView undoInstructions;
+    TextView dimensionInstructions, undoInstructions;
     Uri tileImage;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose_complexity);
-        dimensionInput = (EditText)findViewById(R.id.EditDimension);
-        submitInput = (Button) findViewById(R.id.submitEverything);
-        dimensionInstructions = (TextView) findViewById(R.id.dimensionInstructions);
-        undoInput = (EditText) findViewById(R.id.editUndo);
-        undoInstructions = (TextView) findViewById(R.id.undoInstructions);
+        dimensionInput = findViewById(R.id.EditDimension);
+        submitInput = findViewById(R.id.submitEverything);
+        dimensionInstructions = findViewById(R.id.dimensionInstructions);
+        undoInput = findViewById(R.id.editUndo);
+        undoInstructions = findViewById(R.id.undoInstructions);
         String tileImgAsStr = getIntent().getStringExtra("TileImage");
         if(tileImgAsStr != null){
             tileImage = Uri.parse(tileImgAsStr);

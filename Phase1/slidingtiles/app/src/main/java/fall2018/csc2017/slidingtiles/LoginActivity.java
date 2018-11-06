@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class Loginactivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     Button loginButton, registerButton;
     EditText usernameText, passwordText;
     SharedPreferences accounts;
@@ -21,14 +21,22 @@ public class Loginactivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         accounts = getApplicationContext().getSharedPreferences("users", Context.MODE_PRIVATE);
+        setUpVisuals();
+
+    }
+
+    /**
+     * Sets up the visuals for the activities such as buttons and labels
+     */
+    private void setUpVisuals() {
         usernameText =  findViewById(R.id.username);
         passwordText =  findViewById(R.id.IDPassword);
         loginButton = findViewById(R.id.login);
         registerButton = findViewById(R.id.registerbutton);
         registerButton.setOnClickListener(this);
         loginButton.setOnClickListener(this);
-
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -47,6 +55,7 @@ public class Loginactivity extends AppCompatActivity implements View.OnClickList
                             "thisUser", username);
                     startActivity(new Intent(this, Gamelauncheractivity.class));
                     finish();
+
                 }
                 break;
             case R.id.registerbutton:

@@ -1,9 +1,7 @@
 package fall2018.csc2017.slidingtiles;
 
 import android.support.annotation.NonNull;
-
 import java.util.Observable;
-
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -42,14 +40,6 @@ public class Board extends Observable implements Serializable, Iterable<Tile>{
 
     public int getNumRows() {
         return numRows;
-    }
-
-    public void setNumCols(int numCols) {
-        this.numCols = numCols;
-    }
-
-    public void setNumRows(int numRows) {
-        this.numRows = numRows;
     }
 
 

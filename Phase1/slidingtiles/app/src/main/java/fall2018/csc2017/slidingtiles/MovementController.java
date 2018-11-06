@@ -4,9 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import static android.app.PendingIntent.getActivity;
-
-
 public class MovementController {
 
     private BoardManager boardManager = null;
@@ -27,15 +24,22 @@ public class MovementController {
             moves++;
             if (boardManager.puzzleSolved()) {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
-                int score = boardManager.calculateScore(moves);
-                Intent intent = new Intent(context, ScoreCalculatorActivity.class);
-                intent.putExtra("Score", score);
-                intent.putExtra("Game", "SlidingTiles.txt");
-                context.startActivity(intent);
-
+                moveOnToScoreActivity(context);
             }
         } else {
             Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * Performs actions in order to calculate score and move on to score activity
+     * @param context
+     */
+    private void moveOnToScoreActivity(Context context) {
+        int score = boardManager.calculateScore(moves);
+        Intent intent = new Intent(context, ScoreCalculatorActivity.class);
+        intent.putExtra("Score", score);
+        intent.putExtra("Game", "SlidingTiles.txt");
+        context.startActivity(intent);
     }
 }

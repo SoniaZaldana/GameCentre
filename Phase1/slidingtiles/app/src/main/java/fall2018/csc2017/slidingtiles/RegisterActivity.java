@@ -11,15 +11,23 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
-public class RegisteractivityActivity extends AppCompatActivity implements View.OnClickListener {
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     Button registerButton, backToLogIn;
     EditText usernameText, passwordText, reEnteredPasswordText;
     SharedPreferences users;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        users =  getApplicationContext().getSharedPreferences("users", Context.MODE_PRIVATE);
+        users = getApplicationContext().getSharedPreferences("users", Context.MODE_PRIVATE);
+        setUpVisuals();
+    }
+
+    /**
+     * Actions required to set up labels and buttons
+     */
+    private void setUpVisuals() {
         usernameText = findViewById(R.id.username);
         passwordText = findViewById(R.id.IDPassword);
         reEnteredPasswordText = findViewById(R.id.IDPassword2);
@@ -27,14 +35,13 @@ public class RegisteractivityActivity extends AppCompatActivity implements View.
         backToLogIn = findViewById(R.id.login);
         registerButton.setOnClickListener(this);
         backToLogIn.setOnClickListener(this);
-
-
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login:
-                startActivity(new Intent(this, Loginactivity.class));
+                startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.registerbutton:
                 String username = usernameText.getText().toString();
@@ -44,11 +51,11 @@ public class RegisteractivityActivity extends AppCompatActivity implements View.
                     Toast.makeText(this, String.format("Account with the name \"%s\" " +
                                     "already exists, please try another username", username),
                             Toast.LENGTH_SHORT).show();
-                } else if (isValidUsername(username)) {
+                } else if (isValidLength(username)) {
                     Toast.makeText(this, "Your username should contain at least 5 " +
                                     "characters",
                             Toast.LENGTH_SHORT).show();
-                } else if (isValid(password)) {
+                } else if (isValidLength(password)) {
                     Toast.makeText(this, "Your password should contain at least 5 " +
                                     "characters",
                             Toast.LENGTH_SHORT).show();
@@ -60,7 +67,7 @@ public class RegisteractivityActivity extends AppCompatActivity implements View.
                     Accounts.putString(username, password);
                     Accounts.apply();
                     startActivity(new Intent(this,
-                            Gamelauncheractivity.class));
+                            GameLauncherActivity.class));
                     SharedPreferenceManager.setSharedValue(this, "sharedUser",
                             "thisUser", username);
                     finish();
@@ -70,11 +77,14 @@ public class RegisteractivityActivity extends AppCompatActivity implements View.
 
     }
 
-    private boolean isValidUsername(String username) {
-        return username.length() <= 4;
+    /**
+     * Returns if an input is of valid length
+     *
+     * @param input - the username input
+     * @return
+     */
+    private boolean isValidLength(String input) {
+        return input.length() <= 4;
     }
-
-    private boolean isValid(String password) {
-        return password.length() <= 4; }
 }
 

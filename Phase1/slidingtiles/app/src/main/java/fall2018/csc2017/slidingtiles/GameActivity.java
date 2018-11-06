@@ -12,10 +12,7 @@ import android.os.Bundle;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
-
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -24,7 +21,6 @@ import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static android.widget.TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM;
 
 /**
  * The game activity.
@@ -297,7 +293,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         }
         catch(FileNotFoundException e){
             e.printStackTrace();
-            Toast.makeText(this, "Image not found", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "Image not found", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -314,7 +310,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         private GameActivity gameActivity;
 
         /**
-         * An autosave timer
+         * An auto save timer
          *
          * @param gameActivity The gameActivity that uses this timer
          */
