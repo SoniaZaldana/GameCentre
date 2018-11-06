@@ -8,20 +8,24 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ScoreBoardArrayAdapter extends ArrayAdapter {
 
     private Context context;
-    private List<String> usernames;
-    private List<String> score;
+    private HashMap<String, String> usernameAndScores;
+    private List<String> userNames;
 
-    public ScoreBoardArrayAdapter(Context context, List<String> usernames, List<String> score)
+
+
+
+    public ScoreBoardArrayAdapter(Context context, HashMap<String, String> usernameAndScores)
     {
-        super(context, android.R.layout.simple_list_item_1, usernames);
+        super(context, android.R.layout.simple_list_item_1, new ArrayList<>(usernameAndScores.keySet()));
         this.context = context;
-        this.usernames = usernames;
-        this.score = score;
+        this.usernameAndScores = usernameAndScores;
+        this.userNames = new ArrayList<>(usernameAndScores.keySet());
     }
 
     @Override
@@ -32,11 +36,11 @@ public class ScoreBoardArrayAdapter extends ArrayAdapter {
 
         View rowView = inflater.inflate(R.layout.activity_sliding_scoreboard_row, parent, false);
 
-        TextView your_first_text_view = (TextView) rowView.findViewById(R.id.username);
-        TextView your_second_text_view = (TextView) rowView.findViewById(R.id.score);
-
-        your_first_text_view.setText(usernames.get(position));
-        your_second_text_view.setText(score.get(position)); //Instead of the same value use position + 1, or something appropriate
+        TextView your_first_text_view =  rowView.findViewById(R.id.username);
+        TextView your_second_text_view = rowView.findViewById(R.id.score);
+        String currUser = userNames.get(position);
+        your_first_text_view.setText(currUser);
+        your_second_text_view.setText(usernameAndScores.get(currUser));
 
         return rowView;
     }
