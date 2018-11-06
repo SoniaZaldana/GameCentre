@@ -25,7 +25,7 @@ public class BoardAndTileTest {
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(tileNum + 1, tileNum));
+            tiles.add(new Tile(tileNum +1));
         }
 
         return tiles;

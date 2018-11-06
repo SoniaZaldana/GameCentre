@@ -16,6 +16,9 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
     EditText dimensionInput, undoInput;
     Button submitInput;
     TextView dimensionInstructions, undoInstructions;
+    /**
+     * the Uri of the image of the board, that the user requests with intent.
+     */
     Uri tileImage;
 
     @Override
@@ -44,8 +47,8 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
         String undoMaxText = undoInput.getText().toString();
         try {
             Integer dimension = Integer.parseInt(text);
-            if (dimension > 19) {
-                dimensionInstructions.setText("Please enter a valid number less than 20!");
+            if (dimension > 9) {
+                dimensionInstructions.setText("Please enter a valid number less than 10!");
             } else if (dimension == 1) {
                 dimensionInstructions.setText("Too easy :) Try something harder!");
 
@@ -63,7 +66,7 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
                         if (tileImage != null) {
                             boardManager.getBoard().setPicturePath(tileImage.toString());
                         }
-                        SaveAndLoad.saveToFile(this, SlidingTilesStartingActivity.SAVE_FILENAME, boardManager);
+                        SaveAndLoadBoardManager.saveToFile(this, SlidingTilesStartingActivity.SAVE_FILENAME, boardManager);
                         startActivity(tmp);
                     }
                 } catch (NumberFormatException e) {

@@ -23,21 +23,39 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      * The number of rows.
      */
     private int numCols;
-
+    /**
+     * path of the board Picture.
+     */
     private String picturePath;
 
+    /**
+     * set picturePath
+     * @param picturePath path of the board Picture
+     */
     void setPicturePath(String picturePath) {
         this.picturePath = picturePath;
     }
 
+    /**
+     * get the picturePath
+     * @return picturePath path of the board Picture
+     */
     String getPicturePath() {
         return picturePath;
     }
 
+    /**
+     * get the number of columns
+     * @return numCols
+     */
     int getNumCols() {
         return numCols;
     }
 
+    /**
+     * get the number of rows
+     * @return numRows
+     */
     int getNumRows() {
         return numRows;
     }
