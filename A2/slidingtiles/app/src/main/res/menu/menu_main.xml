@@ -7,7 +7,6 @@
     <item
         android:id="@+id/action_signoff"
         android:orderInCategory="100"
-        android:title="@string/app_name"
+        android:title="Signoff"
         app:showAsAction="ifRoom"/>
-
 </menu>
