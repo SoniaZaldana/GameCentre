@@ -4,25 +4,11 @@ package fall2018.csc2017.slidingtiles;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
 
 /**
  * The initial activity for the sliding puzzle tile game.
@@ -39,14 +25,19 @@ public class SlidingTilesStartingActivity extends AppCompatActivity {
      * The board manager.
      */
     private BoardManager boardManager;
+    /**
+     * Path to the tile Picture image.
+     */
     private String tilePicture;
 
     private Context context;
+    /**
+     * Request code to send and get when sending intent to pick image.
+     * Use to check if receiving the data from the right intent.
+     */
     private static final int PICK_IMAGE_REQ_CODE = 50;
 
     @Override
-
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
@@ -82,7 +73,7 @@ public class SlidingTilesStartingActivity extends AppCompatActivity {
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boardManager = SaveAndLoad.loadFromFile(context, SAVE_FILENAME);
+                boardManager = SaveAndLoadBoardManager.loadFromFile(context, SAVE_FILENAME);
                 if (boardManager == null) {
                     Toast.makeText(getApplicationContext(), "No previously saved game.", Toast.LENGTH_SHORT).show();
                 } else {
@@ -110,7 +101,7 @@ public class SlidingTilesStartingActivity extends AppCompatActivity {
     }
 
     /**
-     * Get the picture
+     * Get the picture, and set it to the board.
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -119,11 +110,11 @@ public class SlidingTilesStartingActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE_REQ_CODE) {
             // data returns the Uri(address) of the selected picture
             tilePicture = data.getData().toString();
-            boardManager = SaveAndLoad.loadFromFile(context, SAVE_FILENAME);
+            boardManager = SaveAndLoadBoardManager.loadFromFile(context, SAVE_FILENAME);
             if (boardManager != null) {
                 Board board = boardManager.getBoard();
                 board.setPicturePath(tilePicture);
-                SaveAndLoad.saveToFile(context, SAVE_FILENAME, boardManager);
+                SaveAndLoadBoardManager.saveToFile(context, SAVE_FILENAME, boardManager);
             }
         }
     }
@@ -143,7 +134,7 @@ public class SlidingTilesStartingActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        boardManager = SaveAndLoad.loadFromFile(this, SAVE_FILENAME);
+        boardManager = SaveAndLoadBoardManager.loadFromFile(this, SAVE_FILENAME);
     }
 
     /**

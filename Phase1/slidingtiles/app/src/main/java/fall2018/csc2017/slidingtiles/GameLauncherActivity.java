@@ -16,6 +16,9 @@ import java.io.IOException;
  */
 public class GameLauncherActivity extends AppCompatActivity implements View.OnClickListener {
     Button Scoreboards, TilesGame;
+    /**
+     * User name
+     */
     String user;
 
 
@@ -23,7 +26,7 @@ public class GameLauncherActivity extends AppCompatActivity implements View.OnCl
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gamelauncheractivity);
-        android.support.v7.widget.Toolbar myToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        android.support.v7.widget.Toolbar myToolbar = findViewById(R.id.toolbar);
         myToolbar.setLogo(R.drawable.ic_launcher_foreground);
         setSupportActionBar(myToolbar);
         TilesGame = findViewById(R.id.TilesGame);
@@ -54,6 +57,12 @@ public class GameLauncherActivity extends AppCompatActivity implements View.OnCl
     }
 
 
+    /**
+     * Creates a file which stores all high-scores for each game for user.
+     * Creates another file which stores the high-scores from all users per game.
+     * @param userFile represents the code to be added to a filename to differentiate
+     * between user high score files.
+     */
     public void createFiles(String userFile) {
         File userScoreFile = new File(this.getFilesDir(), userFile + "Score.txt");
         File slidingFile = new File(this.getFilesDir(), "SlidingTiles.txt");

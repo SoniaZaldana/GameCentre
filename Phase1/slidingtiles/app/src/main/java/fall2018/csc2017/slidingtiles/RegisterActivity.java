@@ -16,6 +16,9 @@ import android.widget.Toast;
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     Button registerButton;
     EditText usernameText, passwordText, reEnteredPasswordText;
+    /**
+     *  The shared preference which stores  users.
+     */
     SharedPreferences users;
 
     @Override

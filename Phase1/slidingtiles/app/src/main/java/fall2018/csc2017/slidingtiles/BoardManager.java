@@ -15,6 +15,9 @@ class BoardManager implements Serializable {
      * The board being managed.
      */
     private Board board;
+    /**
+     * The stack which remembers the moves on the board.
+     */
     private UndoStack stack;
 
     /**
@@ -43,10 +46,8 @@ class BoardManager implements Serializable {
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = dimension * dimension;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(tileNum));
+            tiles.add(new Tile(tileNum + 1));
         }
-
-
         Collections.shuffle(tiles);
         this.board = new Board(dimension, tiles);
     }
@@ -63,7 +64,6 @@ class BoardManager implements Serializable {
         while (iterator.hasNext() && inOrder) {
             Tile checkTile = iterator.next();
             int currTileValue = checkTile.getId();
-            // If current value is not 1 + the last one, then it's not in order
             if (currTileValue != prevTileValue + 1) {
                 inOrder = false;
             }
@@ -140,6 +140,11 @@ class BoardManager implements Serializable {
         }
     }
 
+    /**
+     * Undo the most recent move. If undo is pressed again, undo the next most recent move.
+     * Continue as long as moves are recorded.
+     * @return whether a move has been undone
+     */
     boolean undo() {
         if (this.stack.getSize() == 0) {
             return false;

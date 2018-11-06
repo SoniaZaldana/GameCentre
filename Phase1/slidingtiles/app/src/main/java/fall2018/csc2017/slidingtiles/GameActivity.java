@@ -26,6 +26,10 @@ import java.util.TimerTask;
  * The game activity.
  */
 public class GameActivity extends AppCompatActivity implements Observer {
+    /**
+     * Constant which represents the read storage request code.
+     * Use it to check if getting return for a READ_STORAGE request.
+     */
     static final int MY_PERMISSIONS_REQUEST_READ_STORAGE = 3;
 
     /**
@@ -38,19 +42,12 @@ public class GameActivity extends AppCompatActivity implements Observer {
      */
     private ArrayList<Button> tileButtons;
 
-    /**
-     * Constants for swiping directions. Should be an enum, probably.
-     */
-    public static final int UP = 1;
-    public static final int DOWN = 2;
-    public static final int LEFT = 3;
-    public static final int RIGHT = 4;
-
     // Grid View and calculated column height and width based on device size
     private GestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
-
-    // AutoSave Timer
+    /**
+     * Timer used for autosave
+     */
     private Timer timer = new Timer();
 
     /**
@@ -65,10 +62,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //TODO Make sure everything is in the right order. Only if new game, then you take value from dimensions
-        //TODO Make sure we don't switch up the values.
         super.onCreate(savedInstanceState);
-        boardManager = SaveAndLoad.loadFromFile(this, SlidingTilesStartingActivity.SAVE_FILENAME);
+        boardManager = SaveAndLoadBoardManager.loadFromFile(this, SlidingTilesStartingActivity.SAVE_FILENAME);
         setContentView(R.layout.activity_main);
         autoSave();
 
@@ -110,11 +105,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         for (int row = 0; row != board.getNumRows(); row++) {
             for (int col = 0; col != board.getNumCols(); col++) {
                 Button tmp = new Button(context);
-                // tmp.setBackgroundResource(board.getTile(row, col).getBackground());
-                // tmp.setBackgroundResource(R.drawable.tile_16);
                 this.tileButtons.add(tmp);
-                /*TextView tvId = (TextView) findViewById(R.id.number);
-                tvId.setText("1");*/
             }
         }
     }
@@ -141,7 +132,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SaveAndLoad.saveToFile(gameActivity, SlidingTilesStartingActivity.SAVE_FILENAME, boardManager);
+                SaveAndLoadBoardManager.saveToFile(gameActivity, SlidingTilesStartingActivity.SAVE_FILENAME, boardManager);
                 makeToastSavedText();
             }
         });
@@ -164,48 +155,45 @@ public class GameActivity extends AppCompatActivity implements Observer {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                         Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                    //TODO See what to do here
-                    // Show an explanation to the user *asynchronously* -- don't block
-                    // this thread waiting for the user's response! After the user
-                    // sees the explanation, try again to request the permission.
+                    // requires permission rationale.
                 } else {
                     // No explanation needed; request the permission
                     ActivityCompat.requestPermissions(this,
                             new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                             MY_PERMISSIONS_REQUEST_READ_STORAGE);
-
-                    // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                    // app-defined int constant. The callback method gets the
-                    // result of the request.
                 }
 
-            } else {
+            } else { // Don't need the permission, but request it either way, as previous activity may have been destroyed.
+                // Otherwise, might give a security permission error.
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                         MY_PERMISSIONS_REQUEST_READ_STORAGE);
-                //ButtonsWithGalleryBckgrnd();
             }
         } else {
-            createButtonGUI(ContextCompat.getDrawable(this, R.drawable.tile_16));
+            createTileGUI(ContextCompat.getDrawable(this, R.drawable.tile_16));
         }
 
     }
 
-    private void createButtonGUI(Drawable d) {
+    /**
+     * Creates how the tiles looks: number on it, image, etc.
+     * @param d drawable to set as background for a tile
+     */
+    private void createTileGUI(Drawable d) {
         Board board = boardManager.getBoard();
         int nextPos = 0;
         int numberOnTile;
         for (Button b : tileButtons) {
             int row = nextPos / board.getNumRows();
             int col = nextPos % board.getNumCols();
-            //b.setBackgroundResource(R.drawable.tile_16);
-            b.setBackground(d);
-
             numberOnTile = board.getTile(row, col).getId();
             if (numberOnTile != board.getBlankId()) {
                 b.setText(String.valueOf(numberOnTile));
+                b.setBackground(d);
+
             } else {
                 b.setText("");
+                b.setBackground(ContextCompat.getDrawable(this, R.drawable.tile_16));
             }
             nextPos++;
         }
@@ -218,7 +206,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onPause() {
         super.onPause();
-        SaveAndLoad.saveToFile(this, SlidingTilesStartingActivity.SAVE_FILENAME, boardManager);
+        SaveAndLoadBoardManager.saveToFile(this, SlidingTilesStartingActivity.SAVE_FILENAME, boardManager);
         timer.cancel();
     }
 
@@ -261,29 +249,28 @@ public class GameActivity extends AppCompatActivity implements Observer {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-                    ButtonsWithGalleryBckgrnd();
+                    // permission was granted, yay!
+                    getTileImageAndMakeGUI();
                 } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                    createButtonGUI(ContextCompat.getDrawable(this, R.drawable.tile_16));
+                    // permission denied/
+                    createTileGUI(ContextCompat.getDrawable(this, R.drawable.tile_16));
 
 
                 }
                 return;
             }
 
-            // other 'case' lines to check for other
-            // permissions this app might request.
         }
     }
 
-    private void ButtonsWithGalleryBckgrnd() {
+    /**
+     * Retrieves the tile image from memory based on URI path, and creates the tile GUI.
+     */
+    private void getTileImageAndMakeGUI() {
         try {
             InputStream stream = getContentResolver().openInputStream(Uri.parse(boardManager.getBoard().getPicturePath()));
             Drawable d = Drawable.createFromStream(stream, "UserTilePic");
-            createButtonGUI(d);
+            createTileGUI(d);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             Toast.makeText(this, "Image not found", Toast.LENGTH_SHORT).show();
@@ -300,6 +287,9 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * A task for the timer to do.
      */
     public class SaveTask extends TimerTask {
+        /**
+         * The current GameActivity instance.
+         */
         private GameActivity gameActivity;
 
         /**
@@ -316,7 +306,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
          * The command being ran by the timer.
          */
         public void run() {
-            SaveAndLoad.saveToFile(this.gameActivity, SlidingTilesStartingActivity.SAVE_FILENAME, boardManager);
+            SaveAndLoadBoardManager.saveToFile(this.gameActivity, SlidingTilesStartingActivity.SAVE_FILENAME, boardManager);
 
         }
     }
