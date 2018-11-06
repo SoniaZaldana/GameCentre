@@ -85,8 +85,10 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         try {
             fr = new FileWriter(scoreFile, true);
             if (isHighScore(fileName, scoreSave)) {
-            deletePreviousHighScore(fileName, user);
-            fr.write(entry+"\n");
+                deletePreviousHighScore(fileName, user);
+                fr.close();
+                fr = new FileWriter(scoreFile, true);
+                fr.write(entry+"\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -130,14 +132,14 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         String line;
         int index;
         BufferedReader reader;
-        File fixedFile = new File(this.getFilesDir(), fileName);
+        File fixedFile = new File(this.getFilesDir(), fileName + "temp");
         FileWriter fr = null;
         try {
             reader = new BufferedReader(new FileReader(new File(this.getFilesDir(), fileName)));
             fr = new FileWriter(fixedFile);
             while ((line = reader.readLine()) != null) {
                 index = line.indexOf(",");
-                if (!line.substring(1, index - 1).equals(targetUser)) {
+                if (!line.substring(1, index).equals(targetUser)) {
                     fr.write(line);
                 }
             }
