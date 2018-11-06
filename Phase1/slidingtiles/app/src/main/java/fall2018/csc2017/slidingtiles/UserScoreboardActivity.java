@@ -25,7 +25,7 @@ public class UserScoreboardActivity extends AppCompatActivity {
     }
 
     public void goToScoreboardMenu (View view){
-        Intent intent = new Intent (this, ScoreboardActivity.class);
+        Intent intent = new Intent (this, ScoreboardMenuActivity.class);
         startActivity(intent);
     }
 
