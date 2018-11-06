@@ -16,13 +16,20 @@ public class ScoreboardActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
+        setUpButtonsAndLabels();
+
+    }
+
+    /**
+     * Performs the actions to set up buttons and labels
+     */
+    private void setUpButtonsAndLabels() {
         menu = findViewById(R.id.MainMenuButton);
         myScoreboard = findViewById(R.id.MyScoreboardLabel);
         sliding = findViewById(R.id.SlidingTilesScoreboardLabel);
         menu.setOnClickListener(this);
         myScoreboard.setOnClickListener(this);
         sliding.setOnClickListener(this);
-
     }
 
     @Override
