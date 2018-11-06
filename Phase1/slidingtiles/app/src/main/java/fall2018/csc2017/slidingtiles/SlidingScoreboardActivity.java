@@ -46,6 +46,13 @@ public class SlidingScoreboardActivity extends AppCompatActivity implements View
         }
     }
 
+    /**
+     * Returns an ArrayList of the users in fileName if wantUsers is true, otherwise returns an
+     * ArrayList of the scores in fileName
+     * @param fileName - the file in which we are looking for the contents
+     * @param wantUsers - whether we want the users or not
+     * @return An Arraylist
+     */
     private ArrayList<String> getValue(String fileName, boolean wantUsers) {
         ArrayList<String> usernames = new ArrayList<String>();
         ArrayList<String> scores = new ArrayList<String>();
