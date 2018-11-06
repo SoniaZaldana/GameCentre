@@ -46,6 +46,7 @@ public class Gamelauncheractivity extends AppCompatActivity implements View.OnCl
         switch (item.getItemId()) {
             case R.id.action_signoff:
                 startActivity(new Intent(this, Loginactivity.class));
+                SharedPreferenceManager.deleteUser(this, "sharedUser", "thisUser");
                 return true;
         }
         return true;

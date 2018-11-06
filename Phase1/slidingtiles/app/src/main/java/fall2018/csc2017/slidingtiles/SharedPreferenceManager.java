@@ -17,4 +17,12 @@ public class SharedPreferenceManager {
         SharedPreferences sp = c.getApplicationContext().getSharedPreferences(spName, MODE_PRIVATE);
         return sp.getString(key, "User");
     }
+
+    public static void deleteUser(Context c, String spName, String key) {
+        SharedPreferences sp = c.getApplicationContext().getSharedPreferences(spName, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.remove(key);
+        editor.apply();
+
+    }
 }
