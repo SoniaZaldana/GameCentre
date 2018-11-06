@@ -162,7 +162,6 @@ public class StartingActivity extends AppCompatActivity {
         if(tilePicture!=null){
             tmp.putExtra("TileImage", tilePicture);
         }
-        //SaveAndLoad.saveToFile(this, StartingActivity.TEMP_SAVE_FILENAME, boardManager);
 
         startActivity(tmp);
 
