@@ -65,7 +65,7 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
                         if(tileImage!=null){
                             boardManager.getBoard().setPicturePath(tileImage.toString());
                         }
-                        SaveAndLoad.saveToFile(this, StartingActivity.SAVE_FILENAME, boardManager);
+                        SaveAndLoad.saveToFile(this, SlidingTilesActivity.SAVE_FILENAME, boardManager);
                         startActivity(tmp);
                     }
                 } catch(NumberFormatException e){
