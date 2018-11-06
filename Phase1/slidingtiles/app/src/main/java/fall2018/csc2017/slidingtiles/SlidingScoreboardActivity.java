@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,12 +28,13 @@ public class SlidingScoreboardActivity extends AppCompatActivity implements View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sliding_scoreboard);
-        TextView userScore = findViewById(R.id.UserScore);
         ArrayList<String> usernames = getValue("SlidingTiles.txt", USERS);
         ArrayList<String> scores = getValue("SlidingTiles.txt", !USERS);
         back = findViewById(R.id.GoBack);
         back.setOnClickListener(this);
-
+        ListView listView = (ListView)findViewById(R.id.listView);
+        ScoreBoardArrayAdapter my_adapter = new ScoreBoardArrayAdapter(this, usernames, scores);
+        listView.setAdapter(my_adapter);
     }
 
     @Override
