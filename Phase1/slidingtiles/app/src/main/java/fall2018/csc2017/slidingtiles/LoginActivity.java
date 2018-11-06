@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * The login screen
+ */
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     Button loginButton, registerButton;
     EditText usernameText, passwordText;

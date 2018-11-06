@@ -11,6 +11,10 @@ import java.io.ObjectOutputStream;
 
 import static android.content.Context.MODE_PRIVATE;
 
+
+/**
+ * Handles Saving and Loading
+ */
 public class SaveAndLoad {
 
     /**
