@@ -1,13 +1,11 @@
 package fall2018.csc2017.slidingtiles;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import fall2018.csc2017.slidingtiles.SharedPreferenceManager;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -24,7 +22,6 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
     String gameFile;
     TextView scoreValue;
     TextView highScore;
-    SharedPreferences currentUsername;
     Button btn;
 
     @Override
@@ -60,7 +57,7 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
     private void saveToFile(String fileName, String firstVariable, int scoreSave) {
         String entry = "[" + firstVariable + "," + scoreSave + "]";
         File scoreFile = new File(this.getFilesDir(), fileName);
-        FileWriter fr = null;
+        FileWriter fr;
         try {
             if (isHighScore(fileName, scoreSave)) {
                 deletePreviousHighScore(fileName, firstVariable);
@@ -105,7 +102,7 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         int index;
         BufferedReader reader;
         File fixedFile = new File(this.getFilesDir(), fileName + "temp");
-        FileWriter fr = null;
+        FileWriter fr;
         try {
             reader = new BufferedReader(new FileReader(new File(this.getFilesDir(), fileName)));
             fr = new FileWriter(fixedFile);
