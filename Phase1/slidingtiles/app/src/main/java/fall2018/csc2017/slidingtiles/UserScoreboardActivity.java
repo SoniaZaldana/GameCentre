@@ -28,11 +28,21 @@ public class UserScoreboardActivity extends AppCompatActivity {
         gameScore.setText(getScorePerGame(user + "Score.txt", "SlidingTiles"));
     }
 
+    /**
+     * Starts activity ScoreboardMenuActivity
+     * @param view
+     */
     public void goToScoreboardMenu(View view) {
         Intent intent = new Intent(this, ScoreboardMenuActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Returns the score for a specific target game in a given file
+     * @param fileName - the given file to search the score in
+     * @param targetGame - the game we are looking for
+     * @return score saved for the game targetGame in fileName
+     */
     public String getScorePerGame(String fileName, String targetGame) {
         String score = "0";
         String line;
@@ -41,6 +51,7 @@ public class UserScoreboardActivity extends AppCompatActivity {
         try {
             reader = new BufferedReader(new FileReader(new File(this.getFilesDir(), fileName)));
             while ((line = reader.readLine()) != null) {
+                // Splitting the line entry to find the first half (the game name)
                 index = line.indexOf(",");
                 String game = line.substring(1, index);
                 if (game.equals(targetGame)) {
