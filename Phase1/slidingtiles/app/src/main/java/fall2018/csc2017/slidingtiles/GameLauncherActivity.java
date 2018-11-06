@@ -23,7 +23,7 @@ public class GameLauncherActivity extends AppCompatActivity implements View.OnCl
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gamelauncheractivity);
-        android.support.v7.widget.Toolbar myToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        android.support.v7.widget.Toolbar myToolbar = findViewById(R.id.toolbar);
         myToolbar.setLogo(R.drawable.ic_launcher_foreground);
         setSupportActionBar(myToolbar);
         TilesGame = findViewById(R.id.TilesGame);

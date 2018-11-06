@@ -13,8 +13,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static java.lang.Integer.valueOf;
-
 /**
  * Top scores of each user in the Sliding Tiles Game
  */
@@ -26,7 +24,7 @@ public class SlidingScoreboardActivity extends AppCompatActivity implements View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sliding_scoreboard);
-        TextView userScore = findViewById(R.id.UserScore);
+        //TextView userScore = findViewById(R.id.UserScore);
         ArrayList<String> usernames = getValue("SlidingTiles.txt", USERS);
         ArrayList<String> scores = getValue("SlidingTiles.txt", !USERS);
         back = findViewById(R.id.GoBack);

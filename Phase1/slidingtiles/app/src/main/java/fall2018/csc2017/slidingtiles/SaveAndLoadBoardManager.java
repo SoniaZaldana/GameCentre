@@ -15,7 +15,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * Handles Saving and Loading
  */
-public class SaveAndLoad {
+public class SaveAndLoadBoardManager {
 
     /**
      * Load the board manager from fileName.
