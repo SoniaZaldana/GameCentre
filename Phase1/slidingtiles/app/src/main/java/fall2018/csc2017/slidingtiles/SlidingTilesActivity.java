@@ -44,7 +44,6 @@ public class SlidingTilesActivity extends AppCompatActivity {
     private Context context;
     private static final int PICK_IMAGE_REQ_CODE = 50;
 
-    //TODO Get rid of all the extra Save and Loads here. Only use when necessary.
     @Override
 
 
@@ -158,8 +157,6 @@ public class SlidingTilesActivity extends AppCompatActivity {
     }
 
     private void newGame() {
-        //TODO make sure that even if i have a loaded game. If I choose to play a new game, it plays a new game.
-        //TODO Figure out difference between temp_save and save_file
         Intent tmp = new Intent(this, ChooseDimensionsActivity.class);
         if (tilePicture != null) {
             tmp.putExtra("TileImage", tilePicture);

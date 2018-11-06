@@ -1,5 +1,5 @@
 Contact information
-Alex:, email, phone
+Alex: alexu.wong@mail.utoronto.ca, 416-821-0618
 Nick: stroncea.nicolae@gmail.com, no phone #.
 Osman: email, phone
 Sonia: sonia.zaldana@mail.utoronto.ca, phone: (416) 890 - 3475
