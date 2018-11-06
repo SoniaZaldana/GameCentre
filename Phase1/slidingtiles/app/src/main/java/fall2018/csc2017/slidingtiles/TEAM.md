@@ -32,6 +32,7 @@ game's text file or the user's with Alex's help in debugging.
 current user from any activity/class.
 6. Integrate the creation of the text files where scores will be stored within the login/register activities.
 7. Implement the reading of text files in SlidingScoreboardActivity, whilst Suguru implements the display.
+8. Implement a shared preferences manager to delete duplicate code.
 
 
 
