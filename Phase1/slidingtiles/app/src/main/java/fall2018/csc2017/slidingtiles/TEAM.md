@@ -49,6 +49,11 @@ authentication purposes.
 1. Allow user to choose dimensions of the board arbitrarily.
 2. Generate tiles automatically.
 3. Choose background for tiles.
+4. Set up Project on Markus, create the README.
+5. Contributed to ArrayAdapter and ScoreBoardPerGame.
+6. Refactor Board, BoardManager, Tile to create a cleaner structure.
+7. Create class SaveAndLoadBoardManager.
+
 
 ### Alex:
 1. Implement AutoSave
