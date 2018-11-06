@@ -28,7 +28,7 @@ import java.net.URI;
  * The initial activity for the sliding puzzle tile game.
  * Code for picking image inspired from http://androidbitmaps.blogspot.com/2015/04/loading-images-in-android-part-iii-pick.html
  */
-public class StartingActivity extends AppCompatActivity {
+public class SlidingTilesActivity extends AppCompatActivity {
 
     /**
      * The main save file.
@@ -167,7 +167,4 @@ public class StartingActivity extends AppCompatActivity {
 
 
     }
-
-
-
 }
