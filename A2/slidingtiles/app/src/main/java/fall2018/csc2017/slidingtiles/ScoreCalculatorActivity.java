@@ -58,7 +58,7 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
     }
 
     private void saveToFile(String fileName, String firstVariable, int scoreSave) {
-        String entry = "[" + firstVariable + "," + score + "]";
+        String entry = "[" + firstVariable + "," + scoreSave + "]";
         File scoreFile = new File(this.getFilesDir(), fileName);
         FileWriter fr = null;
         try {
