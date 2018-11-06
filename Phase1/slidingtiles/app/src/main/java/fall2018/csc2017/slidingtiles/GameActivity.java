@@ -68,7 +68,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         //TODO Make sure everything is in the right order. Only if new game, then you take value from dimensions
         //TODO Make sure we don't switch up the values.
         super.onCreate(savedInstanceState);
-        boardManager = SaveAndLoad.loadFromFile(this, StartingActivity.SAVE_FILENAME);
+        boardManager = SaveAndLoad.loadFromFile(this, SlidingTilesActivity.SAVE_FILENAME);
         setContentView(R.layout.activity_main);
         autoSave();
 
@@ -141,7 +141,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SaveAndLoad.saveToFile(gameActivity, StartingActivity.SAVE_FILENAME, boardManager);
+                SaveAndLoad.saveToFile(gameActivity, SlidingTilesActivity.SAVE_FILENAME, boardManager);
                 makeToastSavedText();
             }
         });
@@ -224,7 +224,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onPause() {
         super.onPause();
-        SaveAndLoad.saveToFile(this, StartingActivity.SAVE_FILENAME, boardManager);
+        SaveAndLoad.saveToFile(this, SlidingTilesActivity.SAVE_FILENAME, boardManager);
         timer.cancel();
     }
 
@@ -324,7 +324,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
          *
          */
         public void run(){
-            SaveAndLoad.saveToFile(this.gameActivity, StartingActivity.SAVE_FILENAME, boardManager);
+            SaveAndLoad.saveToFile(this.gameActivity, SlidingTilesActivity.SAVE_FILENAME, boardManager);
 
         }
     }
