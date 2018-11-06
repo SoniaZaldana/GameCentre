@@ -13,7 +13,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 
 /**
- * Handles Saving and Loading
+ * Handles Saving and Loading the boardManager
  */
 public class SaveAndLoadBoardManager {
 

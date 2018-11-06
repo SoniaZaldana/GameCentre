@@ -25,14 +25,19 @@ public class SlidingTilesStartingActivity extends AppCompatActivity {
      * The board manager.
      */
     private BoardManager boardManager;
+    /**
+     * Path to the tile Picture image.
+     */
     private String tilePicture;
 
     private Context context;
+    /**
+     * Request code to send and get when sending intent to pick image.
+     * Use to check if receiving the data from the right intent.
+     */
     private static final int PICK_IMAGE_REQ_CODE = 50;
 
     @Override
-
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
@@ -96,7 +101,7 @@ public class SlidingTilesStartingActivity extends AppCompatActivity {
     }
 
     /**
-     * Get the picture
+     * Get the picture, and set it to the board.
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

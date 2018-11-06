@@ -26,6 +26,10 @@ import java.util.TimerTask;
  * The game activity.
  */
 public class GameActivity extends AppCompatActivity implements Observer {
+    /**
+     * Constant which represents the read storage request code.
+     * Use it to check if getting return for a READ_STORAGE request.
+     */
     static final int MY_PERMISSIONS_REQUEST_READ_STORAGE = 3;
 
     /**
@@ -41,8 +45,9 @@ public class GameActivity extends AppCompatActivity implements Observer {
     // Grid View and calculated column height and width based on device size
     private GestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
-
-    // AutoSave Timer
+    /**
+     * Timer used for autosave
+     */
     private Timer timer = new Timer();
 
     /**
@@ -165,12 +170,16 @@ public class GameActivity extends AppCompatActivity implements Observer {
                         MY_PERMISSIONS_REQUEST_READ_STORAGE);
             }
         } else {
-            createButtonGUI(ContextCompat.getDrawable(this, R.drawable.tile_16));
+            createTileGUI(ContextCompat.getDrawable(this, R.drawable.tile_16));
         }
 
     }
 
-    private void createButtonGUI(Drawable d) {
+    /**
+     * Creates how the tiles looks: number on it, image, etc.
+     * @param d drawable to set as background for a tile
+     */
+    private void createTileGUI(Drawable d) {
         Board board = boardManager.getBoard();
         int nextPos = 0;
         int numberOnTile;
@@ -241,10 +250,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted, yay!
-                    ButtonsWithGalleryBckgrnd();
+                    getTileImageAndMakeGUI();
                 } else {
                     // permission denied/
-                    createButtonGUI(ContextCompat.getDrawable(this, R.drawable.tile_16));
+                    createTileGUI(ContextCompat.getDrawable(this, R.drawable.tile_16));
 
 
                 }
@@ -254,11 +263,14 @@ public class GameActivity extends AppCompatActivity implements Observer {
         }
     }
 
-    private void ButtonsWithGalleryBckgrnd() {
+    /**
+     * Retrieves the tile image from memory based on URI path, and creates the tile GUI.
+     */
+    private void getTileImageAndMakeGUI() {
         try {
             InputStream stream = getContentResolver().openInputStream(Uri.parse(boardManager.getBoard().getPicturePath()));
             Drawable d = Drawable.createFromStream(stream, "UserTilePic");
-            createButtonGUI(d);
+            createTileGUI(d);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             Toast.makeText(this, "Image not found", Toast.LENGTH_SHORT).show();
@@ -275,6 +287,9 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * A task for the timer to do.
      */
     public class SaveTask extends TimerTask {
+        /**
+         * The current GameActivity instance.
+         */
         private GameActivity gameActivity;
 
         /**

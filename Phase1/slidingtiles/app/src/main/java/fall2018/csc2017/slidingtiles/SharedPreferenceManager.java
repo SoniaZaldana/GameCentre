@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import static android.content.Context.MODE_PRIVATE;
 
+/**
+ * Class which removes bloated code around settings and getting data from sharedPreferences.
+ */
 class SharedPreferenceManager {
 
     static void setSharedValue(Context c, String spName, String key, String value) {

@@ -16,6 +16,9 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
     EditText dimensionInput, undoInput;
     Button submitInput;
     TextView dimensionInstructions, undoInstructions;
+    /**
+     * the Uri of the image of the board, that the user requests with intent.
+     */
     Uri tileImage;
 
     @Override

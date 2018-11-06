@@ -20,8 +20,17 @@ import static java.lang.Integer.valueOf;
  * The end screen after the puzzle is solved
  */
 public class ScoreCalculatorActivity extends AppCompatActivity {
+    /**
+     * score for the game
+     */
     int score;
+    /**
+     * user name
+     */
     String user;
+    /**
+     * name of the game
+     */
     String gameFile;
     TextView scoreValue;
     TextView highScore;

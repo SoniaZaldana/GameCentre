@@ -140,6 +140,11 @@ class BoardManager implements Serializable {
         }
     }
 
+    /**
+     * Undo the most recent move. If undo is pressed again, undo the next most recent move.
+     * Continue as long as moves are recorded.
+     * @return whether a move has been undone
+     */
     boolean undo() {
         if (this.stack.getSize() == 0) {
             return false;
