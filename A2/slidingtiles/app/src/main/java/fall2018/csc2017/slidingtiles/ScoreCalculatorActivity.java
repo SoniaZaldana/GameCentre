@@ -44,7 +44,7 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         else
             highScore.setText("Not a new high score, but pretty good!");
         saveToFile(gameFile, user, score);
-        saveToFile(user + "Score.txt", score);
+        saveToFile(user + "Score.txt", "SlidingTiles", score);
 
 
         btn = findViewById(R.id.MainMenuButton);
@@ -57,29 +57,13 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
 
     }
 
-    private void saveToFile(String fileName, String user, int scoreSave) {
-        String entry = "[" + user + "," + score + "]";
+    private void saveToFile(String fileName, String firstVariable, int scoreSave) {
+        String entry = "[" + firstVariable + "," + score + "]";
         File scoreFile = new File(this.getFilesDir(), fileName);
         FileWriter fr = null;
         try {
             if (isHighScore(fileName, scoreSave)) {
-                deletePreviousHighScore(fileName, user);
-                fr = new FileWriter(scoreFile, true);
-                fr.write(entry+"\n");
-                fr.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void saveToFile(String fileName, int scoreSave) {
-        String entry = "[SlidingTiles," + scoreSave + "]";
-        File scoreFile = new File(this.getFilesDir(), fileName);
-        FileWriter fr = null;
-        try {
-            if (isHighScore(fileName, scoreSave)) {
-                deletePreviousHighScore(fileName, "SlidingTiles");
+                deletePreviousHighScore(fileName, firstVariable);
                 fr = new FileWriter(scoreFile, true);
                 fr.write(entry+"\n");
                 fr.close();
