@@ -11,6 +11,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * User specific Scoreboard
+ */
 public class UserScoreboardActivity extends AppCompatActivity {
     String user;
 
