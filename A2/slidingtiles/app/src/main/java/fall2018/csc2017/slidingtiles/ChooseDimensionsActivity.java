@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+/**
+ * The Board Dimension + Undo Number Activity
+ */
 public class ChooseDimensionsActivity extends AppCompatActivity {
     EditText dimensionInput;
     Button submitInput;
@@ -32,10 +35,12 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
         if(tileImgAsStr != null){
             tileImage = Uri.parse(tileImgAsStr);
         }
-
-
-
     }
+
+    /**
+     * Checks for valid inputs. Returns messages to request for valid inputs.
+     * @param view The view.
+     */
     public void submitInput(View view) {
 
         String text = dimensionInput.getText().toString();
