@@ -24,7 +24,7 @@ public class UserScoreboardActivity extends AppCompatActivity {
         TextView gameName = findViewById(R.id.GameNameLabel);
         TextView gameScore = findViewById(R.id.ScoreLabel);
         user = SharedPreferenceManager.getSharedValue(this, "sharedUser", "thisUser");
-        gameName.setText("Sliding Tiles");
+        gameName.setText(R.string.sliding_tiles);
         gameScore.setText(getScorePerGame(user + "Score.txt", "SlidingTiles"));
     }
 
