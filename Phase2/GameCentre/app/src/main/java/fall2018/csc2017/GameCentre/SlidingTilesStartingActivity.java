@@ -112,8 +112,8 @@ public class SlidingTilesStartingActivity extends AppCompatActivity {
             tilePicture = data.getData().toString();
             boardManager = SaveAndLoadBoardManager.loadFromFile(context, SAVE_FILENAME);
             if (boardManager != null) {
-                Board board = boardManager.getBoard();
-                board.setPicturePath(tilePicture);
+                SlidingTilesBoard slidingTilesBoard = boardManager.getBoard();
+                slidingTilesBoard.setPicturePath(tilePicture);
                 SaveAndLoadBoardManager.saveToFile(context, SAVE_FILENAME, boardManager);
             }
         }
