@@ -100,10 +100,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * @param context the context
      */
     private void createTileButtons(Context context) {
-        Board board = boardManager.getBoard();
+        SlidingTilesBoard slidingTilesBoard = boardManager.getBoard();
         tileButtons = new ArrayList<>();
-        for (int row = 0; row != board.getNumRows(); row++) {
-            for (int col = 0; col != board.getNumCols(); col++) {
+        for (int row = 0; row != slidingTilesBoard.getNumRows(); row++) {
+            for (int col = 0; col != slidingTilesBoard.getNumCols(); col++) {
                 Button tmp = new Button(context);
                 this.tileButtons.add(tmp);
             }
@@ -149,9 +149,9 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        Board board = boardManager.getBoard();
+        SlidingTilesBoard slidingTilesBoard = boardManager.getBoard();
         // See if you need the permission. Code taken from Developer Website for Android.
-        if (board.getPicturePath() != null) {
+        if (slidingTilesBoard.getPicturePath() != null) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                         Manifest.permission.READ_EXTERNAL_STORAGE)) {
@@ -180,14 +180,14 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * @param d drawable to set as background for a tile
      */
     private void createTileGUI(Drawable d) {
-        Board board = boardManager.getBoard();
+        SlidingTilesBoard slidingTilesBoard = boardManager.getBoard();
         int nextPos = 0;
         int numberOnTile;
         for (Button b : tileButtons) {
-            int row = nextPos / board.getNumRows();
-            int col = nextPos % board.getNumCols();
-            numberOnTile = board.getTile(row, col).getId();
-            if (numberOnTile != board.getBlankId()) {
+            int row = nextPos / slidingTilesBoard.getNumRows();
+            int col = nextPos % slidingTilesBoard.getNumCols();
+            numberOnTile = slidingTilesBoard.getTile(row, col).getId();
+            if (numberOnTile != slidingTilesBoard.getBlankId()) {
                 b.setText(String.valueOf(numberOnTile));
                 b.setBackground(d);
 
