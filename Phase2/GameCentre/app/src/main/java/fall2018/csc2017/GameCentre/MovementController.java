@@ -2,45 +2,37 @@ package fall2018.csc2017.GameCentre;
 
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 
-public class MovementController {
-
+abstract class MovementController {
     private BoardManager boardManager = null;
-    // Added move variable to keep track of how many moves are made
-    public static int moves;
 
-    public MovementController() {
-        moves = 0;
-    }
-
-    public void setBoardManager(BoardManager boardManager) {
+    /**
+     * Setter for board Manager
+     * @param boardManager - board manager we want
+     */
+    void setBoardManager(BoardManager boardManager) {
         this.boardManager = boardManager;
     }
 
-    public void processTapMovement(Context context, int position, boolean display) {
-        if (boardManager.isValidTap(position)) {
-            boardManager.touchMove(position);
-            moves++;
-            if (boardManager.puzzleSolved()) {
-                Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
-                moveOnToScoreActivity(context);
-            }
-        } else {
-            Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
-        }
+    /**
+     * Getter for board manager
+     * @return the board manager
+     */
+    BoardManager getBoardManager(){
+        return this.boardManager;
     }
-
     /**
      * Performs actions in order to calculate score and move on to score activity
-     *
-     * @param context
+     * @param context - the activity's context
+     * @param gameFile - the name of the game file
+     * @param scoreClass - the score activity to be opened
      */
-    private void moveOnToScoreActivity(Context context) {
-        int score = boardManager.calculateScore(moves);
-        Intent intent = new Intent(context, ScoreCalculatorActivity.class);
+    void moveOnToScoreActivity(Context context, String gameFile, Class scoreClass, int score) {
+        Intent intent = new Intent(context, scoreClass);
         intent.putExtra("Score", score);
-        intent.putExtra("Game", "SlidingTiles.txt");
+        intent.putExtra("Game", gameFile);
         context.startActivity(intent);
     }
+
+    abstract void processTapMovement(Context context, int position);
 }
