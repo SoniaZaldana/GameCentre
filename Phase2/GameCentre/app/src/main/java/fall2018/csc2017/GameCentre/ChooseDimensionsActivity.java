@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 /**
- * The Board Dimension + Undo Number Activity
+ * The SlidingTilesBoard Dimension + Undo Number Activity
  */
 public class ChooseDimensionsActivity extends AppCompatActivity {
     EditText dimensionInput, undoInput;
