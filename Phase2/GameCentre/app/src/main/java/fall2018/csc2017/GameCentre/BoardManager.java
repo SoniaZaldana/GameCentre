@@ -14,7 +14,7 @@ class BoardManager implements Serializable {
     /**
      * The board being managed.
      */
-    private Board board;
+    private SlidingTilesBoard board;
     /**
      * The stack which remembers the moves on the board.
      */
@@ -25,7 +25,7 @@ class BoardManager implements Serializable {
      *
      * @param board the board
      */
-    BoardManager(Board board) {
+    BoardManager(SlidingTilesBoard board) {
         this.board = board;
         this.stack = new UndoStack(3);
     }
@@ -33,7 +33,7 @@ class BoardManager implements Serializable {
     /**
      * Return the current board.
      */
-    Board getBoard() {
+    SlidingTilesBoard getBoard() {
         return board;
     }
 
@@ -48,8 +48,8 @@ class BoardManager implements Serializable {
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new Tile(tileNum + 1));
         }
-        Collections.shuffle(tiles);
-        this.board = new Board(dimension, tiles);
+        //Collections.shuffle(tiles);
+        this.board = new SlidingTilesBoard(dimension, tiles);
     }
 
     /**
@@ -112,7 +112,7 @@ class BoardManager implements Serializable {
     void touchMove(int position) {
         int row = getRow(position);
         int col = getCol(position);
-        // If any of the neighbouring tiles is the blank tile, swap by calling Board's swap method.
+        // If any of the neighbouring tiles is the blank tile, swap by calling SlidingTilesBoard's swap method.
 
         // check if tile above is blank.
         if (isBlankTile(row, 0, row - 1, col)) {
