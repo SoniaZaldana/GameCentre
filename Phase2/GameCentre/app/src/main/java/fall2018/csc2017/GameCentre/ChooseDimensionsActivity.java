@@ -62,11 +62,11 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
                         undoInstructions.setText("Please enter a number greater than 0");
                     } else {
 
-                        BoardManager boardManager = new BoardManager(dimension, undoMax);
+                        SlidingBoardManager slidingBoardManager = new SlidingBoardManager(dimension, undoMax);
                         if (tileImage != null) {
-                            boardManager.getBoard().setPicturePath(tileImage.toString());
+                            slidingBoardManager.getBoard().setPicturePath(tileImage.toString());
                         }
-                        SaveAndLoadBoardManager.saveToFile(this, SlidingTilesStartingActivity.SAVE_FILENAME, boardManager);
+                        SaveAndLoadBoardManager.saveToFile(this, SlidingTilesStartingActivity.SAVE_FILENAME, slidingBoardManager);
                         startActivity(tmp);
                     }
                 } catch (NumberFormatException e) {

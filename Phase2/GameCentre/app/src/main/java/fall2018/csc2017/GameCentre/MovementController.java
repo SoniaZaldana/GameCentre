@@ -4,22 +4,22 @@ import android.content.Context;
 import android.content.Intent;
 
 abstract class MovementController {
-    private BoardManager boardManager = null;
+    private SlidingBoardManager slidingBoardManager = null;
 
     /**
      * Setter for board Manager
-     * @param boardManager - board manager we want
+     * @param slidingBoardManager - board manager we want
      */
-    void setBoardManager(BoardManager boardManager) {
-        this.boardManager = boardManager;
+    void setSlidingBoardManager(SlidingBoardManager slidingBoardManager) {
+        this.slidingBoardManager = slidingBoardManager;
     }
 
     /**
      * Getter for board manager
      * @return the board manager
      */
-    BoardManager getBoardManager(){
-        return this.boardManager;
+    SlidingBoardManager getSlidingBoardManager(){
+        return this.slidingBoardManager;
     }
     /**
      * Performs actions in order to calculate score and move on to score activity
