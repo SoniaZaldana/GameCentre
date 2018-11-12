@@ -35,7 +35,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     /**
      * The board manager.
      */
-    private BoardManager boardManager;
+    private SlidingBoardManager slidingBoardManager;
 
     /**
      * The buttons to display.
@@ -63,7 +63,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        boardManager = SaveAndLoadBoardManager.loadFromFile(this, SlidingTilesStartingActivity.SAVE_FILENAME);
+        slidingBoardManager = SaveAndLoadBoardManager.loadFromFile(this, SlidingTilesStartingActivity.SAVE_FILENAME);
         setContentView(R.layout.activity_main);
         autoSave();
 
@@ -73,9 +73,9 @@ public class GameActivity extends AppCompatActivity implements Observer {
         // Add View to activity
         gridView = findViewById(R.id.grid);
         createTileButtons(this);
-        gridView.setNumColumns(boardManager.getBoard().getNumCols());
-        gridView.setBoardManager(boardManager);
-        boardManager.getBoard().addObserver(this);
+        gridView.setNumColumns(slidingBoardManager.getBoard().getNumCols());
+        gridView.setSlidingBoardManager(slidingBoardManager);
+        slidingBoardManager.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -86,8 +86,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
                         int displayWidth = gridView.getMeasuredWidth();
                         int displayHeight = gridView.getMeasuredHeight();
 
-                        columnWidth = displayWidth / boardManager.getBoard().getNumCols();
-                        columnHeight = displayHeight / boardManager.getBoard().getNumRows();
+                        columnWidth = displayWidth / slidingBoardManager.getBoard().getNumCols();
+                        columnHeight = displayHeight / slidingBoardManager.getBoard().getNumRows();
 
                         display();
                     }
@@ -100,7 +100,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * @param context the context
      */
     private void createTileButtons(Context context) {
-        SlidingTilesBoard slidingTilesBoard = boardManager.getBoard();
+        SlidingTilesBoard slidingTilesBoard = slidingBoardManager.getBoard();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != slidingTilesBoard.getNumRows(); row++) {
             for (int col = 0; col != slidingTilesBoard.getNumCols(); col++) {
@@ -132,7 +132,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SaveAndLoadBoardManager.saveToFile(gameActivity, SlidingTilesStartingActivity.SAVE_FILENAME, boardManager);
+                SaveAndLoadBoardManager.saveToFile(gameActivity, SlidingTilesStartingActivity.SAVE_FILENAME, slidingBoardManager);
                 makeToastSavedText();
             }
         });
@@ -149,7 +149,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        SlidingTilesBoard slidingTilesBoard = boardManager.getBoard();
+        SlidingTilesBoard slidingTilesBoard = slidingBoardManager.getBoard();
         // See if you need the permission. Code taken from Developer Website for Android.
         if (slidingTilesBoard.getPicturePath() != null) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -180,7 +180,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * @param d drawable to set as background for a tile
      */
     private void createTileGUI(Drawable d) {
-        SlidingTilesBoard slidingTilesBoard = boardManager.getBoard();
+        SlidingTilesBoard slidingTilesBoard = slidingBoardManager.getBoard();
         int nextPos = 0;
         int numberOnTile;
         for (Button b : tileButtons) {
@@ -206,7 +206,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onPause() {
         super.onPause();
-        SaveAndLoadBoardManager.saveToFile(this, SlidingTilesStartingActivity.SAVE_FILENAME, boardManager);
+        SaveAndLoadBoardManager.saveToFile(this, SlidingTilesStartingActivity.SAVE_FILENAME, slidingBoardManager);
         timer.cancel();
     }
 
@@ -228,7 +228,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * Undoes the previous step.
      */
     public void undo() {
-        boolean undone = this.boardManager.undo();
+        boolean undone = this.slidingBoardManager.undo();
         if (!undone) {
             makeUndoFailedText();
         }
@@ -268,7 +268,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
      */
     private void getTileImageAndMakeGUI() {
         try {
-            InputStream stream = getContentResolver().openInputStream(Uri.parse(boardManager.getBoard().getPicturePath()));
+            InputStream stream = getContentResolver().openInputStream(Uri.parse(slidingBoardManager.getBoard().getPicturePath()));
             Drawable d = Drawable.createFromStream(stream, "UserTilePic");
             createTileGUI(d);
         } catch (FileNotFoundException e) {
@@ -306,7 +306,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
          * The command being ran by the timer.
          */
         public void run() {
-            SaveAndLoadBoardManager.saveToFile(this.gameActivity, SlidingTilesStartingActivity.SAVE_FILENAME, boardManager);
+            SaveAndLoadBoardManager.saveToFile(this.gameActivity, SlidingTilesStartingActivity.SAVE_FILENAME, slidingBoardManager);
 
         }
     }

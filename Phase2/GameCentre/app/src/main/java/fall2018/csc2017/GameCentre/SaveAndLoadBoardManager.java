@@ -22,13 +22,13 @@ public class SaveAndLoadBoardManager {
      *
      * @param fileName the name of the file
      */
-    public static BoardManager loadFromFile(Context context, String fileName) {
-        BoardManager boardManager = null;
+    public static SlidingBoardManager loadFromFile(Context context, String fileName) {
+        SlidingBoardManager slidingBoardManager = null;
         try {
             InputStream inputStream = context.openFileInput(fileName);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                boardManager = (BoardManager) input.readObject();
+                slidingBoardManager = (SlidingBoardManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -38,7 +38,7 @@ public class SaveAndLoadBoardManager {
         } catch (ClassNotFoundException e) {
             Log.e("login activity", "File contained unexpected data type: " + e.toString());
         }
-        return boardManager;
+        return slidingBoardManager;
     }
 
     /**
@@ -46,11 +46,11 @@ public class SaveAndLoadBoardManager {
      *
      * @param fileName the name of the file
      */
-    public static void saveToFile(Context context, String fileName, BoardManager boardManager) {
+    public static void saveToFile(Context context, String fileName, SlidingBoardManager slidingBoardManager) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     context.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(boardManager);
+            outputStream.writeObject(slidingBoardManager);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());

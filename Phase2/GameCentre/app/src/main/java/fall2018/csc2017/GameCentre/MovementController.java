@@ -9,7 +9,7 @@ abstract class MovementController {
     /**
      * Setter for board Manager
      * @param slidingBoardManager - board manager we want
-     */
+     */ // TODO: This needs to be generalized, not in terms of sliding board manager
     void setSlidingBoardManager(SlidingBoardManager slidingBoardManager) {
         this.slidingBoardManager = slidingBoardManager;
     }
@@ -17,7 +17,7 @@ abstract class MovementController {
     /**
      * Getter for board manager
      * @return the board manager
-     */
+     */ // TODO: this also needs to be generalized, Sonia.
     SlidingBoardManager getSlidingBoardManager(){
         return this.slidingBoardManager;
     }
