@@ -12,31 +12,14 @@ class Board extends Observable implements Serializable {
      * The number of rows.
      */
     private int numCols;
-    /**
-     * path of the board Picture.
-     */
-    private String picturePath;
+
 
     Board(int dimension) {
         this.numRows = dimension;
         this.numCols = dimension;
     }
 
-    /**
-     * set picturePath
-     * @param picturePath path of the board Picture
-     */
-    void setPicturePath(String picturePath) {
-        this.picturePath = picturePath;
-    }
 
-    /**
-     * get the picturePath
-     * @return picturePath path of the board Picture
-     */
-    String getPicturePath() {
-        return picturePath;
-    }
 
     /**
      * get the number of columns

@@ -19,6 +19,11 @@ public class SlidingTilesBoard extends Board implements Iterable<Tile> {
     private Tile[][] tiles;
 
     /**
+     * path of the board Picture.
+     */
+    private String picturePath;
+
+    /**
      * A new board of tiles in row-major order.
      * Precondition: len(tiles) == numRows * numCols
      *
@@ -51,6 +56,21 @@ public class SlidingTilesBoard extends Board implements Iterable<Tile> {
      */
     int getBlankId() {
         return numTiles();
+    }
+    /**
+     * set picturePath
+     * @param picturePath path of the board Picture
+     */
+    void setPicturePath(String picturePath) {
+        this.picturePath = picturePath;
+    }
+
+    /**
+     * get the picturePath
+     * @return picturePath path of the board Picture
+     */
+    String getPicturePath() {
+        return picturePath;
     }
 
     /**
