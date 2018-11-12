@@ -51,7 +51,7 @@ authentication purposes.
 3. Choose background for tiles.
 4. Set up Project on Markus, create the README.
 5. Contributed to ArrayAdapter and ScoreBoardPerGame.
-6. Refactor SlidingTilesBoard, BoardManager, Tile to create a cleaner structure.
+6. Refactor SlidingTilesBoard, SlidingBoardManager, Tile to create a cleaner structure.
 7. Create class SaveAndLoadBoardManager.
 
 

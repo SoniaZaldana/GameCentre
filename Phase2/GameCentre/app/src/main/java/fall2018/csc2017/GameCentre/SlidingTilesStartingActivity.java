@@ -24,7 +24,7 @@ public class SlidingTilesStartingActivity extends AppCompatActivity {
     /**
      * The board manager.
      */
-    private BoardManager boardManager;
+    private SlidingBoardManager slidingBoardManager;
     /**
      * Path to the tile Picture image.
      */
@@ -73,8 +73,8 @@ public class SlidingTilesStartingActivity extends AppCompatActivity {
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boardManager = SaveAndLoadBoardManager.loadFromFile(context, SAVE_FILENAME);
-                if (boardManager == null) {
+                slidingBoardManager = SaveAndLoadBoardManager.loadFromFile(context, SAVE_FILENAME);
+                if (slidingBoardManager == null) {
                     Toast.makeText(getApplicationContext(), "No previously saved game.", Toast.LENGTH_SHORT).show();
                 } else {
                     makeToastLoadedText();
@@ -110,11 +110,11 @@ public class SlidingTilesStartingActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE_REQ_CODE) {
             // data returns the Uri(address) of the selected picture
             tilePicture = data.getData().toString();
-            boardManager = SaveAndLoadBoardManager.loadFromFile(context, SAVE_FILENAME);
-            if (boardManager != null) {
-                SlidingTilesBoard slidingTilesBoard = boardManager.getBoard();
+            slidingBoardManager = SaveAndLoadBoardManager.loadFromFile(context, SAVE_FILENAME);
+            if (slidingBoardManager != null) {
+                SlidingTilesBoard slidingTilesBoard = slidingBoardManager.getBoard();
                 slidingTilesBoard.setPicturePath(tilePicture);
-                SaveAndLoadBoardManager.saveToFile(context, SAVE_FILENAME, boardManager);
+                SaveAndLoadBoardManager.saveToFile(context, SAVE_FILENAME, slidingBoardManager);
             }
         }
     }
@@ -134,7 +134,7 @@ public class SlidingTilesStartingActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        boardManager = SaveAndLoadBoardManager.loadFromFile(this, SAVE_FILENAME);
+        slidingBoardManager = SaveAndLoadBoardManager.loadFromFile(this, SAVE_FILENAME);
     }
 
     /**
