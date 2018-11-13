@@ -35,7 +35,6 @@ class SlidingBoardManager extends BoardManager implements Serializable, Undoable
     SlidingBoardManager(int dimension, int undoMax) {
         super(dimension);
         this.stack = new UndoStack(undoMax);
-
         Collections.shuffle(getTileList());
         this.board = new SlidingTilesBoard(dimension, getTileList());
     }
@@ -45,7 +44,7 @@ class SlidingBoardManager extends BoardManager implements Serializable, Undoable
      */
     @Override
     SlidingTilesBoard getBoard() {
-        return board;
+        return this.board;
     }
 
 
