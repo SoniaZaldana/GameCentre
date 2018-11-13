@@ -36,11 +36,6 @@ class SlidingBoardManager extends BoardManager implements Serializable, Undoable
         super(dimension);
         this.stack = new UndoStack(undoMax);
 
-//        List<Tile> tiles = new ArrayList<>();
-//        final int numTiles = dimension * dimension;
-//        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-//            tiles.add(new Tile(tileNum + 1));
-//        } //up until here should be in the parent class
         Collections.shuffle(getTileList());
         this.board = new SlidingTilesBoard(dimension, getTileList());
     }
@@ -104,7 +99,7 @@ class SlidingBoardManager extends BoardManager implements Serializable, Undoable
      * contains a blank Tile
      */
     private boolean isBlankTile(int rowOrCol, int boundaryCase, int rowToCheck, int colToCheck) {
-        int blankId = board.numTiles();
+        int blankId = board.getNumTiles();
         Tile tile = rowOrCol == boundaryCase ? null : board.getTile(rowToCheck, colToCheck);
         return tile != null && tile.getId() == blankId;
     }
