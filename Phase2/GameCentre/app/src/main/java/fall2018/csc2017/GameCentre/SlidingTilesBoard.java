@@ -1,14 +1,9 @@
 package fall2018.csc2017.GameCentre;
 
-import android.support.annotation.NonNull;
-
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
-
 /**
- * The sliding tiles board.
+ * The sliding tiles board. Child class of Board.
  */
 public class SlidingTilesBoard extends Board  {
 
@@ -66,9 +61,5 @@ public class SlidingTilesBoard extends Board  {
         setChanged();
         notifyObservers();
     }
-
-
-
-
 
 }
