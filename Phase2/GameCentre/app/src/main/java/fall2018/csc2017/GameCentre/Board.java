@@ -13,30 +13,16 @@ class Board extends Observable implements Serializable, Iterable<Tile> {
      * The number of rows.
      */
     private int dimension;
-
-    public Tile[][] getAllTiles() {
-        return this.tiles;
-    }
-    /**
-     * Return the tile at (row, col)
-     *
-     * @param row the tile row
-     * @param col the tile column
-     * @return the tile at (row, col)
-     */
-    Tile getTile(int row, int col) {
-        return this.tiles[row][col];
-    }
-    void setTile(int row, int col, Tile tile) {
-        this.tiles[row][col] = tile;
-    }
-
-
     /**
      * The tiles on the board in row-major order.
      */
     private Tile[][] tiles;
 
+    /**
+     * Instantiates a board object with a dimension and list of tiles
+     * @param dimension - nxn dimension
+     * @param tiles - list of tiles
+     */
     Board(int dimension, List<Tile> tiles) {
         this.dimension = dimension;
         Iterator<Tile> iter = tiles.iterator();
@@ -50,13 +36,40 @@ class Board extends Observable implements Serializable, Iterable<Tile> {
     }
 
     /**
-     * get the dimension
+     * Returns a list containing all tiles in the board
+     * @return list of tiles
+     */
+    Tile[][] getAllTiles() {
+        return this.tiles;
+    }
+
+    /**
+     * Get the dimension of the File
      * @return dimension
      */
     int getDimension() {
         return dimension;
     }
 
+    /**
+     * Return the tile at (row, col)
+     * @param row the tile row
+     * @param col the tile column
+     * @return the tile at (row, col)
+     */
+    Tile getTile(int row, int col) {
+        return this.tiles[row][col];
+    }
+
+    /**
+     * Sets a specific tile on the list to a specific value
+     * @param row - target row
+     * @param col - target column
+     * @param tile - tile object to replace it
+     */
+    void setTile(int row, int col, Tile tile) {
+        this.tiles[row][col] = tile;
+    }
 
     /**
      * Return the number of tiles on the board.
@@ -114,7 +127,5 @@ class Board extends Observable implements Serializable, Iterable<Tile> {
             }
             return nextTile;
         }
-
     }
-
 }
