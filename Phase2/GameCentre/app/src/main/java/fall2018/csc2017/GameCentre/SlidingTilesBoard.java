@@ -20,9 +20,7 @@ public class SlidingTilesBoard extends Board  {
      */
     SlidingTilesBoard(int dimension, List<Tile> tiles) {
         super(dimension, tiles);
-
     }
-
 
     /**
      * @return the id of the blank tile
