@@ -74,7 +74,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         gridView = findViewById(R.id.grid);
         createTileButtons(this);
         gridView.setNumColumns(slidingBoardManager.getBoard().getNumCols());
-        gridView.setSlidingBoardManager(slidingBoardManager);
+        gridView.setBoardManager(slidingBoardManager);
         slidingBoardManager.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(

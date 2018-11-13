@@ -15,12 +15,12 @@ public class MovementControllerSliding extends MovementController {
 
     @Override
     public void processTapMovement(Context context, int position) {
-        if (getSlidingBoardManager().isValidTap(position)) {
-            getSlidingBoardManager().touchMove(position);
+        if (getBoardManager().isValidTap(position)) {
+            getBoardManager().touchMove(position);
             moves++;
-            if (getSlidingBoardManager().isGameFinished()) {
+            if (getBoardManager().isGameFinished()) {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
-                score = getSlidingBoardManager().calculateScore(moves);
+                score = getBoardManager().calculateScore(moves);
                 moveOnToScoreActivity(context, "SlidingTiles.txt", ScoreCalculatorActivity.class, score);
             }
         } else {
