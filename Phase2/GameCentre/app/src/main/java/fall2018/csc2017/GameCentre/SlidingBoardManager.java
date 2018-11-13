@@ -22,9 +22,8 @@ class SlidingBoardManager extends BoardManager implements Serializable, Undoable
      * Manage a board that has been pre-populated.
      *
      * @param board the board
-     */ //TODO I think this method is never used?????
+     */
     SlidingBoardManager(SlidingTilesBoard board) {
-        super(board);
         this.board = board;
         this.stack = new UndoStack(3);
     }
@@ -33,7 +32,7 @@ class SlidingBoardManager extends BoardManager implements Serializable, Undoable
      * Manage a new shuffled board.
      */
 
-    public SlidingBoardManager(int dimension, int undoMax) {
+    SlidingBoardManager(int dimension, int undoMax) {
         super(dimension);
         this.stack = new UndoStack(undoMax);
 

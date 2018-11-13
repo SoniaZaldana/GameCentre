@@ -17,7 +17,6 @@ abstract class BoardManager {
     BoardManager() {
     }
 
-
     List<Tile> getTileList() {
         return this.tiles;
     }
