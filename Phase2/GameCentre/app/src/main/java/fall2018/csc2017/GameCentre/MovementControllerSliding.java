@@ -5,8 +5,13 @@ import android.widget.Toast;
 
 public class MovementControllerSliding extends MovementController {
 
-    // Added move variable to keep track of how many moves are made
+    /**
+     * Moves variable keeps track of number of moves
+     */
     private int moves;
+    /**
+     * Score variable to store calculated score
+     */
     private int score = 0;
 
     MovementControllerSliding() {
@@ -27,5 +32,4 @@ public class MovementControllerSliding extends MovementController {
             Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
         }
     }
-
 }
