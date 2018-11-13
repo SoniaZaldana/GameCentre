@@ -32,9 +32,9 @@ public class SlidingTilesBoard extends Board implements Iterable<Tile> {
     SlidingTilesBoard(int dimension, List<Tile> tiles) {
         super(dimension);
         Iterator<Tile> iter = tiles.iterator();
-        this.tiles = new Tile[getNumRows()][getNumCols()];
-        for (int row = 0; row != this.getNumRows(); row++) {
-            for (int col = 0; col != this.getNumCols(); col++) {
+        this.tiles = new Tile[getDimension()][getDimension()];
+        for (int row = 0; row != this.getDimension(); row++) {
+            for (int col = 0; col != this.getDimension(); col++) {
                 this.tiles[row][col] = iter.next();
             }
         }
@@ -121,7 +121,7 @@ public class SlidingTilesBoard extends Board implements Iterable<Tile> {
 
         @Override
         public boolean hasNext() {
-            return isRowAvailable() && isColumnAvailable();
+            return rowIndex < getDimension() && columnIndex < getDimension();
         }
 
         @Override
@@ -130,26 +130,12 @@ public class SlidingTilesBoard extends Board implements Iterable<Tile> {
             Tile nextTile = tiles[rowIndex][columnIndex];
             columnIndex += 1;
             // If there is no more columns, move onto first column in next row.
-            if (!isColumnAvailable()) {
+            if (!(columnIndex < getDimension())) {
                 // If it's on the last row, rowIndex will move to a nonexistent one.
                 rowIndex += 1;
                 columnIndex = 0;
             }
             return nextTile;
-        }
-
-        /**
-         * @return if current row exists
-         */
-        private boolean isRowAvailable() {
-            return rowIndex < getNumRows();
-        }
-
-        /**
-         * @return if current column exists
-         */
-        private boolean isColumnAvailable() {
-            return columnIndex < getNumCols();
         }
 
     }

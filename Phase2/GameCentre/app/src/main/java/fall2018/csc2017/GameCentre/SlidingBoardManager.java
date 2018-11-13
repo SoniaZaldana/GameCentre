@@ -89,9 +89,9 @@ class SlidingBoardManager extends BoardManager implements Serializable, Undoable
         int col = getCol(position);
         // check if blank tile is tile above, below, to the left, or to the right in this order.
         return isBlankTile(row, 0, row - 1, col)
-                || isBlankTile(row, board.getNumRows() - 1, row + 1, col)
+                || isBlankTile(row, board.getDimension() - 1, row + 1, col)
                 || isBlankTile(col, 0, row, col - 1)
-                || isBlankTile(col, board.getNumCols() - 1, row, col + 1);
+                || isBlankTile(col, board.getDimension() - 1, row, col + 1);
     }
 
     /**
@@ -127,7 +127,7 @@ class SlidingBoardManager extends BoardManager implements Serializable, Undoable
             this.stack.push(lst);
         }
         // check tile below is blank.
-        else if (isBlankTile(row, board.getNumRows() - 1, row + 1, col)) {
+        else if (isBlankTile(row, board.getDimension() - 1, row + 1, col)) {
             board.swapTiles(row, col, row + 1, col);
             int[] lst = {row, col, row + 1, col};
             this.stack.push(lst);
@@ -139,7 +139,7 @@ class SlidingBoardManager extends BoardManager implements Serializable, Undoable
             this.stack.push(lst);
         }
         // check if tile on the left is blank.
-        else if (isBlankTile(col, board.getNumCols() - 1, row, col + 1)) {
+        else if (isBlankTile(col, board.getDimension() - 1, row, col + 1)) {
             board.swapTiles(row, col, row, col + 1);
             int[] lst = {row, col, row, col + 1};
             this.stack.push(lst);
@@ -170,7 +170,7 @@ class SlidingBoardManager extends BoardManager implements Serializable, Undoable
      */
     @Override
     int calculateScore(int moves) {
-        int dimensions = board.getNumRows();
+        int dimensions = board.getDimension();
         return dimensions * 500 - (moves * 5);
     }
 
@@ -181,7 +181,7 @@ class SlidingBoardManager extends BoardManager implements Serializable, Undoable
      */
     // This one is class specific
     private int getRow(int position) {
-        return position / board.getNumRows();
+        return position / board.getDimension();
     }
 
     /**
@@ -190,7 +190,7 @@ class SlidingBoardManager extends BoardManager implements Serializable, Undoable
      */
     // This one is also class specific
     private int getCol(int position) {
-        return position % board.getNumCols();
+        return position % board.getDimension();
     }
 
 }

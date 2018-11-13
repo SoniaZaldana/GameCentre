@@ -7,35 +7,26 @@ class Board extends Observable implements Serializable {
     /**
      * The number of rows.
      */
-    private int numRows;
+    private int dimension;
     /**
      * The number of rows.
      */
-    private int numCols;
-
 
     Board(int dimension) {
-        this.numRows = dimension;
-        this.numCols = dimension;
+        this.dimension = dimension;
+
     }
 
 
 
     /**
-     * get the number of columns
-     * @return numCols
+     * get the dimension
+     * @return dimension
      */
-    int getNumCols() {
-        return numCols;
+    int getDimension() {
+        return dimension;
     }
 
-    /**
-     * get the number of rows
-     * @return numRows
-     */
-    int getNumRows() {
-        return numRows;
-    }
 
     /**
      * Return the number of tiles on the board.
@@ -43,6 +34,6 @@ class Board extends Observable implements Serializable {
      * @return the number of tiles on the board
      */
     int numTiles() {
-        return numRows * numCols;
+        return dimension * dimension;
     }
 }

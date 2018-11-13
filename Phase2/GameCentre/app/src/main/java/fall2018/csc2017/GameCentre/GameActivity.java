@@ -73,7 +73,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
         // Add View to activity
         gridView = findViewById(R.id.grid);
         createTileButtons(this);
-        gridView.setNumColumns(slidingBoardManager.getBoard().getNumCols());
+        gridView.setNumColumns(slidingBoardManager.getBoard().getDimension());
         gridView.setBoardManager(slidingBoardManager);
         slidingBoardManager.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
@@ -86,8 +86,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
                         int displayWidth = gridView.getMeasuredWidth();
                         int displayHeight = gridView.getMeasuredHeight();
 
-                        columnWidth = displayWidth / slidingBoardManager.getBoard().getNumCols();
-                        columnHeight = displayHeight / slidingBoardManager.getBoard().getNumRows();
+                        columnWidth = displayWidth / slidingBoardManager.getBoard().getDimension();
+                        columnHeight = displayHeight / slidingBoardManager.getBoard().getDimension();
 
                         display();
                     }
@@ -102,8 +102,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
     private void createTileButtons(Context context) {
         SlidingTilesBoard slidingTilesBoard = slidingBoardManager.getBoard();
         tileButtons = new ArrayList<>();
-        for (int row = 0; row != slidingTilesBoard.getNumRows(); row++) {
-            for (int col = 0; col != slidingTilesBoard.getNumCols(); col++) {
+        for (int row = 0; row != slidingTilesBoard.getDimension(); row++) {
+            for (int col = 0; col != slidingTilesBoard.getDimension(); col++) {
                 Button tmp = new Button(context);
                 this.tileButtons.add(tmp);
             }
@@ -184,8 +184,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
         int nextPos = 0;
         int numberOnTile;
         for (Button b : tileButtons) {
-            int row = nextPos / slidingTilesBoard.getNumRows();
-            int col = nextPos % slidingTilesBoard.getNumCols();
+            int row = nextPos / slidingTilesBoard.getDimension();
+            int col = nextPos % slidingTilesBoard.getDimension();
             numberOnTile = slidingTilesBoard.getTile(row, col).getId();
             if (numberOnTile != slidingTilesBoard.getBlankId()) {
                 b.setText(String.valueOf(numberOnTile));
