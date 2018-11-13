@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fall2018.csc2017.GameCentre">
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name="fall2018.csc2017.GameCentre.LoginActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="fall2018.csc2017.GameCentre.GameActivity" />
-        <activity android:name="fall2018.csc2017.GameCentre.ScoreboardMenuActivity" />
-        <activity android:name="fall2018.csc2017.GameCentre.UserScoreboardActivity" />
-        <activity android:name="fall2018.csc2017.GameCentre.ScoreCalculatorActivity" />
-        <activity android:name="fall2018.csc2017.GameCentre.SlidingScoreboardActivity"/>
-        <activity android:name="fall2018.csc2017.GameCentre.GameLauncherActivity"/>
-        <activity android:name="fall2018.csc2017.GameCentre.RegisterActivity"/>
-        <activity android:name="fall2018.csc2017.GameCentre.ChooseDimensionsActivity"/>
-        <activity android:name="fall2018.csc2017.GameCentre.SlidingTilesStartingActivity"/>
-
+        <activity android:name=".GameActivity" />
+        <activity android:name=".ScoreboardMenuActivity" />
+        <activity android:name=".UserScoreboardActivity" />
+        <activity android:name=".ScoreCalculatorActivity" />
+        <activity android:name=".SlidingScoreboardActivity" />
+        <activity android:name=".GameLauncherActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".ChooseDimensionsActivity" />
+        <activity android:name=".SlidingTilesStartingActivity" />
+        <activity android:name=".SimonActivity"></activity>
     </application>
 
 </manifest>
