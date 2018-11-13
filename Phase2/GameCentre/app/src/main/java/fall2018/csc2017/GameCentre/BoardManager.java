@@ -5,7 +5,6 @@ import java.util.List;
 
 abstract class BoardManager {
     List<Tile> tiles;
-    Board board;
 
     public BoardManager(int dimension) {
         tiles = new ArrayList<>();
@@ -15,9 +14,9 @@ abstract class BoardManager {
         }
     }
 
-    public BoardManager(Board board) {
-        this.board = board;
+    BoardManager() {
     }
+
 
     List<Tile> getTileList() {
         return this.tiles;
