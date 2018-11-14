@@ -5,6 +5,9 @@ public class MoveTracker {
     public MoveTracker(){
         moves = 0;
     }
+    public MoveTracker(int moves){
+        this.moves = moves;
+    }
 
     public void setMoves(int score) {
         this.moves = score;

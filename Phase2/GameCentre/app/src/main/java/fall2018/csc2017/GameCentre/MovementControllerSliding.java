@@ -11,9 +11,10 @@ public class MovementControllerSliding extends MovementController<SlidingBoardMa
      * Moves variable keeps track of number of moves
      */
     private MoveTracker moves;
+    //TODO Test if moves are saved
 
-    MovementControllerSliding() {
-        moves = new MoveTracker();
+    MovementControllerSliding(BoardManager boardManager) {
+        moves = new MoveTracker(boardManager.getScore());
 
     }
     @Override
@@ -21,6 +22,7 @@ public class MovementControllerSliding extends MovementController<SlidingBoardMa
         if (isValidTap(position)) {
             touchMove(position);
             moves.addMoves(1);
+            getBoardManager().setScore(moves.getMoves());
             if (isGameFinished()) {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
                 int score = getBoardManager().calculateScore(moves.getMoves());

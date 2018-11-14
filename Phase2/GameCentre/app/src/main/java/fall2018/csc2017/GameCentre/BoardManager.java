@@ -11,6 +11,7 @@ import java.util.List;
  */
 abstract class BoardManager implements Serializable {
     List<Tile> tiles;
+    int score;
 
     public BoardManager(int dimension) {
         tiles = new ArrayList<>();
@@ -30,5 +31,11 @@ abstract class BoardManager implements Serializable {
     abstract Board getBoard();
     abstract int calculateScore(int moves);
 
+    public void setScore(int score) {
+        this.score = score;
+    }
 
+    public int getScore() {
+        return score;
+    }
 }

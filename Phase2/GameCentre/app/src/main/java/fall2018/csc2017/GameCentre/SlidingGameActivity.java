@@ -37,7 +37,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer {
      */
     private SlidingBoardManager slidingBoardManager;
 
-    private MovementControllerSliding movementControllerSliding = new MovementControllerSliding();
+    private MovementController movementControllerSliding;
 
     /**
      * The buttons to display.
@@ -76,7 +76,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer {
         gridView = findViewById(R.id.grid);
         createTileButtons(this);
         gridView.setNumColumns(slidingBoardManager.getBoard().getDimension());
-        movementControllerSliding.setBoardManager(slidingBoardManager);
+        movementControllerSliding = new MovementControllerSliding(slidingBoardManager);
         gridView.setMovementController(movementControllerSliding);
         slidingBoardManager.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
