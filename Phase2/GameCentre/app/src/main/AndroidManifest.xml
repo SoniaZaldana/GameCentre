@@ -18,10 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GameActivity" />
+        <activity android:name=".SlidingGameActivity" />
         <activity android:name=".ScoreboardMenuActivity" />
         <activity android:name=".UserScoreboardActivity" />
-        <activity android:name=".ScoreCalculatorActivity" />
+        <activity android:name=".ScoreScreenActivity" />
         <activity android:name=".SlidingScoreboardActivity" />
         <activity android:name=".GameLauncherActivity" />
         <activity android:name=".RegisterActivity" />

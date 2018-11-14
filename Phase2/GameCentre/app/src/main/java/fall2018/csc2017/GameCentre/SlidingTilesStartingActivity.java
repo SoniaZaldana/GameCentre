@@ -138,10 +138,10 @@ public class SlidingTilesStartingActivity extends AppCompatActivity {
     }
 
     /**
-     * Switch to the GameActivity view to play the game.
+     * Switch to the SlidingGameActivity view to play the game.
      */
     private void loadGame() {
-        Intent tmp = new Intent(this, GameActivity.class);
+        Intent tmp = new Intent(this, SlidingGameActivity.class);
         startActivity(tmp);
 
 

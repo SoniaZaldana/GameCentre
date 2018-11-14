@@ -19,7 +19,7 @@ import static java.lang.Integer.valueOf;
 /**
  * The end screen after the puzzle is solved
  */
-public class ScoreCalculatorActivity extends AppCompatActivity {
+public class ScoreScreenActivity extends AppCompatActivity {
     /**
      * score for the game
      */
@@ -46,7 +46,7 @@ public class ScoreCalculatorActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ScoreCalculatorActivity.this, GameLauncherActivity.class));
+                startActivity(new Intent(ScoreScreenActivity.this, GameLauncherActivity.class));
             }
         });
 

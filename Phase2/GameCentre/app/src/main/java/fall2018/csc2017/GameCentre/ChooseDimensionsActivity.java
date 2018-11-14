@@ -53,7 +53,7 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
                 dimensionInstructions.setText("Too easy :) Try something harder!");
 
             } else {
-                Intent tmp = new Intent(this, GameActivity.class);
+                Intent tmp = new Intent(this, SlidingGameActivity.class);
 
                 try {
                     Integer undoMax = Integer.parseInt(undoMaxText);

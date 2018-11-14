@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="fall2018.csc2017.GameCentre.GameActivity">
+    tools:context="fall2018.csc2017.GameCentre.SlidingGameActivity">
 
 
     <LinearLayout
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="3pt"
-        tools:context="fall2018.csc2017.GameCentre.GameActivity" />
+        tools:context="fall2018.csc2017.GameCentre.SlidingGameActivity" />
 
 </LinearLayout>
 

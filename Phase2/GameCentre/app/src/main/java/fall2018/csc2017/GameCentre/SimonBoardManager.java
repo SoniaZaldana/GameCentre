@@ -1,5 +1,7 @@
 package fall2018.csc2017.GameCentre;
 
+import android.content.Context;
+
 class SimonBoardManager extends BoardManager {
 
     private SimonBoard board;
@@ -18,23 +20,6 @@ class SimonBoardManager extends BoardManager {
         return this.board;
     }
 
-    //TODO: implement this method
-    @Override
-    boolean isGameFinished() {
-        return false;
-    }
-
-    //TODO: implement this method
-    @Override
-    boolean isValidTap(int position) {
-        return false;
-    }
-
-    //TODO: implement this method
-    @Override
-    void touchMove(int position) {
-
-    }
     //TODO:implement this method
     @Override
     int calculateScore(int moves) {

@@ -25,7 +25,7 @@ import java.util.TimerTask;
 /**
  * The game activity.
  */
-public class GameActivity extends AppCompatActivity implements Observer {
+public class SlidingGameActivity extends AppCompatActivity implements Observer {
     /**
      * Constant which represents the read storage request code.
      * Use it to check if getting return for a READ_STORAGE request.
@@ -36,6 +36,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
      * The board manager.
      */
     private SlidingBoardManager slidingBoardManager;
+
+    private MovementControllerSliding movementControllerSliding = new MovementControllerSliding();
 
     /**
      * The buttons to display.
@@ -74,7 +76,8 @@ public class GameActivity extends AppCompatActivity implements Observer {
         gridView = findViewById(R.id.grid);
         createTileButtons(this);
         gridView.setNumColumns(slidingBoardManager.getBoard().getDimension());
-        gridView.setBoardManager(slidingBoardManager);
+        movementControllerSliding.setBoardManager(slidingBoardManager);
+        gridView.setMovementController(movementControllerSliding);
         slidingBoardManager.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -128,11 +131,11 @@ public class GameActivity extends AppCompatActivity implements Observer {
      */
     private void addSaveButtonListener() {
         Button saveButton = findViewById(R.id.SaveButton);
-        final GameActivity gameActivity = this;
+        final SlidingGameActivity slidingGameActivity = this;
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SaveAndLoadBoardManager.saveToFile(gameActivity, SlidingTilesStartingActivity.SAVE_FILENAME, slidingBoardManager);
+                SaveAndLoadBoardManager.saveToFile(slidingGameActivity, SlidingTilesStartingActivity.SAVE_FILENAME, slidingBoardManager);
                 makeToastSavedText();
             }
         });
@@ -288,25 +291,25 @@ public class GameActivity extends AppCompatActivity implements Observer {
      */
     public class SaveTask extends TimerTask {
         /**
-         * The current GameActivity instance.
+         * The current SlidingGameActivity instance.
          */
-        private GameActivity gameActivity;
+        private SlidingGameActivity slidingGameActivity;
 
         /**
          * An auto save timer
          *
-         * @param gameActivity The gameActivity that uses this timer
+         * @param slidingGameActivity The slidingGameActivity that uses this timer
          */
-        SaveTask(GameActivity gameActivity) {
+        SaveTask(SlidingGameActivity slidingGameActivity) {
             super();
-            this.gameActivity = gameActivity;
+            this.slidingGameActivity = slidingGameActivity;
         }
 
         /**
          * The command being ran by the timer.
          */
         public void run() {
-            SaveAndLoadBoardManager.saveToFile(this.gameActivity, SlidingTilesStartingActivity.SAVE_FILENAME, slidingBoardManager);
+            SaveAndLoadBoardManager.saveToFile(this.slidingGameActivity, SlidingTilesStartingActivity.SAVE_FILENAME, slidingBoardManager);
 
         }
     }

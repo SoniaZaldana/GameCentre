@@ -24,7 +24,7 @@ public class SimonActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_simon);
+        //setContentView(R.layout.activity_simon);
     }
 
     @Override

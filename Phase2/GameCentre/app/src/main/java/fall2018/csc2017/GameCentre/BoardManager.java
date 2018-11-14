@@ -1,9 +1,15 @@
 package fall2018.csc2017.GameCentre;
 
+import android.content.Context;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-abstract class BoardManager {
+/**
+ *
+ */
+abstract class BoardManager implements Serializable {
     List<Tile> tiles;
 
     public BoardManager(int dimension) {
@@ -22,12 +28,7 @@ abstract class BoardManager {
     }
 
     abstract Board getBoard();
-
-    abstract boolean isGameFinished();
-
-    abstract boolean isValidTap(int position);
-
-    abstract void touchMove(int position);
-
     abstract int calculateScore(int moves);
+
+
 }

@@ -24,7 +24,7 @@ Signatures: Alex, Nick, Osman, Sonia, Suguru.
 ### Sonia:
 1. Implement calculateScore() method and add it into the flow of the program to be able to calculate
 score when the game ends.
-2. Implement ScoreCalculatorActivity which assigns the scores to its respective text file (either the
+2. Implement ScoreScreenActivity which assigns the scores to its respective text file (either the
 game's text file or the user's with Alex's help in debugging.
 3. Implement ScoreboardMenuActivity which will serve as graphic interface for the available scoreboards.
 4. Implement UserScoreboardActivity by reading text files and displaying it appropriately.
@@ -59,7 +59,7 @@ authentication purposes.
 1. Implement AutoSave
 2. Implement Undo
 3. Implement Undo bonus - allows user to choose the maximum number of steps they can go back in
-4. Helped with ScoreCalculatorActivity
+4. Helped with ScoreScreenActivity
 
 ### Suguru
 1. Implement Autosave with Alex.
