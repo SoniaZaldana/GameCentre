@@ -10,12 +10,8 @@ import java.util.Iterator;
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
  */
-class SlidingBoardManager extends BoardManager implements Serializable, Undoable {
+class SlidingBoardManager extends BoardManager<SlidingTilesBoard> implements Serializable, Undoable {
 
-    /**
-     * The board being managed.
-     */
-    private SlidingTilesBoard board;
     /**
      * The stack which remembers the moves on the board.
      */
@@ -36,22 +32,13 @@ class SlidingBoardManager extends BoardManager implements Serializable, Undoable
     /**
      * Manage a new shuffled board.
      */
-
+    //TODO Notice how  the board is created from the tiles created in Super.
     SlidingBoardManager(int dimension, int undoMax) {
         super(dimension);
         this.stack = new UndoStack(undoMax);
         //Collections.shuffle(getTileList());
-        this.board = new SlidingTilesBoard(dimension, getTileList());
+        setBoard(new SlidingTilesBoard(dimension, getTileList()));
     }
-
-    /**
-     * Return the current board.
-     */
-    @Override
-    SlidingTilesBoard getBoard() {
-        return this.board;
-    }
-
 
     /**
      * Undo the most recent move. If undo is pressed again, undo the next most recent move.
@@ -82,22 +69,6 @@ class SlidingBoardManager extends BoardManager implements Serializable, Undoable
     }
 
 
-    /**
-     * @param position of touch on screen
-     * @return the row number(Starts at 0).
-     */
-    // This one is class specific
-    public  int getRow(int position) {
-        return position / board.getDimension();
-    }
 
-    /**
-     * @param position of touch on screen
-     * @return the column number(Starts at 0).
-     */
-    // This one is also class specific
-    public int getCol(int position) {
-        return position % board.getDimension();
-    }
 
 }

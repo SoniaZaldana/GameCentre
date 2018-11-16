@@ -15,11 +15,6 @@ class SimonBoardManager extends BoardManager {
         this.board = board;
     }
 
-    @Override
-    SimonBoard getBoard() {
-        return this.board;
-    }
-
     //TODO:implement this method
     @Override
     int calculateScore(int moves) {

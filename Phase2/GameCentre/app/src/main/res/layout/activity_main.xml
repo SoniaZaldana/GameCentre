@@ -25,7 +25,7 @@
             android:text="Save" />
     </LinearLayout>
 
-    <fall2018.csc2017.GameCentre.GestureDetectGridView xmlns:android="http://schemas.android.com/apk/res/android"
+    <fall2018.csc2017.GameCentre.GestureDetectGridViewShortPress xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/grid"
         android:layout_width="match_parent"

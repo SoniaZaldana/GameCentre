@@ -15,58 +15,44 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.GridView;
 
-public class GestureDetectGridView extends GridView {
+public abstract class GestureDetectGridView extends GridView {
     public static final int SWIPE_MIN_DISTANCE = 100;
     public static final int SWIPE_MAX_OFF_PATH = 100;
     public static final int SWIPE_THRESHOLD_VELOCITY = 100;
+
+    public GestureDetector getgDetector() {
+        return gDetector;
+    }
+
+    public void setgDetector(GestureDetector gDetector) {
+        this.gDetector = gDetector;
+    }
+
     private GestureDetector gDetector;
-    private MovementController mController;
     private boolean mFlingConfirmed = false;
     private float mTouchX;
     private float mTouchY;
 
     public GestureDetectGridView(Context context) {
         super(context);
-        init(context);
     }
 
     public GestureDetectGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
     }
 
     public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP) // API 21
     public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr,
                                  int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init(context);
     }
-
-    private void init(final Context context) {
-        gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
-
-            @Override
-            public boolean onSingleTapConfirmed(MotionEvent event) {
-                int position = GestureDetectGridView.this.pointToPosition
-                        (Math.round(event.getX()), Math.round(event.getY()));
-
-                mController.processMove(context, position);
-                return true;
-            }
-
-            @Override
-            public boolean onDown(MotionEvent event) {
-                return true;
-            }
-
-        });
-    }
-
+    //TODO is there a better way to set GestureDetector?
+    public abstract void createAndSetGestureDetector(final Context context);
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         int action = ev.getActionMasked();
@@ -99,7 +85,4 @@ public class GestureDetectGridView extends GridView {
         return gDetector.onTouchEvent(ev);
     }
 
-    public void setMovementController(MovementController mController) {
-        this.mController = mController;
-    }
 }

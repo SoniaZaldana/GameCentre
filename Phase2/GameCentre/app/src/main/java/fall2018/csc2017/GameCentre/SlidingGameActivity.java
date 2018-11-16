@@ -37,7 +37,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer {
      */
     private SlidingBoardManager slidingBoardManager;
 
-    private MovementController movementControllerSliding;
+    private MovementControllerSimplePress movementControllerSliding;
 
     /**
      * The buttons to display.
@@ -45,7 +45,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer {
     private ArrayList<Button> tileButtons;
 
     // Grid View and calculated column height and width based on device size
-    private GestureDetectGridView gridView;
+    private GestureDetectGridViewShortPress gridView;
     private static int columnWidth, columnHeight;
     /**
      * Timer used for autosave

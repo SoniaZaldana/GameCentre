@@ -23,4 +23,6 @@
     <string name="sliding_tiles_scoreboard">Sliding Tiles ScoreBoard</string>
     <string name="back_to_main_menu">Back to Main Menu</string>
     <string name="please_select_the_scoreboard_you_want_to_see">Please select the scoreboard you want to see</string>
+    <string name="short_press">SHORT</string>
+    <string name="long_press">LONG</string>
 </resources>

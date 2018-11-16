@@ -5,7 +5,7 @@ import android.widget.Toast;
 
 import java.util.Iterator;
 
-public class MovementControllerSliding extends MovementController<SlidingBoardManager> {
+public class MovementControllerSliding extends MovementControllerSimplePress<SlidingBoardManager> {
 
     /**
      * Moves variable keeps track of number of moves

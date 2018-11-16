@@ -21,6 +21,4 @@ abstract class MovementController<T extends BoardManager> {
         intent.putExtra("Game", gameFile);
         context.startActivity(intent);
     }
-
-    public abstract void  processMove(Context context, int position);
 }
