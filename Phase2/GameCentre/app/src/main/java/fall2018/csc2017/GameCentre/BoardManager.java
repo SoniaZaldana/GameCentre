@@ -1,7 +1,5 @@
 package fall2018.csc2017.GameCentre;
 
-import android.content.Context;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,23 +8,14 @@ import java.util.List;
  *
  */
 abstract class BoardManager<T extends Board> implements Serializable {
-    List<Tile> tiles;
-    int score;
-    T board;
+    private int score;
+    private T board;
 
-    public BoardManager(int dimension) {
-        tiles = new ArrayList<>();
-        final int numTiles = dimension * dimension;
-        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(tileNum + 1));
-        }
+    public BoardManager(T board) {
+        this.board = board;
     }
 
     BoardManager() {
-    }
-
-    List<Tile> getTileList() {
-        return this.tiles;
     }
 
     public T getBoard(){

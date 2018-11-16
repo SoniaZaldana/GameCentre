@@ -1,11 +1,7 @@
 package fall2018.csc2017.GameCentre;
 
-import android.content.Context;
-import android.widget.Toast;
-
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.Iterator;
+import java.util.List;
 
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
@@ -19,12 +15,11 @@ class SlidingBoardManager extends BoardManager<SlidingTilesBoard> implements Ser
     /**
      * Manage a board that has been pre-populated.
      *
-     * @param board the board
      */
-    SlidingBoardManager(SlidingTilesBoard board) {
-        this.board = board;
-        this.stack = new UndoStack(3);
-    }
+//    SlidingBoardManager(SlidingTilesBoard board) {
+//        this.board = board;
+//        this.stack = new UndoStack(3);
+//    }
     public UndoStack getStack(){
         return stack;
     }
@@ -33,11 +28,9 @@ class SlidingBoardManager extends BoardManager<SlidingTilesBoard> implements Ser
      * Manage a new shuffled board.
      */
     //TODO Notice how  the board is created from the tiles created in Super.
-    SlidingBoardManager(int dimension, int undoMax) {
-        super(dimension);
+    SlidingBoardManager(int undoMax, SlidingTilesBoard board ) {
+        super(board);
         this.stack = new UndoStack(undoMax);
-        //Collections.shuffle(getTileList());
-        setBoard(new SlidingTilesBoard(dimension, getTileList()));
     }
 
     /**
@@ -50,7 +43,7 @@ class SlidingBoardManager extends BoardManager<SlidingTilesBoard> implements Ser
             return false;
         } else {
             int[] lst = (int[]) this.stack.pop();
-            board.swapTiles(lst[0], lst[1], lst[2], lst[3]);
+            getBoard().swapTiles(lst[0], lst[1], lst[2], lst[3]);
             return true;
         }
     }
@@ -64,7 +57,7 @@ class SlidingBoardManager extends BoardManager<SlidingTilesBoard> implements Ser
      */
     @Override
     int calculateScore(int moves) {
-        int dimensions = board.getDimension();
+        int dimensions = getBoard().getDimension();
         return dimensions * 500 - (moves * 5);
     }
 

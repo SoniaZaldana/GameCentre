@@ -73,3 +73,4 @@ Possibly get rid of backbutton
 change colour on Scoreboard(from green)
 Change layouts on scoreboard
 Once User wins, remove game from saved, as user should not be able to load it again.
+Refactor packages per game

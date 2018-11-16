@@ -15,13 +15,14 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         int row = getBoardManager().getRow(position);
         int col = getBoardManager().getCol(position);
         //TODO THIS IS TRICKY TO DO SO MUST DO DESIGN CHANGE
-        //TODO because boardManager autaomatically generates Tile objects.
+        // because boardManager autaomatically generates Tile objects.
         // AND Board is automatically populated with Tile Objects
+        // Consider removing it frm constructor so each child hsa to do it with their tiles
         /**
          * However every boardManager might generate his own.
          * Also make sure that
          */
-        //SweeperTile t = getBoardManager().getBoard().getTile(row, col);
+        SweeperTile t = getBoardManager().getBoard().getTile(row, col);
         int[] rowValues = {row - 1, row, row + 1};
         int[] colValues = {col - 1, col, col + 1};
 

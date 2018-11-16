@@ -1,14 +1,12 @@
 package fall2018.csc2017.GameCentre;
 
-import android.content.Context;
-
-class SimonBoardManager extends BoardManager {
+class SimonBoardManager extends BoardManager<SimonBoard> {
 
     private SimonBoard board;
 
     public SimonBoardManager(int dimension, SimonBoard board) {
-        super(dimension);
-        this.board = new SimonBoard(dimension, getTileList());
+//        super(dimension,board );
+//        this.board = new SimonBoard(dimension, getTileList());
     }
 
     public SimonBoardManager(SimonBoard board) {

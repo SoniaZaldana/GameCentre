@@ -11,7 +11,6 @@ public class MovementControllerSliding extends MovementControllerSimplePress<Sli
      * Moves variable keeps track of number of moves
      */
     private MoveTracker moves;
-    //TODO Test if moves are saved
 
     MovementControllerSliding(SlidingBoardManager boardManager) {
         moves = new MoveTracker(boardManager.getScore());

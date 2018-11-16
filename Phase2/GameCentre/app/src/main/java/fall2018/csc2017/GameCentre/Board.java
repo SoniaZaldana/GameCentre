@@ -3,12 +3,15 @@ package fall2018.csc2017.GameCentre;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 
-class Board extends Observable implements Serializable, Iterable<Tile> {
+class Board<U extends Tile> extends Observable implements Serializable, Iterable<U> {
     /**
      * The number of rows.
      */
@@ -16,30 +19,35 @@ class Board extends Observable implements Serializable, Iterable<Tile> {
     /**
      * The tiles on the board in row-major order.
      */
-    private Tile[][] tiles;
+    private U[][] tiles;
 
     /**
      * Instantiates a board object with a dimension and list of tiles
      * @param dimension - nxn dimension
      * @param tiles - list of tiles
      */
-    Board(int dimension, List<Tile> tiles) {
+//    Board(int dimension, List<U> tiles) {
+//        this.dimension = dimension;
+//        Iterator<U> iter = tiles.iterator();
+//        this.tiles = new Tile[getDimension()][getDimension()];
+//        for (int row = 0; row != this.getDimension(); row++) {
+//            for (int col = 0; col != this.getDimension(); col++) {
+//                this.tiles[row][col] = iter.next();
+//            }
+//        }
+//
+//    }
+    Board(int dimension, U[][] tiles) {
         this.dimension = dimension;
-        Iterator<Tile> iter = tiles.iterator();
-        this.tiles = new Tile[getDimension()][getDimension()];
-        for (int row = 0; row != this.getDimension(); row++) {
-            for (int col = 0; col != this.getDimension(); col++) {
-                this.tiles[row][col] = iter.next();
-            }
-        }
-
+        this.tiles = tiles;
     }
+
 
     /**
      * Returns a list containing all tiles in the board
      * @return list of tiles
      */
-    Tile[][] getAllTiles() {
+    U[][] getAllTiles() {
         return this.tiles;
     }
 
@@ -57,7 +65,7 @@ class Board extends Observable implements Serializable, Iterable<Tile> {
      * @param col the tile column
      * @return the tile at (row, col)
      */
-    Tile getTile(int row, int col) {
+    U getTile(int row, int col) {
         return this.tiles[row][col];
     }
 
@@ -67,7 +75,7 @@ class Board extends Observable implements Serializable, Iterable<Tile> {
      * @param col - target column
      * @param tile - tile object to replace it
      */
-    void setTile(int row, int col, Tile tile) {
+    void setTile(int row, int col, U tile) {
         this.tiles[row][col] = tile;
     }
 
@@ -91,14 +99,14 @@ class Board extends Observable implements Serializable, Iterable<Tile> {
      */
     @NonNull
     @Override
-    public Iterator<Tile> iterator() {
+    public Iterator<U> iterator() {
         return new TileIterator();
     }
 
     /**
      * Represents the iterator for class SlidingTilesBoard.
      */
-    private class TileIterator implements Iterator<Tile> {
+    private class TileIterator implements Iterator<U> {
         /**
          * current row index
          */
@@ -115,9 +123,9 @@ class Board extends Observable implements Serializable, Iterable<Tile> {
         }
 
         @Override
-        public Tile next() {
+        public U next() {
             // get the data for the current tile Tile, then move the index to the next Tile.
-            Tile nextTile = tiles[rowIndex][columnIndex];
+            U nextTile = tiles[rowIndex][columnIndex];
             columnIndex += 1;
             // If there is no more columns, move onto first column in next row.
             if (!(columnIndex < getDimension())) {
