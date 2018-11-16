@@ -4,11 +4,6 @@ class SimonBoardManager extends BoardManager<SimonBoard> {
 
     private SimonBoard board;
 
-    public SimonBoardManager(int dimension, SimonBoard board) {
-//        super(dimension,board );
-//        this.board = new SimonBoard(dimension, getTileList());
-    }
-
     public SimonBoardManager(SimonBoard board) {
         this.board = board;
     }

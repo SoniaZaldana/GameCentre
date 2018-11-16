@@ -9,7 +9,8 @@ class SimonBoard extends Board<Tile> {
      * @param dimension - nxn dimension
      * @param tiles     - list of tiles
      */
-    SimonBoard(int dimension, Tile[][] tiles) {
+
+    SimonBoard(int dimension, List<Tile> tiles) {
         super(dimension, tiles);
     }
 

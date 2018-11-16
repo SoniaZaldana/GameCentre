@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -71,16 +72,8 @@ public class ChooseDimensionsActivity extends AppCompatActivity {
                         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
                             tilesList.add(new Tile(tileNum + 1));
                         }
-                        // Create the board
-                        Iterator<Tile> iter = tilesList.iterator();
-                        Tile[][] tiles = new Tile[dimension][dimension];
-                        for (int row = 0; row != dimension; row++) {
-                            for (int col = 0; col != dimension; col++) {
-                                tiles[row][col] = iter.next();
-                            }
-                        }
-                        SlidingTilesBoard slidingTilesBoard = new SlidingTilesBoard(dimension, tiles);
-
+                        Collections.shuffle(tilesList);
+                        SlidingTilesBoard slidingTilesBoard = new SlidingTilesBoard(dimension, tilesList);
                         SlidingBoardManager slidingBoardManager = new SlidingBoardManager(undoMax, slidingTilesBoard);
 
                         if (tileImage != null) {

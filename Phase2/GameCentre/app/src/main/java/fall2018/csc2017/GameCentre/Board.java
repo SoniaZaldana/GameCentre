@@ -3,10 +3,7 @@ package fall2018.csc2017.GameCentre;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
@@ -19,27 +16,24 @@ class Board<U extends Tile> extends Observable implements Serializable, Iterable
     /**
      * The tiles on the board in row-major order.
      */
-    private U[][] tiles;
+    private ArrayList<ArrayList<U>> tiles;
 
     /**
      * Instantiates a board object with a dimension and list of tiles
      * @param dimension - nxn dimension
-     * @param tiles - list of tiles
      */
-//    Board(int dimension, List<U> tiles) {
-//        this.dimension = dimension;
-//        Iterator<U> iter = tiles.iterator();
-//        this.tiles = new Tile[getDimension()][getDimension()];
-//        for (int row = 0; row != this.getDimension(); row++) {
-//            for (int col = 0; col != this.getDimension(); col++) {
-//                this.tiles[row][col] = iter.next();
-//            }
-//        }
-//
-//    }
-    Board(int dimension, U[][] tiles) {
+    Board(int dimension, List<U> listOfTiles) {
         this.dimension = dimension;
-        this.tiles = tiles;
+        tiles = new ArrayList<>();
+        // Create the board
+        Iterator<U> iter = listOfTiles.iterator();
+        for (int row = 0; row != dimension; row++) {
+            ArrayList<U> rowTile = new ArrayList<>();
+            for (int col = 0; col != dimension; col++) {
+                rowTile.add(iter.next());
+            }
+            tiles.add(rowTile);
+        }
     }
 
 
@@ -47,9 +41,10 @@ class Board<U extends Tile> extends Observable implements Serializable, Iterable
      * Returns a list containing all tiles in the board
      * @return list of tiles
      */
-    U[][] getAllTiles() {
+    ArrayList<ArrayList<U>> getAllTiles() {
         return this.tiles;
     }
+
 
     /**
      * Get the dimension of the File
@@ -66,7 +61,7 @@ class Board<U extends Tile> extends Observable implements Serializable, Iterable
      * @return the tile at (row, col)
      */
     U getTile(int row, int col) {
-        return this.tiles[row][col];
+        return this.tiles.get(row).get(col);
     }
 
     /**
@@ -76,7 +71,8 @@ class Board<U extends Tile> extends Observable implements Serializable, Iterable
      * @param tile - tile object to replace it
      */
     void setTile(int row, int col, U tile) {
-        this.tiles[row][col] = tile;
+        this.tiles.get(row).set(col, tile);
+
     }
 
     /**
@@ -91,7 +87,7 @@ class Board<U extends Tile> extends Observable implements Serializable, Iterable
     @Override
     public String toString() {
         return "SlidingTilesBoard{" +
-                "tiles=" + Arrays.toString(getAllTiles()) +
+                "tiles=" + getAllTiles() +
                 '}';
     }
     /**
@@ -125,7 +121,7 @@ class Board<U extends Tile> extends Observable implements Serializable, Iterable
         @Override
         public U next() {
             // get the data for the current tile Tile, then move the index to the next Tile.
-            U nextTile = tiles[rowIndex][columnIndex];
+            U nextTile = tiles.get(rowIndex).get(columnIndex);
             columnIndex += 1;
             // If there is no more columns, move onto first column in next row.
             if (!(columnIndex < getDimension())) {

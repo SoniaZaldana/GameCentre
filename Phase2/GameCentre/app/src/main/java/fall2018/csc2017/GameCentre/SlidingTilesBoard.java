@@ -21,19 +21,8 @@ public class SlidingTilesBoard extends Board<Tile>  {
      *
      * @param tiles the tiles for the board
      */
-//    SlidingTilesBoard(int dimension, List<Tile> tiles) {
-//        super(dimension, tiles);
-//        Iterator<Tile> iter = tiles.iterator();
-//        this.tiles = new ArrayList<>();
-//        for (int row = 0; row != this.getDimension(); row++) {
-//            for (int col = 0; col != this.getDimension(); col++) {
-//                // this.tiles[row][col] = iter.next();
-//                this.tiles.get(row).set((col),iter.next());
-//            }
-//        }
-//
-//    }
-    SlidingTilesBoard(int dimension, Tile[][] tiles) {
+
+    SlidingTilesBoard(int dimension, List<Tile> tiles) {
         super(dimension, tiles);
 
     }
