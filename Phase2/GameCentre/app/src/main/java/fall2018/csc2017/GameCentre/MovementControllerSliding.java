@@ -13,8 +13,9 @@ public class MovementControllerSliding extends MovementController<SlidingBoardMa
     private MoveTracker moves;
     //TODO Test if moves are saved
 
-    MovementControllerSliding(BoardManager boardManager) {
+    MovementControllerSliding(SlidingBoardManager boardManager) {
         moves = new MoveTracker(boardManager.getScore());
+        setBoardManager(boardManager);
 
     }
     @Override
