@@ -16,4 +16,9 @@ public class SimonBoardManager extends BoardManager<SimonTilesBoard> {
     public int calculateScore(int moves) {
         return 0;
     }
+
+    //TODO instantiate stack
+    // TODO method randomizer: returns random number from list of x numbers
+    // TODO method populate stack(x elements) add x random elements
+
 }

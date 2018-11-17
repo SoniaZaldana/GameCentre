@@ -14,6 +14,7 @@ public class SimonMovementController extends MovementControllerSimplePress {
     public void processMove(Context context, int position) {
         SimonTile tile = getTileInPosition(position);
         //TODO: Check if this is the correct tile to have cliked based on stack
+        // if boardManager.stack is empty, boardManager.stack.repopulate(n+2)
     }
 
     /**
