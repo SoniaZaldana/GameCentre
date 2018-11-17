@@ -2,11 +2,11 @@ package fall2018.csc2017.GameCentre.Simon;
 
 import fall2018.csc2017.GameCentre.BoardManager;
 
-public class SimonBoardManager extends BoardManager<SimonBoard> {
+public class SimonBoardManager extends BoardManager<SimonTilesBoard> {
 
-    private SimonBoard board;
+    private SimonTilesBoard board;
 
-    public SimonBoardManager(SimonBoard board) {
+    public SimonBoardManager(SimonTilesBoard board) {
         this.board = board;
     }
 
