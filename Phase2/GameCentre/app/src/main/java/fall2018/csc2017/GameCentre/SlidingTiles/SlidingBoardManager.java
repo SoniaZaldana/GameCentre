@@ -3,7 +3,7 @@ package fall2018.csc2017.GameCentre.SlidingTiles;
 import java.io.Serializable;
 
 import fall2018.csc2017.GameCentre.BoardManager;
-import fall2018.csc2017.GameCentre.UndoStack;
+import fall2018.csc2017.GameCentre.Stack;
 import fall2018.csc2017.GameCentre.Undoable;
 
 /**
@@ -14,16 +14,16 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
     /**
      * The stack which remembers the moves on the board.
      */
-    private UndoStack stack;
+    private Stack stack;
     /**
      * Manage a board that has been pre-populated.
      *
      */
 //    SlidingBoardManager(SlidingTilesBoard board) {
 //        this.board = board;
-//        this.stack = new UndoStack(3);
+//        this.stack = new Stack(3);
 //    }
-    public UndoStack getStack(){
+    public Stack getStack(){
         return stack;
     }
 
@@ -32,7 +32,7 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
      */
     public SlidingBoardManager(int undoMax, SlidingTilesBoard board ) {
         super(board);
-        this.stack = new UndoStack(undoMax);
+        this.stack = new Stack(undoMax);
     }
 
     /**

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * A stack with a maximum size, used for undoing moves.
  */
-public class UndoStack implements Serializable {
+public class Stack implements Serializable {
 
     /**
      * The stack of items.
@@ -24,7 +24,7 @@ public class UndoStack implements Serializable {
      *
      * @param size The maximum size of the stack.
      */
-    public UndoStack(int size) {
+    public Stack(int size) {
         this.items = new ArrayList();
         this.maxSize = size;
     }
