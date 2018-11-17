@@ -98,7 +98,6 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                     }
                 }
             }
-            //TODO check what happens if we don't fill array up.
             // Check every valid tile for a bomb and add it to the counter if it exists.
             for (SweeperTile tile : tilesToCheck.keySet()) {
                 if (tile.hasBomb()) {
@@ -108,7 +107,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
             if (bombCounter == 0) {
                 currTile.setBombsAround(0);
                 //TODO display visually
-                //Check all the tiles around this one.
+                //Check all the tiles around this one, per method requirements.
                 for (SweeperTile tile : tilesToCheck.keySet()) {
                     // if this tile has not been checked
                     if (tile.getBombsAround() == -1) {

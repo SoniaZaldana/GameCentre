@@ -266,7 +266,6 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer {
 
 
                 }
-                return;
             }
 
         }

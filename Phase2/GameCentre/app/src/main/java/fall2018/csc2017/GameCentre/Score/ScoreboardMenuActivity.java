@@ -8,7 +8,6 @@ import android.widget.Button;
 
 import fall2018.csc2017.GameCentre.GameLauncherActivity;
 import fall2018.csc2017.GameCentre.R;
-import fall2018.csc2017.GameCentre.SlidingTiles.SlidingScoreboardActivity;
 
 /**
  * The Scoreboard Menu

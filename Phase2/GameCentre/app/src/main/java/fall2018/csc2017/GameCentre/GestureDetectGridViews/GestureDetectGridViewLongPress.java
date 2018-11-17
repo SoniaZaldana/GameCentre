@@ -8,8 +8,6 @@ import android.view.MotionEvent;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerComplexPress;
 import fall2018.csc2017.GameCentre.R;
 
-//TODO Go over the chain of logic for GestureDetect and MovementController again.
-//Make sure it makes sense.
 public class GestureDetectGridViewLongPress extends GestureDetectGridView {
     MovementControllerComplexPress mController;
 
@@ -32,7 +30,9 @@ public class GestureDetectGridViewLongPress extends GestureDetectGridView {
     }
     @Override
     public void createAndSetGestureDetector(final Context context) {
-
+//TODO check what happens on long and short taps, to ensure it doesn't call both at the
+// same time. Check the two are independent of each other. Best way is by having
+//breaking points inside each one, and seeing when they get called
         GestureDetector gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
 
             @Override
