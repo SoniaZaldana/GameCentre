@@ -5,9 +5,13 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
+import fall2018.csc2017.GameCentre.ClicksOnBoard;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerComplexPress;
 import fall2018.csc2017.GameCentre.R;
 
+/**
+ * a GestureDetectGridView which rects to both short and long presses on the screen.
+ */
 public class GestureDetectGridViewLongPress extends GestureDetectGridView {
     MovementControllerComplexPress mController;
 
@@ -40,7 +44,7 @@ public class GestureDetectGridViewLongPress extends GestureDetectGridView {
                 int position = GestureDetectGridViewLongPress.this.pointToPosition
                         (Math.round(event.getX()), Math.round(event.getY()));
 
-                mController.processMove(context, position, R.string.short_press);
+                mController.processMove(context, position, ClicksOnBoard.SHORT);
                 return true;
             }
             @Override
@@ -48,7 +52,7 @@ public class GestureDetectGridViewLongPress extends GestureDetectGridView {
                 int position = GestureDetectGridViewLongPress.this.pointToPosition
                         (Math.round(event.getX()), Math.round(event.getY()));
 
-                mController.processMove(context, position,R.string.long_press);
+                mController.processMove(context, position,ClicksOnBoard.LONG);
             }
 
             @Override

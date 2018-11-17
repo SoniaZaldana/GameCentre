@@ -51,6 +51,11 @@ public abstract class GestureDetectGridView extends GridView {
                                  int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
+
+    /**
+     * create and set the gesture detector, setting the types of actions it reacts to.
+     * @param context from the app.
+     */
     //TODO is there a better way to set GestureDetector?
     public abstract void createAndSetGestureDetector(final Context context);
     @Override
