@@ -38,7 +38,7 @@ public class SimonStartingActivity extends AppCompatActivity {
         addNewGameButtonListener();
 
         String user = SharedPreferenceManager.getSharedValue(this, "sharedUser", "thisUser");
-        SIMON_SAVE_FILENAME = user + "save_file.ser";
+        SIMON_SAVE_FILENAME = user + "Simon_save_file.ser";
     }
 
     /**
@@ -91,8 +91,7 @@ public class SimonStartingActivity extends AppCompatActivity {
      * Starts activity for a new game
      */
     private void newGame() {
-        // TODO: Change this from ChooseDimensionsSlidingActivity to one specific for Simon
-        Intent tmp = new Intent(this, ChooseDimensionsSlidingActivity.class);
+        Intent tmp = new Intent(this, ChooseDimensionSimonActivity.class);
         startActivity(tmp);
     }
 

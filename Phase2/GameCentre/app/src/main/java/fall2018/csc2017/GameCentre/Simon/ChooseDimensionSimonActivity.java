@@ -60,7 +60,7 @@ public class ChooseDimensionSimonActivity extends AppCompatActivity {
                         SimonTilesBoard simonTilesBoard = new SimonTilesBoard(dimension, tilesList);
                         SimonBoardManager simonBoardManager = new SimonBoardManager(simonTilesBoard, undoMax);
                         SaveAndLoadBoardManager.saveToFile(this, SimonStartingActivity.SIMON_SAVE_FILENAME, simonBoardManager);
-                        startActivity(new Intent(this, SimonStartingActivity.class));
+                        startActivity(new Intent(this, SimonGameActivity.class));
                     }
                 } catch (NumberFormatException e) {
                     undoInstructions.setText("Please enter a valid number!");
