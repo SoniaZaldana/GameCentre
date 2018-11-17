@@ -9,11 +9,11 @@ class SimonTile extends Tile {
     private String colour;
 
     /**
-     * Instantiates a Simon Tile object with a specific colour
-     * @param colour
+     * Instantiates a Simon Tile object with a specific id
+     * @param  id
      */
-    SimonTile(String colour) {
-        this.colour = colour;
+    SimonTile(int id) {
+        super(id);
     }
 
     /**
