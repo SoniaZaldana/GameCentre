@@ -147,8 +147,6 @@ public class SlidingTilesStartingActivity extends AppCompatActivity {
     private void loadGame() {
         Intent tmp = new Intent(this, SlidingGameActivity.class);
         startActivity(tmp);
-
-
     }
 
     private void newGame() {
@@ -158,7 +156,6 @@ public class SlidingTilesStartingActivity extends AppCompatActivity {
         }
 
         startActivity(tmp);
-
 
     }
 }

@@ -56,7 +56,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="SlidingTiles" />
+            <Button
+                android:id="@+id/SimonGame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Simon" />
         </LinearLayout>
+
     </ScrollView>
 
 
