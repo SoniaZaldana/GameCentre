@@ -1,6 +1,7 @@
 package fall2018.csc2017.GameCentre.MineSweeper;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,37 +69,12 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         // Check if the current tile might have already been set.
         if (currTile.getBombsAround() == -1) {
             //Doesn't have bomb. Display how many bombs are around.
-            SweeperTile t;
-            ArrayList<Integer> rowColPair;
-            boolean rInBounds;
-            boolean cInBounds;
             int bombCounter = 0;
             int[] rowValues = {row - 1, row, row + 1};
             int[] colValues = {col - 1, col, col + 1};
-            Map<SweeperTile, List<Integer>> tilesToCheck = new HashMap<>();
-            // creates a map of all valid tiles around, with the tile as the key
-            // and the row-col pair as the value.
-            for (int r : rowValues) {
-                for (int c : colValues) {
-                    // don't consider the original tile.
-                    if (r != row && c != col) {
-                        // check if row and col are within the correct bounds.
-                        rInBounds = r < getBoardManager().getBoard().getDimension() &&
-                                r >= 0;
-                        cInBounds = c < getBoardManager().getBoard().getDimension() &&
-                                c >= 0;
-                        if (rInBounds && cInBounds) {
-                            t = getBoardManager().getBoard().getTile(r, c);
-                            //TODO verify that it sets map correctly.
-                            rowColPair = new ArrayList<>();
-                            rowColPair.add(r);
-                            rowColPair.add(c);
-                            tilesToCheck.put(t, rowColPair);
-                        }
-
-                    }
-                }
-            }
+            // get the map of all valid tiles around, with the tile as the key and their row and col
+            // as the value.
+            Map<SweeperTile, List<Integer>> tilesToCheck = getSweeperTileListMap(row, col, rowValues, colValues);
             // Check every valid tile for a bomb and add it to the counter if it exists.
             for (SweeperTile tile : tilesToCheck.keySet()) {
                 if (tile.hasBomb()) {
@@ -121,5 +97,44 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
             }
         }
 
+    }
+
+    /**
+     * Get the map of all valid tiles around given tile, with the tile as the key
+     * and its row and col as the value.
+     * @param row
+     * @param col
+     * @param rowValues
+     * @param colValues
+     * @return
+     */
+    @NonNull
+    private Map<SweeperTile, List<Integer>> getSweeperTileListMap(int row, int col, int[] rowValues, int[] colValues) {
+        boolean rInBounds; boolean cInBounds; SweeperTile t; ArrayList<Integer> rowColPair;
+        Map<SweeperTile, List<Integer>> tilesToCheck = new HashMap<>();
+        // creates a map of all valid tiles around, with the tile as the key
+        // and the row-col pair as the value.
+        for (int r : rowValues) {
+            for (int c : colValues) {
+                // don't consider the original tile.
+                if (r != row && c != col) {
+                    // check if row and col are within the correct bounds.
+                    rInBounds = r < getBoardManager().getBoard().getDimension() &&
+                            r >= 0;
+                    cInBounds = c < getBoardManager().getBoard().getDimension() &&
+                            c >= 0;
+                    if (rInBounds && cInBounds) {
+                        t = getBoardManager().getBoard().getTile(r, c);
+                        //TODO verify that it sets map correctly.
+                        rowColPair = new ArrayList<>();
+                        rowColPair.add(r);
+                        rowColPair.add(c);
+                        tilesToCheck.put(t, rowColPair);
+                    }
+
+                }
+            }
+        }
+        return tilesToCheck;
     }
 }

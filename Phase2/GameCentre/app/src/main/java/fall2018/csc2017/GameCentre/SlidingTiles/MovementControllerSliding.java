@@ -42,7 +42,8 @@ public class MovementControllerSliding extends MovementControllerSimplePress<Sli
      *
      * @param position the position
      */
-    void touchMove(int position) {
+    //TODO made touchMove public for testing. Should that be valid?
+    public void touchMove(int position) {
         int row = getBoardManager().getRow(position);
         int col = getBoardManager().getCol(position);
         // If any of the neighbouring tiles is the blank tile, swap by calling SlidingTilesBoard's swap method.
@@ -86,7 +87,8 @@ public class MovementControllerSliding extends MovementControllerSimplePress<Sli
         Tile tile = rowOrCol == boundaryCase ? null : getBoardManager().getBoard().getTile(rowToCheck, colToCheck);
         return tile != null && tile.getId() == blankId;
     }
-    boolean isGameFinished() {
+    //TODO make it private right after. Only made it public for testing
+    public boolean isGameFinished() {
         Iterator<Tile> iterator = getBoardManager().getBoard().iterator();
         boolean inOrder = true;
         int prevTileValue = 0;
@@ -107,7 +109,8 @@ public class MovementControllerSliding extends MovementControllerSimplePress<Sli
      * @param position the tile to check
      * @return whether the tile at position is surrounded by a blank tile
      */
-    boolean isValidTap(int position) {
+    //TODO made it public just for testing. See if it should be public.
+    public boolean isValidTap(int position) {
         int row = getBoardManager().getRow(position);
         int col = getBoardManager().getCol(position);
         // check if blank tile is tile above, below, to the left, or to the right in this order.
