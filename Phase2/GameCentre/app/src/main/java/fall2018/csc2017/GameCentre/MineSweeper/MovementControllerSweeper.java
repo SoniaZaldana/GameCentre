@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import fall2018.csc2017.GameCentre.ClicksOnBoard;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerComplexPress;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.Tile;
@@ -20,12 +21,12 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
     }
 
     @Override
-    public void processMove(Context context, int position, int e) {
+    public void processMove(Context context, int position, Enum<ClicksOnBoard> click) {
         int row = getBoardManager().getRow(position);
         int col = getBoardManager().getCol(position);
         SweeperTile t = getBoardManager().getBoard().getTile(row, col);
         // If single  tap, then reveal what's under
-        if (e == R.string.short_press) {
+        if (click == ClicksOnBoard.SHORT) {
             // should be able to press only if the tile is not flagged.
             if (!t.isFlagged()) {
                 if (t.hasBomb()) {// if there's a bomb, finish game
@@ -37,7 +38,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
             }
         }
         // If long tap, change the flag.
-        if (e == R.string.long_press) {
+        if (click == ClicksOnBoard.LONG) {
             if (t.isFlagged()) {
                 t.flag(false);
                 flagCounter -= 1;
