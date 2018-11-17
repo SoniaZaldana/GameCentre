@@ -1,4 +1,4 @@
-package fall2018.csc2017.GameCentre;
+package fall2018.csc2017.GameCentre.SlidingTiles;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -13,15 +13,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import fall2018.csc2017.GameCentre.R;
+import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
 import fall2018.csc2017.GameCentre.SlidingTiles.SlidingBoardManager;
 import fall2018.csc2017.GameCentre.SlidingTiles.SlidingGameActivity;
 import fall2018.csc2017.GameCentre.SlidingTiles.SlidingTilesBoard;
 import fall2018.csc2017.GameCentre.SlidingTiles.SlidingTilesStartingActivity;
+import fall2018.csc2017.GameCentre.Tile;
 
 /**
  * The SlidingTilesBoard Dimension + Undo Number Activity
  */
-public class ChooseDimensionsActivity extends AppCompatActivity {
+public class ChooseDimensionsSlidingActivity extends AppCompatActivity {
     private EditText dimensionInput, undoInput;
     private Button submitInput;
     private TextView dimensionInstructions, undoInstructions;

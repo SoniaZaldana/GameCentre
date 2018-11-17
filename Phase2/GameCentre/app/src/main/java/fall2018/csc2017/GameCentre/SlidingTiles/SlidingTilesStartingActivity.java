@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import fall2018.csc2017.GameCentre.ChooseDimensionsActivity;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
 
@@ -150,7 +149,7 @@ public class SlidingTilesStartingActivity extends AppCompatActivity {
     }
 
     private void newGame() {
-        Intent tmp = new Intent(this, ChooseDimensionsActivity.class);
+        Intent tmp = new Intent(this, ChooseDimensionsSlidingActivity.class);
         if (tilePicture != null) {
             tmp.putExtra("TileImage", tilePicture);
         }
