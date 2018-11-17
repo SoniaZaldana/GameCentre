@@ -30,7 +30,6 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
     /**
      * Manage a new shuffled board.
      */
-    //TODO Notice how  the board is created from the tiles created in Super.
     public SlidingBoardManager(int undoMax, SlidingTilesBoard board ) {
         super(board);
         this.stack = new UndoStack(undoMax);

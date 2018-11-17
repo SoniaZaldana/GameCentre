@@ -32,6 +32,13 @@ public class Tile implements Comparable<Tile>, Serializable {
     public Tile(int id) {
         this.id = id;
     }
+    public Tile(){
+
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @Override
     public int compareTo(@NonNull Tile o) {

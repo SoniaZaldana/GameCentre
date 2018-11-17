@@ -3,33 +3,58 @@ package fall2018.csc2017.GameCentre.MineSweeper;
 import fall2018.csc2017.GameCentre.Tile;
 
 public class SweeperTile extends Tile {
+
+
+    /**
+     * whether tile has a bomb or not
+     */
     private boolean bomb;
-    private boolean isMarked;
-    public SweeperTile(int id)
+    /**
+     * whether the user marks the tile as having a bomb.
+     */
+    private boolean flagged;
+    /**
+     * number of bombs around the tile. Default is -1, which means undeclared.
+     */
+    private int bombsAround=-1;
+
+
+
+
+    public SweeperTile( boolean hasBomb)
     {
-        super(id);
-    }
-    public SweeperTile(int id, boolean hasBomb)
-    {
-        super(id);
         this.bomb = hasBomb;
 
     }
-    public boolean isMarked() {
-        return isMarked;
+    public SweeperTile() {}
+
+    /**
+     *
+     * @return whether tile is marked by user as having a bomb.
+     */
+    public boolean isFlagged() {
+        return flagged;
     }
     /**
      *
-     * @param marked represents whether the tile is marked(user thinkts it has a bom"
+     * @param flag represents whether the tile is marked(user thinks it has a bomb
      */
-    public void mark(boolean marked) {
-        isMarked = marked;
+    public void flag(boolean flag) {
+        flagged = flag;
     }
 
     public boolean hasBomb(){
         return bomb;
     }
-    public void setBomb(){
-        bomb=true;
+    public void setBomb(boolean bomb) {
+        this.bomb = bomb;
+    }
+
+    public int getBombsAround() {
+        return bombsAround;
+    }
+
+    public void setBombsAround(int bombsAround) {
+        this.bombsAround = bombsAround;
     }
 }
