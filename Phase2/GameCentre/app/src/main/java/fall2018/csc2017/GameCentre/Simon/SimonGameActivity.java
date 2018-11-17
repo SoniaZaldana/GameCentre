@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 
 import java.util.ArrayList;
@@ -12,7 +13,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import fall2018.csc2017.GameCentre.CustomAdapter;
-import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridView;
 import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridViewShortPress;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
 import fall2018.csc2017.GameCentre.R;
@@ -20,8 +20,8 @@ import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
 
 public class SimonGameActivity extends AppCompatActivity implements Observer {
 
-    private SimonBoardManager boardManager;
-    private MovementControllerSimplePress movementController;
+    private SimonBoardManager simonBoardManager;
+    private MovementControllerSimplePress movementControllerSimon;
     private ArrayList<Button> tileButtons;
 
     // Grid View and calculated column height and width based on device size
@@ -32,6 +32,31 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        simonBoardManager = SaveAndLoadBoardManager.loadFromFile(this, SimonStartingActivity.SIMON_SAVE_FILENAME);
+        setContentView(R.layout.activity_simon);
+
+        // Add View to activity
+        gridView = findViewById(R.id.grid);
+        createTileButtons(this);
+        gridView.setNumColumns(simonBoardManager.getBoard().getDimension());
+        movementControllerSimon = new SimonMovementController(simonBoardManager);
+        gridView.setMovementController(movementControllerSimon);
+        simonBoardManager.getBoard().addObserver(this);
+        // Observer sets up desired dimensions as well as calls our display function
+        gridView.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        gridView.getViewTreeObserver().removeOnGlobalLayoutListener(
+                                this);
+                        int displayWidth = gridView.getMeasuredWidth();
+                        int displayHeight = gridView.getMeasuredHeight();
+
+                        columnWidth = displayWidth / simonBoardManager.getBoard().getDimension();
+                        columnHeight = displayHeight / simonBoardManager.getBoard().getDimension();
+                        display();
+                    }
+                });
     }
 
     void display(){
@@ -41,7 +66,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     }
 
     private void createTileButtons(Context context){
-        SimonTilesBoard board = boardManager.getBoard();
+        SimonTilesBoard board = simonBoardManager.getBoard();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != board.getDimension(); row++) {
             for (int col = 0; col != board.getDimension(); col++) {
@@ -52,7 +77,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     }
 
     private void createTileGUI(Drawable d){
-        SimonTilesBoard board = boardManager.getBoard();
+        SimonTilesBoard board = simonBoardManager.getBoard();
         int nextPos = 0;
         int numberOnTile;
         for (Button b: tileButtons){
@@ -60,17 +85,28 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
             int col = nextPos % board.getDimension();
             numberOnTile = board.getTile(row,col).getId();
             b.setText(String.valueOf(numberOnTile));
-            // TODO: change this to blue tile instead of blank tile 16
-            b.setBackground(ContextCompat.getDrawable(this, R.drawable.tile_16));
+            // TODO: change this to blue tile instead of blank tile 1
+            b.setBackground(ContextCompat.getDrawable(this, R.drawable.tile_1));
             nextPos++;
         }
     }
 
-
-
-
     @Override
     public void update(Observable o, Object arg) {
+        display();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    /**
+     * Dispatch onPause() to fragments.
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SaveAndLoadBoardManager.saveToFile(this, SimonStartingActivity.SIMON_SAVE_FILENAME, simonBoardManager);
     }
 }
