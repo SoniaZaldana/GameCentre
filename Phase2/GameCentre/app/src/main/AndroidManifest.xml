@@ -18,16 +18,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SlidingGameActivity" />
-        <activity android:name=".ScoreboardMenuActivity" />
-        <activity android:name=".UserScoreboardActivity" />
-        <activity android:name=".ScoreScreenActivity" />
-        <activity android:name=".SlidingScoreboardActivity" />
+        <activity android:name=".SlidingTiles.SlidingGameActivity" />
+        <activity android:name=".Score.ScoreboardMenuActivity" />
+        <activity android:name=".Score.UserScoreboardActivity" />
+        <activity android:name=".Score.ScoreScreenActivity" />
+        <activity android:name=".SlidingTiles.SlidingScoreboardActivity" />
         <activity android:name=".GameLauncherActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ChooseDimensionsActivity" />
-        <activity android:name=".SlidingTilesStartingActivity" />
-        <activity android:name=".SimonActivity"></activity>
+        <activity android:name=".SlidingTiles.SlidingTilesStartingActivity" />
+        <activity android:name=".Simon.SimonActivity"></activity>
     </application>
 
 </manifest>

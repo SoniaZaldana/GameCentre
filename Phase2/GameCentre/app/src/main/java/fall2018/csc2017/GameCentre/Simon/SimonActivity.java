@@ -1,4 +1,4 @@
-package fall2018.csc2017.GameCentre;
+package fall2018.csc2017.GameCentre.Simon;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+
+import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridView;
 
 public class SimonActivity extends AppCompatActivity implements Observer {
     /**

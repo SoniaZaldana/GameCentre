@@ -11,15 +11,18 @@ import android.widget.Button;
 import java.io.File;
 import java.io.IOException;
 
+import fall2018.csc2017.GameCentre.Score.ScoreboardMenuActivity;
+import fall2018.csc2017.GameCentre.SlidingTiles.SlidingTilesStartingActivity;
+
 /**
  * The Game Launcher Screen
  */
 public class GameLauncherActivity extends AppCompatActivity implements View.OnClickListener {
-    Button Scoreboards, TilesGame;
+    private Button Scoreboards, TilesGame;
     /**
      * User name
      */
-    String user;
+    private String user;
 
 
     @Override

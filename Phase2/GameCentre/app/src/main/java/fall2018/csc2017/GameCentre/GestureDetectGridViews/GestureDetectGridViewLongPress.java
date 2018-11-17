@@ -1,10 +1,15 @@
-package fall2018.csc2017.GameCentre;
+package fall2018.csc2017.GameCentre.GestureDetectGridViews;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
+import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerComplexPress;
+import fall2018.csc2017.GameCentre.R;
+
+//TODO Go over the chain of logic for GestureDetect and MovementController again.
+//Make sure it makes sense.
 public class GestureDetectGridViewLongPress extends GestureDetectGridView {
     MovementControllerComplexPress mController;
 

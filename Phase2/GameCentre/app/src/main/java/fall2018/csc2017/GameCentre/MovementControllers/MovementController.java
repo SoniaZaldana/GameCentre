@@ -1,10 +1,11 @@
-package fall2018.csc2017.GameCentre;
+package fall2018.csc2017.GameCentre.MovementControllers;
 
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 
-abstract class MovementController<T extends BoardManager> {
+import fall2018.csc2017.GameCentre.BoardManager;
+
+public abstract class MovementController<T extends BoardManager> {
     private T boardManager;
 
     public void setBoardManager(T boardManager){

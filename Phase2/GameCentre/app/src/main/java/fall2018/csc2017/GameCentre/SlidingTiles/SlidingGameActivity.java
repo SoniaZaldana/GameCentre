@@ -1,4 +1,4 @@
-package fall2018.csc2017.GameCentre;
+package fall2018.csc2017.GameCentre.SlidingTiles;
 
 import android.Manifest;
 import android.content.Context;
@@ -21,6 +21,12 @@ import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import fall2018.csc2017.GameCentre.CustomAdapter;
+import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridViewShortPress;
+import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
+import fall2018.csc2017.GameCentre.R;
+import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
+
 
 /**
  * The game activity.
@@ -30,7 +36,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer {
      * Constant which represents the read storage request code.
      * Use it to check if getting return for a READ_STORAGE request.
      */
-    static final int MY_PERMISSIONS_REQUEST_READ_STORAGE = 3;
+    private static final int MY_PERMISSIONS_REQUEST_READ_STORAGE = 3;
 
     /**
      * The board manager.

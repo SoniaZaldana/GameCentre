@@ -1,9 +1,11 @@
-package fall2018.csc2017.GameCentre;
+package fall2018.csc2017.GameCentre.GestureDetectGridViews;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+
+import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
 
 public class GestureDetectGridViewShortPress extends GestureDetectGridView {
     MovementControllerSimplePress mController;

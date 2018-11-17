@@ -1,4 +1,4 @@
-package fall2018.csc2017.GameCentre;
+package fall2018.csc2017.GameCentre.Score;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +10,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+
+import fall2018.csc2017.GameCentre.R;
+import fall2018.csc2017.GameCentre.SharedPreferenceManager;
 
 /**
  * User specific Scoreboard

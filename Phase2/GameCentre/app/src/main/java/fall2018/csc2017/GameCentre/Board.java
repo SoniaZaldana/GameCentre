@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 
-class Board<U extends Tile> extends Observable implements Serializable, Iterable<U> {
+public class Board<U extends Tile> extends Observable implements Serializable, Iterable<U> {
     /**
      * The number of rows.
      */
@@ -22,7 +22,13 @@ class Board<U extends Tile> extends Observable implements Serializable, Iterable
      * Instantiates a board object with a dimension and list of tiles
      * @param dimension - nxn dimension
      */
-    Board(int dimension, List<U> listOfTiles) {
+
+    /**
+     * Returns a list containing all tiles in the board
+     * @return list of tiles
+     */
+
+    public Board(int dimension, List<U> listOfTiles) {
         this.dimension = dimension;
         tiles = new ArrayList<>();
         // Create the board
@@ -35,22 +41,19 @@ class Board<U extends Tile> extends Observable implements Serializable, Iterable
             tiles.add(rowTile);
         }
     }
-
-
-    /**
-     * Returns a list containing all tiles in the board
-     * @return list of tiles
-     */
-    ArrayList<ArrayList<U>> getAllTiles() {
+    public  ArrayList<ArrayList<U>> getAllTiles() {
         return this.tiles;
     }
+
+
+
 
 
     /**
      * Get the dimension of the File
      * @return dimension
      */
-    int getDimension() {
+    public int getDimension() {
         return dimension;
     }
 
@@ -60,7 +63,7 @@ class Board<U extends Tile> extends Observable implements Serializable, Iterable
      * @param col the tile column
      * @return the tile at (row, col)
      */
-    U getTile(int row, int col) {
+    public U getTile(int row, int col) {
         return this.tiles.get(row).get(col);
     }
 
@@ -70,7 +73,7 @@ class Board<U extends Tile> extends Observable implements Serializable, Iterable
      * @param col - target column
      * @param tile - tile object to replace it
      */
-    void setTile(int row, int col, U tile) {
+    public void setTile(int row, int col, U tile) {
         this.tiles.get(row).set(col, tile);
 
     }
@@ -80,7 +83,7 @@ class Board<U extends Tile> extends Observable implements Serializable, Iterable
      *
      * @return the number of tiles on the board
      */
-    int getNumTiles() {
+    public int getNumTiles() {
         return dimension * dimension;
     }
 

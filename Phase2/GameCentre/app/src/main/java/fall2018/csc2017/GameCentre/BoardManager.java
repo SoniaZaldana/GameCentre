@@ -7,7 +7,7 @@ import java.util.List;
 /**
  *
  */
-abstract class BoardManager<T extends Board> implements Serializable {
+public abstract class BoardManager<T extends Board> implements Serializable {
     private int score;
     private T board;
 
@@ -15,7 +15,7 @@ abstract class BoardManager<T extends Board> implements Serializable {
         this.board = board;
     }
 
-    BoardManager() {
+    public BoardManager() {
     }
 
     public T getBoard(){
@@ -24,7 +24,7 @@ abstract class BoardManager<T extends Board> implements Serializable {
     public void setBoard(T board){
         this.board=board;
     }
-    abstract int calculateScore(int moves);
+    public abstract int calculateScore(int moves);
 
     public void setScore(int score) {
         this.score = score;

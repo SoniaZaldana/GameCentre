@@ -1,12 +1,15 @@
-package fall2018.csc2017.GameCentre;
+package fall2018.csc2017.GameCentre.SlidingTiles;
 
 import java.io.Serializable;
-import java.util.List;
+
+import fall2018.csc2017.GameCentre.BoardManager;
+import fall2018.csc2017.GameCentre.UndoStack;
+import fall2018.csc2017.GameCentre.Undoable;
 
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
  */
-class SlidingBoardManager extends BoardManager<SlidingTilesBoard> implements Serializable, Undoable {
+public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> implements Serializable, Undoable {
 
     /**
      * The stack which remembers the moves on the board.
@@ -28,7 +31,7 @@ class SlidingBoardManager extends BoardManager<SlidingTilesBoard> implements Ser
      * Manage a new shuffled board.
      */
     //TODO Notice how  the board is created from the tiles created in Super.
-    SlidingBoardManager(int undoMax, SlidingTilesBoard board ) {
+    public SlidingBoardManager(int undoMax, SlidingTilesBoard board ) {
         super(board);
         this.stack = new UndoStack(undoMax);
     }
@@ -56,7 +59,7 @@ class SlidingBoardManager extends BoardManager<SlidingTilesBoard> implements Ser
      * @return total score
      */
     @Override
-    int calculateScore(int moves) {
+    public int calculateScore(int moves) {
         int dimensions = getBoard().getDimension();
         return dimensions * 500 - (moves * 5);
     }

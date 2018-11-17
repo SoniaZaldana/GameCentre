@@ -1,4 +1,4 @@
-package fall2018.csc2017.GameCentre;
+package fall2018.csc2017.GameCentre.Score;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+
+import fall2018.csc2017.GameCentre.GameLauncherActivity;
+import fall2018.csc2017.GameCentre.R;
+import fall2018.csc2017.GameCentre.SharedPreferenceManager;
 
 import static java.lang.Integer.valueOf;
 
@@ -37,7 +41,7 @@ public class ScoreScreenActivity extends AppCompatActivity {
     Button btn;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
         scoreValue = findViewById(R.id.ScoreValueLabel);

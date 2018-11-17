@@ -1,11 +1,15 @@
-package fall2018.csc2017.GameCentre;
+package fall2018.csc2017.GameCentre.MineSweeper;
 
 import android.content.Context;
+
+import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerComplexPress;
+import fall2018.csc2017.GameCentre.R;
+import fall2018.csc2017.GameCentre.Tile;
 
 public class MovementControllerSweeper extends MovementControllerComplexPress<SweeperBoardManager> {
 
     //TODO Change the boardManager
-    MovementControllerSweeper(SweeperBoardManager boardManager) {
+    public MovementControllerSweeper(SweeperBoardManager boardManager) {
         setBoardManager(boardManager);
 
     }

@@ -1,4 +1,4 @@
-package fall2018.csc2017.GameCentre;
+package fall2018.csc2017.GameCentre.SlidingTiles;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -13,12 +13,16 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+import fall2018.csc2017.GameCentre.R;
+import fall2018.csc2017.GameCentre.Score.ScoreBoardArrayAdapter;
+import fall2018.csc2017.GameCentre.Score.ScoreboardMenuActivity;
+
 
 /**
  * Top scores of each user in the Sliding Tiles Game
  */
 public class SlidingScoreboardActivity extends AppCompatActivity implements View.OnClickListener {
-    Button back;
+    private Button back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

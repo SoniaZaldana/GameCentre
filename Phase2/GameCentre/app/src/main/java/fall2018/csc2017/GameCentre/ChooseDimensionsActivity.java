@@ -11,20 +11,24 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
+
+import fall2018.csc2017.GameCentre.SlidingTiles.SlidingBoardManager;
+import fall2018.csc2017.GameCentre.SlidingTiles.SlidingGameActivity;
+import fall2018.csc2017.GameCentre.SlidingTiles.SlidingTilesBoard;
+import fall2018.csc2017.GameCentre.SlidingTiles.SlidingTilesStartingActivity;
 
 /**
  * The SlidingTilesBoard Dimension + Undo Number Activity
  */
 public class ChooseDimensionsActivity extends AppCompatActivity {
-    EditText dimensionInput, undoInput;
-    Button submitInput;
-    TextView dimensionInstructions, undoInstructions;
+    private EditText dimensionInput, undoInput;
+    private Button submitInput;
+    private TextView dimensionInstructions, undoInstructions;
     /**
      * the Uri of the image of the board, that the user requests with intent.
      */
-    Uri tileImage;
+    private Uri tileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

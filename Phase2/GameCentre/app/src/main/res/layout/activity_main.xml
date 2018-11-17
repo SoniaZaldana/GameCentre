@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="fall2018.csc2017.GameCentre.SlidingGameActivity">
+    tools:context="fall2018.csc2017.GameCentre.SlidingTiles.SlidingGameActivity">
 
 
     <LinearLayout
@@ -25,13 +25,13 @@
             android:text="Save" />
     </LinearLayout>
 
-    <fall2018.csc2017.GameCentre.GestureDetectGridViewShortPress xmlns:android="http://schemas.android.com/apk/res/android"
+    <fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridViewShortPress xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/grid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="3pt"
-        tools:context="fall2018.csc2017.GameCentre.SlidingGameActivity" />
+        tools:context="fall2018.csc2017.GameCentre.SlidingTiles.SlidingGameActivity" />
 
 </LinearLayout>
 

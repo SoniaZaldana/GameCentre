@@ -1,14 +1,15 @@
-package fall2018.csc2017.GameCentre;
+package fall2018.csc2017.GameCentre.SlidingTiles;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+
+import fall2018.csc2017.GameCentre.Board;
+import fall2018.csc2017.GameCentre.Tile;
 
 /**
  * The sliding tiles board. Child class of Board.
  *
  */
-public class SlidingTilesBoard extends Board<Tile>  {
+public class SlidingTilesBoard extends Board<Tile> {
 
     /**
      * path of the board Picture.
@@ -22,7 +23,7 @@ public class SlidingTilesBoard extends Board<Tile>  {
      * @param tiles the tiles for the board
      */
 
-    SlidingTilesBoard(int dimension, List<Tile> tiles) {
+    public SlidingTilesBoard(int dimension, List<Tile> tiles) {
         super(dimension, tiles);
 
     }
@@ -30,14 +31,14 @@ public class SlidingTilesBoard extends Board<Tile>  {
     /**
      * @return the id of the blank tile
      */
-    int getBlankId() {
+    public int getBlankId() {
         return getNumTiles();
     }
     /**
      * set picturePath
      * @param picturePath path of the board Picture
      */
-    void setPicturePath(String picturePath) {
+    public void setPicturePath(String picturePath) {
         this.picturePath = picturePath;
     }
 
@@ -45,7 +46,7 @@ public class SlidingTilesBoard extends Board<Tile>  {
      * get the picturePath
      * @return picturePath path of the board Picture
      */
-    String getPicturePath() {
+    public String getPicturePath() {
         return picturePath;
     }
 
@@ -57,7 +58,7 @@ public class SlidingTilesBoard extends Board<Tile>  {
      * @param row2 the second tile row
      * @param col2 the second tile col
      */
-    void swapTiles(int row1, int col1, int row2, int col2) {
+    public void swapTiles(int row1, int col1, int row2, int col2) {
         Tile tempValue = getTile(row1, col1);
         setTile(row1,col1, getTile(row2, col2));
         setTile(row2,col2, tempValue);

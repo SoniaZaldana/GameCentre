@@ -1,4 +1,4 @@
-package fall2018.csc2017.GameCentre;
+package fall2018.csc2017.GameCentre.SlidingTiles;
 
 
 import android.content.Context;
@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import fall2018.csc2017.GameCentre.ChooseDimensionsActivity;
+import fall2018.csc2017.GameCentre.R;
+import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
 
 /**
  * The initial activity for the sliding puzzle tile game.

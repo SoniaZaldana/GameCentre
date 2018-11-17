@@ -15,12 +15,12 @@ import android.widget.Toast;
  * The login screen
  */
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-    Button loginButton, registerButton;
-    EditText usernameText, passwordText;
+    private Button loginButton, registerButton;
+    private EditText usernameText, passwordText;
     /**
      * The shared preference which stores registered accounts.
      */
-    SharedPreferences accounts;
+    private SharedPreferences accounts;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -1,8 +1,11 @@
-package fall2018.csc2017.GameCentre;
+package fall2018.csc2017.GameCentre.Simon;
 
 import java.util.List;
 
-class SimonBoard extends Board<Tile> {
+import fall2018.csc2017.GameCentre.Board;
+import fall2018.csc2017.GameCentre.Tile;
+
+public class SimonBoard extends Board<Tile> {
     /**
      * Instantiates a board object with a dimension and list of tiles
      *
@@ -10,7 +13,7 @@ class SimonBoard extends Board<Tile> {
      * @param tiles     - list of tiles
      */
 
-    SimonBoard(int dimension, List<Tile> tiles) {
+    public SimonBoard(int dimension, List<Tile> tiles) {
         super(dimension, tiles);
     }
 

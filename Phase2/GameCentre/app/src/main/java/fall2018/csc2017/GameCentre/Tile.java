@@ -29,7 +29,7 @@ public class Tile implements Comparable<Tile>, Serializable {
      *
      * @param id given id of the tile.
      */
-    Tile(int id) {
+    public Tile(int id) {
         this.id = id;
     }
 

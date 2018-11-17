@@ -1,9 +1,14 @@
-package fall2018.csc2017.GameCentre;
+package fall2018.csc2017.GameCentre.SlidingTiles;
 
 import android.content.Context;
 import android.widget.Toast;
 
 import java.util.Iterator;
+
+import fall2018.csc2017.GameCentre.MoveTracker;
+import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
+import fall2018.csc2017.GameCentre.Score.ScoreScreenActivity;
+import fall2018.csc2017.GameCentre.Tile;
 
 public class MovementControllerSliding extends MovementControllerSimplePress<SlidingBoardManager> {
 
@@ -12,7 +17,7 @@ public class MovementControllerSliding extends MovementControllerSimplePress<Sli
      */
     private MoveTracker moves;
     //TODO force all the constructors to take a board.
-    MovementControllerSliding(SlidingBoardManager boardManager) {
+    public MovementControllerSliding(SlidingBoardManager boardManager) {
         moves = new MoveTracker(boardManager.getScore());
         setBoardManager(boardManager);
 
