@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 
 import fall2018.csc2017.GameCentre.Score.ScoreboardMenuActivity;
+import fall2018.csc2017.GameCentre.Simon.SimonStartingActivity;
 import fall2018.csc2017.GameCentre.SlidingTiles.SlidingTilesStartingActivity;
 
 //TODO        Order HighScore
@@ -23,7 +24,7 @@ import fall2018.csc2017.GameCentre.SlidingTiles.SlidingTilesStartingActivity;
  * The Game Launcher Screen
  */
 public class GameLauncherActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button Scoreboards, TilesGame;
+    private Button Scoreboards, TilesGame, SimonGame;
     /**
      * User name
      */
@@ -39,8 +40,10 @@ public class GameLauncherActivity extends AppCompatActivity implements View.OnCl
         setSupportActionBar(myToolbar);
         TilesGame = findViewById(R.id.TilesGame);
         Scoreboards = findViewById(R.id.ScoreboardButton);
+        SimonGame = findViewById(R.id.SimonGame);
         TilesGame.setOnClickListener(this);
         Scoreboards.setOnClickListener(this);
+        SimonGame.setOnClickListener(this);
         user = SharedPreferenceManager.getSharedValue(this, "sharedUser", "thisUser");
         createFiles(user);
     }
@@ -57,7 +60,6 @@ public class GameLauncherActivity extends AppCompatActivity implements View.OnCl
             case R.id.action_signoff:
                 startActivity(new Intent(this, LoginActivity.class));
                 SharedPreferenceManager.deleteSharedValue(this, "sharedUser", "thisUser");
-
                 return true;
         }
         return true;
@@ -71,6 +73,7 @@ public class GameLauncherActivity extends AppCompatActivity implements View.OnCl
      * @param userFile represents the code to be added to a filename to differentiate
      * between user high score files.
      */
+    //TODO: Add files for other 2 games
     public void createFiles(String userFile) {
         File userScoreFile = new File(this.getFilesDir(), userFile + "Score.txt");
         File slidingFile = new File(this.getFilesDir(), "SlidingTiles.txt");
@@ -92,6 +95,9 @@ public class GameLauncherActivity extends AppCompatActivity implements View.OnCl
             case R.id.ScoreboardButton:
                 startActivity(new Intent(this,
                         ScoreboardMenuActivity.class));
+                break;
+            case R.id.SimonGame:
+                startActivity(new Intent(this, SimonStartingActivity.class));
                 break;
         }
     }
