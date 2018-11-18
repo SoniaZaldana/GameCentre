@@ -17,7 +17,7 @@ public class SharedPreferenceManager {
      * @param key - the key for the value to be stored in shared preference file
      * @param value - the value to match the key in the shared preference file
      */
-    public static void setSharedValue(Context c, String spName, String key, String value) {
+    static void setSharedValue(Context c, String spName, String key, String value) {
         SharedPreferences sp = c.getApplicationContext().getSharedPreferences(spName, MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putString(key, value);
@@ -32,7 +32,7 @@ public class SharedPreferenceManager {
      * @param key - the key for the value we are looking for
      * @return the value matching the key in the shared preference's file name
      */
-    public static String getSharedValue(Context c, String spName, String key) {
+    static String getSharedValue(Context c, String spName, String key) {
         SharedPreferences sp = c.getApplicationContext().getSharedPreferences(spName, MODE_PRIVATE);
         return sp.getString(key, "User");
     }
@@ -43,7 +43,7 @@ public class SharedPreferenceManager {
      * @param spName - shared preference's file name
      * @param key - the key for the value we are deleting
      */
-    public static void deleteSharedValue(Context c, String spName, String key) {
+    static void deleteSharedValue(Context c, String spName, String key) {
         SharedPreferences sp = c.getApplicationContext().getSharedPreferences(spName, MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(key);
