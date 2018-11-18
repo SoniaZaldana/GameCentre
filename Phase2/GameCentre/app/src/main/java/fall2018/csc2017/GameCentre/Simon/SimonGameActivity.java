@@ -26,7 +26,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     private GestureDetectGridViewShortPress gridView;
     private static int columnWidth, columnHeight;
 
-    //TODO: Implement this
+    //TODO: Fix this so it doesnt display the 1 tile but instead it displays the blue tile we want
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,8 +58,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     }
 
     void display(){
-        // TODO: Change this to colour png not blank tile 16
-        createTileGUI(ContextCompat.getDrawable(this, R.drawable.tile_16));
+        createTileGUI(ContextCompat.getDrawable(this, R.drawable.tile_blue));
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
     }
 
@@ -83,8 +82,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
             int col = nextPos % board.getDimension();
             numberOnTile = board.getTile(row,col).getId();
             b.setText(String.valueOf(numberOnTile));
-            // TODO: change this to blue tile instead of blank tile 1
-            b.setBackground(ContextCompat.getDrawable(this, R.drawable.tile_1));
+            b.setBackground(ContextCompat.getDrawable(this, R.drawable.tile_blue));
             nextPos++;
         }
     }
