@@ -7,7 +7,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * Class which removes bloated code around settings and getting data from sharedPreferences.
  */
-public class SharedPreferenceManager {
+class SharedPreferenceManager {
 
     /**
      * Creates a shared preference file (if it doesn't exist already) and adds a key-value pair,
