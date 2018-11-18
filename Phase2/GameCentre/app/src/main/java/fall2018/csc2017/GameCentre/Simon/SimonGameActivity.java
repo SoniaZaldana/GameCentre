@@ -7,11 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
-
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-
 import fall2018.csc2017.GameCentre.CustomAdapter;
 import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridViewShortPress;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
