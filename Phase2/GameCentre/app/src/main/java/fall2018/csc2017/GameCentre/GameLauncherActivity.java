@@ -66,20 +66,21 @@ public class GameLauncherActivity extends AppCompatActivity implements View.OnCl
 
     }
 
-
     /**
      * Creates a file which stores all high-scores for each game for user.
      * Creates another file which stores the high-scores from all users per game.
      * @param userFile represents the code to be added to a filename to differentiate
      * between user high score files.
      */
-    //TODO: Add files for other 2 games
+    //TODO: Add files for minesweeper because Simon was already added
     public void createFiles(String userFile) {
         File userScoreFile = new File(this.getFilesDir(), userFile + "Score.txt");
         File slidingFile = new File(this.getFilesDir(), "SlidingTiles.txt");
+        File simonFile = new File(this.getFilesDir(), "Simon.txt");
         try {
             userScoreFile.createNewFile();
             slidingFile.createNewFile();
+            simonFile.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
