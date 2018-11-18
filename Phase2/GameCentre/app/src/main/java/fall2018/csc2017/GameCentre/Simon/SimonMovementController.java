@@ -39,11 +39,6 @@ public class SimonMovementController extends MovementControllerSimplePress {
         //
     }
 
-
-
-
-
-
     /**
      * Returns the SimonTile object in that position
      * @param position in board

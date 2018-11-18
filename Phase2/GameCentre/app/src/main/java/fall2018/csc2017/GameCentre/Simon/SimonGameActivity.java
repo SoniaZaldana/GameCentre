@@ -1,7 +1,6 @@
 package fall2018.csc2017.GameCentre.Simon;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,7 +25,6 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     private GestureDetectGridViewShortPress gridView;
     private static int columnWidth, columnHeight;
 
-    //TODO: Fix this so it doesnt display the 1 tile but instead it displays the blue tile we want
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
