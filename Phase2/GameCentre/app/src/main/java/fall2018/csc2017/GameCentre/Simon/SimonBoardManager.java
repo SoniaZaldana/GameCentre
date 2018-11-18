@@ -14,26 +14,32 @@ public class SimonBoardManager extends BoardManager<SimonTilesBoard> {
     public SimonBoardManager(SimonTilesBoard board, int undo) {
         super(board);
         this.undo = undo;
+        // TODO instantiate gameStack, but I am not sure about what size yet.
     }
 
-    //TODO:implement this method
+    public Stack getGameStack(){
+        return this.gameStack;
+    }
+
+    //TODO: evaluate if this way to calculate score will suffice
     @Override
     public int calculateScore(int moves) {
-        return 0;
+        return moves * 10;
     }
 
-//    public int randomizer() {
-//        ArrayList<ArrayList<SimonTile>> simonList = this.getBoard().getAllTiles();
-//        Random rand = new Random();
-//        int index = rand.nextInt(simonList.size());
-//        return simonList.get(index);
-//    }
-//    //TODO instantiate stack
-//    // TODO method randomizer: returns random number from list of x numbers
-//    // TODO method populate stack(x elements) add x random elements
-//
-//    public void populateStack() {
-//
-//    }
+    // TODO: Randomizer should return a random tile from all tiles in order to display it
+    ArrayList<SimonTile> randomizer() {
+        ArrayList<ArrayList<SimonTile>> simonList = this.getBoard().getAllTiles();
+        Random rand = new Random();
+        int index = rand.nextInt(simonList.size());
+        return simonList.get(index);
+    }
+
+
+    // TODO method populate stack. This method would take a single element x
+    // TODO Then it would push this element onto the stack.
+    void populateStack() {
+
+    }
 }
 
