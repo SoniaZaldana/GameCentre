@@ -46,9 +46,6 @@ public class Board<U extends Tile> extends Observable implements Serializable, I
     }
 
 
-
-
-
     /**
      * Get the dimension of the File
      * @return dimension
