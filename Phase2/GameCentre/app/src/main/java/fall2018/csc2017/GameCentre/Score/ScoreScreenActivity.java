@@ -64,8 +64,8 @@ public class ScoreScreenActivity extends AppCompatActivity {
         else
             highScore.setText("Not a new high score, but pretty good!");
         saveToFile(gameFile, user, score);
-        saveToFile(user + "Score.txt", "SlidingTiles", score);
-
+        String gameName = gameFile.substring(0, gameFile.indexOf('.'));
+        saveToFile(user + "Score.txt", gameName, score);
     }
 
     /**
