@@ -6,33 +6,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 import fall2018.csc2017.GameCentre.R;
-import fall2018.csc2017.GameCentre.Score.ScoreBoardArrayAdapter;
-import fall2018.csc2017.GameCentre.Score.ScoreboardMenuActivity;
 
+public class SimonScoreboardActivity extends GameScoreboardActivity implements View.OnClickListener {
 
-/**
- * Top scores of each user in the Sliding Tiles Game
- */
-public class SlidingScoreboardActivity extends GameScoreboardActivity implements View.OnClickListener {
     private Button back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sliding_scoreboard);
-        HashMap<String, String> usernamesAndScores  = getValue("SlidingTiles.txt");
+        setContentView(R.layout.activity_simon_scoreboard);
+        HashMap<String, String> usernamesAndScores  = getValue("Simon.txt");
+        ScoreBoardArrayAdapter my_adapter = new ScoreBoardArrayAdapter(this, usernamesAndScores);
         back = findViewById(R.id.GoBack);
         back.setOnClickListener(this);
         ListView listView = findViewById(R.id.listView);
-        ScoreBoardArrayAdapter my_adapter = new ScoreBoardArrayAdapter(this, usernamesAndScores);
         listView.setAdapter(my_adapter);
     }
 
@@ -44,5 +35,4 @@ public class SlidingScoreboardActivity extends GameScoreboardActivity implements
                 break;
         }
     }
-
 }
