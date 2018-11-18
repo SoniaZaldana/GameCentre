@@ -58,7 +58,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     }
 
     void display(){
-        createTileGUI(ContextCompat.getDrawable(this, R.drawable.tile_blue));
+        createTileGUI();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
     }
 
@@ -73,17 +73,9 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         }
     }
 
-    private void createTileGUI(Drawable d){
-        SimonTilesBoard board = simonBoardManager.getBoard();
-        int nextPos = 0;
-        int numberOnTile;
+    private void createTileGUI(){
         for (Button b: tileButtons){
-            int row = nextPos / board.getDimension();
-            int col = nextPos % board.getDimension();
-            numberOnTile = board.getTile(row,col).getId();
-            b.setText(String.valueOf(numberOnTile));
             b.setBackground(ContextCompat.getDrawable(this, R.drawable.tile_blue));
-            nextPos++;
         }
     }
 
