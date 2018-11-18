@@ -46,6 +46,16 @@
         android:text="Simon Scoreboard"
         />
 
+    <Button
+        android:id="@+id/MinesweeperScoreboard"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/SimonScoreboardLabel"
+        android:layout_marginTop="30dp"
+        android:text="Minesweeper Scoreboard"
+        />
+
     <TextView
         android:id="@+id/InstructionsLabel"
         android:layout_height="wrap_content"

@@ -22,18 +22,18 @@ public class SimonBoardManager extends BoardManager<SimonTilesBoard> {
         return 0;
     }
 
-    public int randomizer() {
-        ArrayList<ArrayList<SimonTile>> simonList = this.getBoard().getAllTiles();
-        Random rand = new Random();
-        int index = rand.nextInt(simonList.size());
-        return simonList.get(index);
-    }
-    //TODO instantiate stack
-    // TODO method randomizer: returns random number from list of x numbers
-    // TODO method populate stack(x elements) add x random elements
-
-    public void populateStack() {
-
-    }
-    }
+//    public int randomizer() {
+//        ArrayList<ArrayList<SimonTile>> simonList = this.getBoard().getAllTiles();
+//        Random rand = new Random();
+//        int index = rand.nextInt(simonList.size());
+//        return simonList.get(index);
+//    }
+//    //TODO instantiate stack
+//    // TODO method randomizer: returns random number from list of x numbers
+//    // TODO method populate stack(x elements) add x random elements
+//
+//    public void populateStack() {
+//
+//    }
 }
+

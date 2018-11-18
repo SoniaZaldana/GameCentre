@@ -19,12 +19,9 @@ public class SimonScoreboardActivity extends GameScoreboardActivity implements V
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simon_scoreboard);
-        HashMap<String, String> usernamesAndScores  = getValue("Simon.txt");
-        ScoreBoardArrayAdapter my_adapter = new ScoreBoardArrayAdapter(this, usernamesAndScores);
         back = findViewById(R.id.GoBack);
         back.setOnClickListener(this);
-        ListView listView = findViewById(R.id.listView);
-        listView.setAdapter(my_adapter);
+        setGrid("Simon.txt");
     }
 
     @Override

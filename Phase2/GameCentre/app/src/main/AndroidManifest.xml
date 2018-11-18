@@ -30,7 +30,8 @@
         <activity android:name=".Simon.SimonGameActivity" />
         <activity android:name=".Simon.SimonStartingActivity" />
         <activity android:name=".Simon.ChooseDimensionSimonActivity" />
-        <activity android:name=".Score.SimonScoreboardActivity"></activity>
+        <activity android:name=".Score.SimonScoreboardActivity" />
+        <activity android:name=".Score.MinesweeperScoreboardActivity"></activity>
     </application>
 
 </manifest>

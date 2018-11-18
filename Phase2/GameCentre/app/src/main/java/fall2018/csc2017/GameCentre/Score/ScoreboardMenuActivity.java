@@ -17,6 +17,7 @@ public class ScoreboardMenuActivity extends AppCompatActivity implements View.On
     private Button myScoreboard;
     private Button sliding;
     private Button simon;
+    private Button minesweeper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +35,13 @@ public class ScoreboardMenuActivity extends AppCompatActivity implements View.On
         myScoreboard = findViewById(R.id.MyScoreboardLabel);
         sliding = findViewById(R.id.SlidingTilesScoreboardLabel);
         simon = findViewById(R.id.SimonScoreboardLabel);
+        minesweeper = findViewById(R.id.MinesweeperScoreboard);
+
         menu.setOnClickListener(this);
         myScoreboard.setOnClickListener(this);
         sliding.setOnClickListener(this);
         simon.setOnClickListener(this);
+        minesweeper.setOnClickListener(this);
     }
 
     @Override
@@ -53,8 +57,10 @@ public class ScoreboardMenuActivity extends AppCompatActivity implements View.On
                 startActivity(new Intent(this, SlidingScoreboardActivity.class));
                 break;
             case R.id.SimonScoreboardLabel:
-                //TODO: make this go to simon scoreboard instead
-                startActivity(new Intent(this, SlidingScoreboardActivity.class));
+                startActivity(new Intent(this, SimonScoreboardActivity.class));
+                break;
+            case R.id.MinesweeperScoreboard:
+                startActivity(new Intent(this, MinesweeperScoreboardActivity.class));
                 break;
         }
     }

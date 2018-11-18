@@ -1,6 +1,7 @@
 package fall2018.csc2017.GameCentre.Score;
 
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ListView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,6 +9,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+
+import fall2018.csc2017.GameCentre.R;
 
 class GameScoreboardActivity extends AppCompatActivity {
 
@@ -32,5 +35,12 @@ class GameScoreboardActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return usernamesAndScores;
+    }
+
+    void setGrid(String fileName) {
+        HashMap<String, String> usernamesAndScores  = getValue(fileName);
+        ListView listView = findViewById(R.id.listView);
+        ScoreBoardArrayAdapter my_adapter = new ScoreBoardArrayAdapter(this, usernamesAndScores);
+        listView.setAdapter(my_adapter);
     }
 }
