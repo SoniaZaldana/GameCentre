@@ -11,6 +11,8 @@ import fall2018.csc2017.GameCentre.Score.ScoreScreenActivity;
 public class SimonMovementController extends MovementControllerSimplePress {
 
     private MoveTracker moves;
+    SimonBoardManager simonBoardManager = (SimonBoardManager) getBoardManager();
+
 
     SimonMovementController(SimonBoardManager boardManager){
         moves = new MoveTracker(boardManager.getScore());
@@ -22,9 +24,9 @@ public class SimonMovementController extends MovementControllerSimplePress {
         SimonTile tile = getTileInPosition(position);
 
         if (isCorrectMove(tile)){
-            SimonBoardManager simonBoardManager = (SimonBoardManager) getBoardManager();
             if (isRoundFinished(simonBoardManager.getGameStack())) {
                 // TODO add instructions to repopulate the stack with more elements than previous round
+
             }
         }
         else{
@@ -35,17 +37,16 @@ public class SimonMovementController extends MovementControllerSimplePress {
 
     }
 
-
-
-    //TODO implement what to do when a user touches a tile.
-    // TODO potentially this method would pop the stack and compare the user picked tile and the popped one
-    boolean isCorrectMove(SimonTile tile){
-        return false;
+    //I think I have implemented this correctly
+    boolean isCorrectMove(SimonTile userTile){
+        Stack<SimonTile> gameStack = simonBoardManager.getGameStack();
+        SimonTile tileOnTop = gameStack.pop();
+        return tileOnTop.compareTo(userTile) == 0;
     }
 
-    //TODO implement a method to see if a round is finished i.e. if the stack is empty
+    //I think I have also successfully implemented. Have to test.
     boolean isRoundFinished(Stack gameStack){
-        return false;
+        return gameStack.empty();
     }
 
 
