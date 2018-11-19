@@ -3,7 +3,7 @@ package fall2018.csc2017.GameCentre.SlidingTiles;
 import java.io.Serializable;
 
 import fall2018.csc2017.GameCentre.BoardManager;
-import fall2018.csc2017.GameCentre.Stack;
+import fall2018.csc2017.GameCentre.UndoStack;
 import fall2018.csc2017.GameCentre.Undoable;
 
 /**
@@ -12,19 +12,19 @@ import fall2018.csc2017.GameCentre.Undoable;
 public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> implements Serializable, Undoable {
 
     /**
-     * The stack which remembers the moves on the board.
+     * The undoStack which remembers the moves on the board.
      */
-    private Stack stack;
+    private UndoStack undoStack;
     /**
      * Manage a board that has been pre-populated.
      *
      */
 //    SlidingBoardManager(SlidingTilesBoard board) {
 //        this.board = board;
-//        this.stack = new Stack(3);
+//        this.undoStack = new UndoStack(3);
 //    }
-    public Stack getStack(){
-        return stack;
+    public UndoStack getUndoStack(){
+        return undoStack;
     }
 
     /**
@@ -32,7 +32,7 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
      */
     public SlidingBoardManager(int undoMax, SlidingTilesBoard board ) {
         super(board);
-        this.stack = new Stack(undoMax);
+        this.undoStack = new UndoStack(undoMax);
     }
 
     /**
@@ -41,10 +41,10 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
      * @return whether a move has been undone
      */
     public boolean undo() {
-        if (this.stack.getSize() == 0) {
+        if (this.undoStack.getSize() == 0) {
             return false;
         } else {
-            int[] lst = (int[]) this.stack.pop();
+            int[] lst = (int[]) this.undoStack.pop();
             getBoard().swapTiles(lst[0], lst[1], lst[2], lst[3]);
             return true;
         }

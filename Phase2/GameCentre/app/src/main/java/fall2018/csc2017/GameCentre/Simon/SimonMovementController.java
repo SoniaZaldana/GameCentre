@@ -4,7 +4,7 @@ import android.content.Context;
 import fall2018.csc2017.GameCentre.MoveTracker;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
 import fall2018.csc2017.GameCentre.Score.ScoreScreenActivity;
-import fall2018.csc2017.GameCentre.Stack;
+import fall2018.csc2017.GameCentre.UndoStack;
 
 public class SimonMovementController extends MovementControllerSimplePress {
 
@@ -21,7 +21,7 @@ public class SimonMovementController extends MovementControllerSimplePress {
 
         if (isCorrectMove(tile)){
             SimonBoardManager simonBoardManager = (SimonBoardManager) getBoardManager();
-            if (isRoundFinished(simonBoardManager.getGameStack())) {
+            if (isRoundFinished(simonBoardManager.getGameUndoStack())) {
                 // TODO add instructions to repopulate the stack with more elements than previous round
             }
         }
@@ -42,7 +42,7 @@ public class SimonMovementController extends MovementControllerSimplePress {
     }
 
     //TODO implement a method to see if a round is finished i.e. if the stack is empty
-    boolean isRoundFinished(Stack gameStack){
+    boolean isRoundFinished(UndoStack gameUndoStack){
         return false;
     }
 

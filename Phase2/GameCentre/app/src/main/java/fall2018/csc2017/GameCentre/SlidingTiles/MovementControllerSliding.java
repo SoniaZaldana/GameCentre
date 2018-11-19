@@ -52,25 +52,25 @@ public class MovementControllerSliding extends MovementControllerSimplePress<Sli
         if (isBlankTile(row, 0, row - 1, col)) {
             getBoardManager().getBoard().swapTiles(row, col, row - 1, col);
             int[] lst = {row, col, row - 1, col};
-            getBoardManager().getStack().push(lst);
+            getBoardManager().getUndoStack().push(lst);
         }
         // check tile below is blank.
         else if (isBlankTile(row, getBoardManager().getBoard().getDimension() - 1, row + 1, col)) {
             getBoardManager().getBoard().swapTiles(row, col, row + 1, col);
             int[] lst = {row, col, row + 1, col};
-            getBoardManager().getStack().push(lst);
+            getBoardManager().getUndoStack().push(lst);
         }
         // check if tile on right is blank.
         else if (isBlankTile(col, 0, row, col - 1)) {
             getBoardManager().getBoard().swapTiles(row, col, row, col - 1);
             int[] lst = {row, col, row, col - 1};
-            getBoardManager().getStack().push(lst);
+            getBoardManager().getUndoStack().push(lst);
         }
         // check if tile on the left is blank.
         else if (isBlankTile(col, getBoardManager().getBoard().getDimension() - 1, row, col + 1)) {
             getBoardManager().getBoard().swapTiles(row, col, row, col + 1);
             int[] lst = {row, col, row, col + 1};
-            getBoardManager().getStack().push(lst);
+            getBoardManager().getUndoStack().push(lst);
         }
     }
     /**

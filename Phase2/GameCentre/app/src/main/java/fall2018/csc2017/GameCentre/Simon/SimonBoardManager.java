@@ -4,21 +4,21 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import fall2018.csc2017.GameCentre.BoardManager;
-import fall2018.csc2017.GameCentre.Stack;
+import fall2018.csc2017.GameCentre.UndoStack;
 
 public class SimonBoardManager extends BoardManager<SimonTilesBoard> {
 
     private int undo;
-    private Stack gameStack;
+    private UndoStack gameUndoStack;
 
     public SimonBoardManager(SimonTilesBoard board, int undo) {
         super(board);
         this.undo = undo;
-        // TODO instantiate gameStack, but I am not sure about what size yet.
+        // TODO instantiate gameUndoStack, but I am not sure about what size yet.
     }
 
-    public Stack getGameStack(){
-        return this.gameStack;
+    public UndoStack getGameUndoStack(){
+        return this.gameUndoStack;
     }
 
     //TODO: evaluate if this way to calculate score will suffice
