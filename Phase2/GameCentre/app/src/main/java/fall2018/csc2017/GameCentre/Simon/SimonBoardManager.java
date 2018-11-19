@@ -2,14 +2,14 @@ package fall2018.csc2017.GameCentre.Simon;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Stack;
 
 import fall2018.csc2017.GameCentre.BoardManager;
-import fall2018.csc2017.GameCentre.UndoStack;
 
 public class SimonBoardManager extends BoardManager<SimonTilesBoard> {
 
     private int undo;
-    private UndoStack gameUndoStack;
+    private Stack gameStack;
 
     public SimonBoardManager(SimonTilesBoard board, int undo) {
         super(board);
@@ -17,8 +17,8 @@ public class SimonBoardManager extends BoardManager<SimonTilesBoard> {
         // TODO instantiate gameUndoStack, but I am not sure about what size yet.
     }
 
-    public UndoStack getGameUndoStack(){
-        return this.gameUndoStack;
+    public Stack getGameUndoStack(){
+        return this.gameStack;
     }
 
     //TODO: evaluate if this way to calculate score will suffice
