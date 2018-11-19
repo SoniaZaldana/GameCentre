@@ -6,19 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
-
 import fall2018.csc2017.GameCentre.GameLauncherActivity;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.SharedPreferenceManager;
-
-import static java.lang.Integer.valueOf;
 
 /**
  * The end screen after the puzzle is solved
@@ -64,12 +54,12 @@ public class ScoreScreenActivity extends AppCompatActivity {
         else
             highScore.setText("Not a new high score, but pretty good!");
 
+        // Saving score in game file
         TextFileManager.saveToFile(this, gameFile, user, score);
+        // Saving score in specific user score file
         String gameName = gameFile.substring(0, gameFile.indexOf('.'));
         TextFileManager.saveToFile(this, user + "Score.txt", gameName, score);
     }
-
-
 }
 
 
