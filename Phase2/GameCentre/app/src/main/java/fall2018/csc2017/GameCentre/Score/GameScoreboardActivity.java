@@ -13,7 +13,7 @@ import fall2018.csc2017.GameCentre.R;
 
 
 /**
- * Top scores of each user in the Sliding Tiles Game
+ * Top scores of each user in each of the 3 games
  */
 public class GameScoreboardActivity extends AppCompatActivity implements View.OnClickListener {
     private Button back;
