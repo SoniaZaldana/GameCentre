@@ -2,8 +2,7 @@ package fall2018.csc2017.GameCentre.Simon;
 
 import android.content.Context;
 
-import java.util.Stack;
-
+import java.util.Queue;
 import fall2018.csc2017.GameCentre.MoveTracker;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
 import fall2018.csc2017.GameCentre.Score.ScoreScreenActivity;
@@ -24,7 +23,7 @@ public class SimonMovementController extends MovementControllerSimplePress {
         SimonTile tile = getTileInPosition(position);
 
         if (isCorrectMove(tile)){
-            if (isRoundFinished(simonBoardManager.getGameStack())) {
+            if (isRoundFinished(simonBoardManager.getGameQueue())) {
                 // TODO add instructions to repopulate the stack with more elements than previous round
 
             }
@@ -39,14 +38,14 @@ public class SimonMovementController extends MovementControllerSimplePress {
 
     //I think I have implemented this correctly
     boolean isCorrectMove(SimonTile userTile){
-        Stack<SimonTile> gameStack = simonBoardManager.getGameStack();
-        SimonTile tileOnTop = gameStack.pop();
-        return tileOnTop.compareTo(userTile) == 0;
+        Queue<SimonTile> gameQueue = simonBoardManager.getGameQueue();
+        SimonTile tileAtFront = gameQueue.remove();
+        return tileAtFront.compareTo(userTile) == 0;
     }
 
     //I think I have also successfully implemented. Have to test.
-    boolean isRoundFinished(Stack gameStack){
-        return gameStack.empty();
+    boolean isRoundFinished(Queue gameQueue){
+        return gameQueue.isEmpty();
     }
 
 
