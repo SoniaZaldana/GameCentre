@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SlidingTiles.SlidingGameActivity" />
-        <activity android:name=".Score.ScoreboardMenuActivity" />
+        <activity android:name=".Score.MenuScoreboardsActivity" />
         <activity android:name=".Score.UserScoreboardActivity" />
         <activity android:name=".Score.ScoreScreenActivity" />
         <activity android:name=".Score.GameScoreboardActivity" />

@@ -12,7 +12,7 @@ import fall2018.csc2017.GameCentre.R;
 /**
  * The Scoreboard Menu
  */
-public class ScoreboardMenuActivity extends AppCompatActivity implements View.OnClickListener {
+public class MenuScoreboardsActivity extends AppCompatActivity implements View.OnClickListener {
     private Button menu;
     private Button myScoreboard;
     private Button sliding;
