@@ -6,17 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
 
 import fall2018.csc2017.GameCentre.R;
-import fall2018.csc2017.GameCentre.Score.ScoreBoardArrayAdapter;
-import fall2018.csc2017.GameCentre.Score.ScoreboardMenuActivity;
 
 
 /**
@@ -45,7 +38,7 @@ public class GameScoreboardActivity extends AppCompatActivity implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.GoBack:
-                startActivity(new Intent(this, ScoreboardMenuActivity.class));
+                startActivity(new Intent(this, MenuScoreboardsActivity.class));
                 break;
         }
     }
