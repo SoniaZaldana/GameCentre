@@ -63,6 +63,7 @@ public class ScoreScreenActivity extends AppCompatActivity {
             highScore.setText("New High Score");
         else
             highScore.setText("Not a new high score, but pretty good!");
+
         saveToFile(gameFile, user, score);
         String gameName = gameFile.substring(0, gameFile.indexOf('.'));
         saveToFile(user + "Score.txt", gameName, score);

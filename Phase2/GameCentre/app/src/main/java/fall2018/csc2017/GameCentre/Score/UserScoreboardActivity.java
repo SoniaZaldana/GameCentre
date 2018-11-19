@@ -19,16 +19,20 @@ import fall2018.csc2017.GameCentre.SharedPreferenceManager;
  */
 public class UserScoreboardActivity extends AppCompatActivity {
     String user;
+    TextView slidingScore, simonScore, minesweeperScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_scoreboard);
-        TextView gameName = findViewById(R.id.GameNameLabel);
-        TextView gameScore = findViewById(R.id.ScoreLabel);
         user = SharedPreferenceManager.getSharedValue(this, "sharedUser", "thisUser");
-        gameName.setText(R.string.sliding_tiles);
-        gameScore.setText(getScorePerGame(user + "Score.txt", "SlidingTiles"));
+
+        slidingScore = findViewById(R.id.SlidingScoreLabel);
+        simonScore = findViewById(R.id.SimonScoreLabel);
+        minesweeperScore = findViewById(R.id.MinesweeperScoreLabel);
+        slidingScore.setText(getScorePerGame(user + "Score.txt", "SlidingTiles"));
+        simonScore.setText(getScorePerGame(user + "Score.txt", "Simon"));
+        minesweeperScore.setText(getScorePerGame(user + "Score.txt", "Minesweeper"));
     }
 
     /**
