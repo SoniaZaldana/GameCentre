@@ -1,20 +1,13 @@
 package fall2018.csc2017.GameCentre;
 
-import android.app.Activity;
-import android.content.Context;
-import android.test.suitebuilder.annotation.MediumTest;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-import fall2018.csc2017.GameCentre.MovementControllers.MovementController;
 import fall2018.csc2017.GameCentre.SlidingTiles.MovementControllerSliding;
 import fall2018.csc2017.GameCentre.SlidingTiles.SlidingBoardManager;
-import fall2018.csc2017.GameCentre.SlidingTiles.SlidingGameActivity;
 import fall2018.csc2017.GameCentre.SlidingTiles.SlidingTilesBoard;
 
 import static org.junit.Assert.*;
@@ -145,11 +138,7 @@ public class SlidingTilesBoardAndTileTest {
         setUpCorrect(5,3 );
         assertEquals(9, boardManager.getBoard().getBlankId());
     }
-    public void testSerializationProperties(){
-        setUpCorrect(5,3 );
-        assertEquals(4, boardManager.getBoard().getBlankId());
 
-    }
 
 }
 
