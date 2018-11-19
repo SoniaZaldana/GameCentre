@@ -17,7 +17,7 @@ public class SimonBoardManager extends BoardManager<SimonTilesBoard> {
         // TODO instantiate gameUndoStack, but I am not sure about what size yet.
     }
 
-    public Stack getGameUndoStack(){
+    public Stack getGameStack(){
         return this.gameStack;
     }
 
