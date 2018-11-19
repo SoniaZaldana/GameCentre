@@ -11,6 +11,7 @@ import android.widget.Button;
 import java.io.File;
 import java.io.IOException;
 
+import fall2018.csc2017.GameCentre.MineSweeper.MineSweeperActivity;
 import fall2018.csc2017.GameCentre.Score.ScoreboardMenuActivity;
 import fall2018.csc2017.GameCentre.Simon.SimonStartingActivity;
 import fall2018.csc2017.GameCentre.SlidingTiles.SlidingTilesStartingActivity;
@@ -24,7 +25,7 @@ import fall2018.csc2017.GameCentre.SlidingTiles.SlidingTilesStartingActivity;
  * The Game Launcher Screen
  */
 public class GameLauncherActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button Scoreboards, TilesGame, SimonGame;
+    private Button Scoreboards, TilesGame, SimonGame, MinesweeperGame;
     /**
      * User name
      */
@@ -35,17 +36,23 @@ public class GameLauncherActivity extends AppCompatActivity implements View.OnCl
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gamelauncheractivity);
+        setUpVisualComponents();
+        user = SharedPreferenceManager.getSharedValue(this, "sharedUser", "thisUser");
+        createFiles(user);
+    }
+
+    private void setUpVisualComponents() {
         android.support.v7.widget.Toolbar myToolbar = findViewById(R.id.toolbar);
         myToolbar.setLogo(R.drawable.ic_launcher_foreground);
         setSupportActionBar(myToolbar);
         TilesGame = findViewById(R.id.TilesGame);
         Scoreboards = findViewById(R.id.ScoreboardButton);
         SimonGame = findViewById(R.id.SimonGame);
+        MinesweeperGame = findViewById(R.id.MinesweeperGame);
         TilesGame.setOnClickListener(this);
         Scoreboards.setOnClickListener(this);
         SimonGame.setOnClickListener(this);
-        user = SharedPreferenceManager.getSharedValue(this, "sharedUser", "thisUser");
-        createFiles(user);
+        MinesweeperGame.setOnClickListener(this);
     }
 
     @Override
@@ -72,15 +79,16 @@ public class GameLauncherActivity extends AppCompatActivity implements View.OnCl
      * @param userFile represents the code to be added to a filename to differentiate
      * between user high score files.
      */
-    //TODO: Add files for minesweeper because Simon was already added
     public void createFiles(String userFile) {
         File userScoreFile = new File(this.getFilesDir(), userFile + "Score.txt");
         File slidingFile = new File(this.getFilesDir(), "SlidingTiles.txt");
         File simonFile = new File(this.getFilesDir(), "Simon.txt");
+        File minesweeperFile = new File(this.getFilesDir(), "Minesweeper.txt");
         try {
             userScoreFile.createNewFile();
             slidingFile.createNewFile();
             simonFile.createNewFile();
+            minesweeperFile.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -99,6 +107,9 @@ public class GameLauncherActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.SimonGame:
                 startActivity(new Intent(this, SimonStartingActivity.class));
+                break;
+            case R.id.MinesweeperGame:
+                startActivity(new Intent(this, MineSweeperActivity.class));
                 break;
         }
     }
