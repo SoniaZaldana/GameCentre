@@ -1,8 +1,10 @@
 package fall2018.csc2017.GameCentre.MineSweeper;
 
+import java.io.Serializable;
+
 import fall2018.csc2017.GameCentre.BoardManager;
 
-public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> {
+public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> implements Serializable {
     /**
      * The number of seconds that has passed for this game
      */
@@ -24,7 +26,7 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> {
     }
 
     @Override
-    public int calculateScore(int moves) {
-        return 0;
+    public int calculateScore(int mines) {
+        return time;
     }
 }

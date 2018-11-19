@@ -46,6 +46,7 @@ public class SweeperTile extends Tile {
     public boolean hasBomb(){
         return bomb;
     }
+
     public void setBomb(boolean bomb) {
         this.bomb = bomb;
     }
