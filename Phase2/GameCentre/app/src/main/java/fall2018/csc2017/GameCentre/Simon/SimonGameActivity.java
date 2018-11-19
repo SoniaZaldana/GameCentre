@@ -1,7 +1,6 @@
 package fall2018.csc2017.GameCentre.Simon;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,7 +25,6 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     private GestureDetectGridViewShortPress gridView;
     private static int columnWidth, columnHeight;
 
-    //TODO: Implement this
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,8 +56,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     }
 
     void display(){
-        // TODO: Change this to colour png not blank tile 16
-        createTileGUI(ContextCompat.getDrawable(this, R.drawable.tile_16));
+        createTileGUI();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
     }
 
@@ -74,18 +71,9 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         }
     }
 
-    private void createTileGUI(Drawable d){
-        SimonTilesBoard board = simonBoardManager.getBoard();
-        int nextPos = 0;
-        int numberOnTile;
+    private void createTileGUI(){
         for (Button b: tileButtons){
-            int row = nextPos / board.getDimension();
-            int col = nextPos % board.getDimension();
-            numberOnTile = board.getTile(row,col).getId();
-            b.setText(String.valueOf(numberOnTile));
-            // TODO: change this to blue tile instead of blank tile 1
-            b.setBackground(ContextCompat.getDrawable(this, R.drawable.tile_1));
-            nextPos++;
+            b.setBackground(ContextCompat.getDrawable(this, R.drawable.tile_blue));
         }
     }
 

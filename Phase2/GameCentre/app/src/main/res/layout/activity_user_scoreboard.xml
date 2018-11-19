@@ -52,7 +52,7 @@
         />
 
     <TextView
-        android:id="@+id/GameNameLabel"
+        android:id="@+id/SlidingTilesGameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -64,7 +64,7 @@
          />
 
     <TextView
-        android:id="@+id/ScoreLabel"
+        android:id="@+id/SlidingScoreLabel"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -72,8 +72,56 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/_1000"
-        android:layout_alignRight="@id/GameNameLabel"
+        android:layout_alignRight="@id/SlidingTilesGameLabel"
         android:layout_below="@id/ScoreHeader"
         android:layout_alignParentRight="true"
          />
+
+    <TextView
+        android:id="@+id/SimonGameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/SlidingTilesGameLabel"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Simon" />
+
+    <TextView
+        android:id="@+id/SimonScoreLabel"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/_1000"
+        android:layout_alignRight="@id/SimonGameLabel"
+        android:layout_below="@id/SlidingScoreLabel"
+        android:layout_alignParentRight="true"
+        />
+
+    <TextView
+        android:id="@+id/MinesweeperGameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_below="@id/SimonGameLabel"
+        android:text="Minesweeper"/>
+
+    <TextView
+        android:id="@+id/MinesweeperScoreLabel"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/_1000"
+        android:layout_alignRight="@id/MinesweeperGameLabel"
+        android:layout_below="@id/SimonScoreLabel"
+        android:layout_alignParentRight="true"
+        />
 </RelativeLayout>

@@ -16,7 +16,6 @@ class SimonTile extends Tile {
      * Default constructor for Simon Tile
      */
     SimonTile() {
-
     }
 
 }

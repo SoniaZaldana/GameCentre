@@ -7,7 +7,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * Class which removes bloated code around settings and getting data from sharedPreferences.
  */
-class SharedPreferenceManager {
+public class SharedPreferenceManager {
 
     /**
      * Creates a shared preference file (if it doesn't exist already) and adds a key-value pair,
@@ -17,7 +17,7 @@ class SharedPreferenceManager {
      * @param key - the key for the value to be stored in shared preference file
      * @param value - the value to match the key in the shared preference file
      */
-    static void setSharedValue(Context c, String spName, String key, String value) {
+    public static void setSharedValue(Context c, String spName, String key, String value) {
         SharedPreferences sp = c.getApplicationContext().getSharedPreferences(spName, MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putString(key, value);
@@ -32,7 +32,7 @@ class SharedPreferenceManager {
      * @param key - the key for the value we are looking for
      * @return the value matching the key in the shared preference's file name
      */
-    static String getSharedValue(Context c, String spName, String key) {
+    public static String getSharedValue(Context c, String spName, String key) {
         SharedPreferences sp = c.getApplicationContext().getSharedPreferences(spName, MODE_PRIVATE);
         return sp.getString(key, "User");
     }
@@ -43,7 +43,7 @@ class SharedPreferenceManager {
      * @param spName - shared preference's file name
      * @param key - the key for the value we are deleting
      */
-    static void deleteSharedValue(Context c, String spName, String key) {
+    public static void deleteSharedValue(Context c, String spName, String key) {
         SharedPreferences sp = c.getApplicationContext().getSharedPreferences(spName, MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(key);

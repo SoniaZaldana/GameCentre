@@ -1,11 +1,10 @@
 package fall2018.csc2017.GameCentre.Simon;
 
 import android.content.Context;
-import android.widget.Toast;
-
 import fall2018.csc2017.GameCentre.MoveTracker;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
 import fall2018.csc2017.GameCentre.Score.ScoreScreenActivity;
+import fall2018.csc2017.GameCentre.Stack;
 
 public class SimonMovementController extends MovementControllerSimplePress {
 
@@ -20,28 +19,32 @@ public class SimonMovementController extends MovementControllerSimplePress {
     public void processMove(Context context, int position) {
         SimonTile tile = getTileInPosition(position);
 
-        //TODO: Check if this is the correct tile to have cliked based on stack
-        // if boardManager.stack is empty, boardManager.stack.repopulate(n+2)
-        // pop stack in board manager
-        // compare to the tile popped
-        // todo use compareTO with another tile
-//        if (tile == other_tile) {
-//
-//        } else {
-//            int score = getBoardManager().calculateScore(moves.getMoves());
-//            //TODO evaluate this score screen activity class to see this will still work with simon
-//            moveOnToScoreActivity(context, "Simon.txt", ScoreScreenActivity.class, score);
-//        }
+        if (isCorrectMove(tile)){
+            SimonBoardManager simonBoardManager = (SimonBoardManager) getBoardManager();
+            if (isRoundFinished(simonBoardManager.getGameStack())) {
+                // TODO add instructions to repopulate the stack with more elements than previous round
+            }
+        }
+        else{
+            //This means user lost.
+            int score = getBoardManager().calculateScore(moves.getMoves());
+            moveOnToScoreActivity(context, "Simon.txt", ScoreScreenActivity.class, score);
+        }
 
     }
 
-    void touchMove(){
-        //
+
+
+    //TODO implement what to do when a user touches a tile.
+    // TODO potentially this method would pop the stack and compare the user picked tile and the popped one
+    boolean isCorrectMove(SimonTile tile){
+        return false;
     }
 
-
-
-
+    //TODO implement a method to see if a round is finished i.e. if the stack is empty
+    boolean isRoundFinished(Stack gameStack){
+        return false;
+    }
 
 
     /**
