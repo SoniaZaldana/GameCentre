@@ -9,7 +9,7 @@ import fall2018.csc2017.GameCentre.BoardManager;
 public class SimonBoardManager extends BoardManager<SimonTilesBoard> {
 
     private int undo;
-    private Stack gameStack;
+    private Stack<SimonTile> gameStack;
 
     public SimonBoardManager(SimonTilesBoard board, int undo) {
         super(board);
