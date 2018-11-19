@@ -54,13 +54,16 @@ public class ScoreboardMenuActivity extends AppCompatActivity implements View.On
                 startActivity(new Intent(this, UserScoreboardActivity.class));
                 break;
             case R.id.SlidingTilesScoreboardLabel:
-                startActivity(new Intent(this, SlidingScoreboardActivity.class));
+                startActivity(new Intent(this, GameScoreboardActivity.class).
+                        putExtra("GameFile", "SlidingTiles.txt"));
                 break;
             case R.id.SimonScoreboardLabel:
-                startActivity(new Intent(this, SimonScoreboardActivity.class));
+                startActivity(new Intent(this, GameScoreboardActivity.class).
+                        putExtra("GameFile", "Simon.txt"));
                 break;
             case R.id.MinesweeperScoreboard:
-                startActivity(new Intent(this, MinesweeperScoreboardActivity.class));
+                startActivity(new Intent(this, GameScoreboardActivity.class).
+                        putExtra("GameFile", "Minesweeper.txt"));
                 break;
         }
     }

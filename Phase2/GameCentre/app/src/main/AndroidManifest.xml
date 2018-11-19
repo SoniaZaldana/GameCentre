@@ -22,7 +22,7 @@
         <activity android:name=".Score.ScoreboardMenuActivity" />
         <activity android:name=".Score.UserScoreboardActivity" />
         <activity android:name=".Score.ScoreScreenActivity" />
-        <activity android:name=".Score.SlidingScoreboardActivity" />
+        <activity android:name=".Score.GameScoreboardActivity" />
         <activity android:name=".GameLauncherActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".SlidingTiles.ChooseDimensionsSlidingActivity" />
@@ -30,8 +30,6 @@
         <activity android:name=".Simon.SimonGameActivity" />
         <activity android:name=".Simon.SimonStartingActivity" />
         <activity android:name=".Simon.ChooseDimensionSimonActivity" />
-        <activity android:name=".Score.SimonScoreboardActivity" />
-        <activity android:name=".Score.MinesweeperScoreboardActivity"></activity>
     </application>
 
 </manifest>
