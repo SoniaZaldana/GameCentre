@@ -8,13 +8,21 @@ import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimpleP
 import fall2018.csc2017.GameCentre.Score.ScoreScreenActivity;
 
 public class SimonMovementController extends MovementControllerSimplePress {
-
+    /**
+     * Tracks the number of moves
+     */
     private MoveTracker moves;
+    /**
+     * Tracks the round the user is currently in
+     */
     private int round;
 
     SimonBoardManager simonBoardManager = (SimonBoardManager) getBoardManager();
 
-
+    /**
+     * Instantiates a SimonMovementController object
+     * @param boardManager the board manager for this instance of the game
+     */
     SimonMovementController(SimonBoardManager boardManager){
         this.moves = new MoveTracker(boardManager.getScore());
         this.round = 1;
@@ -31,6 +39,7 @@ public class SimonMovementController extends MovementControllerSimplePress {
                     SimonTile randomTile = simonBoardManager.randomizer();
                     simonBoardManager.getGameQueue().add(randomTile);
                 }
+                this.round++;
             }
         }
         else{
@@ -42,6 +51,12 @@ public class SimonMovementController extends MovementControllerSimplePress {
     }
 
     //I think I have implemented this correctly
+
+    /**
+     * Returns whether the tile the user clicked matches the tile in the queue
+     * @param userTile - the tile the user has clicked
+     * @return
+     */
     boolean isCorrectMove(SimonTile userTile){
         GameQueue<SimonTile> gameQueue = simonBoardManager.getGameQueue();
         SimonTile tileAtFront = gameQueue.remove();
@@ -49,6 +64,12 @@ public class SimonMovementController extends MovementControllerSimplePress {
     }
 
     //I think I have also successfully implemented. Have to test.
+
+    /**
+     * Determines whether a round is finished. By our desing, this means the queue has been emptied.
+     * @param gameQueue - the game queue
+     * @return boolean round is finished
+     */
     boolean isRoundFinished(GameQueue gameQueue){
         return gameQueue.isEmpty();
     }

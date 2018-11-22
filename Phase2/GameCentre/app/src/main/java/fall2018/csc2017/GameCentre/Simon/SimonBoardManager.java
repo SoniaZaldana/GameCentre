@@ -1,23 +1,34 @@
 package fall2018.csc2017.GameCentre.Simon;
 
-
-
 import java.util.ArrayList;
 import java.util.Random;
-
 import fall2018.csc2017.GameCentre.BoardManager;
 
 public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
-
+    /**
+     * How many undos a user has in a game
+     */
     private int undo;
+    /**
+     * The gameQueue for this instance of the game
+     */
     private GameQueue<SimonTile> gameQueue;
 
+    /**
+     * Instantiates a SimonBoardManager object
+     * @param board - the board for the game
+     * @param undo - number of undos user has per game
+     */
     public SimonBoardManager(SimonTilesBoard board, int undo) {
         super(board);
         this.undo = undo;
         this.gameQueue = new GameQueue<>();
     }
 
+    /**
+     * Returns the game queue for this object
+     * @return
+     */
     public GameQueue<SimonTile> getGameQueue(){
         return this.gameQueue;
     }
