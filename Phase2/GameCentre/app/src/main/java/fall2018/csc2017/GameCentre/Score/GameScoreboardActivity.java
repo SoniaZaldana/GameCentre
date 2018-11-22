@@ -35,6 +35,15 @@ public class GameScoreboardActivity extends AppCompatActivity implements View.On
     }
 
     @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(GameScoreboardActivity.this, MenuScoreboardsActivity.class));
+        finish();
+
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.GoBack:
