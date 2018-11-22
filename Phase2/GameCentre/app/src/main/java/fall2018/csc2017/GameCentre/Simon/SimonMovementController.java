@@ -10,11 +10,14 @@ import fall2018.csc2017.GameCentre.Score.ScoreScreenActivity;
 public class SimonMovementController extends MovementControllerSimplePress {
 
     private MoveTracker moves;
+    private int round;
+
     SimonBoardManager simonBoardManager = (SimonBoardManager) getBoardManager();
 
 
     SimonMovementController(SimonBoardManager boardManager){
-        moves = new MoveTracker(boardManager.getScore());
+        this.moves = new MoveTracker(boardManager.getScore());
+        this.round = 1;
         setBoardManager(boardManager);
     }
 
@@ -24,8 +27,10 @@ public class SimonMovementController extends MovementControllerSimplePress {
 
         if (isCorrectMove(tile)){
             if (isRoundFinished(simonBoardManager.getGameQueue())) {
-                // TODO add instructions to repopulate the stack with more elements than previous round
-
+                for (int i = 0; i != this.round * 2; i++) {
+                    SimonTile randomTile = simonBoardManager.randomizer();
+                    simonBoardManager.getGameQueue().add(randomTile);
+                }
             }
         }
         else{
@@ -38,13 +43,13 @@ public class SimonMovementController extends MovementControllerSimplePress {
 
     //I think I have implemented this correctly
     boolean isCorrectMove(SimonTile userTile){
-        Queue<SimonTile> gameQueue = simonBoardManager.getGameQueue();
+        GameQueue<SimonTile> gameQueue = simonBoardManager.getGameQueue();
         SimonTile tileAtFront = gameQueue.remove();
         return tileAtFront.compareTo(userTile) == 0;
     }
 
     //I think I have also successfully implemented. Have to test.
-    boolean isRoundFinished(Queue gameQueue){
+    boolean isRoundFinished(GameQueue gameQueue){
         return gameQueue.isEmpty();
     }
 
