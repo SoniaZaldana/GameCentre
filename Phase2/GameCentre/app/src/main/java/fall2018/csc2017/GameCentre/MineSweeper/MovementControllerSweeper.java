@@ -31,8 +31,24 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
             // should be able to press only if the tile is not flagged.
             if (!t.isFlagged()) {
                 if (t.hasBomb()) {// if there's a bomb, finish game
-                    //TODO set background to bomb
-                    //TODO END GAME
+                    if (t.getBombType().equals("small")){
+                        //TODO set background to small bomb
+                        getBoardManager().takeDamage();
+                        if (getBoardManager().getHitPoints() == 0){
+                            //TODO END GAME
+                            //TODO POP UP UNDO
+                        }
+                    }
+                    if (t.getBombType().equals("big")){
+                        //TODO set background to big bomb
+                        //TODO END GAME
+                        //TODO POP UP UNDO
+                    }
+                    if (t.getBombType().equals("timed")){
+                        //TODO set background to CLOCK
+                        //TODO start timer
+                    }
+
                 } else {// display how many bombs are around
                     checkAround(row, col, t);
                 }

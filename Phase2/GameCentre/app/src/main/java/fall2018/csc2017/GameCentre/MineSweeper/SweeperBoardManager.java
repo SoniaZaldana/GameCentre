@@ -11,6 +11,16 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
     private int time;
 
     /**
+     * The HP of the player
+     */
+    private int HitPoints;
+
+    public SweeperBoardManager(){
+        this.time = 0;
+        this.HitPoints = 3;
+    }
+
+    /**
      * A getter for the time
      * @return time time that has transpired for the game
      */
@@ -23,6 +33,14 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
      */
     public void timeIncrement(){
         this.time++;
+    }
+
+    public void takeDamage() {
+        HitPoints--;
+    }
+
+    public int getHitPoints() {
+        return HitPoints;
     }
 
     @Override
