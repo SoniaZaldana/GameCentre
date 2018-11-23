@@ -2,6 +2,7 @@ package fall2018.csc2017.GameCentre.MineSweeper;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +12,7 @@ import java.util.Map;
 import fall2018.csc2017.GameCentre.ClicksOnBoard;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerComplexPress;
 import fall2018.csc2017.GameCentre.R;
+import fall2018.csc2017.GameCentre.Score.ScoreScreenActivity;
 import fall2018.csc2017.GameCentre.Tile;
 
 public class MovementControllerSweeper extends MovementControllerComplexPress<SweeperBoardManager> {
@@ -35,14 +37,12 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                         //TODO set background to small bomb
                         getBoardManager().takeDamage();
                         if (getBoardManager().getHitPoints() == 0){
-                            //TODO END GAME
-                            //TODO POP UP UNDO
+                            processLoss(context);
                         }
                     }
                     if (t.getBombType().equals("big")){
                         //TODO set background to big bomb
-                        //TODO END GAME
-                        //TODO POP UP UNDO
+                        processLoss(context);
                     }
                     if (t.getBombType().equals("timed")){
                         //TODO set background to CLOCK
@@ -69,6 +69,14 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                 //TODO Display new flag counter on screen
             }
         }
+    }
+
+    /**
+     * Helper function for when the player loses.
+     */
+    private void processLoss(Context context){
+        Toast.makeText(context, "YOU LOSE!", Toast.LENGTH_SHORT).show();
+        moveOnToScoreActivity(context, "Minesweeper.txt", ScoreScreenActivity.class, 0);
     }
 
     /**

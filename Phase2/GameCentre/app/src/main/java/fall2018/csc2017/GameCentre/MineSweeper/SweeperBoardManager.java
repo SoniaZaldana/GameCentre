@@ -1,6 +1,8 @@
 package fall2018.csc2017.GameCentre.MineSweeper;
 
 import java.io.Serializable;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import fall2018.csc2017.GameCentre.BoardManager;
 
@@ -14,6 +16,11 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
      * The HP of the player
      */
     private int HitPoints;
+
+    /**
+     * A timer that increments the time by 1 every second (a game clock)
+     */
+    private Timer timer = new Timer();
 
     public SweeperBoardManager(){
         this.time = 0;
@@ -46,5 +53,39 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
     @Override
     public int calculateScore(int mines) {
         return time;
+    }
+
+    private void addSecond(){
+        ScoreTask task = new ScoreTask(sweeperBoardManager);
+        timer.schedule(task, 1000, 1000);
+    }
+
+    /**
+     * A timer task that increments the timer.
+     */
+    private class ScoreTask extends TimerTask {
+
+        /**
+         * The boardmanager that uses this timer.
+         */
+        private SweeperBoardManager manager;
+
+        /**
+         * An task that increments the time.
+         *
+         * @param manager The board manager this is acting on
+         */
+        public ScoreTask(SweeperBoardManager manager){
+            super();
+            this.manager = manager;
+        }
+
+        /**
+         * The task this timer does.
+         */
+        public void run(){
+            this.manager.timeIncrement();
+        }
+
     }
 }
