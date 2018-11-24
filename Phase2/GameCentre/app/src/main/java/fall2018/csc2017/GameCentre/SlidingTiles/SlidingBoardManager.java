@@ -1,7 +1,5 @@
 package fall2018.csc2017.GameCentre.SlidingTiles;
 
-import java.io.Serializable;
-
 import fall2018.csc2017.GameCentre.BoardManager;
 import fall2018.csc2017.GameCentre.UndoStack;
 import fall2018.csc2017.GameCentre.Undoable;
@@ -9,7 +7,7 @@ import fall2018.csc2017.GameCentre.Undoable;
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
  */
-public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> implements Serializable, Undoable {
+public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> implements Undoable {
 
     /**
      * The undoStack which remembers the moves on the board.

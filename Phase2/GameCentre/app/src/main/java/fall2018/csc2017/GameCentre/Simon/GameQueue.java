@@ -1,9 +1,10 @@
 package fall2018.csc2017.GameCentre.Simon;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 
-public class GameQueue<E> {
+public class GameQueue<E> implements Serializable {
     /**
      * LinkedList representing the queue
      */
