@@ -38,8 +38,10 @@ public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
         return moves * 10;
     }
 
-    // TODO: Randomizer should return a random tile from all tiles in order to display it
-    // TODO: This needs to be fixed to replace a single tile and not a list
+    /**
+     * Returns a random tile from all tiles in order to display it
+     * @return
+     */
     SimonTile randomizer() {
         ArrayList<ArrayList<SimonTile>> simonList = this.getBoard().getAllTiles();
         Random rand = new Random();
