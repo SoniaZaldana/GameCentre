@@ -15,6 +15,7 @@ import fall2018.csc2017.GameCentre.Tile;
 
 public class MovementControllerSweeper extends MovementControllerComplexPress<SweeperBoardManager> {
     private int flagCounter;
+    private SweeperBoardManager sweeperTilesBoardManager = this.getBoardManager();
 
     public MovementControllerSweeper(SweeperBoardManager boardManager) {
         setBoardManager(boardManager);
@@ -25,13 +26,13 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
     public void processMove(Context context, int position, Enum<ClicksOnBoard> click) {
         int row = getBoardManager().getRow(position);
         int col = getBoardManager().getCol(position);
-        SweeperTile t = getBoardManager().getBoard().getTile(row, col);
+        SweeperTile t = sweeperTilesBoardManager.getBoard().getTile(row, col);
         // If single  tap, then reveal what's under
         if (click == ClicksOnBoard.SHORT) {
             // should be able to press only if the tile is not flagged.
             if (!t.isFlagged()) {
                 if (t.hasBomb()) {// if there's a bomb, finish game
-                    //TODO set background to bomb
+                    sweeperTilesBoardManager.setBombToExploded(row, col);
                     //TODO END GAME
                 } else {// display how many bombs are around
                     checkAround(row, col, t);
@@ -41,13 +42,13 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         // If long tap, change the flag.
         if (click == ClicksOnBoard.LONG) {
             if (t.isFlagged()) {
-                t.flag(false);
+                sweeperTilesBoardManager.setTileToNotFlaged(row, col);
                 flagCounter -= 1;
                 //TODO Disable the flag background
                 //TODO Display new flag counter on screen
 
             } else {
-                t.flag(true);
+                sweeperTilesBoardManager.setTileToFlaged(row, col);
                 flagCounter += 1;
                 //TODO Apply the flag background
                 //TODO Display new flag counter on screen
@@ -62,6 +63,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
      * around.
      *
      * @param row
+     *
      * @param col
      * @param currTile
      */
@@ -82,8 +84,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                 }
             }
             if (bombCounter == 0) {
-                currTile.setBombsAround(0);
-                //TODO display visually
+                sweeperTilesBoardManager.setsBombdAround(row, col, 0);
                 //Check all the tiles around this one, per method requirements.
                 for (SweeperTile tile : tilesToCheck.keySet()) {
                     // if this tile has not been checked
@@ -92,7 +93,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                     }
                 }
             } else {
-                currTile.setBombsAround(bombCounter);
+                sweeperTilesBoardManager.setsBombdAround(row, col, bombCounter);
                 //TODO display visually
             }
         }
