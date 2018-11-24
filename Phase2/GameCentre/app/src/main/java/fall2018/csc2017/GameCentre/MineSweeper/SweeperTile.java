@@ -1,5 +1,7 @@
 package fall2018.csc2017.GameCentre.MineSweeper;
 
+import java.util.Random;
+
 import fall2018.csc2017.GameCentre.Tile;
 
 public class SweeperTile extends Tile {
@@ -17,15 +19,37 @@ public class SweeperTile extends Tile {
      * number of bombs around the tile. Default is -1, which means undeclared.
      */
     private int bombsAround=-1;
+    /**
+     * The type of bomb
+     */
+    private String BombType;
 
 
-
-
-    public SweeperTile( boolean hasBomb)
-    {
+    public SweeperTile(boolean hasBomb) {
         this.bomb = hasBomb;
-
+        if (hasBomb) {
+            Random rand = new Random();
+            int n = rand.nextInt(10);
+            if (n < 5) {
+                this.BombType = "small";
+            } else if (n < 8){
+                this.BombType = "big";
+            } else{
+                this.BombType = "timed";
+            }
+        } else {
+            this.BombType = "none";
+        }
     }
+
+    /**
+     * BombType Getter. If no bomb, gives the string "none".
+     * @return The type of bomb
+     */
+    public String getBombType() {
+        return BombType;
+    }
+
     public SweeperTile() {}
 
     /**
