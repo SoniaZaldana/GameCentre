@@ -43,12 +43,17 @@ public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
     SimonTile randomizer() {
         ArrayList<ArrayList<SimonTile>> simonList = this.getBoard().getAllTiles();
         Random rand = new Random();
-        int index = rand.nextInt(simonList.size());
-        //return simonList.get(index);
-
-        //I am adding this code here so the function doesn't seem broken, but this needs fixing
-        SimonTile simon = null;
-        return simon;
+        int num = 0;
+        for (ArrayList<SimonTile> tiles : simonList) {
+            num = num + tiles.size();
+        }
+        int randNum = rand.nextInt(num);
+        int index = 0;
+        while (randNum >= simonList.get(index).size() ){
+            randNum = randNum - simonList.get(index).size();
+            index++;
+        }
+        return simonList.get(index).get(randNum);
     }
 }
 
