@@ -1,19 +1,13 @@
 package fall2018.csc2017.GameCentre.SlidingTiles;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import fall2018.csc2017.GameCentre.BoardManager;
-import fall2018.csc2017.GameCentre.Tile;
 import fall2018.csc2017.GameCentre.UndoStack;
 import fall2018.csc2017.GameCentre.Undoable;
 
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
  */
-public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> implements Serializable, Undoable {
+public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> implements Undoable {
 
     /**
      * The undoStack which remembers the moves on the board.
@@ -37,19 +31,6 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
     public SlidingBoardManager(int undoMax, SlidingTilesBoard board ) {
         super(board);
         this.undoStack = new UndoStack(undoMax);
-    }
-    public SlidingBoardManager(int dimension, int undoMax){
-        // Create the tiles
-        List<Tile> tilesList = new ArrayList<>();
-        final int numTiles = dimension * dimension;
-        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tilesList.add(new Tile(tileNum + 1));
-        }
-        Collections.shuffle(tilesList);
-        SlidingTilesBoard slidingTilesBoard = new SlidingTilesBoard(dimension, tilesList);
-        setBoard(slidingTilesBoard);
-        this.undoStack = new UndoStack(undoMax);
-
     }
 
     /**
