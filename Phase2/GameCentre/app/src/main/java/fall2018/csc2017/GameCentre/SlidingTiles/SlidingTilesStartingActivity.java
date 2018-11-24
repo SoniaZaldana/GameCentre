@@ -32,6 +32,7 @@ public class SlidingTilesStartingActivity extends AppCompatActivity {
     /**
      * Path to the tile Picture image.
      */
+    //TODO string tilePicutre is a codeSmell as it is not used in the whole class
     private String tilePicture;
 
     private Context context;
