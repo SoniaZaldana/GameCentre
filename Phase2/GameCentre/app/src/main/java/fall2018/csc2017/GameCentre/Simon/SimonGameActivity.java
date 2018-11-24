@@ -34,8 +34,8 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         super.onCreate(savedInstanceState);
         simonBoardManager = SaveAndLoadBoardManager.loadFromFile(this, SimonStartingActivity.SAVE_FILENAME);
         setContentView(R.layout.activity_simon);
-        addUndoButtonListener();
-        addSaveButtonListener();
+//        addUndoButtonListener();
+//        addSaveButtonListener();
 
         // Add View to activity
         gridView = findViewById(R.id.grid);

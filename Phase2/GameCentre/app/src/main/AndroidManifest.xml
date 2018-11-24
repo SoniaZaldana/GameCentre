@@ -25,11 +25,10 @@
         <activity android:name=".Score.GameScoreboardActivity" />
         <activity android:name=".GameLauncherActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".SlidingTiles.ChooseDimensionsSlidingActivity" />
         <activity android:name=".SlidingTiles.SlidingTilesStartingActivity" />
         <activity android:name=".Simon.SimonGameActivity" />
         <activity android:name=".Simon.SimonStartingActivity" />
-        <activity android:name=".Simon.ChooseDimensionSimonActivity" />
+        <activity android:name=".ChooseDimensionActivity"></activity>
     </application>
 
 </manifest>
