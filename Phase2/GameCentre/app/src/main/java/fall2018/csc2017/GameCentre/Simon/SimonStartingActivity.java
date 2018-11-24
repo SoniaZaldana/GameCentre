@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import fall2018.csc2017.GameCentre.GameLauncherActivity;
 import fall2018.csc2017.GameCentre.SlidingTiles.ChooseDimensionsSlidingActivity;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
@@ -95,5 +96,13 @@ public class SimonStartingActivity extends AppCompatActivity {
         startActivity(tmp);
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(SimonStartingActivity.this, GameLauncherActivity.class));
+        finish();
+
+    }
 
 }

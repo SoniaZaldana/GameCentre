@@ -45,6 +45,14 @@ public class MenuScoreboardsActivity extends AppCompatActivity implements View.O
     }
 
     @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(MenuScoreboardsActivity.this, GameLauncherActivity.class));
+        finish();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.MainMenuButton:
