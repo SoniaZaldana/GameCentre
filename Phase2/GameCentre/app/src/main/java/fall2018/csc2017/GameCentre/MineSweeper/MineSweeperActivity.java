@@ -43,13 +43,15 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     private ArrayList<Button> minesButtons;
     int dimension, complexity;
     private static int columnWidth, columnHeight;
-
+    private TextView timerText;
+    private TextView healthNumber;
+    private Timer timer = new Timer();
 
     @Override
     public void onCreate(Bundle bundle) {
 
         super.onCreate(bundle);
-        setContentView(R.layout.ativity_minesweaper);
+        setContentView(R.layout.activity_sweeper);
         String dimensionIndicator = getIntent().getExtras().getString("dimensionIndicator");
         String complexityIndicator = getIntent().getExtras().getString("complexityIndicator");
         dimension = getDimension(dimensionIndicator);
@@ -65,6 +67,8 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         createTileButtons(this);
         gridView.createAndSetGestureDetector(this);
         sweeperTilesBoard.addObserver(this);
+        timerText = findViewById(R.id.timer);
+        healthNumber = findViewById(R.id.HP);
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -82,62 +86,8 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     public void displayInitialView() {
         createTileGUI();
         gridView.setAdapter(new CustomAdapter(minesButtons, columnWidth, columnHeight));
-    }
-public class MineSweeperActivity extends AppCompatActivity implements Observer {
-    private GestureDetectGridViewLongPress gridView;
-    private TextView timerText;
-    private TextView healthNumber;
-    private Timer timer = new Timer();
-    private MovementControllerSweeper movementControllerSweeper;
-    private static int columnWidth, columnHeight;
-
-    private SweeperBoardManager sweeperBoardManager;
-
-    /**
-     * Set up the background image for each button based on the master list
-     * of positions, and then call the adapter to set the view.
-     */
-    // Display
-    public void display() {
         updateTime();
         updateHealth();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        sweeperBoardManager.getBoard().addObserver(this);
-        sweeperBoardManager.startTimer();
-        timerText = findViewById(R.id.timer);
-        healthNumber = findViewById(R.id.HP);
-
-        gridView = findViewById(R.id.grid);
-        gridView.setNumColumns(sweeperBoardManager.getBoard().getDimension());
-        movementControllerSweeper = new MovementControllerSweeper(sweeperBoardManager);
-        gridView.setMovementController(movementControllerSweeper);
-        sweeperBoardManager.getBoard().addObserver(this);
-        // Observer sets up desired dimensions as well as calls our display function
-        gridView.getViewTreeObserver().addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        gridView.getViewTreeObserver().removeOnGlobalLayoutListener(
-                                this);
-                        int displayWidth = gridView.getMeasuredWidth();
-                        int displayHeight = gridView.getMeasuredHeight();
-
-                        columnWidth = displayWidth / sweeperBoardManager.getBoard().getDimension();
-                        columnHeight = displayHeight / sweeperBoardManager.getBoard().getDimension();
-
-                        display();
-                    }
-                });
-    }
-
-
-    @Override
-    public void update(Observable o, Object arg) {
-        display();
     }
 
     private void updateTime(){
@@ -165,6 +115,8 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
             updateTileButtons(buttonIndex, t);
             gridView.setAdapter(new CustomAdapter(minesButtons, columnWidth, columnHeight));
         }
+        updateTime();
+        updateHealth();
     }
 
     private int getComplexity(String complexityIndicator) {

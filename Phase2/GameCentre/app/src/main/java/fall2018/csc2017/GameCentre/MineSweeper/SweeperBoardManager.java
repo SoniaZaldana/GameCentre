@@ -6,11 +6,6 @@ import java.util.TimerTask;
 
 import fall2018.csc2017.GameCentre.BoardManager;
 
-public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> {
-
-    public SweeperBoardManager(SweeperTilesBoard b){
-        super(b);
-    }
 public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> implements Serializable {
 
     /**
@@ -28,7 +23,8 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
      */
     private boolean bombActive = false;
 
-    public SweeperBoardManager(){
+    public SweeperBoardManager(SweeperTilesBoard b){
+        super(b);
         this.bombTime = 10;
     }
 
