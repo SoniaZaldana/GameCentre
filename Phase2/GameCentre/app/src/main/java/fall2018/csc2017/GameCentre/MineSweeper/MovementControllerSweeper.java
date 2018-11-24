@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,7 +19,7 @@ import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.Score.ScoreScreenActivity;
 import fall2018.csc2017.GameCentre.Tile;
 
-public class MovementControllerSweeper extends MovementControllerComplexPress<SweeperBoardManager> {
+public class MovementControllerSweeper extends MovementControllerComplexPress<SweeperBoardManager>{
     private int flagCounter;
 
     private Timer timer = new Timer();
@@ -53,13 +54,17 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                     if (t.getBombType().equals("timed")){
                         // Start a timer, game ends after 10 seconds.
                         //TODO set background to CLOCK
-                        BombTask task = new BombTask(this, context);
-                        timer.schedule(task, 10000);
+                        if (!getBoardManager().isBombActive()) {
+                            BombTask task = new BombTask(this, context);
+                            timer.schedule(task, 1000, 1000);
+                            getBoardManager().setBombActive(true);
+                        }
                     }
 
                 } else {// display how many bombs are around
                     checkAround(row, col, t);
                     if (isGameFinished()){
+                        timer.cancel();
                         Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
                         int score = getBoardManager().calculateScore(0);
                         moveOnToScoreActivity(context, "Minsweeper.txt", ScoreScreenActivity.class, score);
@@ -167,7 +172,6 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                         rowColPair.add(c);
                         tilesToCheck.put(t, rowColPair);
                     }
-
                 }
             }
         }
@@ -215,7 +219,11 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
          * Makes the bomb explode
          */
         public void run(){
-            this.movementControllerSweeper.processLoss(context);
+            if (movementControllerSweeper.getBoardManager().getBombTime() == 0) {
+                this.movementControllerSweeper.processLoss(context);
+            } else {
+                movementControllerSweeper.getBoardManager().lowerBombTime();
+            }
         }
 
     }

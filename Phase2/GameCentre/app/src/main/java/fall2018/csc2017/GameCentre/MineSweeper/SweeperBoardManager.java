@@ -15,16 +15,27 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
     /**
      * The HP of the player
      */
-    private int HitPoints;
+    private int hitPoints;
 
     /**
      * A timer that increments the time by 1 every second (a game clock)
      */
     private Timer timer = new Timer();
 
+    /**
+     * The amount of time a time bomb has before exploding
+     */
+    private int bombTime;
+
+    /**
+     * Whether or not there's a timer bomb active
+     */
+    private boolean bombActive = false;
+
     public SweeperBoardManager(){
         this.time = 0;
-        this.HitPoints = 3;
+        this.hitPoints = 3;
+        this.bombTime = 10;
     }
 
     /**
@@ -43,16 +54,16 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
     }
 
     public void takeDamage() {
-        HitPoints--;
+        hitPoints--;
     }
 
     public int getHitPoints() {
-        return HitPoints;
+        return hitPoints;
     }
 
     @Override
     public int calculateScore(int mines) {
-        return time;
+        return (mines / time);
     }
 
     public void startTimer(){
@@ -62,6 +73,22 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
 
     public void stopTimer(){
         timer.cancel();
+    }
+
+    public int getBombTime() {
+        return bombTime;
+    }
+
+    public boolean isBombActive() {
+        return bombActive;
+    }
+
+    public void lowerBombTime(){
+        this.bombTime--;
+    }
+
+    public void setBombActive(boolean active){
+        this.bombActive = active;
     }
 
     /**
