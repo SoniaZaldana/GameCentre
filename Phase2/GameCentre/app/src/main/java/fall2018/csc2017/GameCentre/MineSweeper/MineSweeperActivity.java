@@ -8,13 +8,9 @@ import android.widget.TextView;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
-import java.util.TimerTask;
 
-import fall2018.csc2017.GameCentre.CustomAdapter;
 import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridViewLongPress;
 import fall2018.csc2017.GameCentre.R;
-import fall2018.csc2017.GameCentre.SlidingTiles.MovementControllerSliding;
-
 
 //TODO Create a display for the flag counter, and get it from MovementControllerSweeper.
 //TODO WIll probably have to implement observable.
@@ -43,8 +39,8 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         super.onCreate(savedInstanceState);
         sweeperBoardManager.getBoard().addObserver(this);
         sweeperBoardManager.startTimer();
-        timerText.findViewById(R.id.timer);
-        healthNumber.findViewById(R.id.HP);
+        timerText = findViewById(R.id.timer);
+        healthNumber = findViewById(R.id.HP);
 
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(sweeperBoardManager.getBoard().getDimension());
