@@ -36,12 +36,21 @@ public class UserScoreboardActivity extends AppCompatActivity {
     }
 
     /**
-     * Starts activity ScoreboardMenuActivity
+     * Starts activity MenuScoreboardsActivity
      * @param view
      */
     public void goToScoreboardMenu(View view) {
-        Intent intent = new Intent(this, ScoreboardMenuActivity.class);
+        Intent intent = new Intent(this, MenuScoreboardsActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(UserScoreboardActivity.this, MenuScoreboardsActivity.class));
+        finish();
+
     }
 
     /**

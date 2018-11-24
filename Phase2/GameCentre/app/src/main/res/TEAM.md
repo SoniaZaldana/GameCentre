@@ -26,12 +26,12 @@ Signatures: Alex, Nick, Osman, Sonia, Suguru.
 score when the game ends.
 2. Implement ScoreScreenActivity which assigns the scores to its respective text file (either the
 game's text file or the user's with Alex's help in debugging.
-3. Implement ScoreboardMenuActivity which will serve as graphic interface for the available scoreboards.
+3. Implement MenuScoreboardsActivity which will serve as graphic interface for the available scoreboards.
 4. Implement UserScoreboardActivity by reading text files and displaying it appropriately.
 5. Implement the creation of shared preferences to store the current user with Nick's help. This allows us to pull the
 current user from any activity/class.
 6. Integrate the creation of the text files where scores will be stored within the login/register activities.
-7. Implement the reading of text files in SlidingScoreboardActivity, whilst Suguru implements the display.
+7. Implement the reading of text files in GameScoreboardActivity, whilst Suguru implements the display.
 8. Implement a shared preferences manager to delete duplicate code.
 
 
