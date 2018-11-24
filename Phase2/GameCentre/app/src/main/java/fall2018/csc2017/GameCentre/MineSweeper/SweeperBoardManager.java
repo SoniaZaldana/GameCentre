@@ -55,9 +55,13 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
         return time;
     }
 
-    private void addSecond(){
-        ScoreTask task = new ScoreTask(sweeperBoardManager);
+    public void startTimer(){
+        ScoreTask task = new ScoreTask(this);
         timer.schedule(task, 1000, 1000);
+    }
+
+    public void stopTimer(){
+        timer.cancel();
     }
 
     /**

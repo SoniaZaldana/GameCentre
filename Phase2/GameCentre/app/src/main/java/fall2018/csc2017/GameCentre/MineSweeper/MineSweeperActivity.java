@@ -17,24 +17,13 @@ public class MineSweeperActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        addSecond();
-
+        sweeperBoardManager.startTimer();
     }
 
     @Override
     protected void onPause(){
         super.onPause();
-        this.timer.cancel();
+        sweeperBoardManager.stopTimer();
     }
-
-    private void addSecond(){
-        ScoreTask task = new ScoreTask(sweeperBoardManager);
-        timer.schedule(task, 1000, 1000);
-    }
-
-
-
-
-
 
 }
