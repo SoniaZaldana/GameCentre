@@ -60,6 +60,15 @@ public class ScoreScreenActivity extends AppCompatActivity {
         String gameName = gameFile.substring(0, gameFile.indexOf('.'));
         TextFileManager.saveToFile(this, user + "Score.txt", gameName, score);
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(ScoreScreenActivity.this, GameLauncherActivity.class));
+        finish();
+
+    }
 }
 
 

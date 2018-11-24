@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/EditDimension"
         android:layout_centerInParent="true"
-        android:layout_margin="30dp"/>
+        android:layout_margin="30dp"
+        android:inputType="text"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -36,7 +37,8 @@
         android:id="@+id/editUndo"
         android:layout_below="@id/undoInstructions"
         android:layout_centerInParent="true"
-        android:layout_margin="30dp"/>
+        android:layout_margin="30dp"
+        android:inputType="text"/>
 
     <Button
         android:id="@+id/submitEverything"

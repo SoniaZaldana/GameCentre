@@ -1,6 +1,7 @@
 package fall2018.csc2017.GameCentre.Simon;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -94,5 +95,13 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     protected void onPause() {
         super.onPause();
         SaveAndLoadBoardManager.saveToFile(this, SimonStartingActivity.SIMON_SAVE_FILENAME, simonBoardManager);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(SimonGameActivity.this, SimonStartingActivity.class));
+        finish();
     }
 }

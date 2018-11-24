@@ -44,6 +44,15 @@ public class UserScoreboardActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(UserScoreboardActivity.this, MenuScoreboardsActivity.class));
+        finish();
+
+    }
+
     /**
      * Returns the score for a specific target game in a given file
      * @param fileName - the given file to search the score in
