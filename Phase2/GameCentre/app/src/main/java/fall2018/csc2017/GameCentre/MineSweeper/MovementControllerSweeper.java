@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
@@ -58,6 +59,11 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
 
                 } else {// display how many bombs are around
                     checkAround(row, col, t);
+                    if (isGameFinished()){
+                        Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
+                        int score = getBoardManager().calculateScore(0);
+                        moveOnToScoreActivity(context, "Minsweeper.txt", ScoreScreenActivity.class, score);
+                    }
                 }
             }
         }
@@ -127,7 +133,6 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                 //TODO display visually
             }
         }
-
     }
 
     /**
@@ -170,6 +175,20 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
     }
 
     /**
+     * Checks if the game is finished (and not a loss)
+     * @return boolean True if game is finished
+     */
+    public boolean isGameFinished(){
+        boolean gameFinished = true;
+        for (SweeperTile tile:getBoardManager().getBoard()) {
+            if (!tile.hasBomb() && tile.getBombsAround() == -1){
+                gameFinished = false;
+            }
+        }
+        return gameFinished;
+    }
+
+    /**
      * A timer task that starts the bomb.
      */
     private class BombTask extends TimerTask {
@@ -186,7 +205,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         /**
          *A timer that starts the bomb
          */
-        public ScoreTask(MovementControllerSweeper movementControllerSweeper, Context context){
+         public BombTask(MovementControllerSweeper movementControllerSweeper, Context context){
             super();
             this.movementControllerSweeper = movementControllerSweeper;
             this.context = context;
