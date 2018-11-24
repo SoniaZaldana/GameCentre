@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import fall2018.csc2017.GameCentre.ChooseDimensionActivity;
 import fall2018.csc2017.GameCentre.GameLauncherActivity;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
@@ -91,8 +92,7 @@ public class SimonStartingActivity extends AppCompatActivity {
      * Starts activity for a new game
      */
     private void newGame() {
-        Intent tmp = new Intent(this, ChooseDimensionSimonActivity.class);
-        startActivity(tmp);
+        startActivity(new Intent(this, ChooseDimensionActivity.class).putExtra("Game", "Simon"));
     }
 
     @Override
