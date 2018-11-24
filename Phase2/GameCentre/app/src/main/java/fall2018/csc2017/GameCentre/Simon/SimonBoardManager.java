@@ -1,6 +1,7 @@
 package fall2018.csc2017.GameCentre.Simon;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import fall2018.csc2017.GameCentre.BoardManager;
 
@@ -24,6 +25,18 @@ public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
         this.undo = undo;
         this.gameQueue = new GameQueue<>();
     }
+
+    public SimonBoardManager(int dimension, int undo) {
+        List<SimonTile> tilesList = new ArrayList<>();
+        final int numTiles = dimension * dimension;
+        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
+            tilesList.add(new SimonTile(tileNum + 1));
+        }
+        SimonTilesBoard simonTilesBoard = new SimonTilesBoard(dimension, tilesList);
+        setBoard(simonTilesBoard);
+        //TODO: Add something to do with the undo. create a stack?
+    }
+
 
     /**
      * Returns the game queue for this object
