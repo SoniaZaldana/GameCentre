@@ -7,15 +7,6 @@ import java.util.TimerTask;
 import fall2018.csc2017.GameCentre.BoardManager;
 
 public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> implements Serializable {
-    /**
-     * The number of seconds that has passed for this game
-     */
-    private int time;
-
-    /**
-     * The HP of the player
-     */
-    private int hitPoints;
 
     /**
      * A timer that increments the time by 1 every second (a game clock)
@@ -33,37 +24,12 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
     private boolean bombActive = false;
 
     public SweeperBoardManager(){
-        this.time = 0;
-        this.hitPoints = 3;
         this.bombTime = 10;
-    }
-
-    /**
-     * A getter for the time
-     * @return time time that has transpired for the game
-     */
-    public int getTime() {
-        return time;
-    }
-
-    /**
-     * Increments the time by 1.
-     */
-    public void timeIncrement(){
-        this.time++;
-    }
-
-    public void takeDamage() {
-        hitPoints--;
-    }
-
-    public int getHitPoints() {
-        return hitPoints;
     }
 
     @Override
     public int calculateScore(int mines) {
-        return (mines / time);
+        return (mines / getBoard().getTime());
     }
 
     public void startTimer(){
@@ -115,7 +81,7 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
          * The task this timer does.
          */
         public void run(){
-            this.manager.timeIncrement();
+            this.manager.getBoard().timeIncrement();
         }
 
     }

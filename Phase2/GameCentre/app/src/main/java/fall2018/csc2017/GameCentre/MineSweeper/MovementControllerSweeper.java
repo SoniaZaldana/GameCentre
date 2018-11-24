@@ -42,8 +42,8 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                     if (t.getBombType().equals("small")){ // Takes damage if it's a small bomb
                         //TODO set background to small bomb
                         //TODO change HP display
-                        getBoardManager().takeDamage();
-                        if (getBoardManager().getHitPoints() == 0){
+                        getBoardManager().getBoard().takeDamage();
+                        if (getBoardManager().getBoard().getHitPoints() == 0){
                             processLoss(context);
                         }
                     }
