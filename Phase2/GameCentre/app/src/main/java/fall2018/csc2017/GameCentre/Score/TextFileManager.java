@@ -3,12 +3,10 @@ package fall2018.csc2017.GameCentre.Score;
 import android.content.Context;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,10 +28,19 @@ class TextFileManager {
         try{
             BufferedReader reader = new BufferedReader(new FileReader(new File(context.getFilesDir(), fileName)));
             String fileString = reader.lines().collect(Collectors.joining());
-            String[] fileArray = fileString.split("\\]");
+            reader.close();
+            String[] fileArray ;
+            if(fileString.length() != 0){
+                fileArray = fileString.split("\\]");
+
+            }
+            else{
+                fileArray = new String[0];
+
+            }
             usernameAndScores = getUsernameAndScoresMap(fileArray);
         }
-        catch(FileNotFoundException e){
+        catch(IOException e){
             e.printStackTrace();
         }
         return usernameAndScores;
@@ -109,38 +116,52 @@ class TextFileManager {
      * @param userScore - the user's new score achieved
      * @return whether it is a new high score or not
      */
-    static boolean isHighScore(Context context, String fileName, String targetValue, int userScore) {
+    //TODO Create methods that use as little Context as possible
+    static boolean isHighScore(Context context, String fileName, String targetValue, int userScore){
         boolean highScore = false;
-        boolean userExists = false;
-        String line;
         BufferedReader reader;
-        int index;
-        int scoreSaved;
         try {
             reader = new BufferedReader(new FileReader(new File(context.getFilesDir(), fileName)));
-            // Checks whether file is empty, because empty file implies automatically a new high score
-            if ((line = reader.readLine()) == null) {
-                highScore = true;
-            }
+            String fileString = reader.lines().collect(Collectors.joining());
             reader.close();
-            reader = new BufferedReader(new FileReader(new File(context.getFilesDir(), fileName)));
-            while ((line = reader.readLine()) != null) {
-                index = line.indexOf(",");
-                if (line.substring(1, index).equals(targetValue)) {
-                    userExists = true;
-                    scoreSaved = valueOf(line.substring(index + 1, line.length() - 1));
-                    if (userScore > scoreSaved) {
-                        highScore = true;
-                    }
-                }
+            String[] fileArray ;
+            if(fileString.length() != 0){
+                fileArray = fileString.split("\\]");
+                //TODO for loginActivity, if such a user doesn't exist, and you click register
+                // keep the username and the password, don't clear them
             }
-            reader.close();
-            if (!userExists){
-                highScore = true;
+            else{
+                fileArray = new String[0];
             }
+            highScore = isHighScoreForExistingScores(fileArray, targetValue, userScore);
+
         } catch (Exception e) {
             System.err.format("Exception occurred trying to read '%s'.", fileName);
             e.printStackTrace();
+        }
+        return highScore;
+    }
+
+    public static boolean isHighScoreForExistingScores(String[] fileArray, String targetValue, int userScore){
+        boolean highScore = false;
+        int index;
+        int scoreSaved;
+        int counter = 0;
+        boolean userExists=false;
+        while (counter<fileArray.length) {
+            String line = fileArray[counter];
+            index = line.indexOf(",");
+            if (line.substring(1, index).equals(targetValue)) {
+                userExists = true;
+                scoreSaved = valueOf(line.substring(index + 1, line.length()));
+                if (userScore > scoreSaved) {
+                    highScore = true;
+                }
+            }
+            counter++;
+        }
+        if (!userExists){
+            highScore = true;
         }
         return highScore;
     }
