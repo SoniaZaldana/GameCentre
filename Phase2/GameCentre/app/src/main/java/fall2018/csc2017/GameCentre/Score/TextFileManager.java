@@ -1,6 +1,8 @@
 package fall2018.csc2017.GameCentre.Score;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -26,24 +28,37 @@ class TextFileManager {
     static Map<String, Double> getValue(Context context, String fileName) {
         Map<String, Double> usernameAndScores =  new LinkedHashMap<>();
         try{
-            BufferedReader reader = new BufferedReader(new FileReader(new File(context.getFilesDir(), fileName)));
-            String fileString = reader.lines().collect(Collectors.joining());
-            reader.close();
-            String[] fileArray ;
-            if(fileString.length() != 0){
-                fileArray = fileString.split("\\]");
-
-            }
-            else{
-                fileArray = new String[0];
-
-            }
+            String[] fileArray = getScoreFileAsArray(context, fileName);
             usernameAndScores = getUsernameAndScoresMap(fileArray);
         }
         catch(IOException e){
             e.printStackTrace();
         }
         return usernameAndScores;
+    }
+
+    /**
+     * Returns the score file as a string array. Example: ["[Nick,980.4", "[Lyuba, 1000.3", "[Suguru, 999.4"
+     * @param context context of the application
+     * @param fileName name of file
+     * @return
+     * @throws IOException
+     */
+    @NonNull
+    private static String[] getScoreFileAsArray(Context context, String fileName) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(new File(context.getFilesDir(), fileName)));
+        String fileString = reader.lines().collect(Collectors.joining());
+        reader.close();
+        String[] fileArray ;
+        if(fileString.length() != 0){
+            fileArray = fileString.split("\\]");
+
+        }
+        else{
+            fileArray = new String[0];
+
+        }
+        return fileArray;
     }
 
     /**
@@ -119,21 +134,9 @@ class TextFileManager {
     //TODO Create methods that use as little Context as possible
     static boolean isHighScore(Context context, String fileName, String targetValue, int userScore){
         boolean highScore = false;
-        BufferedReader reader;
         try {
-            reader = new BufferedReader(new FileReader(new File(context.getFilesDir(), fileName)));
-            String fileString = reader.lines().collect(Collectors.joining());
-            reader.close();
-            String[] fileArray ;
-            if(fileString.length() != 0){
-                fileArray = fileString.split("\\]");
-                //TODO for loginActivity, if such a user doesn't exist, and you click register
-                // keep the username and the password, don't clear them
-            }
-            else{
-                fileArray = new String[0];
-            }
-            highScore = isHighScoreForExistingScores(fileArray, targetValue, userScore);
+            String[] fileArray = getScoreFileAsArray(context, fileName);
+            highScore = isHighScore(fileArray, targetValue, userScore);
 
         } catch (Exception e) {
             System.err.format("Exception occurred trying to read '%s'.", fileName);
@@ -142,7 +145,7 @@ class TextFileManager {
         return highScore;
     }
 
-    public static boolean isHighScoreForExistingScores(String[] fileArray, String targetValue, int userScore){
+    public static boolean isHighScore(String[] fileArray, String targetValue, int userScore){
         boolean highScore = false;
         int index;
         int scoreSaved;
