@@ -2,9 +2,7 @@ package fall2018.csc2017.GameCentre.SlidingTiles;
 import java.util.HashMap;
 import java.util.Map;
 
-
-
-public class InputValidatorModel {
+public class GameInputValidator {
     public static Map<Boolean, String> processInput(String dimensionSize, String undoMaxText) {
         Map<Boolean, String> validator = new HashMap<>();
         // Check dimension

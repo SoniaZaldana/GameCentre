@@ -1,3 +1,7 @@
+/**
+ * Excluded from tests because it is a view class.
+ */
+
 package fall2018.csc2017.GameCentre.Score;
 
 import android.content.Intent;
