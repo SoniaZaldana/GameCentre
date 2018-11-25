@@ -5,18 +5,15 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Map;
 
-import fall2018.csc2017.GameCentre.MineSweeper.SweeperBoardManager;
 import fall2018.csc2017.GameCentre.Simon.SimonBoardManager;
 import fall2018.csc2017.GameCentre.Simon.SimonGameActivity;
 import fall2018.csc2017.GameCentre.Simon.SimonStartingActivity;
-import fall2018.csc2017.GameCentre.SlidingTiles.InputValidatorModel;
+import fall2018.csc2017.GameCentre.SlidingTiles.GameInputValidator;
 import fall2018.csc2017.GameCentre.SlidingTiles.SlidingBoardManager;
 import fall2018.csc2017.GameCentre.SlidingTiles.SlidingGameActivity;
 import fall2018.csc2017.GameCentre.SlidingTiles.SlidingTilesStartingActivity;
@@ -49,7 +46,7 @@ public class ChooseDimensionActivity extends AppCompatActivity{
     public void submitInput(View view) {
         String dimensionText = dimensionInput.getText().toString();
         String undoMaxText = undoInput.getText().toString();
-        Map<Boolean, String> processedResult = InputValidatorModel.processInput(dimensionText, undoMaxText);
+        Map<Boolean, String> processedResult = GameInputValidator.processInput(dimensionText, undoMaxText);
         if (processedResult.containsKey(true)) {
             Integer dimension = Integer.parseInt(dimensionText);
             Integer undo = Integer.parseInt(undoMaxText);
