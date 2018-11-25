@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import fall2018.csc2017.GameCentre.R;
 
@@ -19,19 +20,18 @@ public class ScoreBoardArrayAdapter extends ArrayAdapter {
     /**
      * HashMap which contains the users as keys and their HighScores as the values
      */
-    private HashMap<String, String> usernameAndScores;
+    private Map<String, Double> usernameAndScores;
     /**
      * List of userNames
      */
     private List<String> userNames;
-
 
     /**
      * ArrayAdapter which fills a row with 2 elements: 1 for the username and 1 for the HighScore
      * @param context current context
      * @param usernameAndScores HashMap which contains the users as keys and their HighScores as the values
      */
-    public ScoreBoardArrayAdapter(Context context, HashMap<String, String> usernameAndScores)
+    public ScoreBoardArrayAdapter(Context context, Map<String, Double> usernameAndScores)
     {
         super(context, android.R.layout.simple_list_item_1, new ArrayList<>(usernameAndScores.keySet()));
         this.context = context;
@@ -51,7 +51,7 @@ public class ScoreBoardArrayAdapter extends ArrayAdapter {
         TextView your_second_text_view = rowView.findViewById(R.id.score);
         String currUser = userNames.get(position);
         your_first_text_view.setText(currUser);
-        your_second_text_view.setText(usernameAndScores.get(currUser));
+        your_second_text_view.setText(String.valueOf(usernameAndScores.get(currUser)));
 
         return rowView;
     }

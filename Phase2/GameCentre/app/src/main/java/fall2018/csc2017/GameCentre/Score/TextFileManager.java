@@ -3,11 +3,16 @@ package fall2018.csc2017.GameCentre.Score;
 import android.content.Context;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import static java.lang.Integer.valueOf;
 
 /**
@@ -20,22 +25,58 @@ class TextFileManager {
      * @param fileName - the file from which we are pulling the contents from
      * @return A hashmap containing coupled values <user><score> or <game><score>
      */
-    static HashMap<String, String> getValue(Context context, String fileName) {
-        HashMap<String, String> usernamesAndScores =  new LinkedHashMap<>();
-        try {
+    static Map<String, Double> getValue(Context context, String fileName) {
+        Map<String, Double> usernameAndScores =  new LinkedHashMap<>();
+        try{
             BufferedReader reader = new BufferedReader(new FileReader(new File(context.getFilesDir(), fileName)));
-            String line;
+            usernameAndScores = getUsernameAndScoresMap(reader);
+        }
+        catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
+        return usernameAndScores;
+    }
+
+    /**
+     * Helper which returns the hashMap which contains
+     * @param reader
+     * @return
+     */
+    public static Map<String, Double> getUsernameAndScoresMap(BufferedReader reader){
+        int counter;
+        String line;
+        List<String> usernames = new ArrayList<>();
+        List<Double> scoresHighToLow = new ArrayList<>();
+        Map<String, Double> usernameAndScores =  new LinkedHashMap<>();
+        try {
             while ((line = reader.readLine()) != null) {
                 int index = line.indexOf(",");
                 String user = line.substring(1, index);
-                String score = line.substring(index + 1, line.length() - 1);
-                usernamesAndScores.put(user, score);
+                Double score = Double.parseDouble(line.substring(index + 1, line.length() - 1));
+                // counter is the index at which to place the score inside the list.
+                counter = 0;
+                boolean foundIndex = false;
+                while (counter < scoresHighToLow.size() && !foundIndex) {
+                    if (score < scoresHighToLow.get(counter)) {
+                        counter++;
+                    } else {
+                        foundIndex = true;
+                    }
+                }
+                scoresHighToLow.add(counter, score);
+                usernames.add(counter, user);
             }
             reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            counter = 0;
+            while(counter<scoresHighToLow.size()) {
+                usernameAndScores.put(usernames.get(counter), scoresHighToLow.get(counter));
+                counter++;
+            }
         }
-        return usernamesAndScores;
+        catch (IOException e) {
+                e.printStackTrace();
+        }
+        return usernameAndScores;
     }
 
     /**
