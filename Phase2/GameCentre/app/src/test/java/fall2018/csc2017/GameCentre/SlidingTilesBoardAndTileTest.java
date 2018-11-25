@@ -55,14 +55,14 @@ public class SlidingTilesBoardAndTileTest {
     /**
      * Test whether swapping two tiles makes a solved board unsolved.
      */
-    @Test
-    public void testIsSolved() {
-        setUpCorrect(2,2);
-        MovementControllerSliding movementController = new MovementControllerSliding(boardManager);
-        assertEquals(true, movementController.isGameFinished());
-        swapFirstTwoTiles();
-        assertEquals(false, movementController.isGameFinished());
-    }
+//    @Test
+//    public void testIsSolved() {
+//        setUpCorrect(2,2);
+//        MovementControllerSliding movementController = new MovementControllerSliding(boardManager);
+//        assertEquals(true, movementController.isGameFinished());
+//        swapFirstTwoTiles();
+//        assertEquals(false, movementController.isGameFinished());
+//    }
 
     /**
      * Test whether swapping the first two tiles works.
@@ -92,45 +92,45 @@ public class SlidingTilesBoardAndTileTest {
 
     /**
      * Test whether isValidHelp works.
-     */
-    @Test
-    public void testIsValidTap() {
-        //TODO maybe check different sizes
-        setUpCorrect(4,4);
-        MovementControllerSliding movementController = new MovementControllerSliding(boardManager);
-        assertEquals(true, movementController.isValidTap(11));
-        assertEquals(true, movementController.isValidTap(14));
-        assertEquals(false, movementController.isValidTap(10));
-        assertEquals(false, movementController.isValidTap(15));
-
-    }
+//     */
+//    @Test
+//    public void testIsValidTap() {
+//        //TODO maybe check different sizes
+//        setUpCorrect(4,4);
+//        MovementControllerSliding movementController = new MovementControllerSliding(boardManager);
+//        assertEquals(true, movementController.isValidTap(11));
+//        assertEquals(true, movementController.isValidTap(14));
+//        assertEquals(false, movementController.isValidTap(10));
+//        assertEquals(false, movementController.isValidTap(15));
+//
+//    }
     /**
      * Test if touchMove works
      */
-    @Test
-    public void testTouchMove(){
-        setUpCorrect(4,4);
-        MovementControllerSliding movementController = new MovementControllerSliding(boardManager);
-        boardManager.getBoard().swapTiles(3, 3, 3, 2);
-        ArrayList<ArrayList<Tile>> actualTiles = boardManager.getBoard().getAllTiles();
-        ArrayList<Integer> tileNum = new ArrayList<>();
-        for(ArrayList<Tile> array:actualTiles){
-            for(Tile t:array){
-                tileNum.add(t.getId());
-            }
-        }
-        ArrayList<Integer> expectedValues = new ArrayList<>();
-        for(int i =1; i<=14; i++){
-            expectedValues.add(i);
-        }
-        expectedValues.add(16);
-        expectedValues.add(15);
-        assertArrayEquals(expectedValues.toArray(),tileNum.toArray());
-        movementController.touchMove(15);
-        assertEquals(true, movementController.isGameFinished());
-
-
-    }
+//    @Test
+//    public void testTouchMove(){
+//        setUpCorrect(4,4);
+//        MovementControllerSliding movementController = new MovementControllerSliding(boardManager);
+//        boardManager.getBoard().swapTiles(3, 3, 3, 2);
+//        ArrayList<ArrayList<Tile>> actualTiles = boardManager.getBoard().getAllTiles();
+//        ArrayList<Integer> tileNum = new ArrayList<>();
+//        for(ArrayList<Tile> array:actualTiles){
+//            for(Tile t:array){
+//                tileNum.add(t.getId());
+//            }
+//        }
+//        ArrayList<Integer> expectedValues = new ArrayList<>();
+//        for(int i =1; i<=14; i++){
+//            expectedValues.add(i);
+//        }
+//        expectedValues.add(16);
+//        expectedValues.add(15);
+//        assertArrayEquals(expectedValues.toArray(),tileNum.toArray());
+//        movementController.touchMove(15);
+//        assertEquals(true, movementController.isGameFinished());
+//
+//
+//    }
     @Test
     public void testSlidingTilesBoard(){
         setUpCorrect(5,2 );

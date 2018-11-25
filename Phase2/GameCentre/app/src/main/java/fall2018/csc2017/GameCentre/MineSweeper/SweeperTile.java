@@ -25,7 +25,7 @@ public class SweeperTile extends Tile {
     private String BombType;
 
 
-    public SweeperTile(boolean hasBomb) {
+    SweeperTile(boolean hasBomb) {
         this.bomb = hasBomb;
         if (hasBomb) {
             Random rand = new Random();
@@ -46,40 +46,40 @@ public class SweeperTile extends Tile {
      * BombType Getter. If no bomb, gives the string "none".
      * @return The type of bomb
      */
-    public String getBombType() {
-        return BombType;
+    String getBombType() {
+        return this.BombType;
     }
 
-    public SweeperTile() {}
+    SweeperTile() {}
 
     /**
      *
      * @return whether tile is marked by user as having a bomb.
      */
-    public boolean isFlagged() {
-        return flagged;
+    boolean isFlagged() {
+        return this.flagged;
     }
     /**
      *
      * @param flag represents whether the tile is marked(user thinks it has a bomb
      */
-    public void flag(boolean flag) {
-        flagged = flag;
+    void flag(boolean flag) {
+        this.flagged = flag;
     }
 
-    public boolean hasBomb(){
-        return bomb;
+    boolean hasBomb(){
+        return this.bomb;
     }
 
-    public void setBomb(boolean bomb) {
+    void setBomb(boolean bomb) {
         this.bomb = bomb;
     }
 
-    public int getBombsAround() {
-        return bombsAround;
+    int getBombsAround() {
+        return this.bombsAround;
     }
 
-    public void setBombsAround(int bombsAround) {
+    void setBombsAround(int bombsAround) {
         this.bombsAround = bombsAround;
     }
 }

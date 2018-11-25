@@ -17,7 +17,7 @@ public class GameQueue<E> implements Serializable {
     /**
      * Instantiates an object of a game queue with a linked list and it's corresponding size
      */
-    public GameQueue() {
+    GameQueue() {
         this.list = new LinkedList();
         this.size = 0;
     }
@@ -26,7 +26,7 @@ public class GameQueue<E> implements Serializable {
      * Adds an object to the back of the queue and increments size
      * @param tile - tile to be added to the queue
      */
-    public void add(E tile) {
+    void add(E tile) {
         list.add(tile);
         this.size++;
     }
@@ -35,7 +35,7 @@ public class GameQueue<E> implements Serializable {
      * Checks whether the queue is empty
      * @return boolean whether queue is empty
      */
-    public boolean isEmpty() {
+    boolean isEmpty() {
         return this.size == 0;
     }
 
@@ -43,7 +43,8 @@ public class GameQueue<E> implements Serializable {
      * Returns the object at the front of the queue and removes it from queue
      * @return object in front of queue
      */
-    public E remove() {
+    E remove() {
+        this.size--;
         return list.remove();
     }
 }

@@ -15,7 +15,7 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
      */
     private int hitPoints;
 
-    public SweeperTilesBoard(int dimension, List<SweeperTile> tiles) {
+    SweeperTilesBoard(int dimension, List<SweeperTile> tiles) {
         super(dimension, tiles);
         this.time = 0;
         this.hitPoints = 3;
@@ -24,22 +24,22 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
      * A getter for the time
      * @return time time that has transpired for the game
      */
-    public int getTime() {
-        return time;
+    int getTime() {
+        return this.time;
     }
 
     /**
      * Increments the time by 1.
      */
-    public void timeIncrement(){
+    void timeIncrement(){
         this.time++;
     }
 
     /**
      * Decreases HP by 1
      */
-    public void takeDamage() {
-        hitPoints--;
+    void takeDamage() {
+        this.hitPoints--;
     }
 
     /**
@@ -47,7 +47,7 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
      * @return int hitPoints
      */
 
-    public int getHitPoints() {
-        return hitPoints;
+    int getHitPoints() {
+        return this.hitPoints;
     }
 }
