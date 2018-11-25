@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static java.lang.Integer.valueOf;
 
@@ -19,7 +20,6 @@ import static java.lang.Integer.valueOf;
  * A class dedicated to writing to and reading from text files
  */
 class TextFileManager {
-
     /**
      * Returns a hash map containing coupled values for the contents of fileName
      * @param fileName - the file from which we are pulling the contents from
@@ -29,7 +29,9 @@ class TextFileManager {
         Map<String, Double> usernameAndScores =  new LinkedHashMap<>();
         try{
             BufferedReader reader = new BufferedReader(new FileReader(new File(context.getFilesDir(), fileName)));
-            usernameAndScores = getUsernameAndScoresMap(reader);
+            String fileString = reader.lines().collect(Collectors.joining());
+            String[] fileArray = fileString.split("\\]");
+            usernameAndScores = getUsernameAndScoresMap(fileArray);
         }
         catch(FileNotFoundException e){
             e.printStackTrace();
@@ -38,43 +40,40 @@ class TextFileManager {
     }
 
     /**
-     * Helper which returns the hashMap which contains
-     * @param reader
+     * Helper which returns the hashMap which contains the username and the score
+     * @param fileArray array where each row is a username and a score with the format: "[user, 980"
      * @return
      */
-    public static Map<String, Double> getUsernameAndScoresMap(BufferedReader reader){
-        int counter;
+    public static Map<String, Double> getUsernameAndScoresMap(String[] fileArray){
+        int indexWithinUserandScoreList;
+        int counter = 0;
         String line;
         List<String> usernames = new ArrayList<>();
         List<Double> scoresHighToLow = new ArrayList<>();
         Map<String, Double> usernameAndScores =  new LinkedHashMap<>();
-        try {
-            while ((line = reader.readLine()) != null) {
-                int index = line.indexOf(",");
-                String user = line.substring(1, index);
-                Double score = Double.parseDouble(line.substring(index + 1, line.length() - 1));
-                // counter is the index at which to place the score inside the list.
-                counter = 0;
-                boolean foundIndex = false;
-                while (counter < scoresHighToLow.size() && !foundIndex) {
-                    if (score < scoresHighToLow.get(counter)) {
-                        counter++;
-                    } else {
-                        foundIndex = true;
-                    }
+        while (counter<fileArray.length) {
+            line = fileArray[counter];
+            int index = line.indexOf(",");
+            String user = line.substring(1, index);
+            Double score = Double.parseDouble(line.substring(index + 1, line.length()));
+            // indexWithinUserandScoreList is the index at which to place the score inside the list.
+            indexWithinUserandScoreList = 0;
+            boolean foundIndex = false;
+            while (indexWithinUserandScoreList < scoresHighToLow.size() && !foundIndex) {
+                if (score < scoresHighToLow.get(indexWithinUserandScoreList)) {
+                    indexWithinUserandScoreList++;
+                } else {
+                    foundIndex = true;
                 }
-                scoresHighToLow.add(counter, score);
-                usernames.add(counter, user);
             }
-            reader.close();
-            counter = 0;
-            while(counter<scoresHighToLow.size()) {
-                usernameAndScores.put(usernames.get(counter), scoresHighToLow.get(counter));
-                counter++;
-            }
+            scoresHighToLow.add(indexWithinUserandScoreList, score);
+            usernames.add(indexWithinUserandScoreList, user);
+            counter++;
         }
-        catch (IOException e) {
-                e.printStackTrace();
+        indexWithinUserandScoreList = 0;
+        while(indexWithinUserandScoreList<scoresHighToLow.size()) {
+            usernameAndScores.put(usernames.get(indexWithinUserandScoreList), scoresHighToLow.get(indexWithinUserandScoreList));
+            indexWithinUserandScoreList++;
         }
         return usernameAndScores;
     }
