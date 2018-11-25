@@ -38,7 +38,7 @@ class TextFileManager {
     }
 
     /**
-     * Returns the score file as a string array. Example: ["[Nick,980.4", "[Lyuba, 1000.3", "[Suguru, 999.4"
+     * Returns the score file as a string array. Example: ["Nick,980.4", "Lyuba, 1000.3", "Suguru, 123"]
      * @param context context of the application
      * @param fileName name of file
      * @return
@@ -51,7 +51,15 @@ class TextFileManager {
         reader.close();
         String[] fileArray ;
         if(fileString.length() != 0){
-            fileArray = fileString.split("\\]");
+            String splitRegex = "\\]\\[";
+            fileArray = fileString.split(splitRegex);
+            // remove the "[" from the first arrayElement
+            String elFirst = fileArray[0];
+            fileArray[0] = elFirst.substring(1);
+            // remove the "]" from the last arrayElement
+            String elLast = fileArray[fileArray.length-1];
+            fileArray[fileArray.length-1] = elLast.substring(0, elLast.length()-1);
+
 
         }
         else{
@@ -76,7 +84,7 @@ class TextFileManager {
         while (counter<fileArray.length) {
             line = fileArray[counter];
             int index = line.indexOf(",");
-            String user = line.substring(1, index);
+            String user = line.substring(0, index);
             Double score = Double.parseDouble(line.substring(index + 1, line.length()));
             // indexWithinUserandScoreList is the index at which to place the score inside the list.
             indexWithinUserandScoreList = 0;
@@ -154,7 +162,7 @@ class TextFileManager {
         while (counter<fileArray.length) {
             String line = fileArray[counter];
             index = line.indexOf(",");
-            if (line.substring(1, index).equals(targetValue)) {
+            if (line.substring(0, index).equals(targetValue)) {
                 userExists = true;
                 scoreSaved = valueOf(line.substring(index + 1, line.length()));
                 if (userScore > scoreSaved) {
