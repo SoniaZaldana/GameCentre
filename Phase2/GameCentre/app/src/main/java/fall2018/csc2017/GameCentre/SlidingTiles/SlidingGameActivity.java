@@ -180,7 +180,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer {
                         MY_PERMISSIONS_REQUEST_READ_STORAGE);
             }
         } else {
-            createTileGUI(ContextCompat.getDrawable(this, R.drawable.tile_16));
+            createTileGUI(ContextCompat.getDrawable(this, R.drawable.blank_tile));
         }
 
     }
@@ -203,7 +203,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer {
 
             } else {
                 b.setText("");
-                b.setBackground(ContextCompat.getDrawable(this, R.drawable.tile_16));
+                b.setBackground(ContextCompat.getDrawable(this, R.drawable.blank_tile));
             }
             nextPos++;
         }
@@ -263,7 +263,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer {
                     getTileImageAndMakeGUI();
                 } else {
                     // permission denied/
-                    createTileGUI(ContextCompat.getDrawable(this, R.drawable.tile_16));
+                    createTileGUI(ContextCompat.getDrawable(this, R.drawable.blank_tile));
 
 
                 }
