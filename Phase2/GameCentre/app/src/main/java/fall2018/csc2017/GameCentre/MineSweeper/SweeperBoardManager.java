@@ -23,7 +23,8 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
      */
     private boolean bombActive = false;
 
-    public SweeperBoardManager(){
+    public SweeperBoardManager(SweeperTilesBoard b){
+        super(b);
         this.bombTime = 10;
     }
 

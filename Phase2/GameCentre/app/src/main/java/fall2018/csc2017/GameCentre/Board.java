@@ -41,7 +41,7 @@ public class Board<U extends Tile> extends Observable implements Serializable, I
             tiles.add(rowTile);
         }
     }
-    public  ArrayList<ArrayList<U>> getAllTiles() {
+    public ArrayList<ArrayList<U>> getAllTiles() {
         return this.tiles;
     }
 
