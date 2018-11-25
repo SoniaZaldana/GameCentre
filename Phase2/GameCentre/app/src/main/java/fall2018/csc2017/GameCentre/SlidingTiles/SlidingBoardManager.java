@@ -26,7 +26,7 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
 //        this.board = board;
 //        this.undoStack = new UndoStack(3);
 //    }
-    public UndoStack getUndoStack(){
+    UndoStack getUndoStack(){
         return undoStack;
     }
 
@@ -78,8 +78,4 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
         int dimensions = getBoard().getDimension();
         return dimensions * 500 - (moves * 5);
     }
-
-
-
-
 }
