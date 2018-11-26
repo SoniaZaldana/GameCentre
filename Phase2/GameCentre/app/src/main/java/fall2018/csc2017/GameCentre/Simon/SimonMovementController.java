@@ -2,12 +2,13 @@ package fall2018.csc2017.GameCentre.Simon;
 
 import android.content.Context;
 
+import java.util.ListIterator;
 import java.util.Queue;
 import fall2018.csc2017.GameCentre.MoveTracker;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
 import fall2018.csc2017.GameCentre.Score.ScoreScreenActivity;
 
-public class SimonMovementController extends MovementControllerSimplePress {
+public class SimonMovementController extends MovementControllerSimplePress<SimonBoardManager> {
     /**
      * Tracks the number of moves
      */
@@ -17,7 +18,7 @@ public class SimonMovementController extends MovementControllerSimplePress {
      */
     private int round;
 
-    SimonBoardManager simonBoardManager = (SimonBoardManager) getBoardManager();
+    private ListIterator<SimonTile> iterator;
 
     /**
      * Instantiates a SimonMovementController object
@@ -27,17 +28,21 @@ public class SimonMovementController extends MovementControllerSimplePress {
         this.moves = new MoveTracker(boardManager.getScore());
         this.round = 1;
         setBoardManager(boardManager);
+        iterator = getBoardManager().getGameQueue().iterator();
+
     }
 
     @Override
     public void processMove(Context context, int position) {
         SimonTile tile = getTileInPosition(position);
-
         if (isCorrectMove(tile)){
-            if (isRoundFinished(simonBoardManager.getGameQueue())) {
+            if (isRoundFinished(getBoardManager().getGameQueue())) {
+                //restart the iterator
+                iterator = getBoardManager().getGameQueue().iterator();
+                // add a new tile to the gameQueue
                 for (int i = 0; i != this.round * 2; i++) {
-                    SimonTile randomTile = simonBoardManager.randomizer();
-                    simonBoardManager.getGameQueue().add(randomTile);
+                    SimonTile randomTile = getBoardManager().randomizer();
+                    getBoardManager().getGameQueue().add(randomTile);
                 }
                 this.round++;
             }
@@ -58,9 +63,18 @@ public class SimonMovementController extends MovementControllerSimplePress {
      * @return
      */
     boolean isCorrectMove(SimonTile userTile){
-        GameQueue<SimonTile> gameQueue = simonBoardManager.getGameQueue();
-        SimonTile tileAtFront = gameQueue.remove();
-        return tileAtFront.compareTo(userTile) == 0;
+        if(iterator.hasNext()){
+            SimonTile tileAtFront = iterator.next();
+            return tileAtFront.getId() == userTile.getId();
+        }
+        else{
+            return false;
+        }
+
+//        GameQueue<SimonTile> gameQueue = getBoardManager().getGameQueue();
+//        SimonTile tileAtFront = gameQueue.remove();
+
+//        return tileAtFront.compareTo(userTile) == 0;
     }
 
     //I think I have also successfully implemented. Have to test.
@@ -71,7 +85,8 @@ public class SimonMovementController extends MovementControllerSimplePress {
      * @return boolean round is finished
      */
     boolean isRoundFinished(GameQueue gameQueue){
-        return gameQueue.isEmpty();
+//        return gameQueue.isEmpty();
+        return !iterator.hasNext();
     }
 
 

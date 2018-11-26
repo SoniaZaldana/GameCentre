@@ -1,24 +1,32 @@
 package fall2018.csc2017.GameCentre.Simon;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Observable;
 
 
-public class GameQueue<E> implements Serializable {
+public class GameQueue<E>  extends Observable implements Serializable, Iterable<E> {
     /**
      * LinkedList representing the queue
      */
-    LinkedList<E> list;
+    private List<E> gameList;
     /**
      * The size of this queue
      */
-    int size;
+    private int size;
+
 
     /**
-     * Instantiates an object of a game queue with a linked list and it's corresponding size
+     * Instantiates an object of a game queue with a linked gameList and it's corresponding size
      */
     GameQueue() {
-        this.list = new LinkedList();
+        this.gameList = new LinkedList<>();
         this.size = 0;
     }
 
@@ -27,8 +35,10 @@ public class GameQueue<E> implements Serializable {
      * @param tile - tile to be added to the queue
      */
     void add(E tile) {
-        list.add(tile);
+        gameList.add(tile);
         this.size++;
+        setChanged();
+        notifyObservers();
     }
 
     /**
@@ -45,6 +55,83 @@ public class GameQueue<E> implements Serializable {
      */
     E remove() {
         this.size--;
-        return list.remove();
+        return gameList.remove(0);
     }
-}
+    E get(int index){
+        return gameList.get(index);
+    }
+    /**
+     * @return an iterator of class GameQUeue.
+     */
+    @NonNull
+    @Override
+    public ListIterator<E> iterator() {
+        return new GameQueueIterator() {
+        };
+    }
+
+    /**
+     * Represents the iterator for class GameQueue.
+     */
+    //TODO TEST it. Make sure it returns the right thin for each one.
+    private class GameQueueIterator implements ListIterator<E>, Serializable {
+        /**
+         * current index in the queue
+         */
+        private int currentIndex = 0;
+
+        /**
+         *
+         * @return the previous element
+         */
+        @Override
+        public E previous() {
+            currentIndex-=1;
+            E prev = gameList.get(currentIndex);
+            return prev;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex< gameList.size();
+        }
+
+        @Override
+        public E next() {
+            E nextElement = gameList.get(currentIndex);
+            currentIndex += 1;
+            return nextElement;
+        }
+
+        @Override
+        public boolean hasPrevious() {
+            return 0 < currentIndex;
+        }
+
+        @Override
+        public int nextIndex() {
+            return currentIndex+1;
+        }
+
+        @Override
+        public int previousIndex() {
+            return currentIndex - 1;
+        }
+
+        @Override
+        public void remove() {
+        }
+
+        @Override
+        public void set(E e) {
+        }
+
+        @Override
+        public void add(E e) {
+        }
+
+    }
+
+
+
+    }

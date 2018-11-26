@@ -2,6 +2,9 @@ package fall2018.csc2017.GameCentre.Simon;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +14,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.Observable;
 import java.util.Observer;
 import fall2018.csc2017.GameCentre.CustomAdapter;
@@ -18,6 +23,7 @@ import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridViewS
 import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
+import fall2018.csc2017.GameCentre.SlidingTiles.SlidingTilesBoard;
 
 public class SimonGameActivity extends AppCompatActivity implements Observer {
 
@@ -43,7 +49,9 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         gridView.setNumColumns(simonBoardManager.getBoard().getDimension());
         movementControllerSimon = new SimonMovementController(simonBoardManager);
         gridView.setMovementController(movementControllerSimon);
-        simonBoardManager.getBoard().addObserver(this);
+        simonBoardManager.getGameQueue().addObserver(this);
+        SimonTile t = simonBoardManager.randomizer();
+        simonBoardManager.getGameQueue().add(t);
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -56,14 +64,11 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
 
                         columnWidth = displayWidth / simonBoardManager.getBoard().getDimension();
                         columnHeight = displayHeight / simonBoardManager.getBoard().getDimension();
-                        display();
+                        //TODO see if maybe we can remove this.
+                        createTileGUI();
                     }
                 });
-    }
-
-    void display(){
-        createTileGUI();
-        gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+        //TODO check if display() isn't called twice
     }
 
     private void createTileButtons(Context context){
@@ -72,20 +77,31 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         for (int row = 0; row != board.getDimension(); row++) {
             for (int col = 0; col != board.getDimension(); col++) {
                Button tmp = new Button(context);
-               this.tileButtons.add(tmp);
+                tmp.setBackground(ContextCompat.getDrawable(this, R.drawable.tile_blue));
+                this.tileButtons.add(tmp);
             }
         }
     }
 
     private void createTileGUI(){
-        for (Button b: tileButtons){
-            b.setBackground(ContextCompat.getDrawable(this, R.drawable.tile_blue));
+        GameQueue<SimonTile> gameQueue = simonBoardManager.getGameQueue();
+        ListIterator<SimonTile> i = gameQueue.iterator();
+        //TODO Make sure this works
+        int currId;
+        while(i.hasNext()){
+            currId = i.next().getId();
+            tileButtons.get(currId).setBackground(ContextCompat.getDrawable(this, R.drawable.blank_tile));
+            gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+            SystemClock.sleep(2000);
+            tileButtons.get(currId).setBackground(ContextCompat.getDrawable(this, R.drawable.tile_blue));
         }
+        gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        display();
+        createTileGUI();
     }
 
     @Override
