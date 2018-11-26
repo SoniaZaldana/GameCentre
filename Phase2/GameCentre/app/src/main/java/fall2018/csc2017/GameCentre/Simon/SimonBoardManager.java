@@ -58,6 +58,20 @@ public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
      * @return
      */
     SimonTile randomizer() {
+        //get the last tile in the gameQueue
+        //TODO test if we indeed get the last tile
+        SimonTile newTile = randomizerHelper();
+        if(!gameQueue.isEmpty()){
+            SimonTile lastTile = gameQueue.get(gameQueue.getSize()-1);
+            if(lastTile.getId() == newTile.getId()){
+                //if the most recent tile and the new generated tile
+                // are the same, generate another one.
+                return randomizer();
+            }
+        }
+        return newTile;
+    }
+    SimonTile randomizerHelper(){
         ArrayList<ArrayList<SimonTile>> simonList = this.getBoard().getAllTiles();
         Random rand = new Random();
         int num = 0;
@@ -71,9 +85,6 @@ public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
             index++;
         }
         return simonList.get(index).get(randNum);
-//        Random rand = new Random();
-//        int randomIndex = rand.nextInt(simonList.size());
-//        return simonList.get(index).get(randomIndex);
     }
 
 }

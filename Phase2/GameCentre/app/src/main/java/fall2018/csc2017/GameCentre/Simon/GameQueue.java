@@ -16,6 +16,11 @@ public class GameQueue<E>  extends Observable implements Serializable, Iterable<
      * LinkedList representing the queue
      */
     private List<E> gameList;
+
+    public int getSize() {
+        return size;
+    }
+
     /**
      * The size of this queue
      */
