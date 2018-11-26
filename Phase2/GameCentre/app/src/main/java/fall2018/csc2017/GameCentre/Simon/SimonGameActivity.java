@@ -49,9 +49,9 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         gridView.setNumColumns(simonBoardManager.getBoard().getDimension());
         movementControllerSimon = new SimonMovementController(simonBoardManager);
         gridView.setMovementController(movementControllerSimon);
-        simonBoardManager.getGameQueue().addObserver(this);
         SimonTile t = simonBoardManager.randomizer();
         simonBoardManager.getGameQueue().add(t);
+        simonBoardManager.getGameQueue().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -92,7 +92,12 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
             currId = i.next().getId();
             tileButtons.get(currId).setBackground(ContextCompat.getDrawable(this, R.drawable.blank_tile));
             gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
-            SystemClock.sleep(2000);
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             tileButtons.get(currId).setBackground(ContextCompat.getDrawable(this, R.drawable.tile_blue));
         }
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));

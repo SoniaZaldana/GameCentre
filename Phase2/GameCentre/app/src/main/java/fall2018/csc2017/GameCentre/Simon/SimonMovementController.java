@@ -28,7 +28,8 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
         this.moves = new MoveTracker(boardManager.getScore());
         this.round = 1;
         setBoardManager(boardManager);
-        iterator = getBoardManager().getGameQueue().iterator();
+        GameQueue<SimonTile> queue = getBoardManager().getGameQueue();
+        iterator = queue.iterator();
 
     }
 
@@ -40,10 +41,8 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
                 //restart the iterator
                 iterator = getBoardManager().getGameQueue().iterator();
                 // add a new tile to the gameQueue
-                for (int i = 0; i != this.round * 2; i++) {
-                    SimonTile randomTile = getBoardManager().randomizer();
-                    getBoardManager().getGameQueue().add(randomTile);
-                }
+                SimonTile randomTile = getBoardManager().randomizer();
+                getBoardManager().getGameQueue().add(randomTile);
                 this.round++;
             }
         }

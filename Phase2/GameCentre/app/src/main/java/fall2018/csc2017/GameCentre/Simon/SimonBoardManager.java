@@ -27,10 +27,12 @@ public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
     }
 
     public SimonBoardManager(int dimension, int undo) {
+        this.gameQueue = new GameQueue<>();
+        this.undo = undo;
         List<SimonTile> tilesList = new ArrayList<>();
         final int numTiles = dimension * dimension;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tilesList.add(new SimonTile(tileNum + 1));
+            tilesList.add(new SimonTile(tileNum));
         }
         SimonTilesBoard simonTilesBoard = new SimonTilesBoard(dimension, tilesList);
         setBoard(simonTilesBoard);
@@ -69,6 +71,10 @@ public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
             index++;
         }
         return simonList.get(index).get(randNum);
+//        Random rand = new Random();
+//        int randomIndex = rand.nextInt(simonList.size());
+//        return simonList.get(index).get(randomIndex);
     }
+
 }
 
