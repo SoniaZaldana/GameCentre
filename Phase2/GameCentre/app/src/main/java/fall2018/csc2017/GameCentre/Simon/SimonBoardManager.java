@@ -59,14 +59,14 @@ public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
      */
     SimonTile randomizer() {
         //get the last tile in the gameQueue
-        //TODO test if we indeed get the last tile
+        //TODO test if this works
         SimonTile newTile = randomizerHelper();
         if(!gameQueue.isEmpty()){
             SimonTile lastTile = gameQueue.get(gameQueue.getSize()-1);
             if(lastTile.getId() == newTile.getId()){
                 //if the most recent tile and the new generated tile
                 // are the same, generate another one.
-                return randomizer();
+                newTile = randomizer();
             }
         }
         return newTile;

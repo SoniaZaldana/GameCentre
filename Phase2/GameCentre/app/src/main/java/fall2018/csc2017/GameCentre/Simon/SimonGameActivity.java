@@ -26,6 +26,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     private SimonBoardManager simonBoardManager;
     private MovementControllerSimplePress movementControllerSimon;
     private ArrayList<Button> tileButtons;
+    private Button replayButton;
     ListIterator<SimonTile> i;
 
 
@@ -43,6 +44,14 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
 
         // Add View to activity
         gridView = findViewById(R.id.grid);
+        replayButton = findViewById(R.id.replayButton);
+        replayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayGameQueue();
+                replayButton.setEnabled(false);
+            }
+        });
         createTileButtons(this);
         gridView.setNumColumns(simonBoardManager.getBoard().getDimension());
         movementControllerSimon = new SimonMovementController(simonBoardManager);
@@ -50,7 +59,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         SimonTile t = simonBoardManager.randomizer();
         simonBoardManager.getGameQueue().add(t);
         simonBoardManager.getGameQueue().addObserver(this);
-        // Observer sets up desired dimensions as well as calls our display function
+        // Observer sets up desired dimensions as well as calls our displayGameQueue function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -63,11 +72,10 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
                         columnWidth = displayWidth / simonBoardManager.getBoard().getDimension();
                         columnHeight = displayHeight / simonBoardManager.getBoard().getDimension();
                         //TODO see if maybe we can remove this.
-                        i = simonBoardManager.getGameQueue().iterator();
-                        createTileGUI();
+                        displayGameQueue();
                     }
                 });
-        //TODO check if display() isn't called twice
+        //TODO check if displayGameQueue() isn't called twice
     }
 
     private void createTileButtons(Context context){
@@ -107,6 +115,10 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     }
     @Override
     public void update(Observable o, Object arg) {
+        displayGameQueue();
+    }
+
+    private void displayGameQueue() {
         i = simonBoardManager.getGameQueue().iterator();
         createTileGUI();
     }
@@ -134,7 +146,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     }
 
     private void addUndoButtonListener() {
-        Button undoButton = findViewById(R.id.UndoButton);
+        Button undoButton = findViewById(R.id.undoButton);
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -124,7 +124,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer {
      * Activate the undo button.
      */
     private void addUndoButtonListener() {
-        Button undoButton = findViewById(R.id.UndoButton);
+        Button undoButton = findViewById(R.id.undoButton);
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
