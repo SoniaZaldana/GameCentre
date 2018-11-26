@@ -16,6 +16,7 @@ import java.util.TimerTask;
 import fall2018.csc2017.GameCentre.ClicksOnBoard;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerComplexPress;
 import fall2018.csc2017.GameCentre.R;
+import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
 import fall2018.csc2017.GameCentre.Score.ScoreScreenActivity;
 import fall2018.csc2017.GameCentre.Tile;
 
@@ -87,6 +88,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                 //TODO Display new flag counter on screen
             }
         }
+        SaveAndLoadBoardManager.saveToFile(context, SweeperStartingActivity.SWEEPER_SAVE_FILENAME, getBoardManager());
     }
 
     /**

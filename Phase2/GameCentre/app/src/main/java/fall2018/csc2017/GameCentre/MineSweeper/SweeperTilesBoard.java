@@ -1,5 +1,7 @@
 package fall2018.csc2017.GameCentre.MineSweeper;
 
+import android.util.Log;
+
 import java.util.List;
 
 import fall2018.csc2017.GameCentre.Board;
@@ -19,6 +21,8 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
         super(dimension, tiles);
         this.time = 0;
         this.hitPoints = 3;
+        hasChanged();
+        notifyObservers();
     }
     /**
      * A getter for the time
@@ -33,6 +37,9 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
      */
     public void timeIncrement(){
         this.time++;
+        this.setChanged();
+        this.notifyObservers();
+        Log.i("time", String.valueOf(this.time));
     }
 
     /**
