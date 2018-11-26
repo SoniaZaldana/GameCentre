@@ -2,9 +2,7 @@ package fall2018.csc2017.GameCentre.Simon;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +12,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.Observable;
 import java.util.Observer;
@@ -23,13 +20,14 @@ import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridViewS
 import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
-import fall2018.csc2017.GameCentre.SlidingTiles.SlidingTilesBoard;
 
 public class SimonGameActivity extends AppCompatActivity implements Observer {
 
     private SimonBoardManager simonBoardManager;
     private MovementControllerSimplePress movementControllerSimon;
     private ArrayList<Button> tileButtons;
+    ListIterator<SimonTile> i;
+
 
     // Grid View and calculated column height and width based on device size
     private GestureDetectGridViewShortPress gridView;
@@ -65,6 +63,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
                         columnWidth = displayWidth / simonBoardManager.getBoard().getDimension();
                         columnHeight = displayHeight / simonBoardManager.getBoard().getDimension();
                         //TODO see if maybe we can remove this.
+                        i = simonBoardManager.getGameQueue().iterator();
                         createTileGUI();
                     }
                 });
@@ -84,28 +83,31 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     }
 
     private void createTileGUI(){
-        GameQueue<SimonTile> gameQueue = simonBoardManager.getGameQueue();
-        ListIterator<SimonTile> i = gameQueue.iterator();
+        if(i.hasPrevious()){
+            int prevId = i.previous().getId();
+            tileButtons.get(prevId).setBackground(ContextCompat.getDrawable(this, R.drawable.tile_blue));
+            gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+            i.next();
+        }
         //TODO Make sure this works
-        int currId;
-        while(i.hasNext()){
-            currId = i.next().getId();
+        if(i.hasNext()){
+            final int currId = i.next().getId();
             tileButtons.get(currId).setBackground(ContextCompat.getDrawable(this, R.drawable.blank_tile));
             gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    createTileGUI();
 
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            tileButtons.get(currId).setBackground(ContextCompat.getDrawable(this, R.drawable.tile_blue));
+                }
+            }, 1500);
         }
-        gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
 
     }
-
     @Override
     public void update(Observable o, Object arg) {
+        i = simonBoardManager.getGameQueue().iterator();
         createTileGUI();
     }
 

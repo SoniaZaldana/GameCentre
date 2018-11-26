@@ -1,6 +1,7 @@
 package fall2018.csc2017.GameCentre.Simon;
 
 import android.content.Context;
+import android.os.Handler;
 
 import java.util.ListIterator;
 import java.util.Queue;
@@ -40,10 +41,20 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
             if (isRoundFinished(getBoardManager().getGameQueue())) {
                 //restart the iterator
                 iterator = getBoardManager().getGameQueue().iterator();
-                // add a new tile to the gameQueue
-                SimonTile randomTile = getBoardManager().randomizer();
-                getBoardManager().getGameQueue().add(randomTile);
                 this.round++;
+                // add a new tile to the gameQueue
+                // give the user some time between his last input, and the
+                // next round
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        SimonTile randomTile = getBoardManager().randomizer();
+                        getBoardManager().getGameQueue().add(randomTile);
+
+                    }
+                }, 1000);
+
             }
         }
         else{

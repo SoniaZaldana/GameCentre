@@ -18,6 +18,7 @@ import fall2018.csc2017.GameCentre.SharedPreferenceManager;
  * The end screen after the puzzle is solved
  */
 public class ScoreScreenActivity extends AppCompatActivity {
+    //TODO scorescreen should have a button to let you restart the game
     /**
      * score for the game
      */
