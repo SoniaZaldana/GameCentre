@@ -180,29 +180,29 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
 
     public void createTileGUI() {
         for (Button mineButton : minesButtons) {
-            mineButton.setBackground(ContextCompat.getDrawable(this, R.drawable.MS_tile));
+            mineButton.setBackground(ContextCompat.getDrawable(this, R.drawable.ms_tile));
         }
     }
 
     public void updateTileButtons(int buttonIndex, SweeperTile t) {
         if (t.isFlagged()) {
             minesButtons.get(buttonIndex).setBackground(
-                    ContextCompat.getDrawable(this, R.drawable.flag);
+                    ContextCompat.getDrawable(this, R.drawable.flag));
         } else if (t.getBombsAround() != -1) {
             minesButtons.get(buttonIndex).setText(t.getBombsAround());
             minesButtons.get(buttonIndex).setBackground(
-                    ContextCompat.getDrawable(this, R.drawable.MS_tile));
+                    ContextCompat.getDrawable(this, R.drawable.ms_tile));
         } else {
             minesButtons.get(buttonIndex).setText(t.getBombsAround());
             minesButtons.get(buttonIndex).setBackground(
-                    ContextCompat.getDrawable(this, R.drawable.MS_tile));
+                    ContextCompat.getDrawable(this, R.drawable.ms_tile));
         }
 
 
     }
     public void endGame(int buttonIndex) {
         minesButtons.get(buttonIndex).setBackground(ContextCompat.getDrawable(this,
-                R.drawable.explodedBomb));
+                R.drawable.exploded_bomb));
         gridView.setAdapter(new CustomAdapter(minesButtons, columnWidth, columnHeight));
         Timer myTimer = new Timer();
         TimerTask myTask = new TimerTask() {
@@ -215,7 +215,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         for (SweeperTile mine: sweeperTilesBoard) {
             if (i != buttonIndex && mine.hasBomb()) {
                 minesButtons.get(i).setBackground(ContextCompat.getDrawable(this,
-                        R.drawable.normalBomb));
+                        R.drawable.normal_bomb));
                 myTimer.schedule(myTask, 1);
             }
             i++;
