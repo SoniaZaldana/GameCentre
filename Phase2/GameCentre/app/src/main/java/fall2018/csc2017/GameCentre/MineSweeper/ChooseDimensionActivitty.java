@@ -46,7 +46,7 @@ public class ChooseDimensionActivitty extends AppCompatActivity implements View.
         complexity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                dimensionIndicator = adapterView.getItemAtPosition(position).toString();
+                complexityIndicator = adapterView.getItemAtPosition(position).toString();
             }
 
             @Override
