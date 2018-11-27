@@ -81,10 +81,7 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
             return false;
         }
 
-//        GameQueue<SimonTile> gameQueue = getBoardManager().getGameQueue();
-//        SimonTile tileAtFront = gameQueue.remove();
 
-//        return tileAtFront.compareTo(userTile) == 0;
     }
 
     //I think I have also successfully implemented. Have to test.
@@ -108,7 +105,7 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
     private SimonTile getTileInPosition(int position) {
         int row = getBoardManager().getRow(position);
         int col = getBoardManager().getCol(position);
-        SimonTile tile = (SimonTile) getBoardManager().getBoard().getTile(row,col);
+        SimonTile tile = getBoardManager().getBoard().getTile(row,col);
         return tile;
     }
 }

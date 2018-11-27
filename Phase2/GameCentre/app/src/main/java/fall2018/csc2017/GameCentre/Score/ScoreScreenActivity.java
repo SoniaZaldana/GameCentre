@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import fall2018.csc2017.GameCentre.ChooseDimensionActivity;
 import fall2018.csc2017.GameCentre.GameLauncherActivity;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.SharedPreferenceManager;
@@ -17,7 +19,7 @@ import fall2018.csc2017.GameCentre.SharedPreferenceManager;
 /**
  * The end screen after the puzzle is solved
  */
-public class ScoreScreenActivity extends AppCompatActivity {
+public class ScoreScreenActivity extends AppCompatActivity implements View.OnClickListener{
     //TODO scorescreen should have a button to let you restart the game
     /**
      * score for the game
@@ -33,7 +35,9 @@ public class ScoreScreenActivity extends AppCompatActivity {
     String gameFile;
     TextView scoreValue;
     TextView highScore;
-    Button btn;
+    Button menuButton;
+    Button newGameButton;
+    String currentGame;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,13 +45,11 @@ public class ScoreScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_score);
         scoreValue = findViewById(R.id.ScoreValueLabel);
         highScore = findViewById(R.id.HighScoreLabel);
-        btn = findViewById(R.id.MainMenuButton);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ScoreScreenActivity.this, GameLauncherActivity.class));
-            }
-        });
+        menuButton = findViewById(R.id.MainMenuButton);
+        newGameButton = findViewById(R.id.NewGameButton);
+        newGameButton.setOnClickListener(this);
+        menuButton.setOnClickListener(this);
+
 
         user = SharedPreferenceManager.getSharedValue(this, "sharedUser", "thisUser");
         gameFile = getIntent().getStringExtra("Game");
@@ -74,6 +76,34 @@ public class ScoreScreenActivity extends AppCompatActivity {
         finish();
 
     }
+    @Override
+    public void onClick(View view) {
+        //Getting the name of the game
+        currentGame = gameFile.substring(0, gameFile.indexOf("."));
+        switch (view.getId()) {
+            case R.id.NewGameButton:
+                if (currentGame.equals("Simon")){
+                    startActivity(new Intent(this, ChooseDimensionActivity.class).
+                            putExtra("Game", currentGame));
+                    break;
+                }
+                else if (currentGame.equals("SlidingTiles")){
+                    startActivity(new Intent(this, ChooseDimensionActivity.class).
+                            putExtra("Game", currentGame));
+                    break;
+                }
+                //TODO: Add where to go for minesweeper
+                else if (currentGame.equals("Minesweeper")){
+                    break;
+                }
+            case R.id.MainMenuButton:
+                startActivity(new Intent(this,
+                        GameLauncherActivity.class));
+                break;
+
+        }
+    }
+
 }
 
 
