@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import fall2018.csc2017.GameCentre.CustomAdapter;
 import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridViewLongPress;
@@ -37,8 +35,8 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
 
         super.onCreate(bundle);
         setContentView(R.layout.ativity_minesweaper);
-        String dimensionIndicator = getIntent().getExtras().getString("dimensionIndicator");
-        String complexityIndicator = getIntent().getExtras().getString("complexityIndicator");
+        String dimensionIndicator = getIntent().getExtras().getString("Dimension");
+        String complexityIndicator = getIntent().getExtras().getString("Complexity");
         dimension = getDimension(dimensionIndicator);
         complexity = getComplexity(complexityIndicator);
         gridView = (GestureDetectGridViewLongPress) findViewById(R.id.grid);
@@ -47,7 +45,6 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         sweeperTilesBoard = new SweeperTilesBoard(dimension, minesTiles);
         sweeperBoardManager = new SweeperBoardManager(sweeperTilesBoard);
         movementControllerSweeper = new MovementControllerSweeper(sweeperBoardManager);
-        movementControllerSweeper.setBoardManager(sweeperBoardManager);
         gridView.setMovementController(movementControllerSweeper);
         createTileButtons(this);
         gridView.createAndSetGestureDetector(this);
@@ -116,7 +113,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
 
    private ArrayList<SweeperTile> getMinesTiles() {
         ArrayList<SweeperTile> tilesList = new ArrayList<>();
-        int numOfMines = dimension * dimension / 100;
+        int numOfMines = dimension * dimension * complexity / 100;
         ArrayList locationOfTilesWithMine = randomlyChoose(numOfMines);
        for (int i = 0; i < dimension * dimension; i++) {
            if (locationOfTilesWithMine.contains(i)) {
@@ -154,11 +151,11 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
             minesButtons.get(buttonIndex).setBackground(
                     ContextCompat.getDrawable(this, R.drawable.flag));
         } else if (t.getBombsAround() != -1) {
-            minesButtons.get(buttonIndex).setText(t.getBombsAround());
+            minesButtons.get(buttonIndex).setText(Integer.toString(t.getBombsAround()));
             minesButtons.get(buttonIndex).setBackground(
                     ContextCompat.getDrawable(this, R.drawable.ms_tile));
         } else {
-            minesButtons.get(buttonIndex).setText(t.getBombsAround());
+            minesButtons.get(buttonIndex).setText("0");
             minesButtons.get(buttonIndex).setBackground(
                     ContextCompat.getDrawable(this, R.drawable.ms_tile));
         }
@@ -169,19 +166,11 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         minesButtons.get(buttonIndex).setBackground(ContextCompat.getDrawable(this,
                 R.drawable.exploded_bomb));
         gridView.setAdapter(new CustomAdapter(minesButtons, columnWidth, columnHeight));
-        Timer myTimer = new Timer();
-        TimerTask myTask = new TimerTask() {
-            @Override
-            public void run() {
-                gridView.setAdapter(new CustomAdapter(minesButtons, columnWidth, columnHeight));
-            }
-        };
         int i = 0;
         for (SweeperTile mine: sweeperTilesBoard) {
             if (i != buttonIndex && mine.hasBomb()) {
                 minesButtons.get(i).setBackground(ContextCompat.getDrawable(this,
                         R.drawable.normal_bomb));
-                myTimer.schedule(myTask, 1);
             }
             i++;
         }
