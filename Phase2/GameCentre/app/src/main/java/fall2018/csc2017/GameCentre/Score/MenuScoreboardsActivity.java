@@ -12,7 +12,7 @@ import fall2018.csc2017.GameCentre.R;
 /**
  * The Scoreboard Menu
  */
-public class ScoreboardMenuActivity extends AppCompatActivity implements View.OnClickListener {
+public class MenuScoreboardsActivity extends AppCompatActivity implements View.OnClickListener {
     private Button menu;
     private Button myScoreboard;
     private Button sliding;
@@ -45,6 +45,14 @@ public class ScoreboardMenuActivity extends AppCompatActivity implements View.On
     }
 
     @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(MenuScoreboardsActivity.this, GameLauncherActivity.class));
+        finish();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.MainMenuButton:
@@ -54,13 +62,16 @@ public class ScoreboardMenuActivity extends AppCompatActivity implements View.On
                 startActivity(new Intent(this, UserScoreboardActivity.class));
                 break;
             case R.id.SlidingTilesScoreboardLabel:
-                startActivity(new Intent(this, SlidingScoreboardActivity.class));
+                startActivity(new Intent(this, GameScoreboardActivity.class).
+                        putExtra("GameFile", "SlidingTiles.txt"));
                 break;
             case R.id.SimonScoreboardLabel:
-                startActivity(new Intent(this, SimonScoreboardActivity.class));
+                startActivity(new Intent(this, GameScoreboardActivity.class).
+                        putExtra("GameFile", "Simon.txt"));
                 break;
             case R.id.MinesweeperScoreboard:
-                startActivity(new Intent(this, MinesweeperScoreboardActivity.class));
+                startActivity(new Intent(this, GameScoreboardActivity.class).
+                        putExtra("GameFile", "Minesweeper.txt"));
                 break;
         }
     }

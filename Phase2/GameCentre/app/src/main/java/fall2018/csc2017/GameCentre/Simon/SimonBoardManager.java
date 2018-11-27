@@ -2,44 +2,60 @@ package fall2018.csc2017.GameCentre.Simon;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Stack;
-
 import fall2018.csc2017.GameCentre.BoardManager;
 
-public class SimonBoardManager extends BoardManager<SimonTilesBoard> {
-
+public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
+    /**
+     * How many undos a user has in a game
+     */
     private int undo;
-    private Stack<SimonTile> gameStack;
+    /**
+     * The gameQueue for this instance of the game
+     */
+    private GameQueue<SimonTile> gameQueue;
 
+    /**
+     * Instantiates a SimonBoardManager object
+     * @param board - the board for the game
+     * @param undo - number of undos user has per game
+     */
     public SimonBoardManager(SimonTilesBoard board, int undo) {
         super(board);
         this.undo = undo;
-        // TODO instantiate gameUndoStack, but I am not sure about what size yet.
+        this.gameQueue = new GameQueue<>();
     }
 
-    public Stack getGameStack(){
-        return this.gameStack;
+    /**
+     * Returns the game queue for this object
+     * @return
+     */
+    public GameQueue<SimonTile> getGameQueue(){
+        return this.gameQueue;
     }
 
-    //TODO: evaluate if this way to calculate score will suffice
     @Override
     public int calculateScore(int moves) {
         return moves * 10;
     }
 
-    // TODO: Randomizer should return a random tile from all tiles in order to display it
-    ArrayList<SimonTile> randomizer() {
+    /**
+     * Returns a random tile from all tiles in order to display it
+     * @return
+     */
+    SimonTile randomizer() {
         ArrayList<ArrayList<SimonTile>> simonList = this.getBoard().getAllTiles();
         Random rand = new Random();
-        int index = rand.nextInt(simonList.size());
-        return simonList.get(index);
-    }
-
-
-    // TODO method populate stack. This method would take a single element x
-    // TODO Then it would push this element onto the stack.
-    void populateStack() {
-
+        int num = 0;
+        for (ArrayList<SimonTile> tiles : simonList) {
+            num = num + tiles.size();
+        }
+        int randNum = rand.nextInt(num);
+        int index = 0;
+        while (randNum >= simonList.get(index).size() ){
+            randNum = randNum - simonList.get(index).size();
+            index++;
+        }
+        return simonList.get(index).get(randNum);
     }
 }
 

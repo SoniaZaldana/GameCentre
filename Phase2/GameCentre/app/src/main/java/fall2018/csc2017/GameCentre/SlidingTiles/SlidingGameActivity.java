@@ -2,6 +2,7 @@ package fall2018.csc2017.GameCentre.SlidingTiles;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -285,6 +286,15 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer {
         }
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(SlidingGameActivity.this, SlidingTilesStartingActivity.class));
+        finish();
+
+    }
+
 
     @Override
     public void update(Observable o, Object arg) {
@@ -318,4 +328,5 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer {
 
         }
     }
+
 }

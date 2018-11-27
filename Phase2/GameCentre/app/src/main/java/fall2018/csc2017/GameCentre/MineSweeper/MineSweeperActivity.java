@@ -1,5 +1,23 @@
 package fall2018.csc2017.GameCentre.MineSweeper;
 
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.ViewTreeObserver;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import fall2018.csc2017.GameCentre.CustomAdapter;
+import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridViewLongPress;
+import fall2018.csc2017.GameCentre.R;
+import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
+
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -28,13 +46,15 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     private ArrayList<Button> minesButtons;
     int dimension, complexity;
     private static int columnWidth, columnHeight;
-
+    private TextView timerText;
+    private TextView healthNumber;
+    private Timer timer = new Timer();
 
     @Override
     public void onCreate(Bundle bundle) {
 
         super.onCreate(bundle);
-        setContentView(R.layout.ativity_minesweaper);
+        setContentView(R.layout.activity_sweeper);
         String dimensionIndicator = getIntent().getExtras().getString("Dimension");
         String complexityIndicator = getIntent().getExtras().getString("Complexity");
         dimension = getDimension(dimensionIndicator);
@@ -44,11 +64,16 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         minesTiles = getMinesTiles();
         sweeperTilesBoard = new SweeperTilesBoard(dimension, minesTiles);
         sweeperBoardManager = new SweeperBoardManager(sweeperTilesBoard);
+        startTimer();
+        gridView = findViewById(R.id.grid);
+        gridView.setNumColumns(sweeperBoardManager.getBoard().getDimension());
         movementControllerSweeper = new MovementControllerSweeper(sweeperBoardManager);
         gridView.setMovementController(movementControllerSweeper);
         createTileButtons(this);
         gridView.createAndSetGestureDetector(this);
         sweeperTilesBoard.addObserver(this);
+        timerText = findViewById(R.id.timer);
+        healthNumber = findViewById(R.id.HP);
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -66,19 +91,75 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     public void displayInitialView() {
         createTileGUI();
         gridView.setAdapter(new CustomAdapter(minesButtons, columnWidth, columnHeight));
+        updateTime();
+        updateHealth();
+    }
+
+    private void updateTime(){
+        timerText.setText(String.valueOf(sweeperBoardManager.getBoard().getTime()));
+    }
+
+    private void updateHealth(){
+        healthNumber.setText(String.valueOf(sweeperBoardManager.getBoard().getHitPoints()));
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        sweeperBoardManager.stopTimer();
+
+        this.timer.cancel();
+    }
+
+    public void startTimer(){
+        ScoreTask task = new ScoreTask(sweeperBoardManager);
+        timer.schedule(task, 1000, 1000);
+    }
+
+    /**
+     * A timer task that increments the timer.
+     */
+    private class ScoreTask extends TimerTask {
+
+        /**
+         * The boardmanager that uses this timer.
+         */
+        private SweeperBoardManager manager;
+
+        /**
+         * An task that increments the time.
+         *
+         * @param manager The board manager this is acting on
+         */
+        public ScoreTask(SweeperBoardManager manager){
+            super();
+            this.manager = manager;
+        }
+
+        /**
+         * The task this timer does.
+         */
+        public void run(){
+            this.manager.getBoard().timeIncrement();
+        }
+
     }
 
     public void display(int[] location) {
-        int row = location[0];
-        int col = location[1];
-        int buttonIndex = (row * dimension) + col;
-        SweeperTile t = sweeperTilesBoard.getTile(row, col);
-        if (t.isBombExploded()) {
-            endGame(buttonIndex);
-        } else {
-            updateTileButtons(buttonIndex, t);
-            gridView.setAdapter(new CustomAdapter(minesButtons, columnWidth, columnHeight));
+        if (location != null) {
+            int row = location[0];
+            int col = location[1];
+            int buttonIndex = (row * dimension) + col;
+            SweeperTile t = sweeperTilesBoard.getTile(row, col);
+            if (t.isBombExploded()) {
+                endGame(buttonIndex);
+            } else {
+                updateTileButtons(buttonIndex, t);
+                gridView.setAdapter(new CustomAdapter(minesButtons, columnWidth, columnHeight));
+            }
         }
+        updateTime();
+        updateHealth();
     }
 
     private int getComplexity(String complexityIndicator) {
