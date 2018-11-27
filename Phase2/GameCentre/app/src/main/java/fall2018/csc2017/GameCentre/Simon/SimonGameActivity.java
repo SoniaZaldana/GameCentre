@@ -94,7 +94,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         }
     }
 
-    private void createTileGUI(final GestureDetector orig){
+    private void createTileGUI(){
         if(i.hasPrevious()){
             int prevId = i.previous().getId();
             tileButtons.get(prevId).setBackground(ContextCompat.getDrawable(this, R.drawable.tile_blue));
@@ -110,13 +110,13 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    createTileGUI(orig);
+                    createTileGUI();
 
                 }
             }, 1500);
         }
         else{
-            gridView.setgDetector(orig);
+            gridView.setMovementController(movementControllerSimon);
         }
 
     }
@@ -144,23 +144,16 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     }
 
     private void displayGameQueue() {
-        // so user does not interact with board whilst displaying the game queue
-        GestureDetector temp = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
-
+        // create an empty movementController to be called when user clicks on tile
+        // during display of the gameQueue
+        MovementControllerSimplePress m = new MovementControllerSimplePress() {
             @Override
-            public boolean onSingleTapConfirmed(MotionEvent event) {
-                return true;
+            public void processMove(Context context, int position) {
             }
-            @Override
-            public boolean onDown(MotionEvent event) {
-                return true;
-            }
-
-        });
-        GestureDetector orig = gridView.getgDetector();
-        gridView.setgDetector(temp);
+        };
+        gridView.setMovementController(m);
         i = simonBoardManager.getGameQueue().iterator();
-        createTileGUI(orig);
+        createTileGUI();
 
     }
 
