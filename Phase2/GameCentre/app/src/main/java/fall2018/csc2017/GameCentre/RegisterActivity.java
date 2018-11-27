@@ -3,6 +3,7 @@ package fall2018.csc2017.GameCentre;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -48,18 +49,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 String password = passwordText.getText().toString();
                 String reEnteredPassword = reEnteredPasswordText.getText().toString();
                 if (users.contains(username)) {
+                    wrongSound();
                     Toast.makeText(this, String.format("Account with the name \"%s\" " +
                                     "already exists, please try another username", username),
                             Toast.LENGTH_SHORT).show();
                 } else if (isValidLength(username)) {
+                    wrongSound();
                     Toast.makeText(this, "Your username should contain at least 5 " +
                                     "characters",
                             Toast.LENGTH_SHORT).show();
                 } else if (isValidLength(password)) {
+                    wrongSound();
                     Toast.makeText(this, "Your password should contain at least 5 " +
                                     "characters",
                             Toast.LENGTH_SHORT).show();
                 } else if (!password.equals(reEnteredPassword)) {
+                    wrongSound();
                     Toast.makeText(this, "Your passwords do not match",
                             Toast.LENGTH_SHORT).show();
                 } else {
@@ -75,6 +80,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 break;
         }
 
+    }
+
+    private void wrongSound() {
+        final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.incorrect);
+        mp.start();
     }
 
     /**
