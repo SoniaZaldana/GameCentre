@@ -1,7 +1,9 @@
 package fall2018.csc2017.GameCentre.Simon;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +20,6 @@ import java.util.Observer;
 import fall2018.csc2017.GameCentre.CustomAdapter;
 import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridViewShortPress;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementController;
-import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
 
@@ -29,6 +30,8 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     private ArrayList<Button> tileButtons;
     private Button replayButton;
     ListIterator<SimonTile> i;
+    private Button saveButton;
+    private String saveFileName;
 
 
     // Grid View and calculated column height and width based on device size
@@ -40,8 +43,15 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         super.onCreate(savedInstanceState);
         simonBoardManager = SaveAndLoadBoardManager.loadFromFile(this, SimonStartingActivity.SAVE_FILENAME);
         setContentView(R.layout.activity_simon);
+//        saveFileName = getIntent().getStringExtra("fileName");
+//        if (!saveFileName.equals(null)) {
+//            saveFileName = saveFileName.concat(SimonStartingActivity.SAVE_FILENAME);
+//            SaveAndLoadBoardManager.saveToFile(this, saveFileName, simonBoardManager);
+//        }
+
+
 //        addUndoButtonListener();
-//        addSaveButtonListener();
+        addSaveButtonListener();
 
         // Add View to activity
         gridView = findViewById(R.id.grid);
@@ -102,7 +112,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         //TODO Make sure this works
         if(i.hasNext()){
             final int currId = i.next().getId();
-            tileButtons.get(currId).setBackground(ContextCompat.getDrawable(this, R.drawable.blank_tile));
+            tileButtons.get(currId).setBackground(ContextCompat.getDrawable(this, R.drawable.tile_orange));
             gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -123,13 +133,14 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         }
         else if(o instanceof MovementController){
             tileButtons.get(movementControllerSimon.getCurrPosition()).setBackground(ContextCompat.getDrawable(this, R.drawable.lighterblue));
+            final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.tap);
+            mp.start();
             gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     tileButtons.get(movementControllerSimon.getCurrPosition()).setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tile_blue));
-
                     gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
 
 
@@ -184,16 +195,28 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
      * Activate save button.
      */
     private void addSaveButtonListener() {
-        Button saveButton = findViewById(R.id.SaveButton);
+        saveButton = findViewById(R.id.saveButton);
         final SimonGameActivity simonGameActivity = this;
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SaveAndLoadBoardManager.saveToFile(simonGameActivity, SimonStartingActivity.SAVE_FILENAME, simonBoardManager);
-                makeToastSavedText();
+                startActivityForResult(new Intent(simonGameActivity, SavePopup.class), 1);
+
+//                    startActivity(new Intent(simonGameActivity, SavePopup.class));
+////
+//                SaveAndLoadBoardManager.saveToFile(simonGameActivity, SimonStartingActivity.SAVE_FILENAME, simonBoardManager);
+//                makeToastSavedText();
             }
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK){
+                saveFileName = data.getStringExtra("fileName");
+            }
+        }
+
 
     /**
      * Display that a game was saved successfully.
