@@ -11,6 +11,7 @@ import android.widget.Button;
 import java.io.File;
 import java.io.IOException;
 
+import fall2018.csc2017.GameCentre.MineSweeper.ChooseDimensionActivitty;
 import fall2018.csc2017.GameCentre.MineSweeper.MineSweeperActivity;
 import fall2018.csc2017.GameCentre.MineSweeper.SweeperStartingActivity;
 import fall2018.csc2017.GameCentre.Score.MenuScoreboardsActivity;
@@ -111,7 +112,7 @@ public class GameLauncherActivity extends AppCompatActivity implements View.OnCl
                 startActivity(new Intent(this, SimonStartingActivity.class));
                 break;
             case R.id.MinesweeperGame:
-                startActivity(new Intent(this, SweeperStartingActivity.class));
+                startActivity(new Intent(this, ChooseDimensionActivitty.class));
                 break;
         }
     }
