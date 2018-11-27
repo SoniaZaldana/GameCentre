@@ -139,8 +139,18 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     }
 
     private void displayGameQueue() {
+        // so user does not interact with board whilst displaying the game queue
+        gridView.setEnabled(false);
+//        for(Button b: tileButtons){
+//            b.setEnabled(false);
+//        }
         i = simonBoardManager.getGameQueue().iterator();
         createTileGUI();
+//        for(Button b: tileButtons){
+//            b.setEnabled(true);
+//        }
+        gridView.setEnabled(true);
+
     }
 
     @Override
