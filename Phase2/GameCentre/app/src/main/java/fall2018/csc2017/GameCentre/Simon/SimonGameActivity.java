@@ -17,6 +17,7 @@ import java.util.Observable;
 import java.util.Observer;
 import fall2018.csc2017.GameCentre.CustomAdapter;
 import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridViewShortPress;
+import fall2018.csc2017.GameCentre.MovementControllers.MovementController;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
@@ -24,7 +25,7 @@ import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
 public class SimonGameActivity extends AppCompatActivity implements Observer {
 
     private SimonBoardManager simonBoardManager;
-    private MovementControllerSimplePress movementControllerSimon;
+    private SimonMovementController movementControllerSimon;
     private ArrayList<Button> tileButtons;
     private Button replayButton;
     ListIterator<SimonTile> i;
@@ -59,6 +60,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         SimonTile t = simonBoardManager.randomizer();
         simonBoardManager.getGameQueue().add(t);
         simonBoardManager.getGameQueue().addObserver(this);
+        movementControllerSimon.addObserver(this);
         // Observer sets up desired dimensions as well as calls our displayGameQueue function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -115,7 +117,25 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     }
     @Override
     public void update(Observable o, Object arg) {
-        displayGameQueue();
+        if (o instanceof GameQueue) {
+            displayGameQueue();
+
+        }
+        else if(o instanceof MovementController){
+            tileButtons.get(movementControllerSimon.getCurrPosition()).setBackground(ContextCompat.getDrawable(this, R.drawable.lighterblue));
+            gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    tileButtons.get(movementControllerSimon.getCurrPosition()).setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tile_blue));
+
+                    gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+
+
+                }
+            }, 200);
+        }
     }
 
     private void displayGameQueue() {

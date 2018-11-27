@@ -3,13 +3,15 @@ package fall2018.csc2017.GameCentre.MovementControllers;
 import android.content.Context;
 import android.content.Intent;
 
+import java.util.Observable;
+
 import fall2018.csc2017.GameCentre.BoardManager;
 
 /**
  * Movement controller that defines how the boardManager behaves upon the user interracting with the board, i.e physical clicks.
  * @param <T> is the type of boardManager that uses the MovementController.
  */
-public abstract class MovementController<T extends BoardManager> {
+public abstract class MovementController<T extends BoardManager> extends Observable {
     /**
      * type of boardManager used by MovementController
      */
