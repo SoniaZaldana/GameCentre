@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import fall2018.csc2017.GameCentre.BoardManager;
-
+//TODO get Undo to Work
+//TODO get saving multiple files to work
+//TODO get
 public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
     /**
      * How many undos a user has in a game

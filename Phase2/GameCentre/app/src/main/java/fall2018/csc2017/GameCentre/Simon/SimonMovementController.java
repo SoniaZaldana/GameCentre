@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 
 import java.util.ListIterator;
+import java.util.Observable;
 import java.util.Queue;
 import fall2018.csc2017.GameCentre.MoveTracker;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
@@ -21,6 +22,11 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
 
     private ListIterator<SimonTile> iterator;
 
+    public int getCurrPosition() {
+        return currPosition;
+    }
+    private int currPosition = -1;
+
     /**
      * Instantiates a SimonMovementController object
      * @param boardManager the board manager for this instance of the game
@@ -36,6 +42,9 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
 
     @Override
     public void processMove(Context context, int position) {
+        currPosition = position;
+        setChanged();
+        notifyObservers();
         SimonTile tile = getTileInPosition(position);
         if (isCorrectMove(tile)){
             if (isRoundFinished(getBoardManager().getGameQueue())) {
