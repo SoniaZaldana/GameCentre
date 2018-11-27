@@ -146,15 +146,17 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     }
 
     public void display(int[] location) {
-        int row = location[0];
-        int col = location[1];
-        int buttonIndex = (row * dimension) + col;
-        SweeperTile t = sweeperTilesBoard.getTile(row, col);
-        if (t.isBombExploded()) {
-            endGame(buttonIndex);
-        } else {
-            updateTileButtons(buttonIndex, t);
-            gridView.setAdapter(new CustomAdapter(minesButtons, columnWidth, columnHeight));
+        if (location != null) {
+            int row = location[0];
+            int col = location[1];
+            int buttonIndex = (row * dimension) + col;
+            SweeperTile t = sweeperTilesBoard.getTile(row, col);
+            if (t.isBombExploded()) {
+                endGame(buttonIndex);
+            } else {
+                updateTileButtons(buttonIndex, t);
+                gridView.setAdapter(new CustomAdapter(minesButtons, columnWidth, columnHeight));
+            }
         }
         updateTime();
         updateHealth();
