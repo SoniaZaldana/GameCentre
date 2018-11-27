@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -92,7 +94,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         }
     }
 
-    private void createTileGUI(){
+    private void createTileGUI(final GestureDetector orig){
         if(i.hasPrevious()){
             int prevId = i.previous().getId();
             tileButtons.get(prevId).setBackground(ContextCompat.getDrawable(this, R.drawable.tile_blue));
@@ -108,10 +110,13 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    createTileGUI();
+                    createTileGUI(orig);
 
                 }
             }, 1500);
+        }
+        else{
+            gridView.setgDetector(orig);
         }
 
     }
@@ -140,16 +145,22 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
 
     private void displayGameQueue() {
         // so user does not interact with board whilst displaying the game queue
-        gridView.setEnabled(false);
-//        for(Button b: tileButtons){
-//            b.setEnabled(false);
-//        }
+        GestureDetector temp = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
+
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent event) {
+                return true;
+            }
+            @Override
+            public boolean onDown(MotionEvent event) {
+                return true;
+            }
+
+        });
+        GestureDetector orig = gridView.getgDetector();
+        gridView.setgDetector(temp);
         i = simonBoardManager.getGameQueue().iterator();
-        createTileGUI();
-//        for(Button b: tileButtons){
-//            b.setEnabled(true);
-//        }
-        gridView.setEnabled(true);
+        createTileGUI(orig);
 
     }
 
