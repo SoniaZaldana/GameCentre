@@ -1,5 +1,7 @@
 package fall2018.csc2017.GameCentre.MineSweeper;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -11,7 +13,7 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
     /**
      * A timer that increments the time by 1 every second (a game clock)
      */
-    private Timer timer = new Timer();
+    private static Timer timer = new SerializableTimer();
 
     /**
      * The amount of time a time bomb has before exploding
@@ -35,11 +37,12 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
 
     public void startTimer(){
         ScoreTask task = new ScoreTask(this);
-        timer.schedule(task, 1000, 1000);
+        SweeperBoardManager.timer.schedule(task, 1000, 1000);
     }
 
     public void stopTimer(){
-        timer.cancel();
+        SweeperBoardManager.timer.cancel();
+        Log.i("timer", "stop");
     }
 
     public int getBombTime() {
@@ -61,7 +64,7 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
     /**
      * A timer task that increments the timer.
      */
-    private class ScoreTask extends TimerTask {
+    private class ScoreTask extends TimerTask implements Serializable {
 
         /**
          * The boardmanager that uses this timer.

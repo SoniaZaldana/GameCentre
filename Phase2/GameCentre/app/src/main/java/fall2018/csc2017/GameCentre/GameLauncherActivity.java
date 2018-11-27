@@ -112,7 +112,7 @@ public class GameLauncherActivity extends AppCompatActivity implements View.OnCl
                 startActivity(new Intent(this, SimonStartingActivity.class));
                 break;
             case R.id.MinesweeperGame:
-                startActivity(new Intent(this, ChooseDimensionActivitty.class));
+                startActivity(new Intent(this, SweeperStartingActivity.class));
                 break;
         }
     }

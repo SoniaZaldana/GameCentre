@@ -5,12 +5,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
+import java.util.TimerTask;
 
+import fall2018.csc2017.GameCentre.CustomAdapter;
 import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridViewLongPress;
 import fall2018.csc2017.GameCentre.R;
+import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
 
 
 import android.content.Context;
@@ -59,6 +64,9 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         minesTiles = getMinesTiles();
         sweeperTilesBoard = new SweeperTilesBoard(dimension, minesTiles);
         sweeperBoardManager = new SweeperBoardManager(sweeperTilesBoard);
+        startTimer();
+        gridView = findViewById(R.id.grid);
+        gridView.setNumColumns(sweeperBoardManager.getBoard().getDimension());
         movementControllerSweeper = new MovementControllerSweeper(sweeperBoardManager);
         gridView.setMovementController(movementControllerSweeper);
         createTileButtons(this);
@@ -99,6 +107,42 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     protected void onPause(){
         super.onPause();
         sweeperBoardManager.stopTimer();
+
+        this.timer.cancel();
+    }
+
+    public void startTimer(){
+        ScoreTask task = new ScoreTask(sweeperBoardManager);
+        timer.schedule(task, 1000, 1000);
+    }
+
+    /**
+     * A timer task that increments the timer.
+     */
+    private class ScoreTask extends TimerTask {
+
+        /**
+         * The boardmanager that uses this timer.
+         */
+        private SweeperBoardManager manager;
+
+        /**
+         * An task that increments the time.
+         *
+         * @param manager The board manager this is acting on
+         */
+        public ScoreTask(SweeperBoardManager manager){
+            super();
+            this.manager = manager;
+        }
+
+        /**
+         * The task this timer does.
+         */
+        public void run(){
+            this.manager.getBoard().timeIncrement();
+        }
+
     }
 
     public void display(int[] location) {
