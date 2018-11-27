@@ -2,6 +2,7 @@ package fall2018.csc2017.GameCentre.Simon;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -17,12 +18,15 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
+
 import fall2018.csc2017.GameCentre.CustomAdapter;
 import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridViewShortPress;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementController;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
+import fall2018.csc2017.GameCentre.Tile;
 
 public class SimonGameActivity extends AppCompatActivity implements Observer {
 
@@ -55,6 +59,16 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
                 replayButton.setEnabled(false);
             }
         });
+        // create colors for the simontiles
+        TypedArray ta = getResources().obtainTypedArray(R.array.colors);
+        int size = ta.length();
+        //get a random color from resources and assign it to a tile
+        Random random = new Random();
+        for(ArrayList<SimonTile> arr: simonBoardManager.getBoard().getAllTiles()){
+            for(SimonTile t: arr){
+                t.setColor(ta.getResourceId(random.nextInt(size), 0));
+            }
+        }
         createTileButtons(this);
         gridView.setNumColumns(simonBoardManager.getBoard().getDimension());
         movementControllerSimon = new SimonMovementController(simonBoardManager);
@@ -104,7 +118,8 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         //TODO Make sure this works
         if(i.hasNext()){
             final int currId = i.next().getId();
-            tileButtons.get(currId).setBackground(ContextCompat.getDrawable(this, R.drawable.blank_tile));
+            int tileColor = getResources().getColor(simonBoardManager.getBoard().getTile(simonBoardManager.getRow(currId), simonBoardManager.getCol(currId)).getColor(), null);
+            tileButtons.get(currId).setBackgroundColor(tileColor);
             gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -127,7 +142,11 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
 
         }
         else if(o instanceof MovementController){
-            tileButtons.get(movementControllerSimon.getCurrPosition()).setBackground(ContextCompat.getDrawable(this, R.drawable.lighterblue));
+            int currId = movementControllerSimon.getCurrPosition();
+            int currTilecolor = simonBoardManager.getBoard().getTile(simonBoardManager.getRow(currId), simonBoardManager.getCol(currId)).getColor();
+            int tileColor =getResources().getColor(currTilecolor,null);
+            // flash the color of the tile
+            tileButtons.get(currId).setBackgroundColor(tileColor);
             gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {

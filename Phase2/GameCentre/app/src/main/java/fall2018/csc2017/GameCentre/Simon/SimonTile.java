@@ -8,6 +8,7 @@ class SimonTile extends Tile {
      * Instantiates a Simon Tile object with a specific id
      * @param  id
      */
+    private int color;
     SimonTile(int id) {
         super(id);
     }
@@ -18,4 +19,11 @@ class SimonTile extends Tile {
     SimonTile() {
     }
 
+    public void setColor(int color) {
+        this.color = color;
+    }
+
+    public int getColor() {
+        return color;
+    }
 }
