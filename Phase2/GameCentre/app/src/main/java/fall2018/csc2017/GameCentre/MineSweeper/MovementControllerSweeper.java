@@ -130,6 +130,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                         rowColPair = new ArrayList<>();
                         rowColPair.add(r);
                         rowColPair.add(c);
+
                         tilesToCheck.put(t, rowColPair);
                     }
                 }
