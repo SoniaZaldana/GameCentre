@@ -39,21 +39,6 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         if (click == ClicksOnBoard.SHORT) {
             // should be able to press only if the tile is not flagged.
             if (!t.isFlagged()) {
-                if (t.hasBomb()) {// if there's a bomb, finish game
-                    getBoardManager().setBombToExploded(row, col);
-                    //TODO END GAME
-                } else {// display how many bombs are around
-                    checkAround(row, col, t);
-                }
-            }
-        }
-        // If long tap, change the flag.
-        if (click == ClicksOnBoard.LONG) {
-            if (t.isFlagged()) {
-                getBoardManager().setTileToNotFlaged(row, col);
-                flagCounter -= 1;
-                //TODO Disable the flag background
-                //TODO Display new flag counter on screen
                 if (t.hasBomb()) {// if there's a bomb check what bomb
                     if (t.getBombType().equals("small")) { // Takes damage if it's a small bomb
                         //TODO set background to small bomb
@@ -78,7 +63,6 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                             getBoardManager().setBombActive(true);
                         }
                     }
-
                 } else {// display how many bombs are around
                     checkAround(row, col, t);
                     if (isGameFinished()) {
@@ -88,6 +72,15 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                         moveOnToScoreActivity(context, "Minsweeper.txt", ScoreScreenActivity.class, score);
                     }
                 }
+            }
+        }
+        // If long tap, change the flag.
+        if (click == ClicksOnBoard.LONG) {
+            if (t.isFlagged()) {
+                getBoardManager().setTileToNotFlaged(row, col);
+                flagCounter -= 1;
+                //TODO Disable the flag background
+                //TODO Display new flag counter on screen
             }
         }
         // If long tap, change the flag.
