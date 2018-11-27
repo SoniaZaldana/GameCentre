@@ -91,11 +91,11 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     }
 
     private void updateTime(){
-        timerText.setText(sweeperBoardManager.getBoard().getTime());
+        timerText.setText(String.valueOf(sweeperBoardManager.getBoard().getTime()));
     }
 
     private void updateHealth(){
-        healthNumber.setText(sweeperBoardManager.getBoard().getHitPoints());
+        healthNumber.setText(String.valueOf(sweeperBoardManager.getBoard().getHitPoints()));
     }
 
     @Override
