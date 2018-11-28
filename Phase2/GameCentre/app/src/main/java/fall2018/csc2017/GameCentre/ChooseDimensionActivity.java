@@ -42,7 +42,11 @@ public class ChooseDimensionActivity extends AppCompatActivity{
         }
     }
 
-
+    /**
+     * Submits the input (dimension and maximum number of undo) for either Simon or SlidingTIles. It also validates
+     * input is valid using the class GameInputValidator
+     * @param view
+     */
     public void submitInput(View view) {
         String dimensionText = dimensionInput.getText().toString();
         String undoMaxText = undoInput.getText().toString();

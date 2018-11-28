@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.Random;
 import fall2018.csc2017.GameCentre.BoardManager;
 //TODO get Undo to Work
-//TODO get saving multiple files to work
-//TODO get
-public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
+ public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
     /**
      * How many undos a user has in a game
      */
@@ -28,6 +26,11 @@ public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
         this.gameQueue = new GameQueue<>();
     }
 
+    /**
+     * Instantiates a SimonBoardManager using dimension and undo
+     * @param dimension - dimension of the board
+     * @param undo - max undo in the game
+     */
     public SimonBoardManager(int dimension, int undo) {
         this.gameQueue = new GameQueue<>();
         this.undo = undo;
@@ -38,9 +41,22 @@ public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
         }
         SimonTilesBoard simonTilesBoard = new SimonTilesBoard(dimension, tilesList);
         setBoard(simonTilesBoard);
-        //TODO: Add something to do with the undo. create a stack?
     }
 
+    /**
+     * Return this board manager's undo
+     * @return
+     */
+    public int getUndo(){
+        return this.undo;
+    }
+
+    /**
+     * Decrease the max number of undo by 1
+     */
+    public void reduceUndo(){
+        this.undo--;
+    }
 
     /**
      * Returns the game queue for this object
@@ -56,12 +72,13 @@ public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
         for (int x = 0; x != round; x++) {
             score += x;
         }
-        return score * 10;
+        return score * (getBoard().getDimension() * 5);
     }
 
     /**
-     * Returns a random tile from all tiles in order to display it
-     * @return
+     * Returns a random tile from all tiles in order to display it ensuring random tiles are not
+     * repeated as often
+     * @return SimonTile
      */
     public SimonTile randomizer() {
         //get the last tile in the gameQueue
@@ -77,6 +94,10 @@ public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
         }
         return newTile;
     }
+    /**
+     * Returns a random tile from all tiles in order to display it
+     * @return SimonTile
+     */
     private SimonTile randomizerHelper(){
         ArrayList<ArrayList<SimonTile>> simonList = this.getBoard().getAllTiles();
         Random rand = new Random();

@@ -34,6 +34,11 @@ public class MovementControllerSliding extends MovementControllerSimplePress<Sli
         }
     }
 
+    /**
+     * Moves a tile, adds to the number of moves and checks whether game is finished.
+     * @param position - position of tile
+     * @return
+     */
     public boolean moved(int position){
         if (isValidTap(position)) {
             touchMove(position);
@@ -96,6 +101,11 @@ public class MovementControllerSliding extends MovementControllerSimplePress<Sli
         Tile tile = rowOrCol == boundaryCase ? null : getBoardManager().getBoard().getTile(rowToCheck, colToCheck);
         return tile != null && tile.getId() == blankId;
     }
+
+    /**
+     * Checks whether a game has ended
+     * @return
+     */
     private boolean isGameFinished() {
         Iterator<Tile> iterator = getBoardManager().getBoard().iterator();
         boolean inOrder = true;

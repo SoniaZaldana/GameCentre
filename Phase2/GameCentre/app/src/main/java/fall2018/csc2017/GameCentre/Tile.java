@@ -32,10 +32,18 @@ public class Tile implements Comparable<Tile>, Serializable {
     public Tile(int id) {
         this.id = id;
     }
+
+    /**
+     * Default constructor for tile
+     */
     public Tile(){
 
     }
 
+    /**
+     * Set the tile id
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }

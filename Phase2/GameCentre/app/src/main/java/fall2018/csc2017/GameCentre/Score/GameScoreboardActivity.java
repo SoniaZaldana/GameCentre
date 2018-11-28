@@ -9,9 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-
 import java.util.Map;
-
 import fall2018.csc2017.GameCentre.R;
 
 

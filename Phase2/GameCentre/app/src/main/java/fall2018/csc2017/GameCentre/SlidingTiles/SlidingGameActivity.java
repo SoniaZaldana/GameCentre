@@ -63,7 +63,6 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer {
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
      */
-    // Display
     public void display() {
         updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
@@ -208,8 +207,6 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer {
             nextPos++;
         }
     }
-
-
     /**
      * Dispatch onPause() to fragments.
      */

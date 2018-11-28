@@ -16,18 +16,9 @@ import android.view.MotionEvent;
 import android.widget.GridView;
 
 public abstract class GestureDetectGridView extends GridView {
+
+
     public static final int SWIPE_MIN_DISTANCE = 100;
-    public static final int SWIPE_MAX_OFF_PATH = 100;
-    public static final int SWIPE_THRESHOLD_VELOCITY = 100;
-
-    public GestureDetector getgDetector() {
-        return gDetector;
-    }
-
-    public void setgDetector(GestureDetector gDetector) {
-        this.gDetector = gDetector;
-    }
-
     private GestureDetector gDetector;
     private boolean mFlingConfirmed = false;
     private float mTouchX;
@@ -44,6 +35,10 @@ public abstract class GestureDetectGridView extends GridView {
     public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
+    }
+
+    public void setgDetector(GestureDetector gDetector) {
+        this.gDetector = gDetector;
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP) // API 21

@@ -1,6 +1,5 @@
 package fall2018.csc2017.GameCentre.Simon;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -9,37 +8,30 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ListIterator;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
-
 import fall2018.csc2017.GameCentre.CustomAdapter;
 import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridViewShortPress;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementController;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
-import fall2018.csc2017.GameCentre.Tile;
 
 public class SimonGameActivity extends AppCompatActivity implements Observer {
 
     private SimonBoardManager simonBoardManager;
     private SimonMovementController movementControllerSimon;
     private ArrayList<Button> tileButtons;
-    private Button replayButton;
     ListIterator<SimonTile> i;
     private Button saveButton;
-    private String saveFileName;
+    private Button undoButton;
 
 
     // Grid View and calculated column height and width based on device size
@@ -51,29 +43,13 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         super.onCreate(savedInstanceState);
         simonBoardManager = SaveAndLoadBoardManager.loadFromFile(this, SimonStartingActivity.SAVE_FILENAME);
         setContentView(R.layout.activity_simon);
-//        addUndoButtonListener();
+        addUndoButtonListener();
         addSaveButtonListener();
 
         // Add View to activity
         gridView = findViewById(R.id.grid);
-        replayButton = findViewById(R.id.replayButton);
-        replayButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                displayGameQueue();
-                replayButton.setEnabled(false);
-            }
-        });
-        // get list o colors for the simontiles
-        TypedArray ta = getResources().obtainTypedArray(R.array.colors);
-        int size = ta.length();
-        //get a random color from resources and assign it to a tile
-        Random random = new Random();
-        for(ArrayList<SimonTile> arr: simonBoardManager.getBoard().getAllTiles()){
-            for(SimonTile t: arr){
-                t.setColor(ta.getResourceId(random.nextInt(size), 0));
-            }
-        }
+        assignRandomColourToTile();
+
         createTileButtons(this);
         gridView.setNumColumns(simonBoardManager.getBoard().getDimension());
         movementControllerSimon = new SimonMovementController(simonBoardManager);
@@ -101,6 +77,26 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         //TODO check if displayGameQueue() isn't called twice
     }
 
+    /**
+     * Assigns a random colour to a tile from a given list of colors
+     */
+    private void assignRandomColourToTile() {
+        // get list o colors for the simon tiles
+        TypedArray ta = getResources().obtainTypedArray(R.array.colors);
+        int size = ta.length();
+        //get a random color from resources and assign it to a tile
+        Random random = new Random();
+        for(ArrayList<SimonTile> arr: simonBoardManager.getBoard().getAllTiles()){
+            for(SimonTile t: arr){
+                t.setColor(ta.getResourceId(random.nextInt(size), 0));
+            }
+        }
+    }
+
+    /**
+     * Takes the tiles in the board and makes them blue buttons
+     * @param context
+     */
     private void createTileButtons(Context context){
         SimonTilesBoard board = simonBoardManager.getBoard();
         tileButtons = new ArrayList<>();
@@ -113,6 +109,9 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         }
     }
 
+    /**
+     * Displays the tile graphical interface i.e. changing colours as each tile is displayed
+     */
     private void createTileGUI(){
         // set the colour of the previous button in gamequeue back to blue
         // as we've already displayed it
@@ -175,6 +174,9 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         }
     }
 
+    /**
+     * Displays the pattern of random tiles in the game queue
+     */
     private void displayGameQueue() {
         // create an empty movementController to be called when user clicks on tile
         // during display of the gameQueue
@@ -212,8 +214,11 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         finish();
     }
 
+    /**
+     * Activate undo button
+     */
     private void addUndoButtonListener() {
-        Button undoButton = findViewById(R.id.undoButton);
+        undoButton = findViewById(R.id.undoButton);
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -222,9 +227,19 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         });
     }
 
-    //TODO: Need to implement what to do in case of undo
+    /**
+     * Decreases the number of undos left and redisplays the pattern presented to the user
+     * as a second chance to get the pattern right
+     */
     private void undo(){
-
+        if (!(simonBoardManager.getUndo() == 0)){
+            simonBoardManager.reduceUndo();
+            Toast.makeText(this, "One undo used!", Toast.LENGTH_LONG).show();
+            displayGameQueue();
+            if (simonBoardManager.getUndo() == 0){
+                undoButton.setEnabled(false);
+            }
+        }
     }
 
     /**

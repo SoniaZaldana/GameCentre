@@ -16,11 +16,14 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
      */
     private int round;
 
+    /**
+     * iterator for list of simon tiles
+     */
     private ListIterator<SimonTile> iterator;
 
-    public int getCurrPosition() {
-        return currPosition;
-    }
+    /**
+     * represents the current position of a tile
+     */
     private int currPosition = -1;
 
     /**
@@ -61,14 +64,20 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
             }
         }
         else{
-            //This means user lost.
-            int score = getBoardManager().calculateScore(this.round);
-            moveOnToScoreActivity(context, "Simon.txt", ScoreScreenActivity.class, score);
+            //This means the user lost
+                int score = getBoardManager().calculateScore(this.round);
+                moveOnToScoreActivity(context, "Simon.txt", ScoreScreenActivity.class, score);
         }
 
     }
 
-    //I think I have implemented this correctly
+    /**
+     * Returns the current position attribute
+     * @return integer
+     */
+    public int getCurrPosition() {
+        return currPosition;
+    }
 
     /**
      * Returns whether the tile the user clicked matches the tile in the queue
@@ -83,8 +92,6 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
         else{
             return false;
         }
-
-
     }
 
     /**

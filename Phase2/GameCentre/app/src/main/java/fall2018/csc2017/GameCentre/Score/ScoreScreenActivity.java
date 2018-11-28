@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import fall2018.csc2017.GameCentre.ChooseDimensionActivity;
 import fall2018.csc2017.GameCentre.GameLauncherActivity;
 import fall2018.csc2017.GameCentre.R;
@@ -20,7 +19,6 @@ import fall2018.csc2017.GameCentre.SharedPreferenceManager;
  * The end screen after the puzzle is solved
  */
 public class ScoreScreenActivity extends AppCompatActivity implements View.OnClickListener{
-    //TODO scorescreen should have a button to let you restart the game
     /**
      * score for the game
      */
@@ -33,6 +31,10 @@ public class ScoreScreenActivity extends AppCompatActivity implements View.OnCli
      * name of the game
      */
     String gameFile;
+
+    /**
+     * View elements
+     */
     TextView scoreValue;
     TextView highScore;
     Button menuButton;
@@ -45,17 +47,17 @@ public class ScoreScreenActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_score);
         scoreValue = findViewById(R.id.ScoreValueLabel);
         highScore = findViewById(R.id.HighScoreLabel);
-        menuButton = findViewById(R.id.MainMenuButton);
-        newGameButton = findViewById(R.id.NewGameButton);
-        newGameButton.setOnClickListener(this);
-        menuButton.setOnClickListener(this);
+        addButtonListeners();
 
-
+        //Get current user
         user = SharedPreferenceManager.getSharedValue(this, "sharedUser", "thisUser");
+        // Get game file for this game
         gameFile = getIntent().getStringExtra("Game");
+        // Get score
         score = getIntent().getIntExtra("Score", 0);
         scoreValue.setText(Integer.toString(score));
 
+        // Display if the acquired score is a high score
         if (TextFileManager.isHighScore(this, gameFile, user, score))
             highScore.setText("New High Score");
         else
@@ -66,6 +68,13 @@ public class ScoreScreenActivity extends AppCompatActivity implements View.OnCli
         // Saving score in specific user score file
         String gameName = gameFile.substring(0, gameFile.indexOf('.'));
         TextFileManager.saveToFile(this, user + "Score.txt", gameName, score);
+    }
+
+    private void addButtonListeners() {
+        menuButton = findViewById(R.id.MainMenuButton);
+        newGameButton = findViewById(R.id.NewGameButton);
+        newGameButton.setOnClickListener(this);
+        menuButton.setOnClickListener(this);
     }
 
     @Override

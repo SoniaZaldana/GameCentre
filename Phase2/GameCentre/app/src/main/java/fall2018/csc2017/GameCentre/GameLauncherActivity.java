@@ -42,6 +42,9 @@ public class GameLauncherActivity extends AppCompatActivity implements View.OnCl
         createFiles(user);
     }
 
+    /**
+     * Set up all view elements associated with the activity
+     */
     private void setUpVisualComponents() {
         android.support.v7.widget.Toolbar myToolbar = findViewById(R.id.toolbar);
         myToolbar.setLogo(R.drawable.ic_launcher_foreground);

@@ -31,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     /**
-     * Actions required to set up labels and buttons
+     * Sets up view elements associated with this class
      */
     private void setUpVisuals() {
         usernameText = findViewById(R.id.username);
@@ -82,6 +82,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+    /**
+     * Plays a the "declining access" or "wrong credentials" sound.
+     */
     private void wrongSound() {
         final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.incorrect);
         mp.start();

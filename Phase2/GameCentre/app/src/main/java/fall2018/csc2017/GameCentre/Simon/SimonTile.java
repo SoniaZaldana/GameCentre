@@ -5,10 +5,14 @@ import fall2018.csc2017.GameCentre.Tile;
 class SimonTile extends Tile {
 
     /**
+     * This tile's color
+      */
+    private int color;
+
+    /**
      * Instantiates a Simon Tile object with a specific id
      * @param  id
      */
-    private int color;
     SimonTile(int id) {
         super(id);
     }
@@ -19,10 +23,18 @@ class SimonTile extends Tile {
     SimonTile() {
     }
 
+    /**
+     * Sets the tile's color
+     * @param color - integer representing color
+     */
     public void setColor(int color) {
         this.color = color;
     }
 
+    /**
+     * Returns the tile's color
+     * @return integer
+     */
     public int getColor() {
         return color;
     }
