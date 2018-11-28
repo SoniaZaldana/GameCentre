@@ -44,7 +44,7 @@ public static String SWEEPER_SAVE_FILENAME;
     @Override
     protected void onResume() {
         super.onResume();
-        //sweeperBoardManager = SaveAndLoadBoardManager.loadFromFile(this, SWEEPER_SAVE_FILENAME);
+        sweeperBoardManager = SaveAndLoadBoardManager.loadFromFile(this, SWEEPER_SAVE_FILENAME);
     }
 
     /**

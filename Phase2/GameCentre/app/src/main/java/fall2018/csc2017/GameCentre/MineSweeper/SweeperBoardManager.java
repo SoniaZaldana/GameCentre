@@ -16,23 +16,17 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
     private static Timer timer = new SerializableTimer();
 
     /**
-     * The amount of time a time bomb has before exploding
-     */
-    private int bombTime;
-
-    /**
      * Whether or not there's a timer bomb active
      */
     private boolean bombActive = false;
 
     public SweeperBoardManager(SweeperTilesBoard b){
         super(b);
-        this.bombTime = 10;
     }
 
     @Override
     public int calculateScore(int mines) {
-        return (mines / getBoard().getTime());
+        return mines*(10000 - getBoard().getTime());
     }
 
     public void startTimer(){
@@ -42,20 +36,13 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
 
     public void stopTimer(){
         SweeperBoardManager.timer.cancel();
-        Log.i("timer", "stop");
     }
 
-    public int getBombTime() {
-        return bombTime;
-    }
 
     public boolean isBombActive() {
         return bombActive;
     }
 
-    public void lowerBombTime(){
-        this.bombTime--;
-    }
 
     public void setBombActive(boolean active){
         this.bombActive = active;
