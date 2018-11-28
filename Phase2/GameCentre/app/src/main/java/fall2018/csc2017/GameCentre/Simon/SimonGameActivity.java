@@ -50,13 +50,6 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         super.onCreate(savedInstanceState);
         simonBoardManager = SaveAndLoadBoardManager.loadFromFile(this, SimonStartingActivity.SAVE_FILENAME);
         setContentView(R.layout.activity_simon);
-//        saveFileName = getIntent().getStringExtra("fileName");
-//        if (!saveFileName.equals(null)) {
-//            saveFileName = saveFileName.concat(SimonStartingActivity.SAVE_FILENAME);
-//            SaveAndLoadBoardManager.saveToFile(this, saveFileName, simonBoardManager);
-//        }
-
-
 //        addUndoButtonListener();
         addSaveButtonListener();
 
@@ -234,22 +227,12 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(simonGameActivity, SavePopup.class), 1);
-
-//                    startActivity(new Intent(simonGameActivity, SavePopup.class));
-////
-//                SaveAndLoadBoardManager.saveToFile(simonGameActivity, SimonStartingActivity.SAVE_FILENAME, simonBoardManager);
-//                makeToastSavedText();
+                SaveAndLoadBoardManager.saveToFile(simonGameActivity, SimonStartingActivity.SAVE_FILENAME, simonBoardManager);
+                makeToastSavedText();
             }
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1 && resultCode == Activity.RESULT_OK){
-                saveFileName = data.getStringExtra("fileName");
-            }
-        }
 
 
     /**

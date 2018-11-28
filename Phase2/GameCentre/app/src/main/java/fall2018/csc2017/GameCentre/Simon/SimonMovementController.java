@@ -12,10 +12,6 @@ import fall2018.csc2017.GameCentre.Score.ScoreScreenActivity;
 
 public class SimonMovementController extends MovementControllerSimplePress<SimonBoardManager> {
     /**
-     * Tracks the number of moves
-     */
-    private MoveTracker moves;
-    /**
      * Tracks the round the user is currently in
      */
     private int round;
@@ -32,7 +28,6 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
      * @param boardManager the board manager for this instance of the game
      */
     SimonMovementController(SimonBoardManager boardManager){
-        this.moves = new MoveTracker(boardManager.getScore());
         this.round = 1;
         setBoardManager(boardManager);
         GameQueue<SimonTile> queue = getBoardManager().getGameQueue();
@@ -63,12 +58,11 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
 
                     }
                 }, 1000);
-
             }
         }
         else{
             //This means user lost.
-            int score = getBoardManager().calculateScore(moves.getMoves());
+            int score = getBoardManager().calculateScore(this.round);
             moveOnToScoreActivity(context, "Simon.txt", ScoreScreenActivity.class, score);
         }
 
@@ -93,7 +87,6 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
 
     }
 
-    //I think I have also successfully implemented. Have to test.
 
     /**
      * Determines whether a round is finished. By our desing, this means the queue has been emptied.
@@ -101,7 +94,6 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
      * @return boolean round is finished
      */
     boolean isRoundFinished(GameQueue gameQueue){
-//        return gameQueue.isEmpty();
         return !iterator.hasNext();
     }
 

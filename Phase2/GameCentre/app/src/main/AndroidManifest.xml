@@ -29,7 +29,6 @@
         <activity android:name=".Simon.SimonGameActivity" />
         <activity android:name=".Simon.SimonStartingActivity" />
         <activity android:name=".ChooseDimensionActivity" />
-        <activity android:name=".Simon.SavePopup"></activity>
     </application>
 
 </manifest>

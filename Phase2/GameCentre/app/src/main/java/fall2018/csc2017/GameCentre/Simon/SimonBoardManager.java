@@ -51,8 +51,12 @@ public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
     }
 
     @Override
-    public int calculateScore(int moves) {
-        return moves * 10;
+    public int calculateScore(int round) {
+        int score = 0;
+        for (int x = 0; x != round; x++) {
+            score += x;
+        }
+        return score * 10;
     }
 
     /**
