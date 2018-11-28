@@ -107,7 +107,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     protected void onPause(){
         super.onPause();
         sweeperBoardManager.stopTimer();
-        MovementControllerSweeper.getTimer().cancel();
+        movementControllerSweeper.getTimer().cancel();
         this.timer.cancel();
     }
 

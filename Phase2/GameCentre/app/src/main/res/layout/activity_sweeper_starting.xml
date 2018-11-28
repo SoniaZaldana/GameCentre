@@ -11,10 +11,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
+        android:layout_marginStart="102dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:text="Welcome To MineSweeper"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:layout_marginBottom="20dp"/>
+        android:text="Welcome To MineSweeper \n A game where you flag mines."
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
     <LinearLayout
         android:layout_width="match_parent"

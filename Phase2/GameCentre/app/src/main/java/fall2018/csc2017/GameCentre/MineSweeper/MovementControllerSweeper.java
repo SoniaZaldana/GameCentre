@@ -23,7 +23,7 @@ import fall2018.csc2017.GameCentre.Tile;
 public class MovementControllerSweeper extends MovementControllerComplexPress<SweeperBoardManager> {
     private int flagCounter;
 
-    private static Timer timer = new Timer();
+    private Timer timer = new Timer();
 
     public MovementControllerSweeper(SweeperBoardManager boardManager) {
         setBoardManager(boardManager);
@@ -69,9 +69,15 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                     checkAround(row, col, t);
                     if (isGameFinished()) {
                         timer.cancel();
+                        int mines = 0;
+                        for (SweeperTile tile : getBoardManager().getBoard()) {
+                            if (tile.hasBomb()){
+                                mines++;
+                            }
+                        }
                         Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
-                        int score = getBoardManager().calculateScore(0);
-                        moveOnToScoreActivity(context, "Minsweeper.txt", ScoreScreenActivity.class, score);
+                        int score = getBoardManager().calculateScore(mines);
+                        moveOnToScoreActivity(context, "Minesweeper.txt", ScoreScreenActivity.class, score);
                     }
                 }
             }
@@ -214,7 +220,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         return gameFinished;
     }
 
-    public static Timer getTimer(){
+    public Timer getTimer(){
         return timer;
     }
 
