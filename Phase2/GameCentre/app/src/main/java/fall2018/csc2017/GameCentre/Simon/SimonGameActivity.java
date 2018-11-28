@@ -25,6 +25,7 @@ import java.util.Random;
 import fall2018.csc2017.GameCentre.CustomAdapter;
 import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridViewShortPress;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementController;
+import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
 import fall2018.csc2017.GameCentre.Tile;
