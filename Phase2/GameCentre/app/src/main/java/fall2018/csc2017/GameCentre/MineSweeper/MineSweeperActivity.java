@@ -149,7 +149,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         if (location != null) {
             int row = location[0];
             int col = location[1];
-            int buttonIndex = (row * dimension) + col;
+            final int buttonIndex = (row * dimension) + col;
             SweeperTile t = sweeperTilesBoard.getTile(row, col);
             if (t.isBombExploded()) {
                 if (t.getBombType().equals("big")){
@@ -162,6 +162,15 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
                     }
                 } else if (t.getBombType().equals("timed")){
                     minesButtons.get(buttonIndex).setText(String.valueOf(sweeperBoardManager.getBoard().getBombTime()));
+                    if (sweeperBoardManager.getBoard().getBombTime() == 0){
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                endGame(buttonIndex);
+                            }
+                        });
+
+                    }
                 }
             } else {
                 updateTileButtons(buttonIndex, t);
@@ -169,7 +178,8 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
             }
         }
         if (sweeperBoardManager.getBoard().getBombTime() == 0){
-            movementControllerSweeper.processLoss(this);
+            //movementControllerSweeper.processLoss(this);
+
         }
         updateTime();
         updateHealth();

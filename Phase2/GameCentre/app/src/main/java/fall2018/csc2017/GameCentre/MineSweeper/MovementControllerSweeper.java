@@ -251,7 +251,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         public void run() {
             if (movementControllerSweeper.getBoardManager().getBoard().getBombTime() == 0) {
                 movementControllerSweeper.getBoardManager().setBombToExploded(row, col);
-                //this.movementControllerSweeper.processLoss(context);
+                this.movementControllerSweeper.processLoss(context);
             } else {
                 movementControllerSweeper.getBoardManager().getBoard().lowerBombTime(row, col);
             }
