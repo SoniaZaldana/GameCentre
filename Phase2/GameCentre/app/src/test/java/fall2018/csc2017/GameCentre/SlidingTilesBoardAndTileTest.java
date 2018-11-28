@@ -138,6 +138,12 @@ public class SlidingTilesBoardAndTileTest {
         setUpCorrect(5,3 );
         assertEquals(9, boardManager.getBoard().getBlankId());
     }
+    @Test
+    public void testStringReturn(){
+        setUpCorrect(2,2 );
+        String expectedResult = "tiles = [1, 2, 3, 4]";
+        assertEquals(expectedResult,boardManager.getBoard().toString());
+    }
 
 
 }

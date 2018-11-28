@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.Observable;
 import java.util.Observer;
@@ -60,7 +61,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
                 replayButton.setEnabled(false);
             }
         });
-        // create colors for the simontiles
+        // get list o colors for the simontiles
         TypedArray ta = getResources().obtainTypedArray(R.array.colors);
         int size = ta.length();
         //get a random color from resources and assign it to a tile
@@ -110,13 +111,15 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     }
 
     private void createTileGUI(){
+        // set the colour of the previous button in gamequeue back to blue
+        // as we've already displayed it
         if(i.hasPrevious()){
             int prevId = i.previous().getId();
             tileButtons.get(prevId).setBackground(ContextCompat.getDrawable(this, R.drawable.tile_blue));
             gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
             i.next();
         }
-        //TODO Make sure this works
+        // highlight current item in the gamequeue
         if(i.hasNext()){
             final int currId = i.next().getId();
             int tileColor = getResources().getColor(simonBoardManager.getBoard().getTile(simonBoardManager.getRow(currId), simonBoardManager.getCol(currId)).getColor(), null);
@@ -129,7 +132,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
                     createTileGUI();
 
                 }
-            }, 1500);
+            }, 1500 - (movementControllerSimon.getRound()*20));
         }
         else{
             gridView.setMovementController(movementControllerSimon);
@@ -138,19 +141,24 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     }
     @Override
     public void update(Observable o, Object arg) {
+        // if gamequeue updated, then display the stack.
         if (o instanceof GameQueue) {
             displayGameQueue();
 
         }
+        // if a new button pressed, add appropriate resources(highlight, sound)
         else if(o instanceof MovementController){
             int currId = movementControllerSimon.getCurrPosition();
             int currTilecolor = simonBoardManager.getBoard().getTile(simonBoardManager.getRow(currId), simonBoardManager.getCol(currId)).getColor();
             int tileColor =getResources().getColor(currTilecolor,null);
             // flash the color of the tile
             tileButtons.get(currId).setBackgroundColor(tileColor);
+            // make a sound
             final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.tap);
             mp.start();
+            // update display
             gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+            // set the button back to original colour after 200ms
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -173,6 +181,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
             }
         };
         gridView.setMovementController(m);
+        // restart the iterator, as we are displaying the queue from the start
         i = simonBoardManager.getGameQueue().iterator();
         createTileGUI();
 

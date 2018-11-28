@@ -14,6 +14,10 @@ public class UndoStack implements Serializable {
      */
     private ArrayList items;
 
+    public int getMaxSize() {
+        return maxSize;
+    }
+
     /**
      * The size of a stack.
      */
