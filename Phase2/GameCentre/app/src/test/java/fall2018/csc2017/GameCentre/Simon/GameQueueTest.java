@@ -42,15 +42,6 @@ public class GameQueueTest {
         queue.add(t1);
         queue.add(t2);
         assertEquals(1, queue.get(1).getId());
-        final SimonBoardManager sbm = new SimonBoardManager(3,2 );
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                SimonTile randomTile = sbm.randomizer();
-                sbm.getGameQueue().add(randomTile);
-            }
-        }, 1000);
     }
 
     @Test

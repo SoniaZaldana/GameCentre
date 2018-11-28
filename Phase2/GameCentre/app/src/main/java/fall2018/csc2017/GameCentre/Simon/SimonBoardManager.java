@@ -63,7 +63,7 @@ public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
      * Returns a random tile from all tiles in order to display it
      * @return
      */
-    SimonTile randomizer() {
+    public SimonTile randomizer() {
         //get the last tile in the gameQueue
         //TODO test if this works
         SimonTile newTile = randomizerHelper();
@@ -77,7 +77,7 @@ public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
         }
         return newTile;
     }
-    SimonTile randomizerHelper(){
+    private SimonTile randomizerHelper(){
         ArrayList<ArrayList<SimonTile>> simonList = this.getBoard().getAllTiles();
         Random rand = new Random();
         int num = 0;
@@ -91,6 +91,12 @@ public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
             index++;
         }
         return simonList.get(index).get(randNum);
+    }
+    public SimonTile getTileInPosition(int position) {
+        int row = getRow(position);
+        int col = getCol(position);
+        SimonTile tile = getBoard().getTile(row,col);
+        return tile;
     }
 
 }
