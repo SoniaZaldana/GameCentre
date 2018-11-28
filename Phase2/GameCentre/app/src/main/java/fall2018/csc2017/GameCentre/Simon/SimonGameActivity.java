@@ -132,7 +132,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
                     createTileGUI();
 
                 }
-            }, 1500);
+            }, 1500 - (movementControllerSimon.getRound()*20));
         }
         else{
             gridView.setMovementController(movementControllerSimon);

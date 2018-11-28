@@ -57,7 +57,7 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
                         getBoardManager().getGameQueue().add(randomTile);
 
                     }
-                }, 1000);
+                }, 1000-round*20);
             }
         }
         else{
@@ -87,6 +87,13 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
 
     }
 
+    /**
+     *
+     * @return the round the user is in
+     */
+    public int getRound() {
+        return round;
+    }
 
     /**
      * Determines whether a round is finished. By our desing, this means the queue has been emptied.
