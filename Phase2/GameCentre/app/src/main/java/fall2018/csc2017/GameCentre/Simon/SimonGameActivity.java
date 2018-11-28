@@ -34,7 +34,8 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     private Button replayButton;
     ListIterator<SimonTile> i;
     private Button saveButton;
-    private TextView undoCount;
+    private Button undoButton;
+//    private TextView undoCount;
 
 
     // Grid View and calculated column height and width based on device size
@@ -46,14 +47,14 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         super.onCreate(savedInstanceState);
         simonBoardManager = SaveAndLoadBoardManager.loadFromFile(this, SimonStartingActivity.SAVE_FILENAME);
         setContentView(R.layout.activity_simon);
-//        addUndoButtonListener();
+        addUndoButtonListener();
         addSaveButtonListener();
 
         // Add View to activity
         gridView = findViewById(R.id.grid);
         replayButton = findViewById(R.id.replayButton);
-        undoCount = findViewById(R.id.undoCount);
-        undoCount.setText("Undo Count" + simonBoardManager.getUndo());
+//        undoCount = findViewById(R.id.undoCount);
+//        undoCount.setText("Undo Count" + simonBoardManager.getUndo());
         replayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -210,7 +211,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     }
 
     private void addUndoButtonListener() {
-        Button undoButton = findViewById(R.id.undoButton);
+        undoButton = findViewById(R.id.undoButton);
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -221,6 +222,14 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
 
     //TODO: Need to implement what to do in case of undo
     private void undo(){
+        if (!(simonBoardManager.getUndo() == 0)){
+            simonBoardManager.reduceUndo();
+            displayGameQueue();
+            if (simonBoardManager.getUndo() == 0){
+                undoButton.setEnabled(false);
+            }
+        }
+
 
     }
 
