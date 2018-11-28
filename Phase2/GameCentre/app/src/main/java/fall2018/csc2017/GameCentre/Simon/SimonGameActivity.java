@@ -11,10 +11,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ListIterator;
 import java.util.Observable;
 import java.util.Observer;
@@ -31,11 +29,9 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     private SimonBoardManager simonBoardManager;
     private SimonMovementController movementControllerSimon;
     private ArrayList<Button> tileButtons;
-    private Button replayButton;
     ListIterator<SimonTile> i;
     private Button saveButton;
     private Button undoButton;
-//    private TextView undoCount;
 
 
     // Grid View and calculated column height and width based on device size
@@ -52,16 +48,6 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
 
         // Add View to activity
         gridView = findViewById(R.id.grid);
-        replayButton = findViewById(R.id.replayButton);
-//        undoCount = findViewById(R.id.undoCount);
-//        undoCount.setText("Undo Count" + simonBoardManager.getUndo());
-        replayButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                displayGameQueue();
-                replayButton.setEnabled(false);
-            }
-        });
         // get list o colors for the simontiles
         TypedArray ta = getResources().obtainTypedArray(R.array.colors);
         int size = ta.length();
