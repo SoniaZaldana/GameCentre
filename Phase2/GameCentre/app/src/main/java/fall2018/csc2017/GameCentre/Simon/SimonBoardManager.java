@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.Random;
 import fall2018.csc2017.GameCentre.BoardManager;
 //TODO get Undo to Work
-//TODO get saving multiple files to work
-//TODO get
-public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
+ public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
     /**
      * How many undos a user has in a game
      */
@@ -38,9 +36,15 @@ public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
         }
         SimonTilesBoard simonTilesBoard = new SimonTilesBoard(dimension, tilesList);
         setBoard(simonTilesBoard);
-        //TODO: Add something to do with the undo. create a stack?
     }
 
+    public int getUndo(){
+        return this.undo;
+    }
+
+    public void reduceUndo(){
+        this.undo--;
+    }
 
     /**
      * Returns the game queue for this object

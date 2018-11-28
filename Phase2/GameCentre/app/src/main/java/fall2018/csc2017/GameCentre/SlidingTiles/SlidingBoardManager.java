@@ -22,13 +22,6 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
      * Manage a board that has been pre-populated.
      *
      */
-//    SlidingBoardManager(SlidingTilesBoard board) {
-//        this.board = board;
-//        this.undoStack = new UndoStack(3);
-//    }
-    UndoStack getUndoStack(){
-        return undoStack;
-    }
 
     /**
      * Manage a new shuffled board.
@@ -37,6 +30,11 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
         super(board);
         this.undoStack = new UndoStack(undoMax);
     }
+
+    UndoStack getUndoStack(){
+        return undoStack;
+    }
+
     public SlidingBoardManager(int dimension, int undoMax){
         // Create the tiles
         List<Tile> tilesList = new ArrayList<>();

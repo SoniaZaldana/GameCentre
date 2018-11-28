@@ -1,6 +1,5 @@
 package fall2018.csc2017.GameCentre.Simon;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -9,26 +8,22 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
-
 import fall2018.csc2017.GameCentre.CustomAdapter;
 import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridViewShortPress;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementController;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
-import fall2018.csc2017.GameCentre.Tile;
 
 public class SimonGameActivity extends AppCompatActivity implements Observer {
 
@@ -38,7 +33,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     private Button replayButton;
     ListIterator<SimonTile> i;
     private Button saveButton;
-    private String saveFileName;
+    private TextView undoCount;
 
 
     // Grid View and calculated column height and width based on device size
@@ -56,6 +51,8 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         // Add View to activity
         gridView = findViewById(R.id.grid);
         replayButton = findViewById(R.id.replayButton);
+        undoCount = findViewById(R.id.undoCount);
+        undoCount.setText("Undo Count" + simonBoardManager.getUndo());
         replayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
