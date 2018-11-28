@@ -57,6 +57,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                         if (t.getBombType().equals("timed")) {
                             // Start a timer, game ends after 10 seconds.
                             //TODO set background to CLOCK
+                            getBoardManager().setBombToExploded(row, col);
                             if (!getBoardManager().isBombActive()) {
                                 BombTask task = new BombTask(this, context, row, col);
                                 timer.schedule(task, 1000, 1000);
@@ -107,7 +108,9 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
      * Helper function for when the player loses.
      */
     public void processLoss(Context context) {
-        Toast.makeText(context, "YOU LOSE!", Toast.LENGTH_SHORT).show();
+        if (!getBoardManager().isBombActive()) {
+            Toast.makeText(context, "YOU LOSE!", Toast.LENGTH_SHORT).show();
+        }
         moveOnToScoreActivity(context, "Minesweeper.txt", ScoreScreenActivity.class, 0);
     }
 
@@ -248,7 +251,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         public void run() {
             if (movementControllerSweeper.getBoardManager().getBoard().getBombTime() == 0) {
                 movementControllerSweeper.getBoardManager().setBombToExploded(row, col);
-                this.movementControllerSweeper.processLoss(context);
+                //this.movementControllerSweeper.processLoss(context);
             } else {
                 movementControllerSweeper.getBoardManager().getBoard().lowerBombTime(row, col);
             }

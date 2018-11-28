@@ -162,14 +162,14 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
                     }
                 } else if (t.getBombType().equals("timed")){
                     minesButtons.get(buttonIndex).setText(String.valueOf(sweeperBoardManager.getBoard().getBombTime()));
-                    if (sweeperBoardManager.getBoard().getBombTime() == 0){
-                        endGame(buttonIndex);
-                    }
                 }
             } else {
                 updateTileButtons(buttonIndex, t);
                 gridView.setAdapter(new CustomAdapter(minesButtons, columnWidth, columnHeight));
             }
+        }
+        if (sweeperBoardManager.getBoard().getBombTime() == 0){
+            movementControllerSweeper.processLoss(this);
         }
         updateTime();
         updateHealth();
