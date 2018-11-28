@@ -60,7 +60,7 @@ import fall2018.csc2017.GameCentre.BoardManager;
         for (int x = 0; x != round; x++) {
             score += x;
         }
-        return score * 10;
+        return score * (getBoard().getDimension() * 5);
     }
 
     /**

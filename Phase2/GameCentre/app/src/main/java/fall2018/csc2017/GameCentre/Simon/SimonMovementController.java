@@ -61,18 +61,9 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
             }
         }
         else{
-            //This means the user got the wrong move
-            // If user still has undo's left, they can keep playing
-            if (getBoardManager().getUndo() != 0) {
-                getBoardManager().reduceUndo();
-
-            }
-            // Player is out of undo's
-            else{
+            //This means the user lost
                 int score = getBoardManager().calculateScore(this.round);
                 moveOnToScoreActivity(context, "Simon.txt", ScoreScreenActivity.class, score);
-            }
-
         }
 
     }

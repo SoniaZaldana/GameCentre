@@ -48,16 +48,8 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
 
         // Add View to activity
         gridView = findViewById(R.id.grid);
-        // get list o colors for the simontiles
-        TypedArray ta = getResources().obtainTypedArray(R.array.colors);
-        int size = ta.length();
-        //get a random color from resources and assign it to a tile
-        Random random = new Random();
-        for(ArrayList<SimonTile> arr: simonBoardManager.getBoard().getAllTiles()){
-            for(SimonTile t: arr){
-                t.setColor(ta.getResourceId(random.nextInt(size), 0));
-            }
-        }
+        assignRandomColourToTile();
+
         createTileButtons(this);
         gridView.setNumColumns(simonBoardManager.getBoard().getDimension());
         movementControllerSimon = new SimonMovementController(simonBoardManager);
@@ -83,6 +75,19 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
                     }
                 });
         //TODO check if displayGameQueue() isn't called twice
+    }
+
+    private void assignRandomColourToTile() {
+        // get list o colors for the simon tiles
+        TypedArray ta = getResources().obtainTypedArray(R.array.colors);
+        int size = ta.length();
+        //get a random color from resources and assign it to a tile
+        Random random = new Random();
+        for(ArrayList<SimonTile> arr: simonBoardManager.getBoard().getAllTiles()){
+            for(SimonTile t: arr){
+                t.setColor(ta.getResourceId(random.nextInt(size), 0));
+            }
+        }
     }
 
     private void createTileButtons(Context context){
