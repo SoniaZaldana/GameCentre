@@ -3,6 +3,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GameInputValidator {
+    /**
+     * Returns a hashmap with a key denoting if an input is valid and a matching value denoting
+     * why this value might or might not be valid
+     * @param dimensionSize - dimension of the board
+     * @param undoMaxText - maximum number of undos
+     * @return Hashmap
+     */
     public static Map<Boolean, String> processInput(String dimensionSize, String undoMaxText) {
         Map<Boolean, String> validator = new HashMap<>();
         // Check dimension

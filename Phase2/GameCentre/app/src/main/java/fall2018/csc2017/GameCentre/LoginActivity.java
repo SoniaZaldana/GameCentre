@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     /**
-     * Sets up the visuals for the activities such as buttons and labels
+     * Sets up the view components associated with this activity
      */
     private void setUpVisuals() {
         usernameText = findViewById(R.id.username);

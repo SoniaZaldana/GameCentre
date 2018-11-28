@@ -32,7 +32,6 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
      */
-    // Display
     public void display() {
         updateTime();
         updateHealth();

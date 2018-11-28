@@ -31,9 +31,7 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
         this.undoStack = new UndoStack(undoMax);
     }
 
-    UndoStack getUndoStack(){
-        return undoStack;
-    }
+
 
     public SlidingBoardManager(int dimension, int undoMax){
         // Create the tiles
@@ -47,6 +45,14 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
         setBoard(slidingTilesBoard);
         this.undoStack = new UndoStack(undoMax);
 
+    }
+
+    /**
+     * Returns this board's undostakc
+     * @return
+     */
+    UndoStack getUndoStack(){
+        return this.undoStack;
     }
 
     /**

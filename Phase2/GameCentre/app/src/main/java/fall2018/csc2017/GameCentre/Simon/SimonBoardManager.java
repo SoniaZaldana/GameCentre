@@ -26,6 +26,11 @@ import fall2018.csc2017.GameCentre.BoardManager;
         this.gameQueue = new GameQueue<>();
     }
 
+    /**
+     * Instantiates a SimonBoardManager using dimension and undo
+     * @param dimension - dimension of the board
+     * @param undo - max undo in the game
+     */
     public SimonBoardManager(int dimension, int undo) {
         this.gameQueue = new GameQueue<>();
         this.undo = undo;
@@ -38,10 +43,17 @@ import fall2018.csc2017.GameCentre.BoardManager;
         setBoard(simonTilesBoard);
     }
 
+    /**
+     * Return this board manager's undo
+     * @return
+     */
     public int getUndo(){
         return this.undo;
     }
 
+    /**
+     * Decrease the max number of undo by 1
+     */
     public void reduceUndo(){
         this.undo--;
     }
@@ -64,8 +76,9 @@ import fall2018.csc2017.GameCentre.BoardManager;
     }
 
     /**
-     * Returns a random tile from all tiles in order to display it
-     * @return
+     * Returns a random tile from all tiles in order to display it ensuring random tiles are not
+     * repeated as often
+     * @return SimonTile
      */
     SimonTile randomizer() {
         //get the last tile in the gameQueue
@@ -81,6 +94,11 @@ import fall2018.csc2017.GameCentre.BoardManager;
         }
         return newTile;
     }
+
+    /**
+     * Returns a random tile from all tiles in order to display it
+     * @return SimonTile
+     */
     SimonTile randomizerHelper(){
         ArrayList<ArrayList<SimonTile>> simonList = this.getBoard().getAllTiles();
         Random rand = new Random();

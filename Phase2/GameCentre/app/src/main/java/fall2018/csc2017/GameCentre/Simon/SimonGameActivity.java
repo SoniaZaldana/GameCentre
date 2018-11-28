@@ -77,6 +77,9 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         //TODO check if displayGameQueue() isn't called twice
     }
 
+    /**
+     * Assigns a random colour to a tile from a given list of colors
+     */
     private void assignRandomColourToTile() {
         // get list o colors for the simon tiles
         TypedArray ta = getResources().obtainTypedArray(R.array.colors);
@@ -90,6 +93,10 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         }
     }
 
+    /**
+     * Takes the tiles in the board and makes them blue buttons
+     * @param context
+     */
     private void createTileButtons(Context context){
         SimonTilesBoard board = simonBoardManager.getBoard();
         tileButtons = new ArrayList<>();
@@ -102,6 +109,9 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         }
     }
 
+    /**
+     * Displays the tile graphical interface i.e. changing colours as each tile is displayed
+     */
     private void createTileGUI(){
         // set the colour of the previous button in gamequeue back to blue
         // as we've already displayed it
@@ -164,6 +174,9 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         }
     }
 
+    /**
+     * Displays the pattern of random tiles in the game queue
+     */
     private void displayGameQueue() {
         // create an empty movementController to be called when user clicks on tile
         // during display of the gameQueue
@@ -201,6 +214,9 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         finish();
     }
 
+    /**
+     * Activate undo button
+     */
     private void addUndoButtonListener() {
         undoButton = findViewById(R.id.undoButton);
         undoButton.setOnClickListener(new View.OnClickListener() {
@@ -211,17 +227,19 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         });
     }
 
-    //TODO: Need to implement what to do in case of undo
+    /**
+     * Decreases the number of undos left and redisplays the pattern presented to the user
+     * as a second chance to get the pattern right
+     */
     private void undo(){
         if (!(simonBoardManager.getUndo() == 0)){
             simonBoardManager.reduceUndo();
+            Toast.makeText(this, "One undo used!", Toast.LENGTH_LONG).show();
             displayGameQueue();
             if (simonBoardManager.getUndo() == 0){
                 undoButton.setEnabled(false);
             }
         }
-
-
     }
 
     /**

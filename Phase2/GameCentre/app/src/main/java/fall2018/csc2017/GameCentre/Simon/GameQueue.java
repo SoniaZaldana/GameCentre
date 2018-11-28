@@ -78,7 +78,6 @@ public class GameQueue<E>  extends Observable implements Serializable, Iterable<
     /**
      * Represents the iterator for class GameQueue.
      */
-    //TODO TEST it. Make sure it returns the right thin for each one.
     private class GameQueueIterator implements ListIterator<E>, Serializable {
         /**
          * current index in the queue
@@ -134,9 +133,5 @@ public class GameQueue<E>  extends Observable implements Serializable, Iterable<
         @Override
         public void add(E e) {
         }
-
     }
-
-
-
     }

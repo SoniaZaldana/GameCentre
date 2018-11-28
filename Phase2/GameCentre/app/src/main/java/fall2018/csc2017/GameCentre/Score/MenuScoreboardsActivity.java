@@ -26,14 +26,14 @@ public class MenuScoreboardsActivity extends AppCompatActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
-        setUpButtonsAndLabels();
+        setUpButtonListeners();
 
     }
 
     /**
-     * Performs the actions to set up buttons and labels
+     * Performs the actions to set up buttons listeners
      */
-    private void setUpButtonsAndLabels() {
+    private void setUpButtonListeners() {
         menu = findViewById(R.id.MainMenuButton);
         myScoreboard = findViewById(R.id.MyScoreboardLabel);
         sliding = findViewById(R.id.SlidingTilesScoreboardLabel);

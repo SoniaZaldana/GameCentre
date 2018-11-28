@@ -27,12 +27,9 @@ public class SimonStartingActivity extends AppCompatActivity {
      */
     private SimonBoardManager simonBoardManager;
 
-    private Context context;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = this;
         setContentView(R.layout.activity_simon_starting);
 
         addLoadButtonListener();
@@ -48,7 +45,7 @@ public class SimonStartingActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //simonBoardManager = SaveAndLoadBoardManager.loadFromFile(this, SAVE_FILENAME);
+        simonBoardManager = SaveAndLoadBoardManager.loadFromFile(this, SAVE_FILENAME);
     }
 
     /**
@@ -72,7 +69,7 @@ public class SimonStartingActivity extends AppCompatActivity {
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                simonBoardManager = SaveAndLoadBoardManager.loadFromFile(context, SAVE_FILENAME);
+                simonBoardManager = SaveAndLoadBoardManager.loadFromFile(getApplicationContext(), SAVE_FILENAME);
                 if (simonBoardManager == null) {
                     Toast.makeText(getApplicationContext(), "No previously saved game.", Toast.LENGTH_SHORT).show();
                 } else {
@@ -84,6 +81,9 @@ public class SimonStartingActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Loads existing saved instance of game
+     */
     private void loadGame() {
         Intent intent = new Intent(this, SimonGameActivity.class);
         startActivity(intent);
@@ -101,7 +101,5 @@ public class SimonStartingActivity extends AppCompatActivity {
         super.onBackPressed();
         startActivity(new Intent(SimonStartingActivity.this, GameLauncherActivity.class));
         finish();
-
     }
-
 }
