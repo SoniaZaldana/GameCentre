@@ -17,16 +17,32 @@ public class SimonBoardManagerTest {
 
     @Test
     public void getGameQueue() {
+        boolean equality = false;
         boardManager = new SimonBoardManager(1,2);
         GameQueue<SimonTile> queue = new GameQueue<>();
-        assertEquals(queue, boardManager.getGameQueue());
+        SimonTile simonTile = new SimonTile();
+        queue.add(simonTile);
+        boardManager.getGameQueue().add(simonTile);
+        equality = equal(queue, boardManager.getGameQueue());
+        assertEquals(true, equality);
+    }
+
+    private boolean equal(GameQueue<SimonTile> thisQueue, GameQueue<SimonTile> otherQueue) {
+        boolean equality = true;
+        if (thisQueue.getSize() != otherQueue.getSize()){
+            return false;
+        }
+        while(!thisQueue.isEmpty()){
+            equality = thisQueue.remove().compareTo(otherQueue.remove()) == 0;
+        }
+        return equality;
     }
 
     @Test
     public void calculateScore() {
         boardManager = new SimonBoardManager(1,2);
         int score = boardManager.calculateScore(10);
-        assertEquals(100, score);
+        assertEquals(225, score);
     }
 
     @Test
@@ -40,14 +56,10 @@ public class SimonBoardManagerTest {
     }
 
     private void createValidTileList() {
-        SimonTile tile1 = new SimonTile(1);
-        SimonTile tile2 = new SimonTile(2);
-        SimonTile tile3 = new SimonTile(3);
-        SimonTile tile4 = new SimonTile(4);
         listTiles = new ArrayList<>();
-        listTiles.add(tile1);
-        listTiles.add(tile2);
-        listTiles.add(tile3);
-        listTiles.add(tile4);
+        for (int x = 1; x != 5; x++) {
+            SimonTile tile = new SimonTile(x);
+            listTiles.add(tile);
+        }
     }
 }

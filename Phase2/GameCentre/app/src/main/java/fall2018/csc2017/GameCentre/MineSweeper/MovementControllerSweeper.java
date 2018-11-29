@@ -90,7 +90,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
     }
 
     /**
-     * Helper function for when the player loses.
+     * Helper function for when the player loses. Moves on to score activity
      */
     private void processLoss(Context context){
         Toast.makeText(context, "YOU LOSE!", Toast.LENGTH_SHORT).show();

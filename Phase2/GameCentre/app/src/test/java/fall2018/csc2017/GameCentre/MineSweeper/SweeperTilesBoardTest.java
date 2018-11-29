@@ -26,10 +26,13 @@ public class SweeperTilesBoardTest {
         assertEquals(0, sweeperTilesBoard.getTime());
     }
 
+    /**
+     * Creates a valid list of sweeper tiles where half the tiles have a bomb and have do not
+     */
     private void createValidTileList() {
         sweeperTileList = new ArrayList<>();
         SweeperTile tile1 = new SweeperTile(true);
-        SweeperTile tile2 = new SweeperTile(false);
+        SweeperTile tile2 = new SweeperTile(true);
         SweeperTile tile3 = new SweeperTile(false);
         SweeperTile tile4 = new SweeperTile(false);
         sweeperTileList.add(tile1);

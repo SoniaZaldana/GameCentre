@@ -18,6 +18,8 @@ public class MoveTrackerTest {
     public void getMoves() {
         moveTracker = new MoveTracker();
         assertEquals(0, moveTracker.getMoves());
+        moveTracker.addMoves(10);
+        assertEquals(10, moveTracker.getMoves());
     }
 
     @Test
