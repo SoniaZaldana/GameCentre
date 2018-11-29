@@ -42,8 +42,8 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
+        setContentView(R.layout.activity_sweeper_main);
         if (getIntent().hasExtra("Dimension")) {
-            setContentView(R.layout.activity_sweeper_main);
             int dimension = getIntent().getExtras().getInt("Dimension");
             int complexity = getIntent().getExtras().getInt("Complexity");
             sweeperTilesBoard = new SweeperTilesBoard(dimension, complexity);
@@ -58,6 +58,10 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         startTimer();
         gridView = findViewById(R.id.grid);
         movementControllerSweeper = new MovementControllerSweeper(sweeperBoardManager);
+        if (sweeperBoardManager.isBombActive()){
+            movementControllerSweeper.startTimer(sweeperBoardManager.getActiveBombRow(),
+                    sweeperBoardManager.getActiveBombCol(), this);
+        }
         gridView.setMovementController(movementControllerSweeper);
         createTileButtons(this);
         gridView.createAndSetGestureDetector(this);
@@ -81,6 +85,21 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     }
     public void displayInitialView() {
         createTileGUI();
+        for(int i=0;i<minesButtons.size();i++){
+            SweeperTile tile = sweeperBoardManager.getTileInPosition(i);
+            updateTileButtons(i, tile);
+        }
+//        int i = 0;
+//        int j = 0;
+//        while (i < sweeperTilesBoard.getDimension()){
+//            while (j < sweeperTilesBoard.getDimension()){
+//                SweeperTile tile = sweeperTilesBoard.getTile(i, j);
+//                int buttonIndex = (i * sweeperTilesBoard.getDimension()) + j;
+//                updateTileButtons(buttonIndex, tile);
+//                j++;
+//            }
+//            i++;
+//        }
         gridView.setAdapter(new CustomAdapter(minesButtons, columnWidth, columnHeight));
         updateTime();
         updateHealth();
@@ -88,20 +107,20 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     }
 
     private void updateTime(){
-        timerText.setText(String.valueOf(sweeperBoardManager.getBoard().getTime()));
+        timerText.setText("Time: \n" + String.valueOf(sweeperBoardManager.getBoard().getTime()));
     }
 
     private void updateBombTime(){
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                bombTimerText.setText(String.valueOf(sweeperBoardManager.getBoard().getBombTime()));
+                bombTimerText.setText("Bomb Time: " + String.valueOf(sweeperBoardManager.getBoard().getBombTime()));
             }
         });
     }
 
     private void updateHealth(){
-        healthNumber.setText(String.valueOf(sweeperBoardManager.getBoard().getHitPoints()));
+        healthNumber.setText("HP: " + String.valueOf(sweeperBoardManager.getBoard().getHitPoints()));
     }
 
     @Override
@@ -146,11 +165,19 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
 
     }
 
+    /**
+     *
+     * @param buttonIndex
+     */
     private void setTimerPicture(int buttonIndex){
         minesButtons.get(buttonIndex).setBackground(ContextCompat.getDrawable(this,
                 R.drawable.timebomb));
     }
 
+    /**
+     *
+     * @param location
+     */
     public void display(int[] location) {
         if (location != null) {
             int row = location[0];
@@ -192,6 +219,11 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         updateHealth();
         updateBombTime();
     }
+
+    /**
+     *
+     * @param context
+     */
     private void createTileButtons(Context context) {
         SweeperTilesBoard slidingTilesBoard = sweeperBoardManager.getBoard();
         minesButtons = new ArrayList<>();
@@ -204,18 +236,25 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     }
 
 
-
+    /**
+     *
+     */
     public void createTileGUI() {
         for (Button mineButton : minesButtons) {
             mineButton.setBackground(ContextCompat.getDrawable(this, R.drawable.ms_tile));
         }
     }
 
-
+    /**
+     *
+     * @param buttonIndex
+     * @param tile
+     */
     public void updateTileButtons(int buttonIndex, SweeperTile tile) {
         if (tile.isFlagged()) {
             minesButtons.get(buttonIndex).setBackground(
                     ContextCompat.getDrawable(this, R.drawable.flag));
+
         } else if (tile.getBombsAround() == 0) {
             minesButtons.get(buttonIndex).setBackground(
                     ContextCompat.getDrawable(this, R.drawable.empty_tile));
@@ -230,6 +269,10 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         }
     }
 
+    /**
+     *
+     * @param buttonIndex
+     */
     private void getSetTextSize(int buttonIndex) {
         if (sweeperTilesBoard.getDimension() == 8) {
             minesButtons.get(buttonIndex).setTextSize(20);
@@ -240,6 +283,12 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         }
     }
 
+    /**
+     * Changes the color of the text for button located in buttonIndex based on the
+     * numberOfBombsAround parameter
+     * @param buttonIndex the location of button in minesButtons
+     * @param numOfBombsAround the number to be displayed as a text
+     */
     private void setTextColor(int buttonIndex, int numOfBombsAround) {
         Button currentButton = minesButtons.get(buttonIndex);
         if (numOfBombsAround == 1) {
@@ -255,7 +304,10 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         }
     }
 
-
+    /**
+     * Reveals all the bombs on the board, by displaying all of them.
+     * @param buttonIndex the button which by clicking the game was ended
+     */
     public void endGame(int buttonIndex) {
         minesButtons.get(buttonIndex).setBackground(ContextCompat.getDrawable(this,
                 R.drawable.exploded_bomb));
