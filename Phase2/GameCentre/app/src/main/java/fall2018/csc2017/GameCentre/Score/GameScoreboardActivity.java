@@ -25,7 +25,7 @@ public class GameScoreboardActivity extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sliding_scoreboard);
+        setContentView(R.layout.scoreboard_per_game);
         String gameFile = getIntent().getStringExtra("GameFile");
         usernamesAndScores  = TextFileManager.getValue(this, gameFile);
         back = findViewById(R.id.GoBack);

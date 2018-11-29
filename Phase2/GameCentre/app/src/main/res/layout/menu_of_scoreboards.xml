@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Score.GameScoreboardActivity">
+
+
+    <TextView
+        android:id="@+id/ScoreboardTitleLabel"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/scoreboard"
+        android:layout_marginTop="20dp"
+        android:textSize="40dp"
+
+
+        />
+
+    <TextView
+        android:id="@+id/InstructionsLabel"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/ScoreboardTitleLabel"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
+        android:text="@string/please_select_the_scoreboard_you_want_to_see"
+
+        />
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:weightSum="4"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        >
+        <Button
+            style="@style/AppTheme"
+            android:id="@+id/MyScoreboardLabel"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:layout_below="@id/InstructionsLabel"
+            android:text="@string/my_scoreboard"
+            android:layout_weight="1"            />
+
+        <Button
+            style="@style/AppTheme"
+            android:id="@+id/SlidingTilesScoreboardLabel"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/MyScoreboardLabel"
+            android:layout_marginTop="30dp"
+            android:text="Sliding Tiles"
+            android:layout_weight="1"
+            />
+
+        <Button
+            style="@style/AppTheme"
+            android:id="@+id/SimonScoreboardLabel"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/SlidingTilesScoreboardLabel"
+            android:layout_marginTop="30dp"
+            android:text="Simon"
+            android:layout_weight="1"
+
+            />
+
+        <Button
+            style="@style/AppTheme"
+            android:id="@+id/MinesweeperScoreboard"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/SimonScoreboardLabel"
+            android:layout_marginTop="30dp"
+            android:text="Minesweeper"
+            android:layout_weight="1"
+            />
+
+    </LinearLayout>
+
+    <Button
+        style="@style/AppTheme"
+        android:id="@+id/MainMenuButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/back_to_main_menu"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        />
+</RelativeLayout>

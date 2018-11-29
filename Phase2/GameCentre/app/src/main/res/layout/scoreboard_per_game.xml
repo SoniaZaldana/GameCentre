@@ -6,17 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".Score.GameScoreboardActivity">
 
-
     <Button
         style="@style/AppTheme"
         android:id="@+id/GoBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:text="Back"
-        android:layout_alignParentBottom="true"></Button>
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        />
 
     <TextView
         android:id="@+id/SlidingTilesScoreboard"
@@ -26,7 +27,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="50dp"
-        android:text="Sliding Tiles Scoreboard" />
+        android:text="Sliding Tiles Scoreboard"
+        android:textSize="20dp"/>
 
         <GridLayout
             android:layout_width="match_parent"
@@ -55,11 +57,6 @@
                 android:layout_column="1"
                 android:layout_gravity="right"/>
         </GridLayout>
-
-
-
-
-
 
 
     <ListView

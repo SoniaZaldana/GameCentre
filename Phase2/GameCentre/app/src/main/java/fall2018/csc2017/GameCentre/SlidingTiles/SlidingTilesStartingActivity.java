@@ -47,7 +47,7 @@ public class SlidingTilesStartingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
-        setContentView(R.layout.activity_starting_);
+        setContentView(R.layout.sliding_starting_);
         addStartButtonListener();
         addLoadButtonListener();
         addPictureButtonListener();

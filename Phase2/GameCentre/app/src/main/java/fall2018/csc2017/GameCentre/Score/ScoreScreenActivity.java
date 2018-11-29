@@ -44,7 +44,7 @@ public class ScoreScreenActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_score);
+        setContentView(R.layout.post_game_score_screen);
         scoreValue = findViewById(R.id.ScoreValueLabel);
         highScore = findViewById(R.id.HighScoreLabel);
         addButtonListeners();

@@ -46,7 +46,7 @@ public class ScoreBoardArrayAdapter extends ArrayAdapter {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View rowView = inflater.inflate(R.layout.activity_sliding_scoreboard_row, parent, false);
+        View rowView = inflater.inflate(R.layout.scoreboard_per_game_row, parent, false);
 
         TextView your_first_text_view =  rowView.findViewById(R.id.username);
         TextView your_second_text_view = rowView.findViewById(R.id.score);
