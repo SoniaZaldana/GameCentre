@@ -57,8 +57,6 @@ public class SweeperTile extends Tile {
         return BombType;
     }
 
-    SweeperTile() {}
-
     /**
      *
      * @return whether tile is marked by user as having a bomb.

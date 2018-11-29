@@ -54,6 +54,7 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
         setTiles(tiles);
         this.time = 0;
         this.hitPoints = 3;
+        this.bombTime = 10;
         hasChanged();
         notifyObservers();
     }
