@@ -14,10 +14,9 @@ public class UndoStackTest {
         assertEquals(10, stack.pop());
 
         // Checking pushing more than the stack max size
-        stack.push(10);
-        stack.push(20);
-        stack.push(30);
-        stack.push(40);
+        for (int x = 0; x != 50; x = x+10) {
+            stack.push(x);
+        }
         assertEquals(40,stack.pop());
         assertEquals(30, stack.pop());
         assertEquals(20, stack.pop());

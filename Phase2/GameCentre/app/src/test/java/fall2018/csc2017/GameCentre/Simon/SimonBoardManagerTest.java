@@ -17,16 +17,32 @@ public class SimonBoardManagerTest {
 
     @Test
     public void getGameQueue() {
+        boolean equality = false;
         boardManager = new SimonBoardManager(1,2);
         GameQueue<SimonTile> queue = new GameQueue<>();
-        assertEquals(queue, boardManager.getGameQueue());
+        SimonTile simonTile = new SimonTile();
+        queue.add(simonTile);
+        boardManager.getGameQueue().add(simonTile);
+        equality = equal(queue, boardManager.getGameQueue());
+        assertEquals(true, equality);
+    }
+
+    private boolean equal(GameQueue<SimonTile> thisQueue, GameQueue<SimonTile> otherQueue) {
+        boolean equality = true;
+        if (thisQueue.getSize() != otherQueue.getSize()){
+            return false;
+        }
+        while(!thisQueue.isEmpty()){
+            equality = thisQueue.remove().compareTo(otherQueue.remove()) == 0;
+        }
+        return equality;
     }
 
     @Test
     public void calculateScore() {
         boardManager = new SimonBoardManager(1,2);
         int score = boardManager.calculateScore(10);
-        assertEquals(100, score);
+        assertEquals(225, score);
     }
 
     @Test

@@ -32,7 +32,7 @@ public class GameQueueTest {
         for(int i = 0; i<4; i++){
             queue.add(new SimonTile());
         }
-        assertEquals(4,queue.getSize() );
+        assertEquals(4,queue.getSize());
     }
     @Test
     public void get(){
@@ -84,8 +84,5 @@ public class GameQueueTest {
         assertEquals(tile3, it.next());
         assertEquals(2, it.previousIndex());
         assertEquals(4, it.nextIndex());
-
-
-
     }
 }
