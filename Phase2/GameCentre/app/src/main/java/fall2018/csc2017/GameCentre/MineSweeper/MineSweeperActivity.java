@@ -15,6 +15,7 @@ import java.util.TimerTask;
 import fall2018.csc2017.GameCentre.CustomAdapter;
 import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridViewLongPress;
 import fall2018.csc2017.GameCentre.R;
+import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
 
 
 import android.content.Context;
@@ -45,15 +46,23 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
 
         super.onCreate(bundle);
         setContentView(R.layout.activity_sweeper);
-        String dimensionIndicator = getIntent().getExtras().getString("Dimension");
-        String complexityIndicator = getIntent().getExtras().getString("Complexity");
-        dimension = getDimension(dimensionIndicator);
-        complexity = getComplexity(complexityIndicator);
+        if (getIntent().hasExtra("Dimension")) {
+            String dimensionIndicator = getIntent().getExtras().getString("Dimension");
+            String complexityIndicator = getIntent().getExtras().getString("Complexity");
+            dimension = getDimension(dimensionIndicator);
+            complexity = getComplexity(complexityIndicator);
+            minesTiles = getMinesTiles();
+            sweeperTilesBoard = new SweeperTilesBoard(dimension, minesTiles);
+            sweeperBoardManager = new SweeperBoardManager(sweeperTilesBoard);
+        } else {
+            sweeperBoardManager = SaveAndLoadBoardManager.loadFromFile(this, SweeperStartingActivity.SWEEPER_SAVE_FILENAME);
+            sweeperTilesBoard = sweeperBoardManager.getBoard();
+            dimension = sweeperTilesBoard.getDimension();
+            complexity = getComplexity("Easy");
+        }
         gridView = (GestureDetectGridViewLongPress) findViewById(R.id.grid);
         gridView.setNumColumns(dimension);
         minesTiles = getMinesTiles();
-        sweeperTilesBoard = new SweeperTilesBoard(dimension, minesTiles);
-        sweeperBoardManager = new SweeperBoardManager(sweeperTilesBoard);
         startTimer();
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(sweeperBoardManager.getBoard().getDimension());
