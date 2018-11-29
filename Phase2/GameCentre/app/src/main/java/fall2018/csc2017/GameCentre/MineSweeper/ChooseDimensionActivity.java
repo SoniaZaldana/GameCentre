@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import fall2018.csc2017.GameCentre.R;
 
-public class ChooseDimensionActivitty extends AppCompatActivity implements View.OnClickListener {
+public class ChooseDimensionActivity extends AppCompatActivity implements View.OnClickListener {
     Button startButton;
     ArrayAdapter dimensionAdapter, complexityAdapter;
     String complexityIndicator = "", dimensionIndicator = "";
@@ -24,10 +24,9 @@ public class ChooseDimensionActivitty extends AppCompatActivity implements View.
     @Override
     public void onCreate(Bundle x) {
         super.onCreate(x);
-        setContentView(R.layout.choose_complexity_minesweaper);
+        setContentView(R.layout.choose_complexity_minesweeper);
         final Spinner dimensionSpinner = (Spinner) findViewById(R.id.spinner);
         final Spinner complexitySpinner = (Spinner) findViewById(R.id.spinner2);
-
         dimensionAdapter = ArrayAdapter.createFromResource(this,
                 R.array.dimensionChoice, android.R.layout.simple_spinner_item);
         complexityAdapter = ArrayAdapter.createFromResource(this,

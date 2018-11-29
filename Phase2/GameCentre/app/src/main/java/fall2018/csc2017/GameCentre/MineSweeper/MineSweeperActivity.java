@@ -35,6 +35,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     private static int columnWidth, columnHeight;
     private TextView timerText;
     private TextView healthNumber;
+    private TextView bombTimerText;
     private Timer timer = new Timer();
 
     @Override
@@ -56,6 +57,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         sweeperTilesBoard.addObserver(this);
         timerText = findViewById(R.id.timer);
         healthNumber = findViewById(R.id.HP);
+        bombTimerText = findViewById(R.id.timeBomb);
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -75,10 +77,20 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         gridView.setAdapter(new CustomAdapter(minesButtons, columnWidth, columnHeight));
         updateTime();
         updateHealth();
+        updateBombTime();
     }
 
     private void updateTime(){
         timerText.setText(String.valueOf(sweeperBoardManager.getBoard().getTime()));
+    }
+
+    private void updateBombTime(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                bombTimerText.setText(String.valueOf(sweeperBoardManager.getBoard().getBombTime()));
+            }
+        });
     }
 
     private void updateHealth(){
@@ -88,7 +100,6 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onPause(){
         super.onPause();
-        sweeperBoardManager.stopTimer();
         movementControllerSweeper.getTimer().cancel();
         this.timer.cancel();
     }
@@ -128,6 +139,11 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
 
     }
 
+    private void setTimerPicture(int buttonIndex){
+        minesButtons.get(buttonIndex).setBackground(ContextCompat.getDrawable(this,
+                R.drawable.timebomb));
+    }
+
     public void display(int[] location) {
         if (location != null) {
             int row = location[0];
@@ -144,7 +160,12 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
                         endGame(buttonIndex);
                     }
                 } else if (t.getBombType().equals(BombTypes.TIMED)){
-                    minesButtons.get(buttonIndex).setText(String.valueOf(sweeperBoardManager.getBoard().getBombTime()));
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setTimerPicture(buttonIndex);
+                            }
+                        });
                     if (sweeperBoardManager.getBoard().getBombTime() == 0){
                         runOnUiThread(new Runnable() {
                             @Override
@@ -152,7 +173,6 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
                                 endGame(buttonIndex);
                             }
                         });
-
                     }
 
                 }
@@ -163,6 +183,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         }
         updateTime();
         updateHealth();
+        updateBombTime();
     }
     private void createTileButtons(Context context) {
         SweeperTilesBoard slidingTilesBoard = sweeperBoardManager.getBoard();

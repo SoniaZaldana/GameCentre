@@ -4,10 +4,8 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
@@ -15,15 +13,13 @@ import java.util.TimerTask;
 
 import fall2018.csc2017.GameCentre.ClicksOnBoard;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerComplexPress;
-import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
 import fall2018.csc2017.GameCentre.Score.ScoreScreenActivity;
-import fall2018.csc2017.GameCentre.Tile;
 
 public class MovementControllerSweeper extends MovementControllerComplexPress<SweeperBoardManager> {
     private int flagCounter;
 
-    private static Timer timer = new Timer();
+    private Timer timer = new Timer();
 
     public MovementControllerSweeper(SweeperBoardManager boardManager) {
         setBoardManager(boardManager);
@@ -82,16 +78,14 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         // If long tap, change the flag.
         if (click == ClicksOnBoard.LONG) {
             if (t.isFlagged()) {
-                getBoardManager().setTileToNotFlaged(row, col);
+                getBoardManager().setTileToNotFlagged(row, col);
                 flagCounter -= 1;
                 //TODO Disable the flag background
                 //TODO Display new flag counter on screen
 
             } else if (t.getBombsAround() == -1){
-                getBoardManager().setTileToFlaged(row, col);
+                getBoardManager().setTileToFlagged(row, col);
                 flagCounter += 1;
-                //TODO Apply the flag background
-                //TODO Display new flag counter on screen
             }
         }
         SaveAndLoadBoardManager.saveToFile(context, SweeperStartingActivity.SWEEPER_SAVE_FILENAME, getBoardManager());
@@ -136,7 +130,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                 }
             }
             if (bombCounter == 0) {
-                getBoardManager().setsBombdAround(row, col, 0);
+                getBoardManager().setsBombsAround(row, col, 0);
                 //Check all the tiles around this one, per method requirements.
                 for (SweeperTile tile : tilesToCheck.keySet()) {
                     // if this tile has not been checked
@@ -145,7 +139,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                     }
                 }
             } else {
-                getBoardManager().setsBombdAround(row, col, bombCounter);
+                getBoardManager().setsBombsAround(row, col, bombCounter);
                 //TODO display visually
             }
         }
@@ -248,9 +242,8 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                 movementControllerSweeper.getBoardManager().setBombToExploded(row, col);
                 this.movementControllerSweeper.processLoss(context);
             } else {
-                movementControllerSweeper.getBoardManager().getBoard().lowerBombTime(row, col);
+                movementControllerSweeper.getBoardManager().getBoard().lowerBombTime();
             }
         }
-
     }
 }
