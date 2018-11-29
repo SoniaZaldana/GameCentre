@@ -79,12 +79,24 @@ public class SweeperTile extends Tile {
     boolean hasBomb() {
         return this.bomb;
     }
+
+    /**
+     * set the tile to not flagged
+     */
     public void setTileToNotFlaged(){
         this.flagged = false;
     }
+
+    /**
+     * set the tile to flagged
+     */
     public void setTileToFlaged() {
         this.flagged = true;
     }
+
+    /**
+     * set whether the tile is exploded
+     */
     public void setBombExploded() {
         this.isBombExploded = true;
     }
@@ -113,6 +125,10 @@ public class SweeperTile extends Tile {
         this.bombsAround = bombsAround;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isBombExploded() {
         return isBombExploded;
     }
