@@ -15,7 +15,7 @@ import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
 import fall2018.csc2017.GameCentre.SharedPreferenceManager;
 
 /**
- * The initial activity for the Simon Game
+ * The initial activity for the simon Game
  */
 public class SimonStartingActivity extends AppCompatActivity {
     /**
@@ -92,7 +92,7 @@ public class SimonStartingActivity extends AppCompatActivity {
      * Starts activity for a new game
      */
     private void newGame() {
-        startActivity(new Intent(this, ChooseDimensionActivity.class).putExtra("Game", "Simon"));
+        startActivity(new Intent(this, ChooseDimensionActivity.class).putExtra("Game", "simon"));
     }
 
     @Override

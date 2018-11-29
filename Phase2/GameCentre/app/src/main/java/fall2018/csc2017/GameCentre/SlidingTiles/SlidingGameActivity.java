@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
@@ -179,7 +180,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer {
                         MY_PERMISSIONS_REQUEST_READ_STORAGE);
             }
         } else {
-            createTileGUI(ContextCompat.getDrawable(this, R.drawable.blank_tile));
+            createTileGUI(ContextCompat.getDrawable(this, R.drawable.tile_orange));
         }
 
     }
@@ -198,8 +199,8 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer {
             numberOnTile = slidingTilesBoard.getTile(row, col).getId();
             if (numberOnTile != slidingTilesBoard.getBlankId()) {
                 b.setText(String.valueOf(numberOnTile));
+                b.setTextSize(50 - (3 * slidingBoardManager.getBoard().getDimension()));
                 b.setBackground(d);
-
             } else {
                 b.setText("");
                 b.setBackground(ContextCompat.getDrawable(this, R.drawable.blank_tile));
@@ -261,8 +262,6 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer {
                 } else {
                     // permission denied/
                     createTileGUI(ContextCompat.getDrawable(this, R.drawable.blank_tile));
-
-
                 }
             }
 

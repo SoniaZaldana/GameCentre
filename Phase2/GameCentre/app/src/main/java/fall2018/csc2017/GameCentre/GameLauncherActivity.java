@@ -16,12 +16,9 @@ import fall2018.csc2017.GameCentre.Score.MenuScoreboardsActivity;
 import fall2018.csc2017.GameCentre.Simon.SimonStartingActivity;
 import fall2018.csc2017.GameCentre.SlidingTiles.SlidingTilesStartingActivity;
 
-//TODO        Order HighScore
-//TODO        Possibly get rid of backbutton
 //TODO        change colour on Scoreboard(to constant shade)
 //TODO        Change layouts on scoreboard so it doesn't shift.
 //TODO        Once User wins, remove game from saved, as user should not be able to load it again.
-//TODO        Factory for BoarManager, MovementController
 /**
  * The Game Launcher Screen
  */
@@ -86,7 +83,7 @@ public class GameLauncherActivity extends AppCompatActivity implements View.OnCl
     public void createFiles(String userFile) {
         File userScoreFile = new File(this.getFilesDir(), userFile + "Score.txt");
         File slidingFile = new File(this.getFilesDir(), "SlidingTiles.txt");
-        File simonFile = new File(this.getFilesDir(), "Simon.txt");
+        File simonFile = new File(this.getFilesDir(), "simon.txt");
         File minesweeperFile = new File(this.getFilesDir(), "Minesweeper.txt");
         try {
             userScoreFile.createNewFile();

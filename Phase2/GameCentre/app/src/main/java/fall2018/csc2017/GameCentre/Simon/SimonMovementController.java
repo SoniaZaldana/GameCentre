@@ -66,7 +66,7 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
         else{
             //This means the user lost
                 int score = getBoardManager().calculateScore(this.round);
-                moveOnToScoreActivity(context, "Simon.txt", ScoreScreenActivity.class, score);
+                moveOnToScoreActivity(context, "simon.txt", ScoreScreenActivity.class, score);
         }
 
     }

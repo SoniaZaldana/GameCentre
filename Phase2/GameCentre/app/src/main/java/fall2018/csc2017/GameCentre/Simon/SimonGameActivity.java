@@ -219,6 +219,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
      */
     private void addUndoButtonListener() {
         undoButton = findViewById(R.id.undoButton);
+        undoButton.setText("Redo Patterns Left: " + simonBoardManager.getUndo());
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -234,7 +235,8 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     private void undo(){
         if (!(simonBoardManager.getUndo() == 0)){
             simonBoardManager.reduceUndo();
-            Toast.makeText(this, "One undo used!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "One redo used!", Toast.LENGTH_LONG).show();
+            undoButton.setText("Redo Patterns Left: " + simonBoardManager.getUndo());
             displayGameQueue();
             if (simonBoardManager.getUndo() == 0){
                 undoButton.setEnabled(false);
@@ -251,6 +253,8 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.saved);
+                mp.start();
                 SaveAndLoadBoardManager.saveToFile(simonGameActivity, SimonStartingActivity.SAVE_FILENAME, simonBoardManager);
                 makeToastSavedText();
             }

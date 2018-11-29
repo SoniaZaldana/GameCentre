@@ -1,6 +1,7 @@
 package fall2018.csc2017.GameCentre;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,7 +44,7 @@ public class ChooseDimensionActivity extends AppCompatActivity{
     }
 
     /**
-     * Submits the input (dimension and maximum number of undo) for either Simon or SlidingTIles. It also validates
+     * Submits the input (dimension and maximum number of undo) for either simon or SlidingTIles. It also validates
      * input is valid using the class GameInputValidator
      * @param view
      */
@@ -64,7 +65,9 @@ public class ChooseDimensionActivity extends AppCompatActivity{
                 startActivity(new Intent(this, SlidingGameActivity.class));
             }
 
-            else if (game.equals("Simon")) {
+            else if (game.equals("simon")) {
+                final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.startgame);
+                mp.start();
                 SimonBoardManager simonBoardManager = new SimonBoardManager(dimension, undo);
                 SaveAndLoadBoardManager.saveToFile(this, SimonStartingActivity.SAVE_FILENAME, simonBoardManager);
                 startActivity(new Intent(this, SimonGameActivity.class));
