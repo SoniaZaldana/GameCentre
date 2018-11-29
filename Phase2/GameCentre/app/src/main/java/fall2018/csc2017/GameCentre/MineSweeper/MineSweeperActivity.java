@@ -48,6 +48,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     private static int columnWidth, columnHeight;
     private TextView timerText;
     private TextView healthNumber;
+    private TextView bombTimerText;
     private Timer timer = new Timer();
 
     @Override
@@ -74,6 +75,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         sweeperTilesBoard.addObserver(this);
         timerText = findViewById(R.id.timer);
         healthNumber = findViewById(R.id.HP);
+        bombTimerText = findViewById(R.id.timeBomb);
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -93,10 +95,20 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         gridView.setAdapter(new CustomAdapter(minesButtons, columnWidth, columnHeight));
         updateTime();
         updateHealth();
+        updateBombTime();
     }
 
     private void updateTime(){
         timerText.setText(String.valueOf(sweeperBoardManager.getBoard().getTime()));
+    }
+
+    private void updateBombTime(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                bombTimerText.setText(String.valueOf(sweeperBoardManager.getBoard().getBombTime()));
+            }
+        });
     }
 
     private void updateHealth(){
@@ -145,6 +157,11 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
 
     }
 
+    private void setTimerPicture(int buttonIndex){
+        minesButtons.get(buttonIndex).setBackground(ContextCompat.getDrawable(this,
+                R.drawable.timebomb));
+    }
+
     public void display(int[] location) {
         if (location != null) {
             int row = location[0];
@@ -161,7 +178,12 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
                         endGame(buttonIndex);
                     }
                 } else if (t.getBombType().equals("timed")){
-                    minesButtons.get(buttonIndex).setText(String.valueOf(sweeperBoardManager.getBoard().getBombTime()));
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setTimerPicture(buttonIndex);
+                            }
+                        });
                     if (sweeperBoardManager.getBoard().getBombTime() == 0){
                         runOnUiThread(new Runnable() {
                             @Override
@@ -169,7 +191,6 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
                                 endGame(buttonIndex);
                             }
                         });
-
                     }
                 }
             } else {
@@ -177,12 +198,9 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
                 gridView.setAdapter(new CustomAdapter(minesButtons, columnWidth, columnHeight));
             }
         }
-        if (sweeperBoardManager.getBoard().getBombTime() == 0){
-            //movementControllerSweeper.processLoss(this);
-
-        }
         updateTime();
         updateHealth();
+        updateBombTime();
     }
 
     private int getComplexity(String complexityIndicator) {
@@ -260,10 +278,12 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
                     ContextCompat.getDrawable(this, R.drawable.ms_tile));
         } else if (t.getBombsAround() != -1) {
             minesButtons.get(buttonIndex).setText(Integer.toString(t.getBombsAround()));
+            minesButtons.get(buttonIndex).setTextSize(30 - dimension);
             minesButtons.get(buttonIndex).setBackground(
                     ContextCompat.getDrawable(this, R.drawable.ms_tile));
         } else {
             minesButtons.get(buttonIndex).setText("0");
+            minesButtons.get(buttonIndex).setTextSize(30 - dimension);
             minesButtons.get(buttonIndex).setBackground(
                     ContextCompat.getDrawable(this, R.drawable.ms_tile));
         }

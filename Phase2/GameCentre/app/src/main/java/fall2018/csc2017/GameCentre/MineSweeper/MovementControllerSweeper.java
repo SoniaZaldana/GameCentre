@@ -90,8 +90,6 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
             } else if (t.getBombsAround() == -1){
                 getBoardManager().setTileToFlaged(row, col);
                 flagCounter += 1;
-                //TODO Apply the flag background
-                //TODO Display new flag counter on screen
             }
         }
         SaveAndLoadBoardManager.saveToFile(context, SweeperStartingActivity.SWEEPER_SAVE_FILENAME, getBoardManager());
