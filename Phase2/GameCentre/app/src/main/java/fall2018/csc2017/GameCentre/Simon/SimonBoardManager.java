@@ -80,7 +80,7 @@ import fall2018.csc2017.GameCentre.BoardManager;
      * repeated as often
      * @return SimonTile
      */
-    SimonTile randomizer() {
+    public SimonTile randomizer() {
         //get the last tile in the gameQueue
         //TODO test if this works
         SimonTile newTile = randomizerHelper();
@@ -94,12 +94,11 @@ import fall2018.csc2017.GameCentre.BoardManager;
         }
         return newTile;
     }
-
     /**
      * Returns a random tile from all tiles in order to display it
      * @return SimonTile
      */
-    SimonTile randomizerHelper(){
+    private SimonTile randomizerHelper(){
         ArrayList<ArrayList<SimonTile>> simonList = this.getBoard().getAllTiles();
         Random rand = new Random();
         int num = 0;
@@ -113,6 +112,12 @@ import fall2018.csc2017.GameCentre.BoardManager;
             index++;
         }
         return simonList.get(index).get(randNum);
+    }
+    public SimonTile getTileInPosition(int position) {
+        int row = getRow(position);
+        int col = getCol(position);
+        SimonTile tile = getBoard().getTile(row,col);
+        return tile;
     }
 
 }

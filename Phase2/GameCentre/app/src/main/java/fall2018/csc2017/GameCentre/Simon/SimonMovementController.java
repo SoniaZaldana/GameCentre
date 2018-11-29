@@ -43,7 +43,7 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
         currPosition = position;
         setChanged();
         notifyObservers();
-        SimonTile tile = getTileInPosition(position);
+        SimonTile tile = getBoardManager().getTileInPosition(position);
         if (isCorrectMove(tile)){
             if (isRoundFinished(getBoardManager().getGameQueue())) {
                 //restart the iterator
@@ -84,7 +84,7 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
      * @param userTile - the tile the user has clicked
      * @return
      */
-    boolean isCorrectMove(SimonTile userTile){
+    public boolean isCorrectMove(SimonTile userTile){
         if(iterator.hasNext()){
             SimonTile tileAtFront = iterator.next();
             return tileAtFront.getId() == userTile.getId();
@@ -107,7 +107,7 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
      * @param gameQueue - the game queue
      * @return boolean round is finished
      */
-    boolean isRoundFinished(GameQueue gameQueue){
+    public boolean isRoundFinished(GameQueue gameQueue){
         return !iterator.hasNext();
     }
 
@@ -117,10 +117,5 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
      * @param position in board
      * @return SimonTile
      */
-    private SimonTile getTileInPosition(int position) {
-        int row = getBoardManager().getRow(position);
-        int col = getBoardManager().getCol(position);
-        SimonTile tile = getBoardManager().getBoard().getTile(row,col);
-        return tile;
-    }
+
 }

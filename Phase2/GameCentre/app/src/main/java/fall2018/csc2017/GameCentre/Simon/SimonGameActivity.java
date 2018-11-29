@@ -124,7 +124,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         // highlight current item in the gamequeue
         if(i.hasNext()){
             final int currId = i.next().getId();
-            int tileColor = getResources().getColor(simonBoardManager.getBoard().getTile(simonBoardManager.getRow(currId), simonBoardManager.getCol(currId)).getColor(), null);
+            int tileColor = getResources().getColor(simonBoardManager.getTileInPosition(currId).getColor(), null);
             tileButtons.get(currId).setBackgroundColor(tileColor);
             gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
             final Handler handler = new Handler();
@@ -151,7 +151,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         // if a new button pressed, add appropriate resources(highlight, sound)
         else if(o instanceof MovementController){
             int currId = movementControllerSimon.getCurrPosition();
-            int currTilecolor = simonBoardManager.getBoard().getTile(simonBoardManager.getRow(currId), simonBoardManager.getCol(currId)).getColor();
+            int currTilecolor = simonBoardManager.getTileInPosition(currId).getColor();
             int tileColor =getResources().getColor(currTilecolor,null);
             // flash the color of the tile
             tileButtons.get(currId).setBackgroundColor(tileColor);
