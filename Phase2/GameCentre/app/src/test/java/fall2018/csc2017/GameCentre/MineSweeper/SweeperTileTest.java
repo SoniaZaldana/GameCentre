@@ -30,7 +30,7 @@ public class SweeperTileTest {
         // Checking tile with bomb
         sweeperTile = new SweeperTile(true);
         createBombList();
-        assertEquals(true, bombTypes.contains(sweeperTile.getBombType()));
+        assertTrue(bombTypes.contains(sweeperTile.getBombType()));
     }
 
     private void createBombList() {
@@ -44,33 +44,33 @@ public class SweeperTileTest {
     public void isFlagged() {
         sweeperTile = new SweeperTile(false);
         sweeperTile.flag(true);
-        assertEquals(true, sweeperTile.isFlagged());
+        assertTrue(sweeperTile.isFlagged());
     }
 
     @Test
     public void flag() {
         sweeperTile = new SweeperTile(true);
         sweeperTile.flag(false);
-        assertEquals(false, sweeperTile.isFlagged());
+        assertFalse(sweeperTile.isFlagged());
         sweeperTile = new SweeperTile(false);
         sweeperTile.flag(true);
-        assertEquals(true, sweeperTile.isFlagged());
+        assertTrue(sweeperTile.isFlagged());
 
     }
 
     @Test
     public void hasBomb() {
         sweeperTile = new SweeperTile(false);
-        assertEquals(false, sweeperTile.hasBomb());
+        assertFalse(sweeperTile.hasBomb());
         sweeperTile = new SweeperTile(true);
-        assertEquals(true, sweeperTile.hasBomb());
+        assertTrue(sweeperTile.hasBomb());
     }
 
     @Test
     public void setBomb() {
         sweeperTile = new SweeperTile(true);
         sweeperTile.setBomb(false);
-        assertEquals(false, sweeperTile.hasBomb());
+        assertFalse(sweeperTile.hasBomb());
     }
 
     @Test

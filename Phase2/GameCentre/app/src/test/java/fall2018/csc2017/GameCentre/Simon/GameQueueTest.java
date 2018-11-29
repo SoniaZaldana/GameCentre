@@ -30,7 +30,7 @@ public class GameQueueTest {
     public void size(){
         GameQueue<SimonTile> queue = new GameQueue<>();
         for(int i = 0; i<4; i++){
-            queue.add(new SimonTile());
+            queue.add(new SimonTile(i));
         }
         assertEquals(4,queue.getSize());
     }
@@ -56,7 +56,7 @@ public class GameQueueTest {
     public void testIterator(){
         GameQueue<SimonTile> queue = new GameQueue<>();
         ListIterator<SimonTile> it = queue.iterator();
-        //text hasPrevious and hasNext
+        //test hasPrevious and hasNext
         assertFalse(it.hasPrevious());
         assertFalse(it.hasNext());
         SimonTile tile1 = new SimonTile(1);
@@ -68,7 +68,7 @@ public class GameQueueTest {
         queue.add(tile2);
         SimonTile tile3 = new SimonTile(3);
         queue.add(tile3);
-        //text hasNext on a 3rd item
+        //test hasNext on a 3rd item
         it = queue.iterator();
         it.next();
         it.next();

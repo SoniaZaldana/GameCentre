@@ -56,14 +56,10 @@ public class SimonBoardManagerTest {
     }
 
     private void createValidTileList() {
-        SimonTile tile1 = new SimonTile(1);
-        SimonTile tile2 = new SimonTile(2);
-        SimonTile tile3 = new SimonTile(3);
-        SimonTile tile4 = new SimonTile(4);
         listTiles = new ArrayList<>();
-        listTiles.add(tile1);
-        listTiles.add(tile2);
-        listTiles.add(tile3);
-        listTiles.add(tile4);
+        for (int x = 1; x != 5; x++) {
+            SimonTile tile = new SimonTile(x);
+            listTiles.add(tile);
+        }
     }
 }

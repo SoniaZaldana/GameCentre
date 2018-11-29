@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class SweeperBoardManagerTest {
     private SweeperBoardManager sweeperBoardManager;
@@ -60,7 +62,7 @@ public class SweeperBoardManagerTest {
         SweeperTilesBoard sweeperTilesBoard = new SweeperTilesBoard(2, sweeperTileList);
         sweeperBoardManager = new SweeperBoardManager(sweeperTilesBoard);
         sweeperBoardManager.setBombActive(true);
-        assertEquals(true, sweeperBoardManager.isBombActive());
+        assertTrue(sweeperBoardManager.isBombActive());
     }
 
     @Test
@@ -78,6 +80,6 @@ public class SweeperBoardManagerTest {
         SweeperTilesBoard sweeperTilesBoard = new SweeperTilesBoard(2, sweeperTileList);
         sweeperBoardManager = new SweeperBoardManager(sweeperTilesBoard);
         sweeperBoardManager.setBombActive(false);
-        assertEquals(false, sweeperBoardManager.isBombActive());
+        assertFalse(sweeperBoardManager.isBombActive());
     }
 }
