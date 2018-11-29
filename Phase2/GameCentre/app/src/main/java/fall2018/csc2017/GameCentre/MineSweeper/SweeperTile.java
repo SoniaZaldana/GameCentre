@@ -20,10 +20,13 @@ public class SweeperTile extends Tile {
      * number of bombs around the tile. Default is -1, which means undeclared.
      */
     private int bombsAround=-1;
+
+    private boolean isBombExploded = false;
+
     /**
      * The type of bomb
      */
-    private String BombType;
+    private BombTypes BombType;
 
     /**
      * Instantiates sweeper tile object and assigns it a random bomb type
@@ -35,14 +38,14 @@ public class SweeperTile extends Tile {
             Random rand = new Random();
             int n = rand.nextInt(10);
             if (n < 5) {
-                this.BombType = "small";
+                this.BombType = BombTypes.SMALL;
             } else if (n < 8){
-                this.BombType = "big";
+                this.BombType = BombTypes.BIG;
             } else{
-                this.BombType = "timed";
+                this.BombType = BombTypes.TIMED;
             }
         } else {
-            this.BombType = "none";
+            this.BombType = null;
         }
     }
 
@@ -50,11 +53,9 @@ public class SweeperTile extends Tile {
      * BombType Getter. If no bomb, gives the string "none".
      * @return The type of bomb
      */
-    String getBombType() {
-        return this.BombType;
+    public BombTypes getBombType() {
+        return BombType;
     }
-
-    SweeperTile() {}
 
     /**
      *
@@ -75,8 +76,17 @@ public class SweeperTile extends Tile {
      * returns whether a tile contains a bomb
      * @return boolean
      */
-    boolean hasBomb(){
+    boolean hasBomb() {
         return this.bomb;
+    }
+    public void setTileToNotFlaged(){
+        this.flagged = false;
+    }
+    public void setTileToFlaged() {
+        this.flagged = true;
+    }
+    public void setBombExploded() {
+        this.isBombExploded = true;
     }
 
     /**
@@ -101,5 +111,9 @@ public class SweeperTile extends Tile {
      */
     void setBombsAround(int bombsAround) {
         this.bombsAround = bombsAround;
+    }
+
+    public boolean isBombExploded() {
+        return isBombExploded;
     }
 }

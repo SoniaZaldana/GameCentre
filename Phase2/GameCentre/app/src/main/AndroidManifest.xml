@@ -28,7 +28,18 @@
         <activity android:name=".SlidingTiles.SlidingTilesStartingActivity" />
         <activity android:name=".Simon.SimonGameActivity" />
         <activity android:name=".Simon.SimonStartingActivity" />
-        <activity android:name=".ChooseDimensionActivity" />
+        <activity android:name=".MineSweeper.MineSweeperActivity"/>
+        <activity android:name=".MineSweeper.SweeperStartingActivity"/>
+        <activity android:name=".Simon.ChooseDimensionSimonActivity" />
+        <activity android:name=".Score.SimonScoreboardActivity" />
+        <activity android:name=".Score.MinesweeperScoreboardActivity"></activity>
+        <activity android:name=".MineSweeper.ChooseDimensionActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
