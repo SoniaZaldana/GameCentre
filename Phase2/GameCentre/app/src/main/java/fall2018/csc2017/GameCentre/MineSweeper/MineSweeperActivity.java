@@ -254,6 +254,10 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         if (t.isFlagged()) {
             minesButtons.get(buttonIndex).setBackground(
                     ContextCompat.getDrawable(this, R.drawable.flag));
+        } else if (t.getBombsAround() == -1 && !t.isFlagged()){
+            minesButtons.get(buttonIndex).setBackgroundResource(0);
+            minesButtons.get(buttonIndex).setBackground(
+                    ContextCompat.getDrawable(this, R.drawable.ms_tile));
         } else if (t.getBombsAround() != -1) {
             minesButtons.get(buttonIndex).setText(Integer.toString(t.getBombsAround()));
             minesButtons.get(buttonIndex).setBackground(

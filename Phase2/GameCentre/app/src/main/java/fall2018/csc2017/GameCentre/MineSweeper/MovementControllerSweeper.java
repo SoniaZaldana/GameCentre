@@ -86,17 +86,8 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                 flagCounter -= 1;
                 //TODO Disable the flag background
                 //TODO Display new flag counter on screen
-            }
-        }
-        // If long tap, change the flag.
-        if (click == ClicksOnBoard.LONG) {
-            if (t.isFlagged()) {
-                getBoardManager().setTileToNotFlaged(row, col);
-                flagCounter -= 1;
-                //TODO Disable the flag background
-                //TODO Display new flag counter on screen
 
-            } else {
+            } else if (t.getBombsAround() == -1){
                 getBoardManager().setTileToFlaged(row, col);
                 flagCounter += 1;
                 //TODO Apply the flag background
