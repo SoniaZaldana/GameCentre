@@ -8,23 +8,12 @@
     android:background="@drawable/background"
     >
 
-    <Button
-        android:id="@+id/ScoreboardButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="54dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/FoxYellow"
-        android:text="Scoreboards" />
 
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
@@ -38,27 +27,29 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="83dp">
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
+            android:orientation="vertical"
+            android:layout_marginLeft="72dp"
+            android:layout_marginRight="72dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true">
             <Button
                 style="@style/AppTheme"
                 android:id="@+id/TilesGame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/FoxYellow"
-                android:text="SlidingTiles" />
+                android:text="SlidingTiles"
+                android:textSize="15dp"
+                android:layout_marginBottom="24dp"
+                />
             <Button
                 style="@style/AppTheme"
                 android:id="@+id/SimonGame"
@@ -66,7 +57,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@color/FoxYellow"
-                android:text="Simon" />
+                android:text="Simon"
+                android:textSize="15dp"
+                android:layout_marginBottom="24dp"
+                />
             <Button
                 style="@style/AppTheme"
                 android:id="@+id/MinesweeperGame"
@@ -74,10 +68,26 @@
                 android:layout_height="wrap_content"
                 android:background="@color/FoxYellow"
                 android:layout_marginTop="5dp"
-                android:text="Minesweeper" />
+                android:text="Minesweeper"
+                android:textSize="15dp"
+                android:layout_marginBottom="24dp"
+                />
         </LinearLayout>
 
     </ScrollView>
+    <Button
+        style="@style/AppTheme"
+        android:id="@+id/ScoreboardButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scoreboards"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@color/FoxYellow"
+        />
 
 
 
