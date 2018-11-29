@@ -25,7 +25,7 @@ public class MenuScoreboardsActivity extends AppCompatActivity implements View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scoreboard);
+        setContentView(R.layout.menu_of_scoreboards);
         setUpButtonListeners();
 
     }

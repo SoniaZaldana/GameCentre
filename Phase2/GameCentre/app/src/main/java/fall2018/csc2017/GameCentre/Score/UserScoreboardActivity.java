@@ -27,7 +27,7 @@ public class UserScoreboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_scoreboard);
+        setContentView(R.layout.scoreboard_of_all_user_games);
         user = SharedPreferenceManager.getSharedValue(this, "sharedUser", "thisUser");
 
         slidingScore = findViewById(R.id.SlidingScoreLabel);
