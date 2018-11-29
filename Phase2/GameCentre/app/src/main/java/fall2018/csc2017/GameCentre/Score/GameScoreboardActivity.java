@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import java.util.Map;
 import fall2018.csc2017.GameCentre.R;
 
@@ -21,6 +23,7 @@ public class GameScoreboardActivity extends AppCompatActivity implements View.On
     private ListView listView;
     private ScoreBoardArrayAdapter myAdapter;
     private Map<String, Double> usernamesAndScores;
+    private TextView gameTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,8 @@ public class GameScoreboardActivity extends AppCompatActivity implements View.On
         String gameFile = getIntent().getStringExtra("GameFile");
         usernamesAndScores  = TextFileManager.getValue(this, gameFile);
         back = findViewById(R.id.GoBack);
+        gameTitle = findViewById(R.id.PerGameScoreboard);
+        gameTitle.setText(gameFile.substring(0, gameFile.indexOf(".")));
         listView = findViewById(R.id.listView);
         myAdapter = new ScoreBoardArrayAdapter(this, usernamesAndScores);
         back.setOnClickListener(this);

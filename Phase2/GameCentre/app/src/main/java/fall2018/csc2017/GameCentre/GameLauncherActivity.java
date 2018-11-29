@@ -83,7 +83,7 @@ public class GameLauncherActivity extends AppCompatActivity implements View.OnCl
     public void createFiles(String userFile) {
         File userScoreFile = new File(this.getFilesDir(), userFile + "Score.txt");
         File slidingFile = new File(this.getFilesDir(), "SlidingTiles.txt");
-        File simonFile = new File(this.getFilesDir(), "simon.txt");
+        File simonFile = new File(this.getFilesDir(), "Simon.txt");
         File minesweeperFile = new File(this.getFilesDir(), "Minesweeper.txt");
         try {
             userScoreFile.createNewFile();
