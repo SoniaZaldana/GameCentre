@@ -13,12 +13,14 @@
         android:orientation="horizontal">
 
         <Button
+            style="@style/AppTheme"
             android:id="@+id/undoButton"
             android:layout_width="201dp"
             android:layout_height="wrap_content"
             android:text="Undo" />
 
         <Button
+            style="@style/AppTheme"
             android:id="@+id/SaveButton"
             android:layout_width="210dp"
             android:layout_height="wrap_content"

@@ -46,6 +46,7 @@
         android:layout_below="@id/editUndo"
         android:layout_centerHorizontal="true"
         android:onClick="submitInput"
+        style="@style/AppTheme"
         android:text="Submit"
         android:textColor="@color/colorPrimary" />
 
