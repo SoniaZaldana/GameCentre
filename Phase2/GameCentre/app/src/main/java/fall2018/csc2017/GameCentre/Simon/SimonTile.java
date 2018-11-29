@@ -10,7 +10,7 @@ class SimonTile extends Tile {
     private int color;
 
     /**
-     * Instantiates a Simon Tile object with a specific id
+     * Instantiates a simon Tile object with a specific id
      * @param  id
      */
     SimonTile(int id) {
@@ -18,7 +18,7 @@ class SimonTile extends Tile {
     }
 
     /**
-     * Default constructor for Simon Tile
+     * Default constructor for simon Tile
      */
     SimonTile() {
     }

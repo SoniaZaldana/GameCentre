@@ -91,7 +91,7 @@ public class ScoreScreenActivity extends AppCompatActivity implements View.OnCli
         currentGame = gameFile.substring(0, gameFile.indexOf("."));
         switch (view.getId()) {
             case R.id.NewGameButton:
-                if (currentGame.equals("Simon")){
+                if (currentGame.equals("simon")){
                     startActivity(new Intent(this, ChooseDimensionActivity.class).
                             putExtra("Game", currentGame));
                     break;
