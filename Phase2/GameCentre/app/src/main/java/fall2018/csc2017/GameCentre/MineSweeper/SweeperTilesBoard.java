@@ -1,5 +1,6 @@
 package fall2018.csc2017.GameCentre.MineSweeper;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.Random;
 import fall2018.csc2017.GameCentre.Board;
 import fall2018.csc2017.GameCentre.Tile;
 
-public class SweeperTilesBoard extends Board<SweeperTile> {
+public class SweeperTilesBoard extends Board<SweeperTile> implements Serializable {
     /**
      * The number of seconds that has passed for this game
      */

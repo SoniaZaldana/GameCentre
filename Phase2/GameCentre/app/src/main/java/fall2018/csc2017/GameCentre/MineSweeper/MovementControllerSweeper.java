@@ -52,9 +52,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                             // Start a timer, game ends after 10 seconds.
                             getBoardManager().setBombToExploded(row, col);
                             if (!getBoardManager().isBombActive()) {
-                                BombTask task = new BombTask(this, context, row, col);
-                                timer.schedule(task, 1000, 1000);
-                                getBoardManager().setBombActive(true);
+                                startTimer(row, col, context);
                             }
                         }
                     }
@@ -89,6 +87,14 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
             }
         }
         SaveAndLoadBoardManager.saveToFile(context, SweeperStartingActivity.SWEEPER_SAVE_FILENAME, getBoardManager());
+    }
+
+    public void startTimer(int row, int col, Context context) {
+        BombTask task = new BombTask(this, context, row, col);
+        timer.schedule(task, 1000, 1000);
+        getBoardManager().setBombActive(true);
+        getBoardManager().setActiveBombCol(col);
+        getBoardManager().setActiveBombRow(row);
     }
 
 
@@ -232,6 +238,12 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
             this.context = context;
             this.row = row;
             this.col = col;
+        }
+
+        public BombTask(MovementControllerSweeper movementControllerSweeper, Context context) {
+            super();
+            this.movementControllerSweeper = movementControllerSweeper;
+            this.context = context;
         }
 
         /**
