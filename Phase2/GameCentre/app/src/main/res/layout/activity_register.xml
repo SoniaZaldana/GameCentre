@@ -50,6 +50,7 @@
         app:layout_constraintTop_toBottomOf="@+id/IDPassword" />
 
     <Button
+        style="@style/AppTheme"
         android:id="@+id/registerbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

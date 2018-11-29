@@ -23,6 +23,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/GameText">
         <Button
+            style="@style/AppTheme"
             android:id="@+id/NewGameButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,6 +32,7 @@
             android:layout_marginBottom="10dp"/>
 
         <Button
+            style="@style/AppTheme"
             android:id="@+id/LoadButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

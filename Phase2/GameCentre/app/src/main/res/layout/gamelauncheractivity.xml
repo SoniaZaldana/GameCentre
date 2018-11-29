@@ -7,6 +7,7 @@
     android:layout_height="match_parent">
 
     <Button
+        style="@style/AppTheme"
         android:id="@+id/ScoreboardButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,17 +52,19 @@
             android:orientation="vertical">
 
             <Button
-
+                style="@style/AppTheme"
                 android:id="@+id/TilesGame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="SlidingTiles" />
             <Button
+                style="@style/AppTheme"
                 android:id="@+id/SimonGame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Simon" />
             <Button
+                style="@style/AppTheme"
                 android:id="@+id/MinesweeperGame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

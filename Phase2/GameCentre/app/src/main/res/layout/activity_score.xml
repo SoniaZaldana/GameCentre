@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".Score.ScoreScreenActivity">
 
-
     <TextView
         android:id="@+id/ScoreTitleLabel"
         android:layout_width="wrap_content"
@@ -48,6 +47,7 @@
          />
 
     <Button
+        style="@style/AppTheme"
         android:id="@+id/NewGameButton"
         android:layout_width="227dp"
         android:layout_height="69dp"
@@ -60,6 +60,7 @@
         android:layout_marginBottom="115dp"
         android:text="New Game" />
     <Button
+        style="@style/AppTheme"
         android:id="@+id/MainMenuButton"
         android:layout_width="227dp"
         android:layout_height="69dp"
