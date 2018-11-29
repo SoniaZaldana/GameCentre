@@ -23,6 +23,8 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
      *
      */
 
+    public boolean solvable;
+
     /**
      * Manage a new shuffled board.
      */
@@ -35,16 +37,49 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
 
     public SlidingBoardManager(int dimension, int undoMax){
         // Create the tiles
+        this.solvable = false;
         List<Tile> tilesList = new ArrayList<>();
         final int numTiles = dimension * dimension;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tilesList.add(new Tile(tileNum + 1));
         }
         Collections.shuffle(tilesList);
+        int inversions = 0;
+        for (int x = 0; x != numTiles; x++) {
+            Tile currentTile = tilesList.get(x);
+            for (int y = x; y != numTiles; y++) {
+                Tile compareTile = tilesList.get(y);
+                if (currentTile.getId() > compareTile.getId()) {
+                    inversions++;
+                }
+            }
+        }
+        //blank id is numtiles
+        int blankId = numTiles;
+        if ((isEven(dimension) && isEven(inversions)) || (!isEven(dimension)) && (blankOnOddRow(blankId, tilesList) == isEven(inversions))) {
+            this.solvable = true;
+        }
         SlidingTilesBoard slidingTilesBoard = new SlidingTilesBoard(dimension, tilesList);
         setBoard(slidingTilesBoard);
         this.undoStack = new UndoStack(undoMax);
 
+    }
+
+    private boolean blankOnOddRow(int blankId, List<Tile> tileList) {
+        int row = 1;
+        int dimension = getBoard().getDimension();
+        for(int x = 0; x != tileList.size(); x++){
+            if (tileList.get(x).getId() == blankId){
+                if(row % 2 == 0){return false;}
+                else{return true;}
+            }
+            if((x + 1) % dimension == 0){row++;}
+        }
+        return false;
+    }
+
+    private boolean isEven(int x){
+        return x%2 == 0;
     }
 
     /**
@@ -82,4 +117,6 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
         int dimensions = getBoard().getDimension();
         return dimensions * 500 - (moves * 5);
     }
+
+
 }
