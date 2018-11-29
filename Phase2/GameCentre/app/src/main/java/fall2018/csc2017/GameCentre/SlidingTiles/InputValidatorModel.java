@@ -4,8 +4,8 @@ import java.util.Map;
 
 
 
-public class InputValidator {
-    public static Map<Boolean, String> controllerChoosingInput(String dimensionSize, String undoMaxText) {
+public class InputValidatorModel {
+    public static Map<Boolean, String> processInput(String dimensionSize, String undoMaxText) {
         Map<Boolean, String> validator = new HashMap<>();
         try {
             Integer dimension = Integer.parseInt(dimensionSize);
