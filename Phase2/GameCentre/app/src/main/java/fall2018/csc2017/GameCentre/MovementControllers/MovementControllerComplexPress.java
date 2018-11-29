@@ -1,7 +1,6 @@
 package fall2018.csc2017.GameCentre.MovementControllers;
 
 import android.content.Context;
-
 import fall2018.csc2017.GameCentre.BoardManager;
 import fall2018.csc2017.GameCentre.ClicksOnBoard;
 
@@ -11,7 +10,7 @@ import fall2018.csc2017.GameCentre.ClicksOnBoard;
  */
 public abstract class MovementControllerComplexPress<T extends BoardManager> extends MovementController<T>{
     /**
-     * Method is called when user interracts with the board and defines behaviour of BoardManager on interaction.
+     * Method is called when user interacts with the board and defines behaviour of BoardManager on interaction.
      * @param context from the app.
      * @param position of the click on the board
      * @param e contains what type of move this is. All of them can be found in the enum MovementTypes.

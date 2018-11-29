@@ -48,7 +48,11 @@ public class Board<U extends Tile> extends Observable implements Serializable, I
 
     }
 
-    public  ArrayList<ArrayList<U>> getAllTiles() {
+    /**
+     * Returns a list containing all tiles in the board
+     * @return list of tiles
+     */
+    public ArrayList<ArrayList<U>> getAllTiles() {
         return this.tiles;
     }
 
@@ -97,9 +101,14 @@ public class Board<U extends Tile> extends Observable implements Serializable, I
 
     @Override
     public String toString() {
-        return "SlidingTilesBoard{" +
-                "tiles=" + getAllTiles() +
-                '}';
+        List<ArrayList<U>> allTiles = getAllTiles();
+        List<Integer> tilesId = new ArrayList<>();
+        for(ArrayList<U> listOfTiles: allTiles){
+            for(U t: listOfTiles){
+                tilesId.add(t.getId());
+            }
+        }
+        return "tiles = " + tilesId.toString();
     }
     /**
      * @return an iterator of class TileIterator.

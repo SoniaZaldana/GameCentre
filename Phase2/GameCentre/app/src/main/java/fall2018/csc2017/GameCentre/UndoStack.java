@@ -46,8 +46,10 @@ public class UndoStack implements Serializable {
     /**
      * Pop an object item from the stack.
      */
-    //TODO: Doesn't a stack need to check if the size is not 0 before popping?
     public Object pop() {
+        if (this.items.size() == 0) {
+            return null;
+        }
         Object item = this.items.get(this.items.size() - 1);
         this.items.remove(this.items.size() - 1);
         return item;
@@ -59,4 +61,5 @@ public class UndoStack implements Serializable {
     public int getSize() {
         return this.items.size();
     }
+
 }

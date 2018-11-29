@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    >
 
     <Button
         android:id="@+id/ScoreboardButton"
@@ -14,7 +16,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="54dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/iconshape"
+        android:background="@color/FoxYellow"
         android:text="Scoreboards" />
 
 
@@ -28,7 +30,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:layout_marginBottom="1dp"
-        android:background="?attr/colorError"
+        android:background="@color/FoxYellow"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:title="GameCenter"
@@ -51,20 +53,27 @@
             android:orientation="vertical">
 
             <Button
-
+                style="@style/AppTheme"
                 android:id="@+id/TilesGame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/FoxYellow"
                 android:text="SlidingTiles" />
             <Button
+                style="@style/AppTheme"
                 android:id="@+id/SimonGame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/FoxYellow"
                 android:text="Simon" />
             <Button
+                style="@style/AppTheme"
                 android:id="@+id/MinesweeperGame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/FoxYellow"
+                android:layout_marginTop="5dp"
                 android:text="Minesweeper" />
         </LinearLayout>
 

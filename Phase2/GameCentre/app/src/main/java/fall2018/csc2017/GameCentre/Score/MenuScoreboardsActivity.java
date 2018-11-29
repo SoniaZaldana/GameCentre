@@ -1,3 +1,6 @@
+/**
+ * Excluded from tests because it is a view class.
+ */
 package fall2018.csc2017.GameCentre.Score;
 
 import android.content.Intent;
@@ -22,15 +25,15 @@ public class MenuScoreboardsActivity extends AppCompatActivity implements View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scoreboard);
-        setUpButtonsAndLabels();
+        setContentView(R.layout.menu_of_scoreboards);
+        setUpButtonListeners();
 
     }
 
     /**
-     * Performs the actions to set up buttons and labels
+     * Performs the actions to set up buttons listeners
      */
-    private void setUpButtonsAndLabels() {
+    private void setUpButtonListeners() {
         menu = findViewById(R.id.MainMenuButton);
         myScoreboard = findViewById(R.id.MyScoreboardLabel);
         sliding = findViewById(R.id.SlidingTilesScoreboardLabel);

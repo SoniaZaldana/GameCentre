@@ -1,3 +1,6 @@
+/**
+ * Excluded from tests because it is a view class.
+ */
 package fall2018.csc2017.GameCentre.Score;
 
 import android.content.Intent;
@@ -24,14 +27,14 @@ public class UserScoreboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_scoreboard);
+        setContentView(R.layout.scoreboard_of_all_user_games);
         user = SharedPreferenceManager.getSharedValue(this, "sharedUser", "thisUser");
 
         slidingScore = findViewById(R.id.SlidingScoreLabel);
         simonScore = findViewById(R.id.SimonScoreLabel);
         minesweeperScore = findViewById(R.id.MinesweeperScoreLabel);
         slidingScore.setText(getScorePerGame(user + "Score.txt", "SlidingTiles"));
-        simonScore.setText(getScorePerGame(user + "Score.txt", "Simon"));
+        simonScore.setText(getScorePerGame(user + "Score.txt", "simon"));
         minesweeperScore.setText(getScorePerGame(user + "Score.txt", "Minesweeper"));
     }
 

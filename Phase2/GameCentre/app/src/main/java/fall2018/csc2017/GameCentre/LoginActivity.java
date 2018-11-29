@@ -4,6 +4,7 @@ package fall2018.csc2017.GameCentre;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 /**
  * The login screen
  */
+//TODO for loginActivity, if such a user doesn't exist, and you click register
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private Button loginButton, registerButton;
     private EditText usernameText, passwordText;
@@ -31,7 +33,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     /**
-     * Sets up the visuals for the activities such as buttons and labels
+     * Sets up the view components associated with this activity
      */
     private void setUpVisuals() {
         usernameText = findViewById(R.id.username);
@@ -51,9 +53,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 String authenticationPassword = accounts.getString(username,
                         "Account does not exists");
                 if (!accounts.contains(username)) {
+                    wrongSound();
                     Toast.makeText(this, String.format("Account with name " +
                             "\"%s\" does not exist", username), Toast.LENGTH_SHORT).show();
                 } else if (!authenticationPassword.equals(password)) {
+                    wrongSound();
                     Toast.makeText(this, "Invalid Password", Toast.LENGTH_SHORT).show();
                 } else {
                     SharedPreferenceManager.setSharedValue(this, "sharedUser",
@@ -70,5 +74,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
 
+    }
+
+    private void wrongSound() {
+        final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.incorrect);
+        mp.start();
     }
 }
