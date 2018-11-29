@@ -45,6 +45,9 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
         Log.i("time", String.valueOf(this.time));
     }
 
+    public int getBombTime() {
+        return time;
+    }
     /**
      * Decreases HP by 1
      */
@@ -87,5 +90,12 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
         notifyObservers(locationOfTile);
     }
 
+    public void lowerBombTime(int row, int col) {
+        int[] locationOfTile = {row, col};
+        time--;
+        setChanged();
+        notifyObservers();
+
+    }
 
 }

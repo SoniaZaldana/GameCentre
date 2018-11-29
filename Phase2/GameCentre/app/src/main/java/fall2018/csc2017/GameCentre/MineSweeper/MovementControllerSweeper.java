@@ -20,10 +20,10 @@ import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
 import fall2018.csc2017.GameCentre.Score.ScoreScreenActivity;
 import fall2018.csc2017.GameCentre.Tile;
 
-public class MovementControllerSweeper extends MovementControllerComplexPress<SweeperBoardManager>{
+public class MovementControllerSweeper extends MovementControllerComplexPress<SweeperBoardManager> {
     private int flagCounter;
 
-    private Timer timer = new Timer();
+    private static Timer timer = new Timer();
 
     public MovementControllerSweeper(SweeperBoardManager boardManager) {
         setBoardManager(boardManager);
@@ -40,36 +40,41 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
             // should be able to press only if the tile is not flagged.
             if (!t.isFlagged()) {
                 if (t.hasBomb()) {// if there's a bomb check what bomb
-                    if (t.getBombType().equals("small")) { // Takes damage if it's a small bomb
-                        //TODO set background to small bomb
-                        //TODO change HP display
-                        getBoardManager().getBoard().takeDamage();
-                        if (getBoardManager().getBoard().getHitPoints() == 0) {
+                    if (!t.isBombExploded()) {
+                        if (t.getBombType().equals("small")) { // Takes damage if it's a small bomb
+                            getBoardManager().getBoard().takeDamage();
+                            getBoardManager().setBombToExploded(row, col);
+                            if (getBoardManager().getBoard().getHitPoints() == 0) {
+                                processLoss(context);
+                            }
+                        }
+                        if (t.getBombType().equals("big")) {// End the game if it's a big bomb
                             getBoardManager().setBombToExploded(row, col);
                             processLoss(context);
                         }
-                    }
-                    if (t.getBombType().equals("big")) {// End the game if it's a big bomb
-                        //TODO set background to big bomb
-                        getBoardManager().setBombToExploded(row, col);
-                        processLoss(context);
-                    }
-                    if (t.getBombType().equals("timed")) {
-                        // Start a timer, game ends after 10 seconds.
-                        //TODO set background to CLOCK
-                        if (!getBoardManager().isBombActive()) {
-                            BombTask task = new BombTask(this, context, row, col);
-                            timer.schedule(task, 1000, 1000);
-                            getBoardManager().setBombActive(true);
+                        if (t.getBombType().equals("timed")) {
+                            // Start a timer, game ends after 10 seconds.
+                            getBoardManager().setBombToExploded(row, col);
+                            if (!getBoardManager().isBombActive()) {
+                                BombTask task = new BombTask(this, context, row, col);
+                                timer.schedule(task, 1000, 1000);
+                                getBoardManager().setBombActive(true);
+                            }
                         }
                     }
                 } else {// display how many bombs are around
                     checkAround(row, col, t);
                     if (isGameFinished()) {
                         timer.cancel();
+                        int mines = 0;
+                        for (SweeperTile tile : getBoardManager().getBoard()) {
+                            if (tile.hasBomb()){
+                                mines++;
+                            }
+                        }
                         Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
-                        int score = getBoardManager().calculateScore(0);
-                        moveOnToScoreActivity(context, "Minsweeper.txt", ScoreScreenActivity.class, score);
+                        int score = getBoardManager().calculateScore(mines);
+                        moveOnToScoreActivity(context, "Minesweeper.txt", ScoreScreenActivity.class, score);
                     }
                 }
             }
@@ -82,7 +87,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                 //TODO Disable the flag background
                 //TODO Display new flag counter on screen
 
-            } else {
+            } else if (t.getBombsAround() == -1){
                 getBoardManager().setTileToFlaged(row, col);
                 flagCounter += 1;
                 //TODO Apply the flag background
@@ -96,10 +101,12 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
     /**
      * Helper function for when the player loses.
      */
-    public void processLoss(Context context){
+    public void processLoss(Context context) {
+        if (!getBoardManager().isBombActive()) {
             Toast.makeText(context, "YOU LOSE!", Toast.LENGTH_SHORT).show();
-            moveOnToScoreActivity(context, "Minesweeper.txt", ScoreScreenActivity.class, 0);
-            }
+        }
+        moveOnToScoreActivity(context, "Minesweeper.txt", ScoreScreenActivity.class, 0);
+    }
 
     /**
      * currTile does not have a bomb. Method checks all tiles around and
@@ -142,12 +149,12 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                 //TODO display visually
             }
         }
-
     }
 
     /**
      * Get the map of all valid tiles around given tile, with the tile as the key
      * and its row and col as the value.
+     *
      * @param row
      * @param col
      * @param rowValues
@@ -156,7 +163,10 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
      */
     @NonNull
     private Map<SweeperTile, List<Integer>> getSweeperTileListMap(int row, int col, int[] rowValues, int[] colValues) {
-        boolean rInBounds; boolean cInBounds; SweeperTile t; ArrayList<Integer> rowColPair;
+        boolean rInBounds;
+        boolean cInBounds;
+        SweeperTile t;
+        ArrayList<Integer> rowColPair;
         Map<SweeperTile, List<Integer>> tilesToCheck = new HashMap<>();
         // creates a map of all valid tiles around, with the tile as the key
         // and the row-col pair as the value.
@@ -176,66 +186,71 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                         rowColPair = new ArrayList<>();
                         rowColPair.add(r);
                         rowColPair.add(c);
-
                         tilesToCheck.put(t, rowColPair);
                     }
                 }
             }
-            }
-            return tilesToCheck;
-            }
+        }
+        return tilesToCheck;
+    }
 
     /**
      * Checks if the game is finished (and not a loss)
+     *
      * @return boolean True if game is finished
      */
-    public boolean isGameFinished(){
-            boolean gameFinished = true;
-            for (SweeperTile tile:getBoardManager().getBoard()) {
-            if (!tile.hasBomb() && tile.getBombsAround() == -1){
-            gameFinished = false;
+    public boolean isGameFinished() {
+        boolean gameFinished = true;
+        for (SweeperTile tile : getBoardManager().getBoard()) {
+            if (!tile.hasBomb() && tile.getBombsAround() == -1) {
+                gameFinished = false;
             }
-            }
-            return gameFinished;
-            }
-
-/**
- * A timer task that starts the bomb.
- */
-    private class BombTask extends TimerTask {
-    /**
-     * The Movement Controller this task acts on
-     */
-    private MovementControllerSweeper movementControllerSweeper;
-
-    /**
-     * The context this timer is in
-     */
-    private Context context;
-    private int row;
-    private int col;
-
-    /**
-     *A timer that starts the bomb
-     */
-    public BombTask(MovementControllerSweeper movementControllerSweeper, Context context, int row, int col){
-        super();
-        this.movementControllerSweeper = movementControllerSweeper;
-        this.context = context;
-        this.row = row;
-        this.col = col;
-    }
-
-    /**
-     * Makes the bomb explode
-     */
-    public void run(){
-        if (movementControllerSweeper.getBoardManager().getBombTime() == 0) {
-            movementControllerSweeper.getBoardManager().setBombToExploded(row, col);
-            this.movementControllerSweeper.processLoss(context);
-        } else {
-            movementControllerSweeper.getBoardManager().lowerBombTime();
         }
+        return gameFinished;
     }
 
-}}
+    public Timer getTimer(){
+        return timer;
+    }
+
+    /**
+     * A timer task that starts the bomb.
+     */
+    private class BombTask extends TimerTask {
+        /**
+         * The Movement Controller this task acts on
+         */
+        private MovementControllerSweeper movementControllerSweeper;
+
+        /**
+         * The context this timer is in
+         */
+        private Context context;
+        private int row;
+        private int col;
+
+        /**
+         * A timer that starts the bomb
+         */
+        public BombTask(MovementControllerSweeper movementControllerSweeper, Context context, int row, int col) {
+            super();
+            this.movementControllerSweeper = movementControllerSweeper;
+            this.context = context;
+            this.row = row;
+            this.col = col;
+        }
+
+        /**
+         * Makes the bomb explode
+         */
+        public void run() {
+            if (movementControllerSweeper.getBoardManager().getBoard().getBombTime() == 0) {
+                movementControllerSweeper.getBoardManager().setBombToExploded(row, col);
+                this.movementControllerSweeper.processLoss(context);
+            } else {
+                movementControllerSweeper.getBoardManager().getBoard().lowerBombTime(row, col);
+            }
+        }
+
+    }
+}
