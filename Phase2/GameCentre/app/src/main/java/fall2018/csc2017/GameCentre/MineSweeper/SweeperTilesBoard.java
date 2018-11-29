@@ -3,11 +3,15 @@ package fall2018.csc2017.GameCentre.MineSweeper;
 import java.lang.reflect.Array;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
 import fall2018.csc2017.GameCentre.Board;
+import fall2018.csc2017.GameCentre.Tile;
 
 public class SweeperTilesBoard extends Board<SweeperTile> {
     /**
@@ -21,7 +25,7 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
     private int hitPoints;
 
     /**
-     * Time remaining on the bomb
+     * The amount of time a time bomb has before exploding
      */
     private int bombTime;
 
@@ -30,6 +34,26 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
         this.time = 0;
         this.hitPoints = 3;
         this.bombTime = 10;
+        hasChanged();
+        notifyObservers();
+    }
+
+    public SweeperTilesBoard(int dimension, int complexity) {
+        super();
+        setDimension(dimension);
+        ArrayList<ArrayList<SweeperTile>> tiles = new ArrayList<>();
+        ArrayList<SweeperTile> mineTiles = getMinesTiles(complexity);
+        Iterator iter = mineTiles.iterator();
+        for (int row = 0; row != dimension; row++) {
+            ArrayList rowTile = new ArrayList<>();
+            for (int col = 0; col != dimension; col++) {
+                rowTile.add(iter.next());
+            }
+            tiles.add(rowTile);
+        }
+        setTiles(tiles);
+        this.time = 0;
+        this.hitPoints = 3;
         hasChanged();
         notifyObservers();
     }
@@ -48,13 +72,39 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
         this.time++;
         this.setChanged();
         this.notifyObservers();
+        Log.i("time", String.valueOf(this.time));
+    }
+    private ArrayList<SweeperTile> getMinesTiles(int complexity) {
+        ArrayList<SweeperTile> tilesList = new ArrayList<>();
+        int numOfMines = getDimension() * getDimension() * complexity / 100;
+        ArrayList locationOfTilesWithMine = randomlyChoose(numOfMines);
+        for (int i = 0; i < getDimension() * getDimension(); i++) {
+            if (locationOfTilesWithMine.contains(i)) {
+                tilesList.add(new SweeperTile(true));
+            } else {
+                tilesList.add(new SweeperTile(false));
+            }
+        }
+        return tilesList;
     }
 
-    public void lowerBombTime(int row, int col){
-        int[] locationOfTile = {row, col};
-        this.bombTime--;
-        this.setChanged();
-        this.notifyObservers(locationOfTile);
+    private ArrayList randomlyChoose(int numOfMines) {
+        int i = 0;
+        Random myRandom = new Random();
+        ArrayList locationOfTilesWithMine = new ArrayList<>();
+        while (i != numOfMines) {
+            int location = myRandom.nextInt(getDimension() * getDimension());
+            if (!locationOfTilesWithMine.contains(location)) {
+                locationOfTilesWithMine.add(location);
+                i++;
+            }
+        }
+        return locationOfTilesWithMine;
+
+    }
+
+    public int getBombTime() {
+        return bombTime;
     }
 
     /**
@@ -72,12 +122,6 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
     int getHitPoints() {
         return this.hitPoints;
     }
-
-    public int getBombTime() {
-        return bombTime;
-    }
-
-
     public void setBombToExploded(int row, int col) {
         int[] locationOfTile = {row, col};
         this.getTile(row, col).setBombExploded();
@@ -85,14 +129,14 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
         notifyObservers(locationOfTile);
     }
 
-    public void setTileToNotFlaged(int row, int col) {
+    public void setTileToNotFlagged(int row, int col) {
         this.getTile(row, col).setTileToNotFlaged();
         int[] locationOfTile = {row, col};
         setChanged();
         notifyObservers(locationOfTile);
     }
 
-    public void setTileToFlaged(int row, int col) {
+    public void setTileToFlagged(int row, int col) {
         this.getTile(row,col).setTileToFlaged();
         int[] locationOfTile = {row, col};
         setChanged();
@@ -105,5 +149,11 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
         notifyObservers(locationOfTile);
     }
 
+    public void lowerBombTime() {
+        bombTime--;
+        setChanged();
+        notifyObservers();
+
+    }
 
 }

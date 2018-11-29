@@ -7,12 +7,6 @@ import java.util.TimerTask;
 import fall2018.csc2017.GameCentre.BoardManager;
 
 public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> implements Serializable {
-
-    /**
-     * A timer that increments the time by 1 every second (a game clock)
-     */
-    private static Timer timer = new SerializableTimer();
-
     /**
      * Whether or not there's a timer bomb active
      */
@@ -24,18 +18,8 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
 
     @Override
     public int calculateScore(int mines) {
-        return mines*(10000 - getBoard().getTime());
+        return ((100*mines) - getBoard().getTime());
     }
-
-    public void startTimer(){
-        ScoreTask task = new ScoreTask(this);
-        SweeperBoardManager.timer.schedule(task, 1000, 1000);
-    }
-
-    public void stopTimer(){
-        SweeperBoardManager.timer.cancel();
-    }
-
 
     public boolean isBombActive() {
         return bombActive;
@@ -46,46 +30,19 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
         this.bombActive = active;
     }
 
-    /**
-     * A timer task that increments the timer.
-     */
-    private class ScoreTask extends TimerTask implements Serializable {
 
-        /**
-         * The boardmanager that uses this timer.
-         */
-        private SweeperBoardManager manager;
-
-        /**
-         * An task that increments the time.
-         *
-         * @param manager The board manager this is acting on
-         */
-        public ScoreTask(SweeperBoardManager manager){
-            super();
-            this.manager = manager;
-        }
-
-        /**
-         * The task this timer does.
-         */
-        public void run(){
-            this.manager.getBoard().timeIncrement();
-        }
-
-    }
     public void setBombToExploded(int row, int col) {
         this.getBoard().setBombToExploded(row, col);
     }
-    public void setTileToNotFlaged(int row, int col) {
-        this.getBoard().setTileToNotFlaged(row, col);
+    public void setTileToNotFlagged(int row, int col) {
+        this.getBoard().setTileToNotFlagged(row, col);
     }
 
-    public void setTileToFlaged(int row, int col) {
-        this.getBoard().setTileToFlaged(row, col);
+    public void setTileToFlagged(int row, int col) {
+        this.getBoard().setTileToFlagged(row, col);
     }
 
-    public void setsBombdAround(int row, int col, int numberOfBombs) {
+    public void setsBombsAround(int row, int col, int numberOfBombs) {
         this.getBoard().setBombsAround(row, col, numberOfBombs);
     }
 }

@@ -44,7 +44,7 @@ public static String SWEEPER_SAVE_FILENAME;
     @Override
     protected void onResume() {
         super.onResume();
-        sweeperBoardManager = SaveAndLoadBoardManager.loadFromFile(this, SWEEPER_SAVE_FILENAME);
+        //sweeperBoardManager = SaveAndLoadBoardManager.loadFromFile(this, SWEEPER_SAVE_FILENAME);
     }
 
     /**
@@ -88,7 +88,7 @@ public static String SWEEPER_SAVE_FILENAME;
      * Starts activity for a new game
      */
     private void newGame() {
-        Intent tmp = new Intent(this, ChooseDimensionActivitty.class);
+        Intent tmp = new Intent(this, ChooseDimensionActivity.class);
         startActivity(tmp);
     }
 

@@ -11,8 +11,6 @@ import android.widget.Button;
 import java.io.File;
 import java.io.IOException;
 
-import fall2018.csc2017.GameCentre.MineSweeper.ChooseDimensionActivitty;
-import fall2018.csc2017.GameCentre.MineSweeper.MineSweeperActivity;
 import fall2018.csc2017.GameCentre.MineSweeper.SweeperStartingActivity;
 import fall2018.csc2017.GameCentre.Score.MenuScoreboardsActivity;
 import fall2018.csc2017.GameCentre.Simon.SimonStartingActivity;
