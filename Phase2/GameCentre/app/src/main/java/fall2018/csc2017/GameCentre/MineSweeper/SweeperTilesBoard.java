@@ -29,15 +29,6 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
      */
     private int bombTime;
 
-    public SweeperTilesBoard(int dimension, List<SweeperTile> tiles) {
-        super(dimension, tiles);
-        this.time = 0;
-        this.hitPoints = 3;
-        this.bombTime = 10;
-        hasChanged();
-        notifyObservers();
-    }
-
     public SweeperTilesBoard(int dimension, int complexity) {
         super();
         setDimension(dimension);
@@ -54,6 +45,7 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
         setTiles(tiles);
         this.time = 0;
         this.hitPoints = 3;
+        this.bombTime = 10;
         hasChanged();
         notifyObservers();
     }
