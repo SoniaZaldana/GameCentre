@@ -25,7 +25,7 @@ public class SweeperTile extends Tile {
     /**
      * The type of bomb
      */
-    private String BombType;
+    private BombTypes BombType;
 
 
     public SweeperTile(boolean hasBomb) {
@@ -34,14 +34,14 @@ public class SweeperTile extends Tile {
             Random rand = new Random();
             int n = rand.nextInt(10);
             if (n < 5) {
-                this.BombType = "small";
+                this.BombType = BombTypes.SMALL;
             } else if (n < 8){
-                this.BombType = "big";
+                this.BombType = BombTypes.BIG;
             } else{
-                this.BombType = "timed";
+                this.BombType = BombTypes.TIMED;
             }
         } else {
-            this.BombType = "none";
+            this.BombType = null;
         }
     }
 
@@ -49,7 +49,7 @@ public class SweeperTile extends Tile {
      * BombType Getter. If no bomb, gives the string "none".
      * @return The type of bomb
      */
-    public String getBombType() {
+    public BombTypes getBombType() {
         return BombType;
     }
 

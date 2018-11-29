@@ -25,9 +25,12 @@ public class Board<U extends Tile> extends Observable implements Serializable, I
 
     /**
      * Returns a list containing all tiles in the board
+     *
      * @return list of tiles
      */
-
+    public void setDimension(int newDimension) {
+        dimension = newDimension;
+    }
     public Board(int dimension, List<U> listOfTiles) {
         this.dimension = dimension;
         tiles = new ArrayList<>();
@@ -40,6 +43,9 @@ public class Board<U extends Tile> extends Observable implements Serializable, I
             }
             tiles.add(rowTile);
         }
+    }
+    public Board() {
+
     }
 
     public  ArrayList<ArrayList<U>> getAllTiles() {
@@ -74,6 +80,10 @@ public class Board<U extends Tile> extends Observable implements Serializable, I
     public void setTile(int row, int col, U tile) {
         this.tiles.get(row).set(col, tile);
 
+    }
+
+    public void setTiles(ArrayList<ArrayList<U>> newTiles) {
+        tiles = newTiles;
     }
 
     /**
