@@ -1,7 +1,6 @@
 package fall2018.csc2017.GameCentre.MineSweeper;
 
 import java.lang.reflect.Array;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -73,7 +72,6 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
         this.time++;
         this.setChanged();
         this.notifyObservers();
-        Log.i("time", String.valueOf(this.time));
     }
     private ArrayList<SweeperTile> getMinesTiles(int complexity) {
         ArrayList<SweeperTile> tilesList = new ArrayList<>();
