@@ -1,10 +1,13 @@
 package fall2018.csc2017.GameCentre.MineSweeper;
+/**
+ * We did not test timer methods because these were all direct applications of the Timer task in
+ * java.
+ */
 
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -23,10 +26,13 @@ public class SweeperBoardManagerTest {
 
     }
 
-    public void createValidTileList() {
+    /**
+     * Creating a valid list of sweeper tiles where half has a bomb and half does not
+     */
+    private void createValidTileList() {
         sweeperTileList = new ArrayList<>();
         SweeperTile tile1 = new SweeperTile(true);
-        SweeperTile tile2 = new SweeperTile(false);
+        SweeperTile tile2 = new SweeperTile(true);
         SweeperTile tile3 = new SweeperTile(false);
         SweeperTile tile4 = new SweeperTile(false);
         sweeperTileList.add(tile1);
@@ -34,20 +40,6 @@ public class SweeperBoardManagerTest {
         sweeperTileList.add(tile3);
         sweeperTileList.add(tile4);
     }
-
-    //TODO not sure how to test this one.
-//    @Test
-//    public void startTimer() {
-//        createValidTileList();
-//        SweeperTilesBoard sweeperTilesBoard = new SweeperTilesBoard(2, sweeperTileList);
-//        sweeperBoardManager = new SweeperBoardManager(sweeperTilesBoard);
-//    }
-
-    //TODO not sure how to test this one
-    @Test
-    public void stopTimer() {
-    }
-
     @Test
     public void getBombTime() {
         createValidTileList();
