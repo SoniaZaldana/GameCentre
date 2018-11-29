@@ -42,7 +42,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setContentView(R.layout.activity_sweeper);
+        setContentView(R.layout.activity_sweeper_main);
         int dimension = getIntent().getExtras().getInt("Dimension");
         int complexity = getIntent().getExtras().getInt("Complexity");
         gridView = (GestureDetectGridViewLongPress) findViewById(R.id.grid);
