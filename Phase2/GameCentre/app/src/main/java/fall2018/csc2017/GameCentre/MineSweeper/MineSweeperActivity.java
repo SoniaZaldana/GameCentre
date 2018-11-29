@@ -42,8 +42,8 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
+        setContentView(R.layout.activity_sweeper_main);
         if (getIntent().hasExtra("Dimension")) {
-            setContentView(R.layout.activity_sweeper_main);
             int dimension = getIntent().getExtras().getInt("Dimension");
             int complexity = getIntent().getExtras().getInt("Complexity");
             sweeperTilesBoard = new SweeperTilesBoard(dimension, complexity);
@@ -88,20 +88,20 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     }
 
     private void updateTime(){
-        timerText.setText(String.valueOf(sweeperBoardManager.getBoard().getTime()));
+        timerText.setText("Time: \n" + String.valueOf(sweeperBoardManager.getBoard().getTime()));
     }
 
     private void updateBombTime(){
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                bombTimerText.setText(String.valueOf(sweeperBoardManager.getBoard().getBombTime()));
+                bombTimerText.setText("Bomb Time: " + String.valueOf(sweeperBoardManager.getBoard().getBombTime()));
             }
         });
     }
 
     private void updateHealth(){
-        healthNumber.setText(String.valueOf(sweeperBoardManager.getBoard().getHitPoints()));
+        healthNumber.setText("HP: " + String.valueOf(sweeperBoardManager.getBoard().getHitPoints()));
     }
 
     @Override
