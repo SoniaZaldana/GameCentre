@@ -42,13 +42,19 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setContentView(R.layout.activity_sweeper_main);
-        int dimension = getIntent().getExtras().getInt("Dimension");
-        int complexity = getIntent().getExtras().getInt("Complexity");
+        if (getIntent().hasExtra("Dimension")) {
+            setContentView(R.layout.activity_sweeper_main);
+            int dimension = getIntent().getExtras().getInt("Dimension");
+            int complexity = getIntent().getExtras().getInt("Complexity");
+            sweeperTilesBoard = new SweeperTilesBoard(dimension, complexity);
+            sweeperBoardManager = new SweeperBoardManager(sweeperTilesBoard);
+        } else{
+            sweeperBoardManager = SaveAndLoadBoardManager.loadFromFile(this, SweeperStartingActivity.SWEEPER_SAVE_FILENAME);
+            sweeperTilesBoard = sweeperBoardManager.getBoard();
+        }
+        int dimension = sweeperTilesBoard.getDimension();
         gridView = (GestureDetectGridViewLongPress) findViewById(R.id.grid);
         gridView.setNumColumns(dimension);
-        sweeperTilesBoard = new SweeperTilesBoard(dimension, complexity);
-        sweeperBoardManager = new SweeperBoardManager(sweeperTilesBoard);
         startTimer();
         gridView = findViewById(R.id.grid);
         movementControllerSweeper = new MovementControllerSweeper(sweeperBoardManager);
