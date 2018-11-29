@@ -70,7 +70,7 @@ public class MenuScoreboardsActivity extends AppCompatActivity implements View.O
                 break;
             case R.id.SimonScoreboardLabel:
                 startActivity(new Intent(this, GameScoreboardActivity.class).
-                        putExtra("GameFile", "simon.txt"));
+                        putExtra("GameFile", "Simon.txt"));
                 break;
             case R.id.MinesweeperScoreboard:
                 startActivity(new Intent(this, GameScoreboardActivity.class).

@@ -103,6 +103,8 @@ public class ScoreScreenActivity extends AppCompatActivity implements View.OnCli
                 }
                 //TODO: Add where to go for minesweeper
                 else if (currentGame.equals("Minesweeper")){
+                    startActivity(new Intent(this, ChooseDimensionActivity.class).
+                         putExtra("Game", currentGame));
                     break;
                 }
             case R.id.MainMenuButton:

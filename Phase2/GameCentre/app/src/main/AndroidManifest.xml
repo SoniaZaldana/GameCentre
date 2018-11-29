@@ -28,6 +28,9 @@
         <activity android:name=".SlidingTiles.SlidingTilesStartingActivity" />
         <activity android:name=".Simon.SimonGameActivity" />
         <activity android:name=".Simon.SimonStartingActivity" />
+        <activity android:name=".MineSweeper.MineSweeperActivity"/>
+        <activity android:name=".MineSweeper.SweeperStartingActivity"/>
+        <activity android:name=".MineSweeper.ChooseDimensionActivity"/>
         <activity android:name=".ChooseDimensionActivity" />
     </application>
 

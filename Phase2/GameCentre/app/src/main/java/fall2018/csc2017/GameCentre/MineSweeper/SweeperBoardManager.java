@@ -7,83 +7,69 @@ import java.util.TimerTask;
 import fall2018.csc2017.GameCentre.BoardManager;
 
 public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> implements Serializable {
-
-    /**
-     * A timer that increments the time by 1 every second (a game clock)
-     */
-    private Timer timer = new Timer();
-
-    /**
-     * The amount of time a time bomb has before exploding
-     */
-    private int bombTime;
-
     /**
      * Whether or not there's a timer bomb active
      */
     private boolean bombActive = false;
 
+    private int activeBombRow;
+
+
+    private int activeBombCol;
+
     public SweeperBoardManager(SweeperTilesBoard b){
         super(b);
-        this.bombTime = 10;
     }
 
     @Override
     public int calculateScore(int mines) {
-        return (mines / getBoard().getTime());
-    }
-
-    public void startTimer(){
-        ScoreTask task = new ScoreTask(this);
-        timer.schedule(task, 1000, 1000);
-    }
-
-    public void stopTimer(){
-        timer.cancel();
-    }
-
-    public int getBombTime() {
-        return bombTime;
+        return ((100*mines) - getBoard().getTime());
     }
 
     public boolean isBombActive() {
         return bombActive;
     }
 
-    public void lowerBombTime(){
-        this.bombTime--;
-    }
 
     public void setBombActive(boolean active){
         this.bombActive = active;
     }
 
-    /**
-     * A timer task that increments the timer.
-     */
-    private class ScoreTask extends TimerTask {
 
-        /**
-         * The boardmanager that uses this timer.
-         */
-        private SweeperBoardManager manager;
+    public void setBombToExploded(int row, int col) {
+        this.getBoard().setBombToExploded(row, col);
+    }
+    public void setTileToNotFlagged(int row, int col) {
+        this.getBoard().setTileToNotFlagged(row, col);
+    }
 
-        /**
-         * An task that increments the time.
-         *
-         * @param manager The board manager this is acting on
-         */
-        public ScoreTask(SweeperBoardManager manager){
-            super();
-            this.manager = manager;
-        }
+    public void setTileToFlagged(int row, int col) {
+        this.getBoard().setTileToFlagged(row, col);
+    }
 
-        /**
-         * The task this timer does.
-         */
-        public void run(){
-            this.manager.getBoard().timeIncrement();
-        }
+    public void setsBombsAround(int row, int col, int numberOfBombs) {
+        this.getBoard().setBombsAround(row, col, numberOfBombs);
+    }
+    public SweeperTile getTileInPosition(int position) {
+        int row = getRow(position);
+        int col = getCol(position);
+        SweeperTile tile = getBoard().getTile(row,col);
+        return tile;
+    }
 
+    public int getActiveBombRow() {
+        return activeBombRow;
+    }
+
+    public int getActiveBombCol() {
+        return activeBombCol;
+    }
+
+    public void setActiveBombRow(int activeBombRow) {
+        this.activeBombRow = activeBombRow;
+    }
+
+    public void setActiveBombCol(int activeBombCol) {
+        this.activeBombCol = activeBombCol;
     }
 }

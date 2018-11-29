@@ -3,7 +3,6 @@ package fall2018.csc2017.GameCentre;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -23,6 +22,15 @@ public class Board<U extends Tile> extends Observable implements Serializable, I
      * Instantiates a board object with a dimension and list of tiles
      * @param dimension - nxn dimension
      */
+
+    /**
+     * Returns a list containing all tiles in the board
+     *
+     * @return list of tiles
+     */
+    public void setDimension(int newDimension) {
+        dimension = newDimension;
+    }
     public Board(int dimension, List<U> listOfTiles) {
         this.dimension = dimension;
         tiles = new ArrayList<>();
@@ -35,6 +43,9 @@ public class Board<U extends Tile> extends Observable implements Serializable, I
             }
             tiles.add(rowTile);
         }
+    }
+    public Board() {
+
     }
 
     /**
@@ -73,6 +84,10 @@ public class Board<U extends Tile> extends Observable implements Serializable, I
     public void setTile(int row, int col, U tile) {
         this.tiles.get(row).set(col, tile);
 
+    }
+
+    public void setTiles(ArrayList<ArrayList<U>> newTiles) {
+        tiles = newTiles;
     }
 
     /**

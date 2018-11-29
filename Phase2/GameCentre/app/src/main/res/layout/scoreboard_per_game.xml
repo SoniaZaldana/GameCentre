@@ -18,10 +18,11 @@
         android:layout_marginBottom="20dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
+        android:background="@color/FoxYellow"
         />
 
     <TextView
-        android:id="@+id/SlidingTilesScoreboard"
+        android:id="@+id/PerGameScoreboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -38,7 +39,7 @@
             android:rowCount="1"
             android:id="@+id/mainColumns"
             android:layout_marginBottom="30dp"
-            android:layout_below="@+id/SlidingTilesScoreboard"
+            android:layout_below="@+id/PerGameScoreboard"
             android:layout_margin="10dp"
             >
             <TextView
