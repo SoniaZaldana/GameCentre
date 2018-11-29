@@ -1,7 +1,5 @@
 package fall2018.csc2017.GameCentre.MineSweeper;
 
-import android.util.Log;
-
 import java.io.Serializable;
 import java.util.Timer;
 import java.util.TimerTask;

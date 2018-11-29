@@ -10,13 +10,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import fall2018.csc2017.GameCentre.ChooseDimensionActivity;
 import fall2018.csc2017.GameCentre.GameLauncherActivity;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
 
 /**
  * The initial activity for the sliding puzzle tile game.
- * Code for picking image inspired from http://androidbitmaps.blogspot.com/2015/04/loading-images-in-android-part-iii-pick.html
+ * Code for picking image
+ * inspired from http://androidbitmaps.blogspot.com/2015/04/loading-images-in-android-part-iii-pick.html
  */
 public class SlidingTilesStartingActivity extends AppCompatActivity {
 
@@ -149,14 +151,21 @@ public class SlidingTilesStartingActivity extends AppCompatActivity {
         startActivity(tmp);
     }
 
+    /**
+     * Instantiate new game with a picture or without it
+     */
     private void newGame() {
-        Intent tmp = new Intent(this, ChooseDimensionsSlidingActivity.class);
+        Intent tmp = new Intent(this, ChooseDimensionActivity.class);
         if (tilePicture != null) {
-            tmp.putExtra("TileImage", tilePicture);
+            Bundle extras = new Bundle();
+            extras.putString("TileImage", tilePicture);
+            extras.putString("Game", "SlidingTiles");
+            tmp.putExtras(extras);
+            startActivity(tmp);
         }
-
-        startActivity(tmp);
-
+        else {
+            startActivity(tmp.putExtra("Game", "SlidingTiles"));
+        }
     }
 
     @Override

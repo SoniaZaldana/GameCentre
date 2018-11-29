@@ -108,7 +108,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
 
 
     /**
-     * Helper function for when the player loses.
+     * Helper function for when the player loses. Moves on to score activity
      */
     public void processLoss(Context context) {
         if (!getBoardManager().isBombActive()) {

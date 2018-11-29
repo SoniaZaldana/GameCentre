@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="20dp"
+    android:background="@drawable/background"
     tools:context="fall2018.csc2017.GameCentre.SlidingTiles.SlidingTilesStartingActivity">
+
 
     <TextView
         android:id="@+id/GameText"
@@ -12,44 +14,50 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="20sp"
         android:gravity="center"
         android:text="Welcome To Sliding Tiles \n A Puzzle Game where you must arrange the numbers in the correct order"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:layout_marginBottom="20dp"/>
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:orientation="vertical"
-       android:layout_centerHorizontal="true"
-       android:layout_below="@+id/GameText">
-       <Button
-           android:id="@+id/StartButton"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_weight="1"
-           android:text="New Game"
-           android:layout_marginBottom="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/GameText"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
 
-       <Button
-           android:id="@+id/LoadButton"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:text="Load Saved Game"
-           android:layout_weight="1"
-           android:layout_marginBottom="10dp"/>
+        <Button
+            android:id="@+id/StartButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@color/FoxYellow"
+            android:text="New Game" />
 
-       <Button
-           android:id="@+id/ChooseTilePicture"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:text="Choose Tile Picture"
-           android:layout_weight="1"
-           android:layout_marginBottom="10dp"/>
+        <Button
+            android:id="@+id/LoadButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@color/FoxYellow"
+            android:text="Load Saved Game" />
+
+        <Button
+            android:id="@+id/ChooseTilePicture"
+            style="@style/AppTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:text="Choose Tile Picture" />
 
 
-   </LinearLayout>
-
+    </LinearLayout>
 
 
 </RelativeLayout>

@@ -37,14 +37,14 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
      * A getter for the time
      * @return time time that has transpired for the game
      */
-    public int getTime() {
-        return time;
+    int getTime() {
+        return this.time;
     }
 
     /**
      * Increments the time by 1.
      */
-    public void timeIncrement(){
+    void timeIncrement(){
         this.time++;
         this.setChanged();
         this.notifyObservers();
@@ -60,8 +60,8 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
     /**
      * Decreases HP by 1
      */
-    public void takeDamage() {
-        hitPoints--;
+    void takeDamage() {
+        this.hitPoints--;
     }
 
     /**
@@ -69,8 +69,8 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
      * @return int hitPoints
      */
 
-    public int getHitPoints() {
-        return hitPoints;
+    int getHitPoints() {
+        return this.hitPoints;
     }
 
     public int getBombTime() {

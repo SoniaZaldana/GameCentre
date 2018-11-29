@@ -1,11 +1,12 @@
 package fall2018.csc2017.GameCentre.MineSweeper;
 
 import java.util.Random;
-
 import fall2018.csc2017.GameCentre.Tile;
 
+/**
+ * A tile for the game minesweeper
+ */
 public class SweeperTile extends Tile {
-
 
     /**
      * whether tile has a bomb or not
@@ -27,8 +28,11 @@ public class SweeperTile extends Tile {
      */
     private String BombType;
 
-
-    public SweeperTile(boolean hasBomb) {
+    /**
+     * Instantiates sweeper tile object and assigns it a random bomb type
+     * @param hasBomb - whether tile contains a bomb
+     */
+    SweeperTile(boolean hasBomb) {
         this.bomb = hasBomb;
         if (hasBomb) {
             Random rand = new Random();
@@ -49,26 +53,33 @@ public class SweeperTile extends Tile {
      * BombType Getter. If no bomb, gives the string "none".
      * @return The type of bomb
      */
-    public String getBombType() {
-        return BombType;
+    String getBombType() {
+        return this.BombType;
     }
 
-    public SweeperTile() {}
+    SweeperTile() {}
 
     /**
      *
      * @return whether tile is marked by user as having a bomb.
      */
-    public boolean isFlagged() {
-        return flagged;
+    boolean isFlagged() {
+        return this.flagged;
     }
     /**
      *
      * @param flag represents whether the tile is marked(user thinks it has a bomb
      */
-    public void flag(boolean flag) {
-        flagged = flag;
+    void flag(boolean flag) {
+        this.flagged = flag;
     }
+
+    /**
+     * returns whether a tile contains a bomb
+     * @return boolean
+     */
+    boolean hasBomb(){
+        return this.bomb;
     public void setTileToNotFlaged() {
         this.flagged = false;
     }
@@ -82,15 +93,27 @@ public class SweeperTile extends Tile {
         this.isBombExploded = true;
     }
 
-    public void setBomb(boolean bomb) {
+    /**
+     * Sets whether a tile contains a bomb
+     * @param bomb - boolean
+     */
+    void setBomb(boolean bomb) {
         this.bomb = bomb;
     }
 
-    public int getBombsAround() {
-        return bombsAround;
+    /**
+     * Returns the number of bombs around this tile
+     * @return int
+     */
+    int getBombsAround() {
+        return this.bombsAround;
     }
 
-    public void setBombsAround(int bombsAround) {
+    /**
+     * Sets the number of bombs around this tile
+     * @param bombsAround - integer number of bombs
+     */
+    void setBombsAround(int bombsAround) {
         this.bombsAround = bombsAround;
     }
 

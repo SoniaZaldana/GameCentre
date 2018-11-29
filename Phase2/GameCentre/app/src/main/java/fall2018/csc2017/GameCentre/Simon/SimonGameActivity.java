@@ -2,6 +2,9 @@ package fall2018.csc2017.GameCentre.Simon;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
+import android.media.MediaPlayer;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,12 +12,14 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Toast;
-
 import java.util.ArrayList;
+import java.util.ListIterator;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 import fall2018.csc2017.GameCentre.CustomAdapter;
 import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridViewShortPress;
+import fall2018.csc2017.GameCentre.MovementControllers.MovementController;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
@@ -22,8 +27,12 @@ import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
 public class SimonGameActivity extends AppCompatActivity implements Observer {
 
     private SimonBoardManager simonBoardManager;
-    private MovementControllerSimplePress movementControllerSimon;
+    private SimonMovementController movementControllerSimon;
     private ArrayList<Button> tileButtons;
+    ListIterator<SimonTile> i;
+    private Button saveButton;
+    private Button undoButton;
+
 
     // Grid View and calculated column height and width based on device size
     private GestureDetectGridViewShortPress gridView;
@@ -39,12 +48,17 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
 
         // Add View to activity
         gridView = findViewById(R.id.grid);
+        assignRandomColourToTile();
+
         createTileButtons(this);
         gridView.setNumColumns(simonBoardManager.getBoard().getDimension());
         movementControllerSimon = new SimonMovementController(simonBoardManager);
         gridView.setMovementController(movementControllerSimon);
-        simonBoardManager.getBoard().addObserver(this);
-        // Observer sets up desired dimensions as well as calls our display function
+        SimonTile t = simonBoardManager.randomizer();
+        simonBoardManager.getGameQueue().add(t);
+        simonBoardManager.getGameQueue().addObserver(this);
+        movementControllerSimon.addObserver(this);
+        // Observer sets up desired dimensions as well as calls our displayGameQueue function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -56,36 +70,126 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
 
                         columnWidth = displayWidth / simonBoardManager.getBoard().getDimension();
                         columnHeight = displayHeight / simonBoardManager.getBoard().getDimension();
-                        display();
+                        //TODO see if maybe we can remove this.
+                        displayGameQueue();
                     }
                 });
+        //TODO check if displayGameQueue() isn't called twice
     }
 
-    void display(){
-        createTileGUI();
-        gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+    /**
+     * Assigns a random colour to a tile from a given list of colors
+     */
+    private void assignRandomColourToTile() {
+        // get list o colors for the simon tiles
+        TypedArray ta = getResources().obtainTypedArray(R.array.colors);
+        int size = ta.length();
+        //get a random color from resources and assign it to a tile
+        Random random = new Random();
+        for(ArrayList<SimonTile> arr: simonBoardManager.getBoard().getAllTiles()){
+            for(SimonTile t: arr){
+                t.setColor(ta.getResourceId(random.nextInt(size), 0));
+            }
+        }
     }
 
+    /**
+     * Takes the tiles in the board and makes them blue buttons
+     * @param context
+     */
     private void createTileButtons(Context context){
         SimonTilesBoard board = simonBoardManager.getBoard();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != board.getDimension(); row++) {
             for (int col = 0; col != board.getDimension(); col++) {
                Button tmp = new Button(context);
-               this.tileButtons.add(tmp);
+                tmp.setBackground(ContextCompat.getDrawable(this, R.drawable.tile_blue));
+                this.tileButtons.add(tmp);
             }
         }
     }
 
+    /**
+     * Displays the tile graphical interface i.e. changing colours as each tile is displayed
+     */
     private void createTileGUI(){
-        for (Button b: tileButtons){
-            b.setBackground(ContextCompat.getDrawable(this, R.drawable.tile_blue));
+        // set the colour of the previous button in gamequeue back to blue
+        // as we've already displayed it
+        if(i.hasPrevious()){
+            int prevId = i.previous().getId();
+            tileButtons.get(prevId).setBackground(ContextCompat.getDrawable(this, R.drawable.tile_blue));
+            gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+            i.next();
+        }
+        // highlight current item in the gamequeue
+        if(i.hasNext()){
+            final int currId = i.next().getId();
+            int tileColor = getResources().getColor(simonBoardManager.getTileInPosition(currId).getColor(), null);
+            tileButtons.get(currId).setBackgroundColor(tileColor);
+            gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    createTileGUI();
+
+                }
+            }, 1500 - (movementControllerSimon.getRound()*20));
+        }
+        else{
+            gridView.setMovementController(movementControllerSimon);
+        }
+
+    }
+    @Override
+    public void update(Observable o, Object arg) {
+        // if gamequeue updated, then display the stack.
+        if (o instanceof GameQueue) {
+            displayGameQueue();
+
+        }
+        // if a new button pressed, add appropriate resources(highlight, sound)
+        else if(o instanceof MovementController){
+            int currId = movementControllerSimon.getCurrPosition();
+            int currTilecolor = simonBoardManager.getTileInPosition(currId).getColor();
+            int tileColor =getResources().getColor(currTilecolor,null);
+            // flash the color of the tile
+            tileButtons.get(currId).setBackgroundColor(tileColor);
+            // make a sound
+            final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.tap);
+            mp.start();
+            // update display
+            gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+            // set the button back to original colour after 200ms
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    tileButtons.get(movementControllerSimon.getCurrPosition()).setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tile_blue));
+                    gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+
+
+                }
+            }, 200);
         }
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        display();
+    /**
+     * Displays the pattern of random tiles in the game queue
+     */
+    private void displayGameQueue() {
+        // create an empty movementController to be called when user clicks on tile
+        // during display of the gameQueue
+        MovementControllerSimplePress m = new MovementControllerSimplePress() {
+            @Override
+            public void processMove(Context context, int position) {
+            }
+        };
+        gridView.setMovementController(m);
+        // restart the iterator, as we are displaying the queue from the start
+        i = simonBoardManager.getGameQueue().iterator();
+        createTileGUI();
+
     }
 
     @Override
@@ -110,8 +214,12 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         finish();
     }
 
+    /**
+     * Activate undo button
+     */
     private void addUndoButtonListener() {
-        Button undoButton = findViewById(R.id.UndoButton);
+        undoButton = findViewById(R.id.undoButton);
+        undoButton.setText("Redo Patterns Left: " + simonBoardManager.getUndo());
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,25 +228,40 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         });
     }
 
-    //TODO: Need to implement what to do in case of undo
+    /**
+     * Decreases the number of undos left and redisplays the pattern presented to the user
+     * as a second chance to get the pattern right
+     */
     private void undo(){
-
+        if (!(simonBoardManager.getUndo() == 0)){
+            simonBoardManager.reduceUndo();
+            Toast.makeText(this, "One redo used!", Toast.LENGTH_LONG).show();
+            undoButton.setText("Redo Patterns Left: " + simonBoardManager.getUndo());
+            displayGameQueue();
+            if (simonBoardManager.getUndo() == 0){
+                undoButton.setEnabled(false);
+            }
+        }
     }
 
     /**
      * Activate save button.
      */
     private void addSaveButtonListener() {
-        Button saveButton = findViewById(R.id.SaveButton);
+        saveButton = findViewById(R.id.saveButton);
         final SimonGameActivity simonGameActivity = this;
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.saved);
+                mp.start();
                 SaveAndLoadBoardManager.saveToFile(simonGameActivity, SimonStartingActivity.SAVE_FILENAME, simonBoardManager);
                 makeToastSavedText();
             }
         });
     }
+
+
 
     /**
      * Display that a game was saved successfully.

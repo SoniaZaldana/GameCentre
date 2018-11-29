@@ -17,6 +17,7 @@
          />
 
     <Button
+        style="@style/AppTheme"
         android:id="@+id/MyScoreboardLabel"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
@@ -27,6 +28,7 @@
          />
 
     <Button
+        style="@style/AppTheme"
         android:id="@+id/SlidingTilesScoreboardLabel"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
@@ -37,6 +39,7 @@
          />
 
     <Button
+        style="@style/AppTheme"
         android:id="@+id/SimonScoreboardLabel"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
@@ -47,6 +50,7 @@
         />
 
     <Button
+        style="@style/AppTheme"
         android:id="@+id/MinesweeperScoreboard"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
@@ -68,6 +72,7 @@
          />
 
     <Button
+        style="@style/AppTheme"
         android:id="@+id/MainMenuButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

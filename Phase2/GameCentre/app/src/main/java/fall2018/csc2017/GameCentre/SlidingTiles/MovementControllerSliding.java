@@ -1,16 +1,14 @@
 package fall2018.csc2017.GameCentre.SlidingTiles;
-
 import android.content.Context;
 import android.widget.Toast;
-
 import java.util.Iterator;
-
 import fall2018.csc2017.GameCentre.MoveTracker;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
 import fall2018.csc2017.GameCentre.Score.ScoreScreenActivity;
 import fall2018.csc2017.GameCentre.Tile;
-
 public class MovementControllerSliding extends MovementControllerSimplePress<SlidingBoardManager> {
+
+    boolean gameFinished;
 
     /**
      * Moves variable keeps track of number of moves
@@ -24,26 +22,42 @@ public class MovementControllerSliding extends MovementControllerSimplePress<Sli
     }
     @Override
     public void processMove(Context context, int position){
-        if (isValidTap(position)) {
-            touchMove(position);
-            moves.addMoves(1);
-            getBoardManager().setScore(moves.getMoves());
-            if (isGameFinished()) {
+        if(moved(position)){
+            if(gameFinished){
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
                 int score = getBoardManager().calculateScore(moves.getMoves());
                 moveOnToScoreActivity(context, "SlidingTiles.txt", ScoreScreenActivity.class, score);
             }
-        } else {
+        }
+        else{
             Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
         }
     }
+
+    /**
+     * Moves a tile, adds to the number of moves and checks whether game is finished.
+     * @param position - position of tile
+     * @return
+     */
+    public boolean moved(int position){
+        if (isValidTap(position)) {
+            touchMove(position);
+            moves.addMoves(1);
+            getBoardManager().setScore(moves.getMoves());
+            gameFinished = isGameFinished();
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     /**
      * Process a touch at position in the board, swapping tiles as appropriate.
      *
      * @param position the position
      */
-    //TODO made touchMove public for testing. Should that be valid?
-    public void touchMove(int position) {
+    private void touchMove(int position) {
         int row = getBoardManager().getRow(position);
         int col = getBoardManager().getCol(position);
         // If any of the neighbouring tiles is the blank tile, swap by calling SlidingTilesBoard's swap method.
@@ -87,8 +101,12 @@ public class MovementControllerSliding extends MovementControllerSimplePress<Sli
         Tile tile = rowOrCol == boundaryCase ? null : getBoardManager().getBoard().getTile(rowToCheck, colToCheck);
         return tile != null && tile.getId() == blankId;
     }
-    //TODO make it private right after. Only made it public for testing
-    public boolean isGameFinished() {
+
+    /**
+     * Checks whether a game has ended
+     * @return
+     */
+    private boolean isGameFinished() {
         Iterator<Tile> iterator = getBoardManager().getBoard().iterator();
         boolean inOrder = true;
         int prevTileValue = 0;
@@ -109,8 +127,7 @@ public class MovementControllerSliding extends MovementControllerSimplePress<Sli
      * @param position the tile to check
      * @return whether the tile at position is surrounded by a blank tile
      */
-    //TODO made it public just for testing. See if it should be public.
-    public boolean isValidTap(int position) {
+    private boolean isValidTap(int position) {
         int row = getBoardManager().getRow(position);
         int col = getBoardManager().getCol(position);
         // check if blank tile is tile above, below, to the left, or to the right in this order.
