@@ -23,7 +23,7 @@ import fall2018.csc2017.GameCentre.Tile;
 public class MovementControllerSweeper extends MovementControllerComplexPress<SweeperBoardManager> {
     private int flagCounter;
 
-    private Timer timer = new Timer();
+    private static Timer timer = new Timer();
 
     public MovementControllerSweeper(SweeperBoardManager boardManager) {
         setBoardManager(boardManager);
@@ -113,6 +113,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
      * around.
      *
      * @param row
+     *
      * @param col
      * @param currTile
      */
