@@ -20,10 +20,16 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
      */
     private int hitPoints;
 
+    /**
+     * The amount of time a time bomb has before exploding
+     */
+    private int bombTime;
+
     public SweeperTilesBoard(int dimension, List<SweeperTile> tiles) {
         super(dimension, tiles);
         this.time = 0;
         this.hitPoints = 3;
+        this.bombTime = 10;
         hasChanged();
         notifyObservers();
     }
@@ -46,8 +52,9 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
     }
 
     public int getBombTime() {
-        return time;
+        return bombTime;
     }
+
     /**
      * Decreases HP by 1
      */
@@ -70,14 +77,14 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
         notifyObservers(locationOfTile);
     }
 
-    public void setTileToNotFlaged(int row, int col) {
+    public void setTileToNotFlagged(int row, int col) {
         this.getTile(row, col).setTileToNotFlaged();
         int[] locationOfTile = {row, col};
         setChanged();
         notifyObservers(locationOfTile);
     }
 
-    public void setTileToFlaged(int row, int col) {
+    public void setTileToFlagged(int row, int col) {
         this.getTile(row,col).setTileToFlaged();
         int[] locationOfTile = {row, col};
         setChanged();
@@ -90,9 +97,8 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
         notifyObservers(locationOfTile);
     }
 
-    public void lowerBombTime(int row, int col) {
-        int[] locationOfTile = {row, col};
-        time--;
+    public void lowerBombTime() {
+        bombTime--;
         setChanged();
         notifyObservers();
 
