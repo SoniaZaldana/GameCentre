@@ -41,18 +41,18 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
             if (!t.isFlagged()) {
                 if (t.hasBomb()) {// if there's a bomb check what bomb
                     if (!t.isBombExploded()) {
-                        if (t.getBombType().equals("small")) { // Takes damage if it's a small bomb
+                        if (t.getBombType().equals(BombTypes.SMALL)) { // Takes damage if it's a small bomb
                             getBoardManager().getBoard().takeDamage();
                             getBoardManager().setBombToExploded(row, col);
                             if (getBoardManager().getBoard().getHitPoints() == 0) {
                                 processLoss(context);
                             }
                         }
-                        if (t.getBombType().equals("big")) {// End the game if it's a big bomb
+                        if (t.getBombType().equals(BombTypes.BIG)) {// End the game if it's a big bomb
                             getBoardManager().setBombToExploded(row, col);
                             processLoss(context);
                         }
-                        if (t.getBombType().equals("timed")) {
+                        if (t.getBombType().equals(BombTypes.TIMED)) {
                             // Start a timer, game ends after 10 seconds.
                             getBoardManager().setBombToExploded(row, col);
                             if (!getBoardManager().isBombActive()) {

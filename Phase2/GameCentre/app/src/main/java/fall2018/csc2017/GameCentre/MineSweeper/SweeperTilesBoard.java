@@ -3,11 +3,15 @@ package fall2018.csc2017.GameCentre.MineSweeper;
 import java.lang.reflect.Array;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
 import fall2018.csc2017.GameCentre.Board;
+import fall2018.csc2017.GameCentre.Tile;
 
 public class SweeperTilesBoard extends Board<SweeperTile> {
     /**
@@ -22,6 +26,26 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
 
     public SweeperTilesBoard(int dimension, List<SweeperTile> tiles) {
         super(dimension, tiles);
+        this.time = 0;
+        this.hitPoints = 3;
+        hasChanged();
+        notifyObservers();
+    }
+
+    public SweeperTilesBoard(int dimension, int complexity) {
+        super();
+        setDimension(dimension);
+        ArrayList<ArrayList<SweeperTile>> tiles = new ArrayList<>();
+        ArrayList<SweeperTile> mineTiles = getMinesTiles(complexity);
+        Iterator iter = mineTiles.iterator();
+        for (int row = 0; row != dimension; row++) {
+            ArrayList rowTile = new ArrayList<>();
+            for (int col = 0; col != dimension; col++) {
+                rowTile.add(iter.next());
+            }
+            tiles.add(rowTile);
+        }
+        setTiles(tiles);
         this.time = 0;
         this.hitPoints = 3;
         hasChanged();
@@ -43,6 +67,34 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
         this.setChanged();
         this.notifyObservers();
         Log.i("time", String.valueOf(this.time));
+    }
+    private ArrayList<SweeperTile> getMinesTiles(int complexity) {
+        ArrayList<SweeperTile> tilesList = new ArrayList<>();
+        int numOfMines = getDimension() * getDimension() * complexity / 100;
+        ArrayList locationOfTilesWithMine = randomlyChoose(numOfMines);
+        for (int i = 0; i < getDimension() * getDimension(); i++) {
+            if (locationOfTilesWithMine.contains(i)) {
+                tilesList.add(new SweeperTile(true));
+            } else {
+                tilesList.add(new SweeperTile(false));
+            }
+        }
+        return tilesList;
+    }
+
+    private ArrayList randomlyChoose(int numOfMines) {
+        int i = 0;
+        Random myRandom = new Random();
+        ArrayList locationOfTilesWithMine = new ArrayList<>();
+        while (i != numOfMines) {
+            int location = myRandom.nextInt(getDimension() * getDimension());
+            if (!locationOfTilesWithMine.contains(location)) {
+                locationOfTilesWithMine.add(location);
+                i++;
+            }
+        }
+        return locationOfTilesWithMine;
+
     }
 
     public int getBombTime() {
