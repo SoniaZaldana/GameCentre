@@ -146,8 +146,15 @@
 <color name="DarkBlue">#00008B</color>
 <color name="Navy">#000080</color>
 <color name="Black">#000000</color>
+    <color name="FoxBlue">#30b1c3</color>
+    <color name="FoxBrown">#9a4e00</color>
+    <color name="FoxOrange">#ff6700</color>
+    <color name="FoxYellow">#ffa700</color>
+    <color name="FoxBeige">#fcffcd</color>
+    <color name="FoxDarkerBlue">#4c4cff</color>
 
-<array name="colors">
+
+    <array name="colors">
     <item name="White">@color/White</item>
     <item name="Ivory">@color/Ivory</item>
     <item name="LightYellow">@color/LightYellow</item>
@@ -288,6 +295,13 @@
     <item name="DarkBlue">@color/DarkBlue</item>
     <item name="Navy">@color/Navy</item>
     <item name="Black">@color/Black</item>
-</array>
+    <item name="FoxBlue">@color/FoxBlue</item>
+    <item name="FoxBrown">@color/FoxBrown</item>
+    <item name="FoxOrange">@color/FoxOrange</item>
+    <item name="FoxYellow">@color/FoxYellow</item>
+    <item name="FoxBeige">@color/FoxBeige</item>
+        <item name="FoxDarkerBlue">@color/FoxDarkerBlue</item>
+
+    </array>
 
 </resources>

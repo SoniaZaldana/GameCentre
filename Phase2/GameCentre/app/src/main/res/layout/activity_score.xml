@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Score.ScoreScreenActivity">
+    tools:context=".Score.ScoreScreenActivity"
+    android:background="@drawable/background">
 
     <TextView
         android:id="@+id/ScoreTitleLabel"
@@ -12,6 +13,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="80dp"
         android:text="@string/score"
+        android:textStyle="bold"
+        android:textColor="@color/Black"
+        android:textSize="30sp"
         android:layout_centerHorizontal="true"
         />
 
@@ -20,6 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/you_achieved_a_total_score_of"
+        android:textSize="20sp"
+        android:textColor="@color/Black"
         android:layout_below="@id/ScoreTitleLabel"
         android:layout_centerHorizontal="true"
          />
@@ -31,6 +37,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:text="@string/new_high_score"
+        android:textColor="@color/Black"
+        android:textStyle="bold"
+        android:textSize="20sp"
         android:layout_below="@id/ScoreValueLabel"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
@@ -40,14 +49,17 @@
         android:id="@+id/ScoreValueLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="25sp"
         android:text="@string/_500"
+        android:textStyle="bold"
+        android:textColor="@color/Black"
         android:layout_below="@id/AchievedLabel"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
          />
 
     <Button
-        style="@style/AppTheme"
+        android:background="@color/FoxYellow"
         android:id="@+id/NewGameButton"
         android:layout_width="227dp"
         android:layout_height="69dp"
@@ -55,12 +67,12 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="85dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="115dp"
         android:text="New Game" />
     <Button
-        style="@style/AppTheme"
+        android:background="@color/FoxYellow"
         android:id="@+id/MainMenuButton"
         android:layout_width="227dp"
         android:layout_height="69dp"
