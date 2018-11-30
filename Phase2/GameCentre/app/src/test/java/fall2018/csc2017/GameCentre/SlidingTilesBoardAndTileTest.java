@@ -6,7 +6,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import fall2018.csc2017.GameCentre.SlidingTiles.MovementControllerSliding;
 import fall2018.csc2017.GameCentre.SlidingTiles.SlidingBoardManager;
 import fall2018.csc2017.GameCentre.SlidingTiles.SlidingTilesBoard;
 
@@ -21,6 +20,8 @@ public class SlidingTilesBoardAndTileTest {
 
     /** The board manager for testing. */
     private SlidingBoardManager boardManager;
+
+    private List<Tile> tiles;
 
     /**
      * Make a set of tiles that are in order.
@@ -40,7 +41,7 @@ public class SlidingTilesBoardAndTileTest {
      * Make a solved SlidingTilesBoard.
      */
     private void setUpCorrect(int undoMax, int dimension) {
-        List<Tile> tiles = makeTiles(dimension);
+        tiles = makeTiles(dimension);
         SlidingTilesBoard board = new SlidingTilesBoard(dimension, tiles);
         boardManager = new SlidingBoardManager(undoMax, board);
     }
@@ -52,17 +53,6 @@ public class SlidingTilesBoardAndTileTest {
         boardManager.getBoard().swapTiles(0, 0, 0, 1);
     }
 
-    /**
-     * Test whether swapping two tiles makes a solved board unsolved.
-     */
-//    @Test
-//    public void testIsSolved() {
-//        setUpCorrect(2,2);
-//        MovementControllerSliding movementController = new MovementControllerSliding(boardManager);
-//        assertEquals(true, movementController.isGameFinished());
-//        swapFirstTwoTiles();
-//        assertEquals(false, movementController.isGameFinished());
-//    }
 
     /**
      * Test whether swapping the first two tiles works.
@@ -90,47 +80,6 @@ public class SlidingTilesBoardAndTileTest {
         assertEquals(15, boardManager.getBoard().getTile(3, 3).getId());
     }
 
-    /**
-     * Test whether isValidHelp works.
-//     */
-//    @Test
-//    public void testIsValidTap() {
-//        //TODO maybe check different sizes
-//        setUpCorrect(4,4);
-//        MovementControllerSliding movementController = new MovementControllerSliding(boardManager);
-//        assertEquals(true, movementController.isValidTap(11));
-//        assertEquals(true, movementController.isValidTap(14));
-//        assertEquals(false, movementController.isValidTap(10));
-//        assertEquals(false, movementController.isValidTap(15));
-//
-//    }
-    /**
-     * Test if touchMove works
-     */
-//    @Test
-//    public void testTouchMove(){
-//        setUpCorrect(4,4);
-//        MovementControllerSliding movementController = new MovementControllerSliding(boardManager);
-//        boardManager.getBoard().swapTiles(3, 3, 3, 2);
-//        ArrayList<ArrayList<Tile>> actualTiles = boardManager.getBoard().getAllTiles();
-//        ArrayList<Integer> tileNum = new ArrayList<>();
-//        for(ArrayList<Tile> array:actualTiles){
-//            for(Tile t:array){
-//                tileNum.add(t.getId());
-//            }
-//        }
-//        ArrayList<Integer> expectedValues = new ArrayList<>();
-//        for(int i =1; i<=14; i++){
-//            expectedValues.add(i);
-//        }
-//        expectedValues.add(16);
-//        expectedValues.add(15);
-//        assertArrayEquals(expectedValues.toArray(),tileNum.toArray());
-//        movementController.touchMove(15);
-//        assertEquals(true, movementController.isGameFinished());
-//
-//
-//    }
     @Test
     public void testSlidingTilesBoard(){
         setUpCorrect(5,2 );
@@ -145,6 +94,73 @@ public class SlidingTilesBoardAndTileTest {
         assertEquals(expectedResult,boardManager.getBoard().toString());
     }
 
+    @Test
+    public void testCalculateScore(){
+        setUpCorrect(2, 2);
+        assertEquals(975 ,boardManager.calculateScore(5));
+    }
+
+    @Test
+    public void testUndo(){
+        setUpCorrect(1, 2);
+        Tile tile = (Tile) boardManager.getUndoStack().pop();
+        assertFalse(boardManager.undo());
+        boardManager.getUndoStack().push(new Tile(2));
+        boardManager.getUndoStack().push(new Tile(3));
+        assertTrue(boardManager.undo());
+    }
+    @Test
+    public void testSolvable() {
+        setUpCorrect(2, 2);
+        boolean solvable = false;
+        int inversions = 0;
+        for (int x = 0; x != boardManager.getBoard().getNumTiles(); x++) {
+            Tile currentTile = tiles.get(x);
+            for (int y = x; y != boardManager.getBoard().getNumTiles(); y++) {
+                Tile compareTile = tiles.get(y);
+                if (currentTile.getId() > compareTile.getId()) {
+                    inversions++;
+                }
+            }
+        }
+        //blank id is numtiles
+        int blankId = boardManager.getBoard().getNumTiles();
+        if ((isEven(boardManager.getBoard().getDimension()) && isEven(inversions)) ||
+                (!isEven(boardManager.getBoard().getDimension())) &&
+                        (blankOnOddRow(blankId, tiles, boardManager) == isEven(inversions))) {
+            solvable = true;
+        }
+        assertTrue(solvable);
+    }
+
+    /**
+     * Checkes whether blank tile is on odd row
+     * @param blankId - blank tile id
+     * @param tileList - list of tiles
+     * @param boardManager - boardManager
+     * @return
+     */
+    private boolean blankOnOddRow(int blankId, List<Tile> tileList, SlidingBoardManager boardManager) {
+        int row = 1;
+        int dimension = boardManager.getBoard().getDimension();
+        for(int x = 0; x != tileList.size(); x++){
+            if (tileList.get(x).getId() == blankId){
+                if(row % 2 == 0){return false;}
+                return true;
+            }
+            if((x + 1) % dimension == 0){row++;}
+        }
+        return false;
+    }
+
+    /**
+     * Determines whether a quantity is an even number
+     * @param x - given integer
+     * @return
+     */
+    private boolean isEven(int x){
+        return x%2 == 0;
+    }
 
 }
 

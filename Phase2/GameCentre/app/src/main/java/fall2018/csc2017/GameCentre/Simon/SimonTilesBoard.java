@@ -17,7 +17,7 @@ public class SimonTilesBoard extends Board<SimonTile> {
      * @param tiles     - list of SimonTiles
      */
 
-    public SimonTilesBoard(int dimension, List<SimonTile> tiles) {
+    SimonTilesBoard(int dimension, List<SimonTile> tiles) {
         super(dimension, tiles);
     }
 //TODO implement it in the activity. Check if it is correct

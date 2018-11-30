@@ -1,6 +1,8 @@
+/**
+ * Excluded from tests because it is a view class.
+ */
 package fall2018.csc2017.GameCentre.Simon;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
