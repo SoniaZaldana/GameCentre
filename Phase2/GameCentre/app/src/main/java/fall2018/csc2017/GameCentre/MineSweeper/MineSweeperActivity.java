@@ -254,7 +254,6 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         if (tile.isFlagged()) {
             minesButtons.get(buttonIndex).setBackground(
                     ContextCompat.getDrawable(this, R.drawable.flag));
-
         } else if (tile.getBombsAround() == 0) {
             minesButtons.get(buttonIndex).setBackground(
                     ContextCompat.getDrawable(this, R.drawable.empty_tile));
@@ -264,7 +263,33 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
                     ContextCompat.getDrawable(this, R.drawable.ms_tile));
             getSetTextSize(buttonIndex);
             setTextColor(buttonIndex, tile.getBombsAround());
-        } else {
+        } else if (tile.isBombExploded()) {
+            final int index = buttonIndex;
+            if (tile.getBombType().equals(BombTypes.BIG)){
+                endGame(buttonIndex);
+            } else if (tile.getBombType().equals(BombTypes.SMALL)){
+                minesButtons.get(buttonIndex).setBackground(ContextCompat.getDrawable(this,
+                        R.drawable.smallbomb));
+                if (sweeperBoardManager.getBoard().getHitPoints() == 0){
+                    endGame(buttonIndex);
+                }
+            } else if (tile.getBombType().equals(BombTypes.TIMED)){
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        setTimerPicture(index);
+                    }
+                });
+                if (sweeperBoardManager.getBoard().getBombTime() == 0){
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            endGame(index);
+                        }
+                    });
+                }
+            }
+        } else{
             minesButtons.get(buttonIndex).setBackground(ContextCompat.getDrawable(this, R.drawable.ms_tile));
         }
     }

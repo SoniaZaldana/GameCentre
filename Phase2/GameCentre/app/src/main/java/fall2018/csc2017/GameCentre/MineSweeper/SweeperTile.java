@@ -37,9 +37,9 @@ public class SweeperTile extends Tile {
         if (hasBomb) {
             Random rand = new Random();
             int n = rand.nextInt(10);
-            if (n < -5) {
+            if (n < 5) {
                 this.BombType = BombTypes.SMALL;
-            } else if (n < -8){
+            } else if (n < 8){
                 this.BombType = BombTypes.BIG;
             } else{
                 this.BombType = BombTypes.TIMED;
