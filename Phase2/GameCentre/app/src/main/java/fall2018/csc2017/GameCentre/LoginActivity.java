@@ -22,13 +22,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     /**
      * The shared preference which stores registered accounts.
      */
-    private SharedPreferences accounts;
+    private AccountManager accountManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        accounts = getApplicationContext().getSharedPreferences("users", Context.MODE_PRIVATE);
+        accountManager = new AccountManager(getApplicationContext());
         setUpVisuals();
     }
 
@@ -50,9 +50,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.login:
                 String username = usernameText.getText().toString();
                 String password = passwordText.getText().toString();
-                String authenticationPassword = accounts.getString(username,
-                        "Account does not exists");
-                if (!accounts.contains(username)) {
+                String authenticationPassword = accountManager.getAccountPasswor(username);
+                if (!accountManager.doesAccountExist(username)) {
                     wrongSound();
                     Toast.makeText(this, String.format("Account with name " +
                             "\"%s\" does not exist", username), Toast.LENGTH_SHORT).show();

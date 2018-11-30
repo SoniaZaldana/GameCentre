@@ -52,7 +52,6 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(dimension);
         startTimer();
-        gridView = findViewById(R.id.grid);
         movementControllerSweeper = new MovementControllerSweeper(sweeperBoardManager);
         if (sweeperBoardManager.isBombActive()) {
             movementControllerSweeper.startTimer(sweeperBoardManager.getActiveBombRow(),

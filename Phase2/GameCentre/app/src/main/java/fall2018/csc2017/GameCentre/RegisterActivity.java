@@ -20,13 +20,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     /**
      *  The shared preference which stores  users.
      */
-    private SharedPreferences users;
+    AccountManager accountManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        users = getApplicationContext().getSharedPreferences("users", Context.MODE_PRIVATE);
+        accountManager = new AccountManager(getApplicationContext());
         setUpVisuals();
     }
 
@@ -48,7 +48,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 String username = usernameText.getText().toString();
                 String password = passwordText.getText().toString();
                 String reEnteredPassword = reEnteredPasswordText.getText().toString();
-                if (users.contains(username)) {
+                if (accountManager.doesAccountExist(username)) {
                     wrongSound();
                     Toast.makeText(this, String.format("Account with the name \"%s\" " +
                                     "already exists, please try another username", username),
@@ -68,9 +68,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     Toast.makeText(this, "Your passwords do not match",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    SharedPreferences.Editor Accounts = users.edit();
-                    Accounts.putString(username, password);
-                    Accounts.apply();
+                    accountManager.createAccount(username, password);
                     startActivity(new Intent(this,
                             GameLauncherActivity.class));
                     SharedPreferenceManager.setSharedValue(this, "sharedUser",
