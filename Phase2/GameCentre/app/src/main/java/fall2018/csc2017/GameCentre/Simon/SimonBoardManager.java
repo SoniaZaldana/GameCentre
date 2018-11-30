@@ -53,7 +53,7 @@ import fall2018.csc2017.GameCentre.BoardManager;
     /**
      * Decrease the max number of undo by 1
      */
-    public void reduceUndo(){
+    void reduceUndo(){
         this.undo--;
     }
 
@@ -61,7 +61,7 @@ import fall2018.csc2017.GameCentre.BoardManager;
      * Returns the game queue for this object
      * @return
      */
-    public GameQueue<SimonTile> getGameQueue(){
+    GameQueue<SimonTile> getGameQueue(){
         return this.gameQueue;
     }
 
@@ -79,7 +79,7 @@ import fall2018.csc2017.GameCentre.BoardManager;
      * repeated as often
      * @return SimonTile
      */
-    public SimonTile randomizer() {
+    SimonTile randomizer() {
         //get the last tile in the gameQueue
         SimonTile newTile = randomizerHelper();
         if(!gameQueue.isEmpty()){
@@ -111,7 +111,7 @@ import fall2018.csc2017.GameCentre.BoardManager;
         }
         return simonList.get(index).get(randNum);
     }
-    public SimonTile getTileInPosition(int position) {
+    SimonTile getTileInPosition(int position) {
         int row = getRow(position);
         int col = getCol(position);
         SimonTile tile = getBoard().getTile(row,col);

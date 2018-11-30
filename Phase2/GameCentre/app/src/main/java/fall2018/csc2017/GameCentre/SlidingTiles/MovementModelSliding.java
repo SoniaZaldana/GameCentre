@@ -14,7 +14,7 @@ public class MovementModelSliding extends MovementModelSimplePress<SlidingBoardM
      * Moves variable keeps track of number of moves
      */
     private MoveTracker moves;
-    public MovementModelSliding(SlidingBoardManager boardManager) {
+    MovementModelSliding(SlidingBoardManager boardManager) {
         moves = new MoveTracker(boardManager.getScore());
         setBoardManager(boardManager);
 
@@ -36,7 +36,7 @@ public class MovementModelSliding extends MovementModelSimplePress<SlidingBoardM
      * @param position - position of tile
      * @return
      */
-    public boolean moved(int position){
+    private boolean moved(int position){
         if (isValidTap(position)) {
             touchMove(position);
             moves.addMoves(1);

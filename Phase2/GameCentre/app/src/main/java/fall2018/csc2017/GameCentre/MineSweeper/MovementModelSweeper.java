@@ -168,7 +168,7 @@ public class MovementModelSweeper extends MovementModelComplexPress<SweeperBoard
      * @param col Column of the initial tile
      * @param currTile The tile itself
      */
-    public void checkAround(int row, int col, SweeperTile currTile) {
+    void checkAround(int row, int col, SweeperTile currTile) {
         // Check if the current tile might have already been set.
         if (currTile.getBombsAround() == -1) {
             //Doesn't have bomb. Display how many bombs are around.

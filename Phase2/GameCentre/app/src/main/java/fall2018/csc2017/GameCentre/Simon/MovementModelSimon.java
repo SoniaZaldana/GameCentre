@@ -104,7 +104,7 @@ public class MovementModelSimon extends MovementModelSimplePress<SimonBoardManag
      * @param gameQueue - the game queue
      * @return boolean round is finished
      */
-    boolean isRoundFinished(GameQueue gameQueue){
+    private boolean isRoundFinished(GameQueue gameQueue){
         return !iterator.hasNext();
     }
 

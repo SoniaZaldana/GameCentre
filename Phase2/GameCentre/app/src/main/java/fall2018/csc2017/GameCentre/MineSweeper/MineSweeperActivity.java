@@ -382,7 +382,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
          *
          * @param manager The board manager this is acting on
          */
-        public ScoreTask(SweeperBoardManager manager) {
+        ScoreTask(SweeperBoardManager manager) {
             super();
             this.manager = manager;
         }

@@ -9,7 +9,7 @@ import java.util.Random;
 import fall2018.csc2017.GameCentre.Board;
 import fall2018.csc2017.GameCentre.Tile;
 
-public class SimonTilesBoard extends Board<SimonTile> {
+class SimonTilesBoard extends Board<SimonTile> {
     /**
      * Instantiates a SimonTilesBoard object with a dimension and list of SimonTiles
      *

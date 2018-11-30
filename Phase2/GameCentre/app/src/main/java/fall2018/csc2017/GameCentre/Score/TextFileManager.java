@@ -74,7 +74,7 @@ class TextFileManager {
      * @param fileArray array where each row is a username and a score with the format: "user, 980"
      * @return
      */
-    public static Map<String, Double> getUsernameAndScoresMap(String[] fileArray){
+    static Map<String, Double> getUsernameAndScoresMap(String[] fileArray){
         int indexWithinUserandScoreList;
         int counter = 0;
         String line;
@@ -152,7 +152,7 @@ class TextFileManager {
         return highScore;
     }
 
-    public static boolean isHighScore(String[] fileArray, String targetValue, int userScore){
+    static boolean isHighScore(String[] fileArray, String targetValue, int userScore){
         boolean highScore = false;
         int index;
         int scoreSaved;
