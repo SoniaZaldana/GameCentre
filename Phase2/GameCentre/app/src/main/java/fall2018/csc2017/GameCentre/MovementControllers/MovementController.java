@@ -41,7 +41,7 @@ public abstract class MovementController<T extends BoardManager> extends Observa
      * @param score score for this game.
      */
     //TODO remove from here as it violates rules, and instead set parameter gamFinished, that is called from activity every time.
-    void moveOnToScoreActivity(Context context, String gameFile, Class scoreClass, int score) {
+    public void moveOnToScoreActivity(Context context, String gameFile, Class scoreClass, int score) {
         Intent intent = new Intent(context, scoreClass);
         intent.putExtra("Score", score);
         intent.putExtra("Game", gameFile);
