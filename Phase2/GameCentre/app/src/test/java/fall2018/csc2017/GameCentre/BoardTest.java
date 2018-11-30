@@ -56,8 +56,8 @@ public class BoardTest {
     @Test
     public void getDimension() {
         createValidList();
-        Board board = new Board(3, listTiles);
-        assertEquals(3, board.getDimension());
+        Board board = new Board(2, listTiles);
+        assertEquals(2, board.getDimension());
     }
 
     @Test

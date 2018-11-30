@@ -1,12 +1,6 @@
 package fall2018.csc2017.GameCentre.Simon;
 
-import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ListIterator;
-
-import fall2018.csc2017.GameCentre.Tile;
-
 import static org.junit.Assert.*;
 
 public class SimonMovementControllerTest {

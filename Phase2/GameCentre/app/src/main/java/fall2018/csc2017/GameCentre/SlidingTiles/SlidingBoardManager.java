@@ -147,5 +147,4 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
 
     }
 
-
 }
