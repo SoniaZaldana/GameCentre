@@ -3,25 +3,17 @@ package fall2018.csc2017.GameCentre.Simon;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ListIterator;
+
+import fall2018.csc2017.GameCentre.Tile;
+
 import static org.junit.Assert.*;
 
 public class SimonMovementControllerTest {
-    //TODO: finish this class
 
     private SimonMovementController simonMovementController;
     private SimonBoardManager simonBoardManager;
 
-
-    @Before
-    public void setUp(){
-        simonBoardManager = new SimonBoardManager(2,3);
-        simonMovementController = new SimonMovementController(simonBoardManager);
-
-    }
-
-    @Test
-    public void processMove() {
-    }
 
     @Test
     public void getCurrPosition() {
@@ -32,6 +24,12 @@ public class SimonMovementControllerTest {
 
     @Test
     public void isCorrectMove() {
+        simonBoardManager = new SimonBoardManager(2,3);
+        simonMovementController = new SimonMovementController(simonBoardManager);
+        SimonTile simonTile = new SimonTile();
+        simonMovementController.getBoardManager().getGameQueue().add(simonTile);
+        assertEquals(true, simonMovementController.isCorrectMove(simonTile));
+
     }
 
     @Test
@@ -41,7 +39,4 @@ public class SimonMovementControllerTest {
         assertEquals(1, simonMovementController.getRound());
     }
 
-    @Test
-    public void isRoundFinished() {
-    }
 }

@@ -27,6 +27,8 @@ public class BoardTest {
         assertEquals(2, board.getDimension());
         board.setDimension(4);
         assertEquals(4, board.getDimension());
+        Board board2 = new Board();
+
     }
 
     @Test
@@ -101,8 +103,4 @@ public class BoardTest {
         assertEquals(expectedResult, board.toString());
     }
 
-    @Test
-    public void iterator() {
-
-    }
 }

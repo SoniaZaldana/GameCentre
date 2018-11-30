@@ -75,7 +75,7 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
      * Returns the current position attribute
      * @return integer
      */
-    public int getCurrPosition() {
+    int getCurrPosition() {
         return currPosition;
     }
 
@@ -84,21 +84,19 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
      * @param userTile - the tile the user has clicked
      * @return
      */
-    public boolean isCorrectMove(SimonTile userTile){
-        if(iterator.hasNext()){
+    boolean isCorrectMove(SimonTile userTile){
+        if(iterator.hasNext()) {
             SimonTile tileAtFront = iterator.next();
             return tileAtFront.getId() == userTile.getId();
         }
-        else{
-            return false;
-        }
+        return false;
     }
 
     /**
      *
      * @return the round the user is in
      */
-    public int getRound() {
+    int getRound() {
         return round;
     }
 
@@ -107,7 +105,7 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
      * @param gameQueue - the game queue
      * @return boolean round is finished
      */
-    public boolean isRoundFinished(GameQueue gameQueue){
+    boolean isRoundFinished(GameQueue gameQueue){
         return !iterator.hasNext();
     }
 

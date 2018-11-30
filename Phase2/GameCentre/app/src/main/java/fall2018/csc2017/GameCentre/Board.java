@@ -63,7 +63,7 @@ public class Board<U extends Tile> extends Observable implements Serializable, I
      * @return dimension
      */
     public int getDimension() {
-        return dimension;
+        return this.dimension;
     }
 
     /**
