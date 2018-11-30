@@ -21,7 +21,7 @@ public abstract class MovementController<T extends BoardManager> extends Observa
      *
      * @param boardManager used by MovementController
      */
-    void setBoardManager(T boardManager){
+    public void setBoardManager(T boardManager){
         this.boardManager = boardManager;
     }
 
