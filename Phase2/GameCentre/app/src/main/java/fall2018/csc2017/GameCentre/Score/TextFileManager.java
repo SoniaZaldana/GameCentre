@@ -71,7 +71,7 @@ class TextFileManager {
 
     /**
      * Helper which returns the hashMap which contains the username and the score
-     * @param fileArray array where each row is a username and a score with the format: "[user, 980"
+     * @param fileArray array where each row is a username and a score with the format: "user, 980"
      * @return
      */
     public static Map<String, Double> getUsernameAndScoresMap(String[] fileArray){
