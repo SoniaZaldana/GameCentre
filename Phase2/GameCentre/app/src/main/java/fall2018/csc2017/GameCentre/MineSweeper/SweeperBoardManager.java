@@ -23,7 +23,11 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
      */
     private int activeBombCol;
 
-    public SweeperBoardManager(SweeperTilesBoard b) {
+    /**
+     * Instantiates a sweeper board manager
+     * @param b
+     */
+    SweeperBoardManager(SweeperTilesBoard b){
         super(b);
     }
 
@@ -39,51 +43,38 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
     }
 
     /**
-     * Getter for isBombActive
-     *
-     * @return true if time bomb is active, false otherwise
+     * Returns whether the timer bomb is active
+     * @return
      */
-    public boolean isBombActive() {
+    boolean isBombActive() {
         return bombActive;
     }
 
     /**
-     * Setter for isBombActive.
-     *
-     * @param active bomb state
+     * Sets the bomb timer active
+     * @param active
      */
-    public void setBombActive(boolean active) {
+    void setBombActive(boolean active){
         this.bombActive = active;
     }
 
     /**
-     * Sets the bomb state to true for exploded
-     *
-     * @param row of the bomb
-     * @param col of the bomb
+     * Sets the bomb that will explode
+     * @param row - row the bomb is in the board
+     * @param col - col the bomb is in the board
      */
-    public void setBombToExploded(int row, int col) {
+    void setBombToExploded(int row, int col) {
         this.getBoard().setBombToExploded(row, col);
     }
 
     /**
-     * Sets whether or not the tile is flagged
-     *
-     * @param row of the non-flagged tile
-     * @param col of the non-flagged tile
+     * Sets a tile to flagged
+     * @param row - row in the board
+     * @param col - column in the board
+     * @param flag
      */
-    public void setTileToNotFlagged(int row, int col) {
-        this.getBoard().setTileToNotFlagged(row, col);
-    }
-
-    /**
-     * Sets the tile to flagged
-     *
-     * @param row of the newly flagged tile
-     * @param col of the newly flagged tile
-     */
-    public void setTileToFlagged(int row, int col) {
-        this.getBoard().setTileToFlagged(row, col);
+    void setTileToFlagged(int row, int col, boolean flag) {
+        this.getBoard().setTileToFlagged(row, col, flag);
     }
 
     /**
@@ -93,30 +84,30 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
      * @param col of the target tile
      * @param numberOfBombs around the tile
      */
-    public void setsBombsAround(int row, int col, int numberOfBombs) {
+    void setsBombsAround(int row, int col, int numberOfBombs) {
         this.getBoard().setBombsAround(row, col, numberOfBombs);
     }
 
-    public SweeperTile getTileInPosition(int position) {
+    SweeperTile getTileInPosition(int position) {
         int row = getRow(position);
         int col = getCol(position);
         SweeperTile tile = getBoard().getTile(row, col);
         return tile;
     }
 
-    public int getActiveBombRow() {
+    int getActiveBombRow() {
         return activeBombRow;
     }
 
-    public int getActiveBombCol() {
+    int getActiveBombCol() {
         return activeBombCol;
     }
 
-    public void setActiveBombRow(int activeBombRow) {
+    void setActiveBombRow(int activeBombRow) {
         this.activeBombRow = activeBombRow;
     }
 
-    public void setActiveBombCol(int activeBombCol) {
+    void setActiveBombCol(int activeBombCol) {
         this.activeBombCol = activeBombCol;
     }
 }

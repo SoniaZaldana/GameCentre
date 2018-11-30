@@ -201,7 +201,6 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
                 }
             } else {
                 updateTileButtons(buttonIndex, t);
-                gridView.setAdapter(new CustomAdapter(minesButtons, columnWidth, columnHeight));
             }
         }
         updateTime();
@@ -346,7 +345,6 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     public void endGame(int buttonIndex) {
         minesButtons.get(buttonIndex).setBackground(ContextCompat.getDrawable(this,
                 R.drawable.exploded_bomb));
-        gridView.setAdapter(new CustomAdapter(minesButtons, columnWidth, columnHeight));
         int i = 0;
         for (SweeperTile mine : sweeperTilesBoard) {
             if (i != buttonIndex && mine.hasBomb()) {
@@ -363,6 +361,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
             }
             i++;
         }
+        gridView.setEnabled(false);
         Toast.makeText(this, "You lost", Toast.LENGTH_SHORT).show();
     }
 
