@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import fall2018.csc2017.GameCentre.BoardManager;
-//TODO get Undo to Work
  public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
     /**
      * How many undos a user has in a game
@@ -82,7 +81,6 @@ import fall2018.csc2017.GameCentre.BoardManager;
      */
     public SimonTile randomizer() {
         //get the last tile in the gameQueue
-        //TODO test if this works
         SimonTile newTile = randomizerHelper();
         if(!gameQueue.isEmpty()){
             SimonTile lastTile = gameQueue.get(gameQueue.getSize()-1);

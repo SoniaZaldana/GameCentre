@@ -8,13 +8,13 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
-import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
+import fall2018.csc2017.GameCentre.MovementControllers.MovementModelSimplePress;
 
 /**
  * a GestureDetectGridView which reacts to only short presses on the screen.
  */
 public class GestureDetectGridViewShortPress extends GestureDetectGridView {
-    MovementControllerSimplePress mController;
+    MovementModelSimplePress mController;
     public GestureDetectGridViewShortPress(Context context) {
         super(context);
         createAndSetGestureDetector(context);
@@ -30,7 +30,7 @@ public class GestureDetectGridViewShortPress extends GestureDetectGridView {
         createAndSetGestureDetector(context);
     }
 
-    public void setMovementController(MovementControllerSimplePress mController) {
+    public void setMovementController(MovementModelSimplePress mController) {
         this.mController = mController;
     }
 

@@ -19,15 +19,15 @@ import java.util.Observer;
 import java.util.Random;
 import fall2018.csc2017.GameCentre.CustomAdapter;
 import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridViewShortPress;
-import fall2018.csc2017.GameCentre.MovementControllers.MovementController;
-import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
+import fall2018.csc2017.GameCentre.MovementControllers.MovementModel;
+import fall2018.csc2017.GameCentre.MovementControllers.MovementModelSimplePress;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
 
 public class SimonGameActivity extends AppCompatActivity implements Observer {
 
     private SimonBoardManager simonBoardManager;
-    private SimonMovementController movementControllerSimon;
+    private MovementModelSimon movementControllerSimon;
     private ArrayList<Button> tileButtons;
     ListIterator<SimonTile> i;
     private Button saveButton;
@@ -52,7 +52,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
 
         createTileButtons(this);
         gridView.setNumColumns(simonBoardManager.getBoard().getDimension());
-        movementControllerSimon = new SimonMovementController(simonBoardManager);
+        movementControllerSimon = new MovementModelSimon(simonBoardManager);
         gridView.setMovementController(movementControllerSimon);
         SimonTile t = simonBoardManager.randomizer();
         simonBoardManager.getGameQueue().add(t);
@@ -70,11 +70,9 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
 
                         columnWidth = displayWidth / simonBoardManager.getBoard().getDimension();
                         columnHeight = displayHeight / simonBoardManager.getBoard().getDimension();
-                        //TODO see if maybe we can remove this.
                         displayGameQueue();
                     }
                 });
-        //TODO check if displayGameQueue() isn't called twice
     }
 
     /**
@@ -149,7 +147,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
 
         }
         // if a new button pressed, add appropriate resources(highlight, sound)
-        else if(o instanceof MovementController){
+        else if(o instanceof MovementModel){
             int currId = movementControllerSimon.getCurrPosition();
             int currTilecolor = simonBoardManager.getTileInPosition(currId).getColor();
             int tileColor =getResources().getColor(currTilecolor,null);
@@ -180,7 +178,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     private void displayGameQueue() {
         // create an empty movementController to be called when user clicks on tile
         // during display of the gameQueue
-        MovementControllerSimplePress m = new MovementControllerSimplePress() {
+        MovementModelSimplePress m = new MovementModelSimplePress() {
             @Override
             public void processMove(Context context, int position) {
             }

@@ -12,24 +12,24 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import fall2018.csc2017.GameCentre.ClicksOnBoard;
-import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerComplexPress;
+import fall2018.csc2017.GameCentre.MovementControllers.MovementModelComplexPress;
 import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
 import fall2018.csc2017.GameCentre.Score.ScoreScreenActivity;
 
 /**
  * Controls revealing tiles on the board
  */
-public class MovementControllerSweeper extends MovementControllerComplexPress<SweeperBoardManager> {
+public class MovementModelSweeper extends MovementModelComplexPress<SweeperBoardManager> {
     /**
      * Timer used for decreasing the time on a time bomb.
      */
     private Timer timer = new Timer();
     private int numberOfMove = 0;
 
-    MovementControllerSweeper(SweeperBoardManager boardManager) {
+    MovementModelSweeper(SweeperBoardManager boardManager) {
         setBoardManager(boardManager);
     }
-    MovementControllerSweeper(SweeperBoardManager boardManager, Timer timer) {
+    MovementModelSweeper(SweeperBoardManager boardManager, Timer timer) {
         setBoardManager(boardManager);
         this.timer = timer;
     }
@@ -271,7 +271,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         /**
          * The Movement Controller this task acts on
          */
-        private MovementControllerSweeper movementControllerSweeper;
+        private MovementModelSweeper movementControllerSweeper;
 
         /**
          * The context this timer is in
@@ -283,7 +283,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         /**
          * A timer that starts the bomb
          */
-        BombTask(MovementControllerSweeper movementControllerSweeper, Context context, int row, int col) {
+        BombTask(MovementModelSweeper movementControllerSweeper, Context context, int row, int col) {
             super();
             this.movementControllerSweeper = movementControllerSweeper;
             this.context = context;
@@ -296,7 +296,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
          * @param movementControllerSweeper
          * @param context
          */
-        public BombTask(MovementControllerSweeper movementControllerSweeper, Context context) {
+        public BombTask(MovementModelSweeper movementControllerSweeper, Context context) {
             super();
             this.movementControllerSweeper = movementControllerSweeper;
             this.context = context;

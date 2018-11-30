@@ -13,7 +13,7 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:text="Welcome To MineSweeper \nA game where you flag mines."
+        android:text="Welcome To MineSweeper \nA game where you flag mines.\n\nBeware of tricky bombs..."
         android:textStyle="bold"
         android:textSize="20sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"

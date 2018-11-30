@@ -10,17 +10,17 @@ import fall2018.csc2017.GameCentre.BoardManager;
 
 /**
  * Movement controller that defines how the boardManager behaves upon the user interracting with the board, i.e physical clicks.
- * @param <T> is the type of boardManager that uses the MovementController.
+ * @param <T> is the type of boardManager that uses the MovementModel.
  */
-public abstract class MovementController<T extends BoardManager> extends Observable {
+public abstract class MovementModel<T extends BoardManager> extends Observable {
     /**
-     * type of boardManager used by MovementController
+     * type of boardManager used by MovementModel
      */
     private T boardManager;
 
     /**
      *
-     * @param boardManager used by MovementController
+     * @param boardManager used by MovementModel
      */
     public void setBoardManager(T boardManager){
         this.boardManager = boardManager;
@@ -28,7 +28,7 @@ public abstract class MovementController<T extends BoardManager> extends Observa
 
     /**
      *
-     * @return boardManager used by MovementController.
+     * @return boardManager used by MovementModel.
      */
     public T getBoardManager(){
         return boardManager;

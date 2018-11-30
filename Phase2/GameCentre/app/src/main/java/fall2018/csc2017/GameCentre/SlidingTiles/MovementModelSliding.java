@@ -3,10 +3,10 @@ import android.content.Context;
 import android.widget.Toast;
 import java.util.Iterator;
 import fall2018.csc2017.GameCentre.MoveTracker;
-import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
+import fall2018.csc2017.GameCentre.MovementControllers.MovementModelSimplePress;
 import fall2018.csc2017.GameCentre.Score.ScoreScreenActivity;
 import fall2018.csc2017.GameCentre.Tile;
-public class MovementControllerSliding extends MovementControllerSimplePress<SlidingBoardManager> {
+public class MovementModelSliding extends MovementModelSimplePress<SlidingBoardManager> {
 
     boolean gameFinished;
 
@@ -14,7 +14,7 @@ public class MovementControllerSliding extends MovementControllerSimplePress<Sli
      * Moves variable keeps track of number of moves
      */
     private MoveTracker moves;
-    public MovementControllerSliding(SlidingBoardManager boardManager) {
+    public MovementModelSliding(SlidingBoardManager boardManager) {
         moves = new MoveTracker(boardManager.getScore());
         setBoardManager(boardManager);
 

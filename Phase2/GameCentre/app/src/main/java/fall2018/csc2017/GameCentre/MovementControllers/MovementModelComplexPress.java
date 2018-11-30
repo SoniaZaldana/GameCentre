@@ -8,7 +8,7 @@ import fall2018.csc2017.GameCentre.ClicksOnBoard;
  * Movement controller that defines how the boardManager behaves upon the user interracting with the board, in a complex manner(long press, short press, double click, etc).
  * @param <T>
  */
-public abstract class MovementControllerComplexPress<T extends BoardManager> extends MovementController<T>{
+public abstract class MovementModelComplexPress<T extends BoardManager> extends MovementModel<T> {
     /**
      * Method is called when user interacts with the board and defines behaviour of BoardManager on interaction.
      * @param context from the app.
