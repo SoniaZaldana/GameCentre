@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,9 +16,13 @@ import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerComplex
 import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
 import fall2018.csc2017.GameCentre.Score.ScoreScreenActivity;
 
+/**
+ * Controls revealing tiles on the board
+ */
 public class MovementControllerSweeper extends MovementControllerComplexPress<SweeperBoardManager> {
-    private int flagCounter;
-
+    /**
+     * Timer used for decreasing the time on a time bomb.
+     */
     private Timer timer = new Timer();
 
     public MovementControllerSweeper(SweeperBoardManager boardManager) {
@@ -27,6 +30,12 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
 
     }
 
+    /**
+     * Processing a click on the board
+     * @param context from the app.
+     * @param position of the click on the board
+     * @param click
+     */
     @Override
     public void processMove(Context context, int position, Enum<ClicksOnBoard> click) {
         int row = getBoardManager().getRow(position);
@@ -66,7 +75,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                         timer.cancel();
                         int mines = 0;
                         for (SweeperTile tile : getBoardManager().getBoard()) {
-                            if (tile.hasBomb()){
+                            if (tile.hasBomb()) {
                                 mines++;
                             }
                         }
@@ -81,13 +90,8 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         if (click == ClicksOnBoard.LONG) {
             if (t.isFlagged()) {
                 getBoardManager().setTileToNotFlagged(row, col);
-                flagCounter -= 1;
-                //TODO Disable the flag background
-                //TODO Display new flag counter on screen
-
-            } else if (t.getBombsAround() == -1){
+            } else if (t.getBombsAround() == -1) {
                 getBoardManager().setTileToFlagged(row, col);
-                flagCounter += 1;
             }
         }
         if (!skipSave) {
@@ -95,6 +99,12 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         }
     }
 
+    /**
+     * Start the countdown timer on the bomb
+     * @param row the row of the bomb
+     * @param col the column the bomb is in
+     * @param context from the app
+     */
     public void startTimer(int row, int col, Context context) {
         BombTask task = new BombTask(this, context, row, col);
         timer.schedule(task, 1000, 1000);
@@ -121,10 +131,9 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
      * If 0 bombs around, runs checkAround() on every tile around it.
      * around.
      *
-     * @param row
-     *
-     * @param col
-     * @param currTile
+     * @param row Row of the initial tile
+     * @param col Column of the initial tile
+     * @param currTile The tile itself
      */
     public void checkAround(int row, int col, SweeperTile currTile) {
         // Check if the current tile might have already been set.
@@ -216,7 +225,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         return gameFinished;
     }
 
-    public Timer getTimer(){
+    public Timer getTimer() {
         return timer;
     }
 

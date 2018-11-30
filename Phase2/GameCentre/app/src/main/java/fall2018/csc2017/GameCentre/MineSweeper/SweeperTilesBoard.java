@@ -1,16 +1,11 @@
 package fall2018.csc2017.GameCentre.MineSweeper;
 
-import java.lang.reflect.Array;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.Random;
 
 import fall2018.csc2017.GameCentre.Board;
-import fall2018.csc2017.GameCentre.Tile;
 
 public class SweeperTilesBoard extends Board<SweeperTile> {
     /**
@@ -48,8 +43,10 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
         hasChanged();
         notifyObservers();
     }
+
     /**
      * A getter for the time
+     *
      * @return time time that has transpired for the game
      */
     int getTime() {
@@ -59,7 +56,7 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
     /**
      * Increments the time by 1 and notifies the observers.
      */
-    void timeIncrement(){
+    void timeIncrement() {
         this.time++;
         this.setChanged();
         this.notifyObservers();
@@ -67,6 +64,7 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
 
     /**
      * Builds up the list of SweeperTiles
+     *
      * @param complexity the percentage of tiles with bombs
      * @return
      */
@@ -86,6 +84,7 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
 
     /**
      * Builds an array of ints which represent the location of mines on the board.
+     *
      * @param numOfMines
      * @return
      */
@@ -106,6 +105,7 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
 
     /**
      * A getter for bombTime
+     *
      * @return int bombTime
      */
     public int getBombTime() {
@@ -121,6 +121,7 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
 
     /**
      * A getter for the HP
+     *
      * @return int hitPoints
      */
     int getHitPoints() {
@@ -129,6 +130,7 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
 
     /**
      * Sets the tile located in a row row and column col to exploded
+     *
      * @param row represents on which row tile is located
      * @param col represents on which column tile is located
      */
@@ -141,6 +143,7 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
 
     /**
      * Sets the tile located in a row row and column col to not flagged
+     *
      * @param row represents on which row tile is located
      * @param col represents on which column tile is located
      */
@@ -153,11 +156,12 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
 
     /**
      * Sets the tile located in a row row and column col to flagged
+     *
      * @param row represents on which row tile is located
      * @param col represents on which column tile is located
      */
     public void setTileToFlagged(int row, int col) {
-        this.getTile(row,col).setTileToFlaged();
+        this.getTile(row, col).setTileToFlaged();
         int[] locationOfTile = {row, col};
         setChanged();
         notifyObservers(locationOfTile);
@@ -165,8 +169,9 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
 
     /**
      * Sets the how many adjacent bombs the tile located in a row row and column col has
-     * @param row represents on which row tile is located
-     * @param col represents on which column tile is located
+     *
+     * @param row           represents on which row tile is located
+     * @param col           represents on which column tile is located
      * @param numberOfBombs represent how many adjacent tiles contains bombs
      */
     public void setBombsAround(int row, int col, int numberOfBombs) {
