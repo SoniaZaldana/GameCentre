@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import fall2018.csc2017.GameCentre.BoardManager;
 
+/**
+ * The manager for the minesweeper board
+ */
 public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> implements Serializable {
     /**
      * Whether or not there's a timer bomb active
@@ -11,12 +14,12 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
     private boolean bombActive = false;
 
     /**
-     *
+     * The horizontal location of the time bomb that was activated
      */
     private int activeBombRow;
 
     /**
-     *
+     *  The vertical location of the time bomb that was activated
      */
     private int activeBombCol;
 
@@ -28,6 +31,12 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
         super(b);
     }
 
+    /**
+     * Returns the score of the game when you win
+     *
+     * @param mines The number of mines in the game
+     * @return The score you got from the game
+     */
     @Override
     public int calculateScore(int mines) {
         return ((100 * mines) - getBoard().getTime());
@@ -68,6 +77,13 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
         this.getBoard().setTileToFlagged(row, col, flag);
     }
 
+    /**
+     * Sets the number displayed of the number of bombs around the tile
+     *
+     * @param row of the target tile
+     * @param col of the target tile
+     * @param numberOfBombs around the tile
+     */
     void setsBombsAround(int row, int col, int numberOfBombs) {
         this.getBoard().setBombsAround(row, col, numberOfBombs);
     }
