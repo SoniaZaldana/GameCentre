@@ -89,17 +89,6 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
             SweeperTile tile = sweeperBoardManager.getTileInPosition(i);
             updateTileButtons(i, tile);
         }
-//        int i = 0;
-//        int j = 0;
-//        while (i < sweeperTilesBoard.getDimension()){
-//            while (j < sweeperTilesBoard.getDimension()){
-//                SweeperTile tile = sweeperTilesBoard.getTile(i, j);
-//                int buttonIndex = (i * sweeperTilesBoard.getDimension()) + j;
-//                updateTileButtons(buttonIndex, tile);
-//                j++;
-//            }
-//            i++;
-//        }
         gridView.setAdapter(new CustomAdapter(minesButtons, columnWidth, columnHeight));
         updateTime();
         updateHealth();

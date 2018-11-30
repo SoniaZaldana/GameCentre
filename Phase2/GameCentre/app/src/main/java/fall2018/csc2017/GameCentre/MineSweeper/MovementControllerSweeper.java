@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +31,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
     public void processMove(Context context, int position, Enum<ClicksOnBoard> click) {
         int row = getBoardManager().getRow(position);
         int col = getBoardManager().getCol(position);
+        boolean skipSave = false;
         SweeperTile t = getBoardManager().getBoard().getTile(row, col);
         // If single  tap, then reveal what's under
         if (click == ClicksOnBoard.SHORT) {
@@ -41,11 +43,13 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                             getBoardManager().getBoard().takeDamage();
                             getBoardManager().setBombToExploded(row, col);
                             if (getBoardManager().getBoard().getHitPoints() == 0) {
+                                skipSave = true;
                                 processLoss(context);
                             }
                         }
                         if (t.getBombType().equals(BombTypes.BIG)) {// End the game if it's a big bomb
                             getBoardManager().setBombToExploded(row, col);
+                            skipSave = true;
                             processLoss(context);
                         }
                         if (t.getBombType().equals(BombTypes.TIMED)) {
@@ -86,7 +90,9 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                 flagCounter += 1;
             }
         }
-        SaveAndLoadBoardManager.saveToFile(context, SweeperStartingActivity.SWEEPER_SAVE_FILENAME, getBoardManager());
+        if (!skipSave) {
+            SaveAndLoadBoardManager.saveToFile(context, SweeperStartingActivity.SWEEPER_SAVE_FILENAME, getBoardManager());
+        }
     }
 
     public void startTimer(int row, int col, Context context) {
@@ -105,6 +111,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         if (!getBoardManager().isBombActive()) {
             Toast.makeText(context, "YOU LOSE!", Toast.LENGTH_SHORT).show();
         }
+        context.deleteFile(SweeperStartingActivity.SWEEPER_SAVE_FILENAME);
         moveOnToScoreActivity(context, "Minesweeper.txt", ScoreScreenActivity.class, 0);
     }
 
