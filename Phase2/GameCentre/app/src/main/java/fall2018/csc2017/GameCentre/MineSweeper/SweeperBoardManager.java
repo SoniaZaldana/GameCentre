@@ -31,6 +31,7 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
         super(b);
     }
 
+
     /**
      * Returns the score of the game when you win
      *
@@ -88,6 +89,12 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
         this.getBoard().setBombsAround(row, col, numberOfBombs);
     }
 
+    /**
+     * Gets the tile from the position of the tile
+     *
+     * @param position of the tile (row*dimension + col)
+     * @return the tile
+     */
     SweeperTile getTileInPosition(int position) {
         int row = getRow(position);
         int col = getCol(position);
@@ -95,6 +102,11 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
         return tile;
     }
 
+    /**
+     * Getter for row of the
+     *
+     * @return
+     */
     int getActiveBombRow() {
         return activeBombRow;
     }

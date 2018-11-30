@@ -3,6 +3,7 @@ package fall2018.csc2017.GameCentre.MineSweeper;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 import fall2018.csc2017.GameCentre.Board;
@@ -22,7 +23,14 @@ class SweeperTilesBoard extends Board<SweeperTile> {
      * The amount of time a time bomb has before exploding
      */
     private int bombTime;
-
+    SweeperTilesBoard(int dimension, List<SweeperTile> listOfTiles) {
+        super(dimension, listOfTiles);
+        this.time = 0;
+        this.hitPoints = 3;
+        this.bombTime = 10;
+        hasChanged();
+        notifyObservers();
+    }
     SweeperTilesBoard(int dimension, int complexity) {
         super();
         setDimension(dimension);
@@ -81,6 +89,7 @@ class SweeperTilesBoard extends Board<SweeperTile> {
         }
         return tilesList;
     }
+
 
     /**
      * Builds an array of ints which represent the location of mines on the board.
