@@ -27,7 +27,7 @@ import java.util.TimerTask;
 
 import fall2018.csc2017.GameCentre.CustomAdapter;
 import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridViewShortPress;
-import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
+import fall2018.csc2017.GameCentre.MovementControllers.MovementModelSimplePress;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
 
@@ -47,7 +47,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer {
      */
     private SlidingBoardManager slidingBoardManager;
 
-    private MovementControllerSimplePress movementControllerSliding;
+    private MovementModelSimplePress movementControllerSliding;
 
     /**
      * The buttons to display.
@@ -85,7 +85,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer {
         gridView = findViewById(R.id.grid);
         createTileButtons(this);
         gridView.setNumColumns(slidingBoardManager.getBoard().getDimension());
-        movementControllerSliding = new MovementControllerSliding(slidingBoardManager);
+        movementControllerSliding = new MovementModelSliding(slidingBoardManager);
         gridView.setMovementController(movementControllerSliding);
         slidingBoardManager.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function

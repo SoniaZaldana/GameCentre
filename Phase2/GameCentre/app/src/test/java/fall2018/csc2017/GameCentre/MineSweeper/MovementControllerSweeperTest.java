@@ -6,16 +6,13 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Timer;
 
-import fall2018.csc2017.GameCentre.MovementControllers.MovementController;
-import fall2018.csc2017.GameCentre.SlidingTiles.SlidingBoardManager;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class MovementControllerSweeperTest {
     private SweeperBoardManager sweeperBoardManager;
     private SweeperTilesBoard sweeperTilesBoard;
-    private MovementControllerSweeper movementControllerSweeper;
+    private MovementModelSweeper movementControllerSweeper;
     @Before
     public void setup() {
         SweeperTile t = new SweeperTile(false);
@@ -39,7 +36,7 @@ public class MovementControllerSweeperTest {
         tiles.add(t8);
         sweeperTilesBoard = new SweeperTilesBoard(3, tiles);
         sweeperBoardManager = new SweeperBoardManager(sweeperTilesBoard);
-        movementControllerSweeper = new MovementControllerSweeper(sweeperBoardManager);
+        movementControllerSweeper = new MovementModelSweeper(sweeperBoardManager);
 
     }
     @Test
@@ -56,7 +53,7 @@ public class MovementControllerSweeperTest {
     @Test
     public void getTimerTest() {
         Timer timer = new Timer();
-        movementControllerSweeper = new MovementControllerSweeper(sweeperBoardManager, timer);
+        movementControllerSweeper = new MovementModelSweeper(sweeperBoardManager, timer);
         assertEquals(timer, movementControllerSweeper.getTimer());
     }
 }
