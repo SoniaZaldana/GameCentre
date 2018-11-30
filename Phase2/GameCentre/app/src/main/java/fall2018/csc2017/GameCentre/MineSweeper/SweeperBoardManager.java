@@ -1,8 +1,6 @@
 package fall2018.csc2017.GameCentre.MineSweeper;
 
 import java.io.Serializable;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import fall2018.csc2017.GameCentre.BoardManager;
 
@@ -17,13 +15,13 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
 
     private int activeBombCol;
 
-    public SweeperBoardManager(SweeperTilesBoard b){
+    public SweeperBoardManager(SweeperTilesBoard b) {
         super(b);
     }
 
     @Override
     public int calculateScore(int mines) {
-        return ((100*mines) - getBoard().getTime());
+        return ((100 * mines) - getBoard().getTime());
     }
 
     public boolean isBombActive() {
@@ -31,7 +29,7 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
     }
 
 
-    public void setBombActive(boolean active){
+    public void setBombActive(boolean active) {
         this.bombActive = active;
     }
 
@@ -39,6 +37,7 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
     public void setBombToExploded(int row, int col) {
         this.getBoard().setBombToExploded(row, col);
     }
+
     public void setTileToNotFlagged(int row, int col) {
         this.getBoard().setTileToNotFlagged(row, col);
     }
@@ -50,10 +49,11 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
     public void setsBombsAround(int row, int col, int numberOfBombs) {
         this.getBoard().setBombsAround(row, col, numberOfBombs);
     }
+
     public SweeperTile getTileInPosition(int position) {
         int row = getRow(position);
         int col = getCol(position);
-        SweeperTile tile = getBoard().getTile(row,col);
+        SweeperTile tile = getBoard().getTile(row, col);
         return tile;
     }
 
