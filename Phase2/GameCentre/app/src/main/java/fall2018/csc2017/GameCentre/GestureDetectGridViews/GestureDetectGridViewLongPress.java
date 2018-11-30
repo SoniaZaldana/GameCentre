@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import fall2018.csc2017.GameCentre.ClicksOnBoard;
-import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerComplexPress;
+import fall2018.csc2017.GameCentre.MovementControllers.MovementModelComplexPress;
 
 /**
  * a GestureDetectGridView which rects to both short and long presses on the screen.
@@ -17,7 +17,7 @@ public class GestureDetectGridViewLongPress extends GestureDetectGridView {
     /**
      *  This complex press movement controller
      */
-    MovementControllerComplexPress mController;
+    MovementModelComplexPress mController;
 
 
     public GestureDetectGridViewLongPress(Context context) {
@@ -35,15 +35,12 @@ public class GestureDetectGridViewLongPress extends GestureDetectGridView {
         createAndSetGestureDetector(context);
     }
 
-    public void setMovementController(MovementControllerComplexPress mController) {
+    public void setMovementController(MovementModelComplexPress mController) {
         this.mController = mController;
     }
 
     @Override
     public void createAndSetGestureDetector(final Context context) {
-//TODO check what happens on long and short taps, to ensure it doesn't call both at the
-// same time. Check the two are independent of each other. Best way is by having
-//breaking points inside each one, and seeing when they get called
         GestureDetector gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
 
             @Override

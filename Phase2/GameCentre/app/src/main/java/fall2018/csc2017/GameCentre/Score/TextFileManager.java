@@ -139,7 +139,6 @@ class TextFileManager {
      * @param userScore - the user's new score achieved
      * @return whether it is a new high score or not
      */
-    //TODO Create methods that use as little Context as possible
     static boolean isHighScore(Context context, String fileName, String targetValue, int userScore){
         boolean highScore = false;
         try {

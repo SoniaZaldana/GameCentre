@@ -24,7 +24,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class MineSweeperActivity extends AppCompatActivity implements Observer {
-    private MovementControllerSweeper movementControllerSweeper;
+    private MovementModelSweeper movementControllerSweeper;
     private SweeperTilesBoard sweeperTilesBoard;
     private SweeperBoardManager sweeperBoardManager;
     private GestureDetectGridViewLongPress gridView;
@@ -53,7 +53,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         gridView.setNumColumns(dimension);
         startTimer();
         gridView = findViewById(R.id.grid);
-        movementControllerSweeper = new MovementControllerSweeper(sweeperBoardManager);
+        movementControllerSweeper = new MovementModelSweeper(sweeperBoardManager);
         if (sweeperBoardManager.isBombActive()) {
             movementControllerSweeper.startTimer(sweeperBoardManager.getActiveBombRow(),
                     sweeperBoardManager.getActiveBombCol(), this);

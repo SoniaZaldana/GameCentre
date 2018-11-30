@@ -20,15 +20,6 @@ public class SimonTilesBoard extends Board<SimonTile> {
     SimonTilesBoard(int dimension, List<SimonTile> tiles) {
         super(dimension, tiles);
     }
-//TODO implement it in the activity. Check if it is correct
-    public void setColorsForAllTiles(List<Integer> listOfTileColors){
-        int counter = 0;
-        for(List<SimonTile> arr: getAllTiles()){
-            for(SimonTile t: arr){
-                t.setColor(listOfTileColors.remove(counter));
-                counter+=1;
-            }
-        }
-    }
+
 
 }

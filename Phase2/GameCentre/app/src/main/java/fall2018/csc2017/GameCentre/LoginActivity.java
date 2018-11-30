@@ -15,7 +15,6 @@ import android.widget.Toast;
 /**
  * The login screen
  */
-//TODO for loginActivity, if such a user doesn't exist, and you click register
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private Button loginButton, registerButton;
     private EditText usernameText, passwordText;

@@ -5,12 +5,11 @@ import android.os.Handler;
 
 import java.util.ListIterator;
 import java.util.Observable;
-import java.util.Queue;
-import fall2018.csc2017.GameCentre.MoveTracker;
-import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerSimplePress;
+
+import fall2018.csc2017.GameCentre.MovementControllers.MovementModelSimplePress;
 import fall2018.csc2017.GameCentre.Score.ScoreScreenActivity;
 
-public class SimonMovementController extends MovementControllerSimplePress<SimonBoardManager> {
+public class MovementModelSimon extends MovementModelSimplePress<SimonBoardManager> {
     /**
      * Tracks the round the user is currently in
      */
@@ -27,10 +26,10 @@ public class SimonMovementController extends MovementControllerSimplePress<Simon
     private int currPosition = -1;
 
     /**
-     * Instantiates a SimonMovementController object
+     * Instantiates a MovementModelSimon object
      * @param boardManager the board manager for this instance of the game
      */
-    SimonMovementController(SimonBoardManager boardManager){
+    MovementModelSimon(SimonBoardManager boardManager){
         this.round = 1;
         setBoardManager(boardManager);
         GameQueue<SimonTile> queue = getBoardManager().getGameQueue();
