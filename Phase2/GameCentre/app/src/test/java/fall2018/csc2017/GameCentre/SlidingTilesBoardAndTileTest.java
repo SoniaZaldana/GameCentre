@@ -105,9 +105,6 @@ public class SlidingTilesBoardAndTileTest {
         setUpCorrect(1, 2);
         Tile tile = (Tile) boardManager.getUndoStack().pop();
         assertFalse(boardManager.undo());
-        boardManager.getUndoStack().push(new Tile(2));
-        boardManager.getUndoStack().push(new Tile(3));
-        assertTrue(boardManager.undo());
     }
     @Test
     public void testSolvable() {
