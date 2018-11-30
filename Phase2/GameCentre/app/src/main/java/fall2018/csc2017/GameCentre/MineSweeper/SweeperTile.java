@@ -1,6 +1,7 @@
 package fall2018.csc2017.GameCentre.MineSweeper;
 
 import java.util.Random;
+
 import fall2018.csc2017.GameCentre.Tile;
 
 /**
@@ -19,7 +20,7 @@ public class SweeperTile extends Tile {
     /**
      * number of bombs around the tile. Default is -1, which means undeclared.
      */
-    private int bombsAround=-1;
+    private int bombsAround = -1;
 
     private boolean isBombExploded = false;
 
@@ -30,6 +31,7 @@ public class SweeperTile extends Tile {
 
     /**
      * Instantiates sweeper tile object and assigns it a random bomb type
+     *
      * @param hasBomb - whether tile contains a bomb
      */
     SweeperTile(boolean hasBomb) {
@@ -37,11 +39,11 @@ public class SweeperTile extends Tile {
         if (hasBomb) {
             Random rand = new Random();
             int n = rand.nextInt(10);
-            if (n < -5) {
+            if (n < 5) {
                 this.BombType = BombTypes.SMALL;
-            } else if (n < -8){
+            } else if (n < 8) {
                 this.BombType = BombTypes.BIG;
-            } else{
+            } else {
                 this.BombType = BombTypes.TIMED;
             }
         } else {
@@ -51,6 +53,7 @@ public class SweeperTile extends Tile {
 
     /**
      * BombType Getter. If no bomb, gives the string "none".
+     *
      * @return The type of bomb
      */
     public BombTypes getBombType() {
@@ -58,14 +61,13 @@ public class SweeperTile extends Tile {
     }
 
     /**
-     *
      * @return whether tile is marked by user as having a bomb.
      */
     boolean isFlagged() {
         return this.flagged;
     }
+
     /**
-     *
      * @param flag represents whether the tile is marked(user thinks it has a bomb
      */
     void flag(boolean flag) {
@@ -74,24 +76,20 @@ public class SweeperTile extends Tile {
 
     /**
      * returns whether a tile contains a bomb
+     *
      * @return boolean
      */
-    boolean hasBomb() {
+    public boolean hasBomb() {
         return this.bomb;
     }
 
     /**
-     * set the tile to not flagged
-     */
-    public void setTileToNotFlaged(){
-        this.flagged = false;
-    }
 
-    /**
      * set the tile to flagged
+     * @param flag
      */
-    public void setTileToFlaged() {
-        this.flagged = true;
+    public void setTileToFlagged(boolean flag) {
+        this.flagged = flag;
     }
 
     /**
@@ -103,6 +101,7 @@ public class SweeperTile extends Tile {
 
     /**
      * Sets whether a tile contains a bomb
+     *
      * @param bomb - boolean
      */
     void setBomb(boolean bomb) {
@@ -111,6 +110,7 @@ public class SweeperTile extends Tile {
 
     /**
      * Returns the number of bombs around this tile
+     *
      * @return int
      */
     int getBombsAround() {
@@ -119,6 +119,7 @@ public class SweeperTile extends Tile {
 
     /**
      * Sets the number of bombs around this tile
+     *
      * @param bombsAround - integer number of bombs
      */
     void setBombsAround(int bombsAround) {
@@ -126,7 +127,7 @@ public class SweeperTile extends Tile {
     }
 
     /**
-     *
+     * Return whether the bomb has exploded
      * @return
      */
     public boolean isBombExploded() {
