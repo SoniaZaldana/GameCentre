@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:textSize="25sp"
         android:layout_above="@+id/EditDimension"
-        android:textColor="@color/FoxOrange"
+        android:textColor="#4B0082"
         android:id="@+id/dimensionInstructions"/>
     <EditText
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
         android:textSize="25sp"
-        android:textColor="@color/FoxOrange"
+        android:textColor="#4B0082"
         android:layout_below="@id/EditDimension"
         android:id="@+id/undoInstructions"/>
     <EditText
