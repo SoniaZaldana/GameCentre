@@ -64,6 +64,7 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
      * @param row - row the bomb is in the board
      * @param col - col the bomb is in the board
      */
+
     void setBombToExploded(int row, int col) {
         this.getBoard().setBombToExploded(row, col);
     }
@@ -103,22 +104,37 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
     }
 
     /**
-     * Getter for row of the
+     * Getter for row of the activated time bomb
      *
-     * @return
+     * @return the row for the time bomb
      */
     int getActiveBombRow() {
         return activeBombRow;
     }
 
+    /**
+     * Getter for the column of the activated time bomb
+     *
+     * @return the column for the time bomb
+     */
     int getActiveBombCol() {
         return activeBombCol;
     }
 
+    /**
+     * Set the row for the active bomb
+     *
+     * @param activeBombRow
+     */
     void setActiveBombRow(int activeBombRow) {
         this.activeBombRow = activeBombRow;
     }
 
+    /**
+     * Set the column for the active bomb
+     *
+     * @param activeBombCol
+     */
     void setActiveBombCol(int activeBombCol) {
         this.activeBombCol = activeBombCol;
     }
