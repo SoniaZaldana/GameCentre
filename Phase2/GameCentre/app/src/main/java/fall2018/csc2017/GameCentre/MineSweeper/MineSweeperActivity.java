@@ -87,6 +87,15 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         updateBombTime();
     }
 
+    /**
+     *
+     */
+    public void createTileGUI() {
+        for (Button mineButton : minesButtons) {
+            mineButton.setBackground(ContextCompat.getDrawable(this, R.drawable.ms_tile));
+        }
+    }
+
     private void updateTime(){
         timerText.setText("Time: \n" + String.valueOf(sweeperBoardManager.getBoard().getTime()));
     }
@@ -165,31 +174,34 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
             int col = location[1];
             final int buttonIndex = (row * sweeperTilesBoard.getDimension()) + col;
             SweeperTile t = sweeperTilesBoard.getTile(row, col);
+            BombTypes bombType = t.getBombType();
             if (t.isBombExploded()) {
-                if (t.getBombType().equals(BombTypes.BIG)){
-                    endGame(buttonIndex);
-                } else if (t.getBombType().equals(BombTypes.SMALL)){
-                    minesButtons.get(buttonIndex).setBackground(ContextCompat.getDrawable(this,
-                            R.drawable.smallbomb));
-                    if (sweeperBoardManager.getBoard().getHitPoints() == 0){
+                switch (bombType) {
+                    case BIG:
                         endGame(buttonIndex);
-                    }
-                } else if (t.getBombType().equals(BombTypes.TIMED)){
+                        break;
+                    case SMALL:
+                        minesButtons.get(buttonIndex).setBackground(ContextCompat.getDrawable(this,
+                                R.drawable.smallbomb));
+                        if (sweeperBoardManager.getBoard().getHitPoints() == 0){
+                            endGame(buttonIndex);
+                        }
+                        break;
+                    case TIMED:
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 setTimerPicture(buttonIndex);
                             }
                         });
-                    if (sweeperBoardManager.getBoard().getBombTime() == 0){
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                endGame(buttonIndex);
-                            }
-                        });
-                    }
-
+                        if (sweeperBoardManager.getBoard().getBombTime() == 0){
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    endGame(buttonIndex);
+                                }
+                            });
+                        } break;
                 }
             } else {
                 updateTileButtons(buttonIndex, t);
@@ -217,14 +229,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     }
 
 
-    /**
-     *
-     */
-    public void createTileGUI() {
-        for (Button mineButton : minesButtons) {
-            mineButton.setBackground(ContextCompat.getDrawable(this, R.drawable.ms_tile));
-        }
-    }
+
 
     /**
      *
