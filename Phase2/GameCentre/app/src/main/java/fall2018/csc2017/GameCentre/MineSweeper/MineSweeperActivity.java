@@ -270,29 +270,33 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
             setTextColor(buttonIndex, tile.getBombsAround());
         } else if (tile.isBombExploded()) {
             final int index = buttonIndex;
-            if (tile.getBombType().equals(BombTypes.BIG)){
-                endGame(buttonIndex);
-            } else if (tile.getBombType().equals(BombTypes.SMALL)){
-                minesButtons.get(buttonIndex).setBackground(ContextCompat.getDrawable(this,
-                        R.drawable.smallbomb));
-                if (sweeperBoardManager.getBoard().getHitPoints() == 0){
+            BombTypes bombType = tile.getBombType();
+            switch (bombType) {
+                case BIG:
                     endGame(buttonIndex);
-                }
-            } else if (tile.getBombType().equals(BombTypes.TIMED)){
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        setTimerPicture(index);
+                    break;
+                case SMALL:
+                    minesButtons.get(buttonIndex).setBackground(ContextCompat.getDrawable(this,
+                            R.drawable.smallbomb));
+                    if (sweeperBoardManager.getBoard().getHitPoints() == 0){
+                        endGame(buttonIndex);
                     }
-                });
-                if (sweeperBoardManager.getBoard().getBombTime() == 0){
+                    break;
+                case TIMED:
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            endGame(index);
+                            setTimerPicture(index);
                         }
                     });
-                }
+                    if (sweeperBoardManager.getBoard().getBombTime() == 0){
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                endGame(index);
+                            }
+                        });
+                    } break;
             }
         } else{
             minesButtons.get(buttonIndex).setBackground(ContextCompat.getDrawable(this, R.drawable.ms_tile));
