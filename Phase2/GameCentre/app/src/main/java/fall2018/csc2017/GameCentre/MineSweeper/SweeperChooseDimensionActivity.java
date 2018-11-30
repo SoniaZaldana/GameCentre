@@ -3,16 +3,12 @@ package fall2018.csc2017.GameCentre.MineSweeper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 import fall2018.csc2017.GameCentre.R;
 
@@ -26,8 +22,8 @@ public class SweeperChooseDimensionActivity extends AppCompatActivity implements
     public void onCreate(Bundle x) {
         super.onCreate(x);
         setContentView(R.layout.choose_complexity_minesweeper);
-        final Spinner dimensionSpinner = (Spinner) findViewById(R.id.spinner);
-        final Spinner complexitySpinner = (Spinner) findViewById(R.id.spinner2);
+        final Spinner dimensionSpinner =  findViewById(R.id.spinner);
+        final Spinner complexitySpinner = findViewById(R.id.spinner2);
         dimensionAdapter = ArrayAdapter.createFromResource(this,
                 R.array.dimensionChoice, android.R.layout.simple_spinner_item);
         complexityAdapter = ArrayAdapter.createFromResource(this,

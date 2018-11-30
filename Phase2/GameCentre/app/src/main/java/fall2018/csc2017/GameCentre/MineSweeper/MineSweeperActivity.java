@@ -5,27 +5,20 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import fall2018.csc2017.GameCentre.CustomAdapter;
 import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridViewLongPress;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
-
-
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.widget.Button;
 import android.widget.Toast;
 
-
-//TODO Create a display for the flag counter, and get it from MovementControllerSweeper.
-//TODO WIll probably have to implement observable.
 public class MineSweeperActivity extends AppCompatActivity implements Observer {
     private MovementControllerSweeper movementControllerSweeper;
     private SweeperTilesBoard sweeperTilesBoard;
@@ -52,7 +45,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
             sweeperTilesBoard = sweeperBoardManager.getBoard();
         }
         int dimension = sweeperTilesBoard.getDimension();
-        gridView = (GestureDetectGridViewLongPress) findViewById(R.id.grid);
+        gridView = findViewById(R.id.grid);
         gridView.setNumColumns(dimension);
         startTimer();
         gridView = findViewById(R.id.grid);
