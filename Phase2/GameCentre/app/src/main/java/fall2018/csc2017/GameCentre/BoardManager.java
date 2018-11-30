@@ -75,6 +75,16 @@ public abstract class BoardManager<T extends Board> implements Serializable {
         return position / board.getDimension();
     }
 
+     /**
+     * get the position, given a row and a column
+     * @param row
+     * @param col
+     * @return
+     */
+    public int getPosition(int row, int col){
+        return row* board.getDimension() + col;
+    }
+
     /**
      * @param position of touch on screen
      * @return the column number(Starts at 0).
