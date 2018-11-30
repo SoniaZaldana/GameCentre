@@ -87,11 +87,9 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
     private void processLongClick(int row, int col, SweeperTile t) {
         if (t.isFlagged()) {
             getBoardManager().setTileToFlagged(row, col, false);
-//            this.flagCounter -= 1;
 
         } else if (t.getBombsAround() == -1) {
             getBoardManager().setTileToFlagged(row, col, true);
-//            this.flagCounter += 1;
         }
     }
 
