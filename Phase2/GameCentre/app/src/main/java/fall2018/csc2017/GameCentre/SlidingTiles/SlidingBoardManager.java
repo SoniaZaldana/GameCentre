@@ -23,9 +23,6 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
      *
      */
 
-    /**
-     * Manage a new shuffled board.
-     */
     public SlidingBoardManager(int undoMax, SlidingTilesBoard board ) {
         super(board);
         this.undoStack = new UndoStack(undoMax);
@@ -33,6 +30,9 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
 
 
 
+    /**
+     * Manage a new shuffled board.
+     */
     public SlidingBoardManager(int dimension, int undoMax){
         // Create the tiles
         List<Tile> tilesList = new ArrayList<>();
@@ -45,6 +45,23 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
         setBoard(slidingTilesBoard);
         this.undoStack = new UndoStack(undoMax);
 
+    }
+
+    private boolean blankOnOddRow(int blankId, List<Tile> tileList) {
+        int row = 1;
+        int dimension = getBoard().getDimension();
+        for(int x = 0; x != tileList.size(); x++){
+            if (tileList.get(x).getId() == blankId){
+                if(row % 2 == 0){return false;}
+                else{return true;}
+            }
+            if((x + 1) % dimension == 0){row++;}
+        }
+        return false;
+    }
+
+    private boolean isEven(int x){
+        return x%2 == 0;
     }
 
     /**
@@ -82,4 +99,6 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
         int dimensions = getBoard().getDimension();
         return dimensions * 500 - (moves * 5);
     }
+
+
 }

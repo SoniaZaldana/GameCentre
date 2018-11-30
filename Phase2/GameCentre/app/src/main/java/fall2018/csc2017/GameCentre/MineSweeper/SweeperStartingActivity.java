@@ -88,7 +88,7 @@ public static String SWEEPER_SAVE_FILENAME;
      * Starts activity for a new game
      */
     private void newGame() {
-        Intent tmp = new Intent(this, ChooseDimensionActivity.class);
+        Intent tmp = new Intent(this, SweeperChooseDimensionActivity.class);
         startActivity(tmp);
     }
 

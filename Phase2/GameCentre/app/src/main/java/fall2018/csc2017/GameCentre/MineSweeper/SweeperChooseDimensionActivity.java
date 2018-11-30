@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import fall2018.csc2017.GameCentre.R;
 
-public class ChooseDimensionActivity extends AppCompatActivity implements View.OnClickListener {
+public class SweeperChooseDimensionActivity extends AppCompatActivity implements View.OnClickListener {
     Button startButton;
     ArrayAdapter dimensionAdapter, complexityAdapter;
     String complexityIndicator = "", dimensionIndicator = "";

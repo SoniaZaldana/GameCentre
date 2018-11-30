@@ -30,7 +30,7 @@
         <activity android:name=".Simon.SimonStartingActivity" />
         <activity android:name=".MineSweeper.MineSweeperActivity"/>
         <activity android:name=".MineSweeper.SweeperStartingActivity"/>
-        <activity android:name=".MineSweeper.ChooseDimensionActivity"/>
+        <activity android:name=".MineSweeper.SweeperChooseDimensionActivity"/>
         <activity android:name=".ChooseDimensionActivity" />
     </application>
 
