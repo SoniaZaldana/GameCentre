@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Map;
@@ -24,6 +25,7 @@ public class ChooseDimensionActivity extends AppCompatActivity{
     private EditText dimensionInput, undoInput;
     private String game;
     private Uri tileImage;
+    private TextView undoInstructions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,7 @@ public class ChooseDimensionActivity extends AppCompatActivity{
         setContentView(R.layout.activity_choose_dimension);
         dimensionInput = findViewById(R.id.EditDimension);
         undoInput = findViewById(R.id.editUndo);
-
+        undoInstructions = findViewById(R.id.undoInstructions);
         game = getIntent().getStringExtra("Game");
         if (game.equals(null)) {
             Bundle extras = getIntent().getExtras();
@@ -40,6 +42,9 @@ public class ChooseDimensionActivity extends AppCompatActivity{
             if (tileImgAsStr != null) {
                 tileImage = Uri.parse(tileImgAsStr);
             }
+        if (game.equals("Simon")) {
+            undoInstructions.setText("Choose maximum number of redos");
+        }
         }
     }
 
@@ -65,7 +70,7 @@ public class ChooseDimensionActivity extends AppCompatActivity{
                 startActivity(new Intent(this, SlidingGameActivity.class));
             }
 
-            else if (game.equals("simon")) {
+            else if (game.equals("Simon")) {
                 final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.startgame);
                 mp.start();
                 SimonBoardManager simonBoardManager = new SimonBoardManager(dimension, undo);

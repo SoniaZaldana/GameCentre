@@ -92,7 +92,7 @@ public class SimonStartingActivity extends AppCompatActivity {
      * Starts activity for a new game
      */
     private void newGame() {
-        startActivity(new Intent(this, ChooseDimensionActivity.class).putExtra("Game", "simon"));
+        startActivity(new Intent(this, ChooseDimensionActivity.class).putExtra("Game", "Simon"));
     }
 
     @Override
