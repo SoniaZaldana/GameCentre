@@ -45,13 +45,18 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         // If single tap and the tile is not flagged, you want to reveal what is under
         if ((click == ClicksOnBoard.SHORT) && !t.isFlagged()) {
             // If the tile has a bomb and it has not yet exploded
-            if (t.hasBomb() && !t.isBombExploded()) {
+            if (t.hasBomb() && !t.isBombExploded() && numberOfMove == 0) {
+                getBoardManager().getBoard().swapWithSafeTile(row, col);
+                checkAround(row, col, t);
+                numberOfMove++;
+            } else if (t.hasBomb() && !t.isBombExploded()) {
                 processBombType(context, row, col, t);
+                numberOfMove++;
             }
             //If it doesn't have a bomb display how many bombs are around
             else if (!t.hasBomb()) {
                 checkAround(row, col, t);
-
+                numberOfMove++;
                 //Check if game is finished
                 if (isGameFinished()) {
                     timer.cancel();
