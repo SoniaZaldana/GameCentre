@@ -68,7 +68,7 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
      * Returns this board's undostack
      * @return
      */
-    UndoStack getUndoStack(){
+    public UndoStack getUndoStack(){
         return this.undoStack;
     }
 

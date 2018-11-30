@@ -23,14 +23,6 @@ public class Board<U extends Tile> extends Observable implements Serializable, I
      * @param dimension - nxn dimension
      */
 
-    /**
-     * Returns a list containing all tiles in the board
-     *
-     * @return list of tiles
-     */
-    public void setDimension(int newDimension) {
-        dimension = newDimension;
-    }
     public Board(int dimension, List<U> listOfTiles) {
         this.dimension = dimension;
         tiles = new ArrayList<>();
@@ -46,6 +38,15 @@ public class Board<U extends Tile> extends Observable implements Serializable, I
     }
     public Board() {
 
+    }
+
+    /**
+     * Returns a list containing all tiles in the board
+     *
+     * @return list of tiles
+     */
+    public void setDimension(int newDimension) {
+        dimension = newDimension;
     }
 
     /**

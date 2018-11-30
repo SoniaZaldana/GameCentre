@@ -6,7 +6,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import fall2018.csc2017.GameCentre.SlidingTiles.MovementControllerSliding;
 import fall2018.csc2017.GameCentre.SlidingTiles.SlidingBoardManager;
 import fall2018.csc2017.GameCentre.SlidingTiles.SlidingTilesBoard;
 
@@ -143,6 +142,24 @@ public class SlidingTilesBoardAndTileTest {
         setUpCorrect(2,2 );
         String expectedResult = "tiles = [1, 2, 3, 4]";
         assertEquals(expectedResult,boardManager.getBoard().toString());
+    }
+
+    @Test
+    public void testCalculateScore(){
+        setUpCorrect(2, 2);
+        assertEquals(975 ,boardManager.calculateScore(5));
+    }
+
+    @Test
+    public void testUndo(){
+        setUpCorrect(1, 2);
+        Object tile = boardManager.getUndoStack().pop();
+        assertFalse(boardManager.undo());
+        boardManager.getUndoStack().push(new Tile(2));
+        boardManager.getUndoStack().push(new Tile(3));
+        assertTrue(boardManager.undo());
+
+
     }
 
 
