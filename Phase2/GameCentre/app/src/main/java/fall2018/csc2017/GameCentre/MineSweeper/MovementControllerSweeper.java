@@ -29,6 +29,10 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
     MovementControllerSweeper(SweeperBoardManager boardManager) {
         setBoardManager(boardManager);
     }
+    MovementControllerSweeper(SweeperBoardManager boardManager, Timer timer) {
+        setBoardManager(boardManager);
+        this.timer = timer;
+    }
 
     /**
      * Processing a click on the board
