@@ -55,7 +55,10 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
         movementControllerSimon = new MovementModelSimon(simonBoardManager);
         gridView.setMovementController(movementControllerSimon);
         SimonTile t = simonBoardManager.randomizer();
-        simonBoardManager.getGameQueue().add(t);
+        // only add 1 element to queue if it is a new queue
+        if(simonBoardManager.getGameQueue().getSize()==0){
+            simonBoardManager.getGameQueue().add(t);
+        }
         simonBoardManager.getGameQueue().addObserver(this);
         movementControllerSimon.addObserver(this);
         // Observer sets up desired dimensions as well as calls our displayGameQueue function
