@@ -72,9 +72,6 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         slidingBoardManager = SaveAndLoadBoardManager.loadFromFile(this, SlidingTilesStartingActivity.SAVE_FILENAME);
-        while (!slidingBoardManager.solvable){
-            slidingBoardManager = SaveAndLoadBoardManager.loadFromFile(this, SlidingTilesStartingActivity.SAVE_FILENAME);
-        }
         setContentView(R.layout.sliding_tiles_main);
         autoSave();
 

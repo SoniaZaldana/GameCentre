@@ -23,11 +23,6 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
      *
      */
 
-    public boolean solvable;
-
-    /**
-     * Manage a new shuffled board.
-     */
     public SlidingBoardManager(int undoMax, SlidingTilesBoard board ) {
         super(board);
         this.undoStack = new UndoStack(undoMax);
@@ -35,30 +30,17 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
 
 
 
+    /**
+     * Manage a new shuffled board.
+     */
     public SlidingBoardManager(int dimension, int undoMax){
         // Create the tiles
-        this.solvable = false;
         List<Tile> tilesList = new ArrayList<>();
         final int numTiles = dimension * dimension;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tilesList.add(new Tile(tileNum + 1));
         }
         Collections.shuffle(tilesList);
-        int inversions = 0;
-        for (int x = 0; x != numTiles; x++) {
-            Tile currentTile = tilesList.get(x);
-            for (int y = x; y != numTiles; y++) {
-                Tile compareTile = tilesList.get(y);
-                if (currentTile.getId() > compareTile.getId()) {
-                    inversions++;
-                }
-            }
-        }
-        //blank id is numtiles
-        int blankId = numTiles;
-        if ((isEven(dimension) && isEven(inversions)) || (!isEven(dimension)) && (blankOnOddRow(blankId, tilesList) == isEven(inversions))) {
-            this.solvable = true;
-        }
         SlidingTilesBoard slidingTilesBoard = new SlidingTilesBoard(dimension, tilesList);
         setBoard(slidingTilesBoard);
         this.undoStack = new UndoStack(undoMax);
