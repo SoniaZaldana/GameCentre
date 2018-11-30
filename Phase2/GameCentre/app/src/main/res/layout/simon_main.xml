@@ -20,7 +20,7 @@
             android:layout_weight="1"
             android:layout_width="201dp"
             android:layout_height="wrap_content"
-            android:text="Redo Pattern"
+            android:text="Show pattern"
             android:background="@color/FoxYellow"/>
 
         <Button
