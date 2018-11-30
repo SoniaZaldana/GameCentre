@@ -31,6 +31,7 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
         super(b);
     }
 
+
     /**
      * Returns the score of the game when you win
      *
@@ -63,6 +64,7 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
      * @param row - row the bomb is in the board
      * @param col - col the bomb is in the board
      */
+
     void setBombToExploded(int row, int col) {
         this.getBoard().setBombToExploded(row, col);
     }
@@ -88,6 +90,12 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
         this.getBoard().setBombsAround(row, col, numberOfBombs);
     }
 
+    /**
+     * Gets the tile from the position of the tile
+     *
+     * @param position of the tile (row*dimension + col)
+     * @return the tile
+     */
     SweeperTile getTileInPosition(int position) {
         int row = getRow(position);
         int col = getCol(position);
@@ -95,18 +103,38 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
         return tile;
     }
 
+    /**
+     * Getter for row of the activated time bomb
+     *
+     * @return the row for the time bomb
+     */
     int getActiveBombRow() {
         return activeBombRow;
     }
 
+    /**
+     * Getter for the column of the activated time bomb
+     *
+     * @return the column for the time bomb
+     */
     int getActiveBombCol() {
         return activeBombCol;
     }
 
+    /**
+     * Set the row for the active bomb
+     *
+     * @param activeBombRow
+     */
     void setActiveBombRow(int activeBombRow) {
         this.activeBombRow = activeBombRow;
     }
 
+    /**
+     * Set the column for the active bomb
+     *
+     * @param activeBombCol
+     */
     void setActiveBombCol(int activeBombCol) {
         this.activeBombCol = activeBombCol;
     }

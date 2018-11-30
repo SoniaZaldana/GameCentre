@@ -51,7 +51,7 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
      * Returns this board's undostack
      * @return
      */
-    UndoStack getUndoStack(){
+    public UndoStack getUndoStack(){
         return this.undoStack;
     }
 
@@ -116,7 +116,7 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
     /**
      * Rearranges the board to make sure it is shuffled, but solvable
      */
-    public void rearrangeBoard(){
+    private void rearrangeBoard(){
         //initial position of blank tile is at dimension -1
         int blankPosition = getBoard().getNumTiles() -1;
         // paste in an invalid position as the old position
@@ -146,6 +146,5 @@ public class SlidingBoardManager extends BoardManager<SlidingTilesBoard> impleme
         }
 
     }
-
 
 }

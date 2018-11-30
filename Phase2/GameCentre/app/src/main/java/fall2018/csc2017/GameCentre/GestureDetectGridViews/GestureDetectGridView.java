@@ -1,3 +1,6 @@
+/**
+ * Excluded from tests because it is a view class.
+ */
 package fall2018.csc2017.GameCentre.GestureDetectGridViews;
 
 /*
@@ -51,7 +54,6 @@ public abstract class GestureDetectGridView extends GridView {
      * create and set the gesture detector, setting the types of actions it reacts to.
      * @param context from the app.
      */
-    //TODO is there a better way to set GestureDetector?
     public abstract void createAndSetGestureDetector(final Context context);
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
