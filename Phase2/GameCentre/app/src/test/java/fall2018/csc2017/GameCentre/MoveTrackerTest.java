@@ -24,9 +24,9 @@ public class MoveTrackerTest {
 
     @Test
     public void addMoves() {
-        moveTracker = new MoveTracker();
+        moveTracker = new MoveTracker(5);
         moveTracker.addMoves(10);
         moveTracker.addMoves(5);
-        assertEquals(15, moveTracker.getMoves());
+        assertEquals(20, moveTracker.getMoves());
     }
 }

@@ -16,9 +16,6 @@ import fall2018.csc2017.GameCentre.Score.MenuScoreboardsActivity;
 import fall2018.csc2017.GameCentre.Simon.SimonStartingActivity;
 import fall2018.csc2017.GameCentre.SlidingTiles.SlidingTilesStartingActivity;
 
-//TODO        change colour on Scoreboard(to constant shade)
-//TODO        Change layouts on scoreboard so it doesn't shift.
-//TODO        Once User wins, remove game from saved, as user should not be able to load it again.
 /**
  * The Game Launcher Screen
  */
