@@ -1,5 +1,6 @@
 package fall2018.csc2017.GameCentre.MineSweeper;
 
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -42,8 +43,10 @@ class SweeperTilesBoard extends Board<SweeperTile> {
         hasChanged();
         notifyObservers();
     }
+
     /**
      * A getter for the time
+     *
      * @return time time that has transpired for the game
      */
     int getTime() {
@@ -53,7 +56,7 @@ class SweeperTilesBoard extends Board<SweeperTile> {
     /**
      * Increments the time by 1 and notifies the observers.
      */
-    void timeIncrement(){
+    void timeIncrement() {
         this.time++;
         this.setChanged();
         this.notifyObservers();
@@ -61,6 +64,7 @@ class SweeperTilesBoard extends Board<SweeperTile> {
 
     /**
      * Builds up the list of SweeperTiles
+     *
      * @param complexity the percentage of tiles with bombs
      * @return
      */
@@ -80,6 +84,7 @@ class SweeperTilesBoard extends Board<SweeperTile> {
 
     /**
      * Builds an array of ints which represent the location of mines on the board.
+     *
      * @param numOfMines
      * @return
      */
@@ -100,6 +105,7 @@ class SweeperTilesBoard extends Board<SweeperTile> {
 
     /**
      * A getter for bombTime
+     *
      * @return int bombTime
      */
     int getBombTime() {
@@ -115,6 +121,7 @@ class SweeperTilesBoard extends Board<SweeperTile> {
 
     /**
      * A getter for the HP
+     *
      * @return int hitPoints
      */
     int getHitPoints() {
@@ -123,6 +130,7 @@ class SweeperTilesBoard extends Board<SweeperTile> {
 
     /**
      * Sets the tile located in a row row and column col to exploded
+     *
      * @param row represents on which row tile is located
      * @param col represents on which column tile is located
      */
@@ -136,6 +144,7 @@ class SweeperTilesBoard extends Board<SweeperTile> {
 
     /**
      * Sets the tile located in a row row and column col to flagged
+     *
      * @param row represents on which row tile is located
      * @param col represents on which column tile is located
      * @param flag
@@ -149,8 +158,9 @@ class SweeperTilesBoard extends Board<SweeperTile> {
 
     /**
      * Sets the how many adjacent bombs the tile located in a row row and column col has
-     * @param row represents on which row tile is located
-     * @param col represents on which column tile is located
+     *
+     * @param row           represents on which row tile is located
+     * @param col           represents on which column tile is located
      * @param numberOfBombs represent how many adjacent tiles contains bombs
      */
     void setBombsAround(int row, int col, int numberOfBombs) {

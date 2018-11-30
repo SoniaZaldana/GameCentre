@@ -23,7 +23,6 @@ import android.support.v4.content.ContextCompat;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.util.Random;
 
 //TODO Create a display for the flag counter, and get it from MovementControllerSweeper.
 //TODO WIll probably have to implement observable.
@@ -48,7 +47,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
             int complexity = getIntent().getExtras().getInt("Complexity");
             sweeperTilesBoard = new SweeperTilesBoard(dimension, complexity);
             sweeperBoardManager = new SweeperBoardManager(sweeperTilesBoard);
-        } else{
+        } else {
             sweeperBoardManager = SaveAndLoadBoardManager.loadFromFile(this, SweeperStartingActivity.SWEEPER_SAVE_FILENAME);
             sweeperTilesBoard = sweeperBoardManager.getBoard();
         }
@@ -58,7 +57,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         startTimer();
         gridView = findViewById(R.id.grid);
         movementControllerSweeper = new MovementControllerSweeper(sweeperBoardManager);
-        if (sweeperBoardManager.isBombActive()){
+        if (sweeperBoardManager.isBombActive()) {
             movementControllerSweeper.startTimer(sweeperBoardManager.getActiveBombRow(),
                     sweeperBoardManager.getActiveBombCol(), this);
         }
@@ -83,23 +82,16 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
                     }
                 });
     }
+
+    /**
+     * Creating the initial display of the board
+     */
     public void displayInitialView() {
         createTileGUI();
-        for(int i=0;i<minesButtons.size();i++){
+        for (int i = 0; i < minesButtons.size(); i++) {
             SweeperTile tile = sweeperBoardManager.getTileInPosition(i);
             updateTileButtons(i, tile);
         }
-//        int i = 0;
-//        int j = 0;
-//        while (i < sweeperTilesBoard.getDimension()){
-//            while (j < sweeperTilesBoard.getDimension()){
-//                SweeperTile tile = sweeperTilesBoard.getTile(i, j);
-//                int buttonIndex = (i * sweeperTilesBoard.getDimension()) + j;
-//                updateTileButtons(buttonIndex, tile);
-//                j++;
-//            }
-//            i++;
-//        }
         gridView.setAdapter(new CustomAdapter(minesButtons, columnWidth, columnHeight));
         updateTime();
         updateHealth();
@@ -107,7 +99,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     }
 
     /**
-     *
+     * Makes the background of all the tiles initially
      */
     public void createTileGUI() {
         for (Button mineButton : minesButtons) {
@@ -115,11 +107,17 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         }
     }
 
-    private void updateTime(){
+    /**
+     * Updates the time elapsed in the game visually
+     */
+    private void updateTime() {
         timerText.setText("Time: \n" + String.valueOf(sweeperBoardManager.getBoard().getTime()));
     }
 
-    private void updateBombTime(){
+    /**
+     * Update the counter on the timer of the bomb
+     */
+    private void updateBombTime() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -128,64 +126,40 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         });
     }
 
-    private void updateHealth(){
+    /**
+     * Updates the Health remaining
+     */
+    private void updateHealth() {
         healthNumber.setText("HP: " + String.valueOf(sweeperBoardManager.getBoard().getHitPoints()));
     }
 
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
         movementControllerSweeper.getTimer().cancel();
         this.timer.cancel();
     }
 
-    public void startTimer(){
+    /**
+     * Start the clock on the elapsed time of the game.
+     */
+    public void startTimer() {
         ScoreTask task = new ScoreTask(sweeperBoardManager);
         timer.schedule(task, 1000, 1000);
     }
 
     /**
-     * A timer task that increments the timer.
+     * Sets the background of the tile if it has a Time Bomb
+     * @param buttonIndex index of the button
      */
-    private class ScoreTask extends TimerTask {
-
-        /**
-         *
-         * The boardmanager that uses this timer.
-         */
-        private SweeperBoardManager manager;
-
-        /**
-         * An task that increments the time.
-         *
-         * @param manager The board manager this is acting on
-         */
-        public ScoreTask(SweeperBoardManager manager){
-            super();
-            this.manager = manager;
-        }
-
-        /**
-         * The task this timer does.
-         */
-        public void run(){
-            this.manager.getBoard().timeIncrement();
-        }
-
-    }
-
-    /**
-     *
-     * @param buttonIndex
-     */
-    private void setTimerPicture(int buttonIndex){
+    private void setTimerPicture(int buttonIndex) {
         minesButtons.get(buttonIndex).setBackground(ContextCompat.getDrawable(this,
                 R.drawable.timebomb));
     }
 
     /**
-     *
-     * @param location
+     * Updates the display
+     * @param location of the tile in an array [row, col]
      */
     public void display(int[] location) {
         if (location != null) {
@@ -202,7 +176,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
                     case SMALL:
                         minesButtons.get(buttonIndex).setBackground(ContextCompat.getDrawable(this,
                                 R.drawable.smallbomb));
-                        if (sweeperBoardManager.getBoard().getHitPoints() == 0){
+                        if (sweeperBoardManager.getBoard().getHitPoints() == 0) {
                             endGame(buttonIndex);
                         }
                         break;
@@ -213,14 +187,15 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
                                 setTimerPicture(buttonIndex);
                             }
                         });
-                        if (sweeperBoardManager.getBoard().getBombTime() == 0){
+                        if (sweeperBoardManager.getBoard().getBombTime() == 0) {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     endGame(buttonIndex);
                                 }
                             });
-                        } break;
+                        }
+                        break;
                 }
             } else {
                 updateTileButtons(buttonIndex, t);
@@ -233,8 +208,8 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     }
 
     /**
-     *
-     * @param context
+     * Creates the buttons to press for minesweeper
+     * @param context This activity
      */
     private void createTileButtons(Context context) {
         SweeperTilesBoard slidingTilesBoard = sweeperBoardManager.getBoard();
@@ -248,18 +223,16 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     }
 
 
-
-
     /**
+     * Draws images on the tiles. Used when loading or creating a new game.
      *
-     * @param buttonIndex
-     * @param tile
+     * @param buttonIndex The position of the tile
+     * @param tile The tile to update
      */
     public void updateTileButtons(int buttonIndex, SweeperTile tile) {
         if (tile.isFlagged()) {
             minesButtons.get(buttonIndex).setBackground(
                     ContextCompat.getDrawable(this, R.drawable.flag));
-
         } else if (tile.getBombsAround() == 0) {
             minesButtons.get(buttonIndex).setBackground(
                     ContextCompat.getDrawable(this, R.drawable.empty_tile));
@@ -269,14 +242,46 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
                     ContextCompat.getDrawable(this, R.drawable.ms_tile));
             getSetTextSize(buttonIndex);
             setTextColor(buttonIndex, tile.getBombsAround());
+        } else if (tile.isBombExploded()) {
+            final int index = buttonIndex;
+            BombTypes bombType = tile.getBombType();
+            switch (bombType) {
+                case BIG:
+                    endGame(buttonIndex);
+                    break;
+                case SMALL:
+                    minesButtons.get(buttonIndex).setBackground(ContextCompat.getDrawable(this,
+                            R.drawable.smallbomb));
+                    if (sweeperBoardManager.getBoard().getHitPoints() == 0) {
+                        endGame(buttonIndex);
+                    }
+                    break;
+                case TIMED:
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setTimerPicture(index);
+                        }
+                    });
+                    if (sweeperBoardManager.getBoard().getBombTime() == 0) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                endGame(index);
+                            }
+                        });
+                    }
+                    break;
+            }
         } else {
             minesButtons.get(buttonIndex).setBackground(ContextCompat.getDrawable(this, R.drawable.ms_tile));
         }
     }
 
     /**
+     * Change the text size depending on the size of the board
      *
-     * @param buttonIndex
+     * @param buttonIndex The location of the tile
      */
     private void getSetTextSize(int buttonIndex) {
         if (sweeperTilesBoard.getDimension() == 8) {
@@ -291,7 +296,8 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     /**
      * Changes the color of the text for button located in buttonIndex based on the
      * numberOfBombsAround parameter
-     * @param buttonIndex the location of button in minesButtons
+     *
+     * @param buttonIndex      the location of button in minesButtons
      * @param numOfBombsAround the number to be displayed as a text
      */
     private void setTextColor(int buttonIndex, int numOfBombsAround) {
@@ -311,6 +317,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
 
     /**
      * Reveals all the bombs on the board, by displaying all of them.
+     *
      * @param buttonIndex the button which by clicking the game was ended
      */
     public void endGame(int buttonIndex) {
@@ -318,15 +325,15 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
                 R.drawable.exploded_bomb));
         gridView.setAdapter(new CustomAdapter(minesButtons, columnWidth, columnHeight));
         int i = 0;
-        for (SweeperTile mine: sweeperTilesBoard) {
+        for (SweeperTile mine : sweeperTilesBoard) {
             if (i != buttonIndex && mine.hasBomb()) {
                 if (mine.getBombType().equals(BombTypes.BIG)) {
                     minesButtons.get(i).setBackground(ContextCompat.getDrawable(this,
                             R.drawable.normal_bomb));
-                } else if (mine.getBombType().equals(BombTypes.SMALL)){
+                } else if (mine.getBombType().equals(BombTypes.SMALL)) {
                     minesButtons.get(i).setBackground(ContextCompat.getDrawable(this,
                             R.drawable.smallbomb));
-                } else if (mine.getBombType().equals(BombTypes.TIMED)){
+                } else if (mine.getBombType().equals(BombTypes.TIMED)) {
                     minesButtons.get(i).setBackground(ContextCompat.getDrawable(this,
                             R.drawable.timebomb));
                 }
@@ -335,10 +342,40 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         }
         Toast.makeText(this, "You lost", Toast.LENGTH_SHORT).show();
     }
+
     @Override
     public void update(Observable observable, Object o) {
         int[] myArray = (int[]) o;
         display(myArray);
+    }
+
+    /**
+     * A timer task that increments the timer.
+     */
+    private class ScoreTask extends TimerTask {
+
+        /**
+         * The boardmanager that uses this timer.
+         */
+        private SweeperBoardManager manager;
+
+        /**
+         * An task that increments the time.
+         *
+         * @param manager The board manager this is acting on
+         */
+        public ScoreTask(SweeperBoardManager manager) {
+            super();
+            this.manager = manager;
+        }
+
+        /**
+         * The task this timer does.
+         */
+        public void run() {
+            this.manager.getBoard().timeIncrement();
+        }
+
     }
 }
 

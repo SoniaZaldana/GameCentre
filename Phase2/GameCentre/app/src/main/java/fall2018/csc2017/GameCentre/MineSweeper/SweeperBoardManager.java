@@ -30,7 +30,7 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
 
     @Override
     public int calculateScore(int mines) {
-        return ((100*mines) - getBoard().getTime());
+        return ((100 * mines) - getBoard().getTime());
     }
 
     /**
@@ -58,7 +58,6 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
         this.getBoard().setBombToExploded(row, col);
     }
 
-
     /**
      * Sets a tile to flagged
      * @param row - row in the board
@@ -72,10 +71,11 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
     void setsBombsAround(int row, int col, int numberOfBombs) {
         this.getBoard().setBombsAround(row, col, numberOfBombs);
     }
+
     SweeperTile getTileInPosition(int position) {
         int row = getRow(position);
         int col = getCol(position);
-        SweeperTile tile = getBoard().getTile(row,col);
+        SweeperTile tile = getBoard().getTile(row, col);
         return tile;
     }
 

@@ -21,6 +21,7 @@ public class SweeperChooseDimensionActivity extends AppCompatActivity implements
     ArrayAdapter dimensionAdapter, complexityAdapter;
     String complexityIndicator = "", dimensionIndicator = "";
     int dimension, complexity;
+
     @Override
     public void onCreate(Bundle x) {
         super.onCreate(x);
@@ -72,7 +73,7 @@ public class SweeperChooseDimensionActivity extends AppCompatActivity implements
             case R.id.startButton:
                 if (dimensionIndicator.equals("")) {
                     Toast.makeText(this, "Please select dimension"
-                           , Toast.LENGTH_SHORT).show();
+                            , Toast.LENGTH_SHORT).show();
                 } else if (complexityIndicator.equals("")) {
                     Toast.makeText(this, "Please select complexity",
                             Toast.LENGTH_LONG).show();
@@ -84,6 +85,7 @@ public class SweeperChooseDimensionActivity extends AppCompatActivity implements
         }
 
     }
+
     private int getComplexity(String complexityIndicator) {
         switch (complexityIndicator) {
             case "Easy":

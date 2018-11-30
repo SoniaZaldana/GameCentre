@@ -16,19 +16,30 @@ import fall2018.csc2017.GameCentre.MovementControllers.MovementControllerComplex
 import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
 import fall2018.csc2017.GameCentre.Score.ScoreScreenActivity;
 
+/**
+ * Controls revealing tiles on the board
+ */
 public class MovementControllerSweeper extends MovementControllerComplexPress<SweeperBoardManager> {
-    private int flagCounter;
-
+    /**
+     * Timer used for decreasing the time on a time bomb.
+     */
     private Timer timer = new Timer();
 
     MovementControllerSweeper(SweeperBoardManager boardManager) {
         setBoardManager(boardManager);
     }
 
+    /**
+     * Processing a click on the board
+     * @param context from the app.
+     * @param position of the click on the board
+     * @param click
+     */
     @Override
     public void processMove(Context context, int position, Enum<ClicksOnBoard> click) {
         int row = getBoardManager().getRow(position);
         int col = getBoardManager().getCol(position);
+        boolean skipSave = false;
         SweeperTile t = getBoardManager().getBoard().getTile(row, col);
 
         // If single tap and the tile is not flagged, you want to reveal what is under
@@ -60,6 +71,9 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         } else if (click == ClicksOnBoard.LONG) {
             processLongClick(row, col, t);
         }
+        if (!skipSave) {
+            SaveAndLoadBoardManager.saveToFile(context, SweeperStartingActivity.SWEEPER_SAVE_FILENAME, getBoardManager());
+        }
         // Save the game (Autosaving)
         SaveAndLoadBoardManager.saveToFile(context, SweeperStartingActivity.SWEEPER_SAVE_FILENAME, getBoardManager());
     }
@@ -73,11 +87,11 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
     private void processLongClick(int row, int col, SweeperTile t) {
         if (t.isFlagged()) {
             getBoardManager().setTileToFlagged(row, col, false);
-            this.flagCounter -= 1;
+//            this.flagCounter -= 1;
 
         } else if (t.getBombsAround() == -1) {
             getBoardManager().setTileToFlagged(row, col, true);
-            this.flagCounter += 1;
+//            this.flagCounter += 1;
         }
     }
 
@@ -111,11 +125,12 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         }
     }
 
+
     /**
-     * Starts the game timer
-     * @param row - the row the tile is in
-     * @param col - the column the tile is in
-     * @param context - the context of this activity
+     * Start the countdown timer on the bomb
+     * @param row the row of the bomb
+     * @param col the column the bomb is in
+     * @param context from the app
      */
     void startTimer(int row, int col, Context context) {
         BombTask task = new BombTask(this, context, row, col);
@@ -133,6 +148,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         if (!getBoardManager().isBombActive()) {
             Toast.makeText(context, "YOU LOSE!", Toast.LENGTH_SHORT).show();
         }
+        context.deleteFile(SweeperStartingActivity.SWEEPER_SAVE_FILENAME);
         moveOnToScoreActivity(context, "Minesweeper.txt", ScoreScreenActivity.class, 0);
     }
 
@@ -142,9 +158,15 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
      * If 0 bombs around, runs checkAround() on every tile around it.
      * around.
      *
+<<<<<<< HEAD
      * @param row - the row the tile is in
      * @param col - the col the tile is in
      * @param currTile - the current tile
+=======
+     * @param row Row of the initial tile
+     * @param col Column of the initial tile
+     * @param currTile The tile itself
+>>>>>>> 62071f9ccf62683db37093c505bccfa693c2e386
      */
     public void checkAround(int row, int col, SweeperTile currTile) {
         // Check if the current tile might have already been set.
@@ -261,7 +283,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         /**
          * A timer that starts the bomb
          */
-        public BombTask(MovementControllerSweeper movementControllerSweeper, Context context, int row, int col) {
+        BombTask(MovementControllerSweeper movementControllerSweeper, Context context, int row, int col) {
             super();
             this.movementControllerSweeper = movementControllerSweeper;
             this.context = context;
