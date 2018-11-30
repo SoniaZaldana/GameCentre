@@ -5,11 +5,13 @@ import android.content.SharedPreferences;
 
 public class AccountManager {
     private SharedPreferences accounts;
+    Context context;
 
     public AccountManager(Context context) {
         accounts = context.getSharedPreferences("users", Context.MODE_PRIVATE);
+        this.context = context;
     }
-    public String getAccountPasswor(String username) {
+    public String getAccountPassword(String username) {
         return accounts.getString(username, "Account does not exists");
     }
 
@@ -18,8 +20,6 @@ public class AccountManager {
     }
 
     public void createAccount(String username, String password) {
-        SharedPreferences.Editor Accounts = accounts.edit();
-        Accounts.putString(username, password);
-        Accounts.apply();
+        SharedPreferenceManager.setSharedValue(context, "users", username, password);
     }
 }
