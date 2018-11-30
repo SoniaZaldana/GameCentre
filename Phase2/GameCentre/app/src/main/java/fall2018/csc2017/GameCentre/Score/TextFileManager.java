@@ -164,7 +164,7 @@ class TextFileManager {
             index = line.indexOf(",");
             if (line.substring(0, index).equals(targetValue)) {
                 userExists = true;
-                scoreSaved = valueOf(line.substring(index + 1, line.length()));
+                scoreSaved = valueOf(line.substring(index + 2, line.length()));
                 if (userScore > scoreSaved) {
                     highScore = true;
                 }

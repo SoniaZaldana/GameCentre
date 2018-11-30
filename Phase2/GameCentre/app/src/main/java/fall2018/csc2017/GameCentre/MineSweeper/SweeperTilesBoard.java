@@ -206,12 +206,12 @@ class SweeperTilesBoard extends Board<SweeperTile> {
         notifyObservers();
     }
 
-    public void swipeWithSafeTile(int row, int col) {
-        ArrayList location = findFirsSafeTile();
+    public void swapWithSafeTile(int row, int col) {
+        ArrayList location = findFirstSafeTile();
         swapTiles(row, col, (int) location.get(0), (int) location.get(1));
     }
 
-    public ArrayList findFirsSafeTile() {
+    public ArrayList findFirstSafeTile() {
         ArrayList<ArrayList<SweeperTile>> tiles = getAllTiles();
         for (int i = 0; i != tiles.size(); i++) {
             for (int b = 0; b != tiles.get(i).size(); b++) {

@@ -6,8 +6,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import fall2018.csc2017.GameCentre.Tile;
-
 import static org.junit.Assert.*;
 
 public class SweeperTilesBoardTest {
@@ -105,9 +103,9 @@ public class SweeperTilesBoardTest {
     }
 
     @Test
-    public void swipeWithSafeTile(){
+    public void swapWithSafeTile(){
         sweeperTilesBoard = new SweeperTilesBoard(2, sweeperTileList);
-        sweeperTilesBoard.swipeWithSafeTile(0,0);
+        sweeperTilesBoard.swapWithSafeTile(0,0);
         assertTrue(sweeperTileList.get(0) == sweeperTilesBoard.getTile(1,0));
         assertTrue(sweeperTileList.get(2) == sweeperTilesBoard.getTile(0,0));
     }
@@ -115,12 +113,12 @@ public class SweeperTilesBoardTest {
     @Test
     public void findFirstSafeTile(){
         sweeperTilesBoard = new SweeperTilesBoard(2, sweeperTileList);
-        ArrayList testArray = sweeperTilesBoard.findFirsSafeTile();
+        ArrayList testArray = sweeperTilesBoard.findFirstSafeTile();
         assertTrue((int) testArray.get(0) == 1);
         assertTrue((int) testArray.get(1) == 0);
         sweeperTileList.get(2).setBomb(true);
         sweeperTileList.get(3).setBomb(true);
-        testArray = sweeperTilesBoard.findFirsSafeTile();
+        testArray = sweeperTilesBoard.findFirstSafeTile();
         assertTrue(testArray.isEmpty());
 
 
