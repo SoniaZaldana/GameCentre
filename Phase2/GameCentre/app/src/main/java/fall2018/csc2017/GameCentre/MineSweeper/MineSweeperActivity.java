@@ -302,7 +302,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         if (numOfBombsAround == 1) {
             currentButton.setTextColor(Color.RED);
         } else if (numOfBombsAround == 2) {
-            currentButton.setTextColor(Color.GREEN);
+            currentButton.setTextColor(Color.MAGENTA);
         } else if (numOfBombsAround == 3) {
             currentButton.setTextColor(Color.BLUE);
         } else if (numOfBombsAround == 4) {
