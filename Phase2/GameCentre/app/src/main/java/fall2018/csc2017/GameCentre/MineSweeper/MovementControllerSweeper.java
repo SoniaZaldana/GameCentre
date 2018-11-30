@@ -20,6 +20,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
     private int flagCounter;
 
     private Timer timer = new Timer();
+    private int numberOfMove = 0;
 
     public MovementControllerSweeper(SweeperBoardManager boardManager) {
         setBoardManager(boardManager);
@@ -35,7 +36,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         if (click == ClicksOnBoard.SHORT) {
             // should be able to press only if the tile is not flagged.
             if (!t.isFlagged()) {
-                if (t.hasBomb()) {// if there's a bomb check what bomb
+                if (t.hasBomb() && numberOfMove != 0) {// if there's a bomb check what bomb
                     if (!t.isBombExploded()) {
                         if (t.getBombType().equals(BombTypes.SMALL)) { // Takes damage if it's a small bomb
                             getBoardManager().getBoard().takeDamage();
@@ -56,13 +57,17 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                             }
                         }
                     }
+                } else if (t.hasBomb() && numberOfMove == 0) {
+                    getBoardManager().getBoard().swipeWithSafeTile(row, col);
+                    checkAround(row, col, t);
+                    numberOfMove ++;
                 } else {// display how many bombs are around
                     checkAround(row, col, t);
                     if (isGameFinished()) {
                         timer.cancel();
                         int mines = 0;
                         for (SweeperTile tile : getBoardManager().getBoard()) {
-                            if (tile.hasBomb()){
+                            if (tile.hasBomb()) {
                                 mines++;
                             }
                         }

@@ -76,7 +76,7 @@ public class SweeperTile extends Tile {
      * returns whether a tile contains a bomb
      * @return boolean
      */
-    boolean hasBomb() {
+    public boolean hasBomb() {
         return this.bomb;
     }
 
