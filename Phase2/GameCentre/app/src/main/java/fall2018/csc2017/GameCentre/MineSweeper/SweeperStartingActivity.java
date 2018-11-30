@@ -20,7 +20,7 @@ import fall2018.csc2017.GameCentre.SharedPreferenceManager;
 public class SweeperStartingActivity extends AppCompatActivity {    /**
  * The main save file
  */
-public static String SWEEPER_SAVE_FILENAME;
+public static String SAVE_FILENAME;
     /**
      * The board Manager
      */
@@ -38,7 +38,7 @@ public static String SWEEPER_SAVE_FILENAME;
         addNewGameButtonListener();
 
         String user = SharedPreferenceManager.getSharedValue(this, "sharedUser", "thisUser");
-        SWEEPER_SAVE_FILENAME = user + "sweeper_save_file.ser";
+        SAVE_FILENAME = user + "sweeper_save_file.ser";
     }
 
     /**
@@ -70,7 +70,7 @@ public static String SWEEPER_SAVE_FILENAME;
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sweeperBoardManager = SaveAndLoadBoardManager.loadFromFile(context, SWEEPER_SAVE_FILENAME);
+                sweeperBoardManager = SaveAndLoadBoardManager.loadFromFile(context, SAVE_FILENAME);
                 if (sweeperBoardManager == null) {
                     Toast.makeText(getApplicationContext(), "No previously saved game.", Toast.LENGTH_SHORT).show();
                 } else {

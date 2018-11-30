@@ -45,7 +45,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
             sweeperTilesBoard = new SweeperTilesBoard(dimension, complexity);
             sweeperBoardManager = new SweeperBoardManager(sweeperTilesBoard);
         } else {
-            sweeperBoardManager = SaveAndLoadBoardManager.loadFromFile(this, SweeperStartingActivity.SWEEPER_SAVE_FILENAME);
+            sweeperBoardManager = SaveAndLoadBoardManager.loadFromFile(this, SweeperStartingActivity.SAVE_FILENAME);
             sweeperTilesBoard = sweeperBoardManager.getBoard();
         }
         int dimension = sweeperTilesBoard.getDimension();
@@ -320,7 +320,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SaveAndLoadBoardManager.saveToFile(sweeperGameActivity, SweeperStartingActivity.SWEEPER_SAVE_FILENAME, sweeperBoardManager);
+                SaveAndLoadBoardManager.saveToFile(sweeperGameActivity, SweeperStartingActivity.SAVE_FILENAME, sweeperBoardManager);
                 makeToastSavedText();
             }
         });

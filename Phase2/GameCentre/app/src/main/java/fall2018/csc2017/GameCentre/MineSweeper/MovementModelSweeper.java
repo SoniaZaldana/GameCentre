@@ -81,10 +81,10 @@ public class MovementModelSweeper extends MovementModelComplexPress<SweeperBoard
             processLongClick(row, col, t);
         }
         if (!skipSave) {
-            SaveAndLoadBoardManager.saveToFile(context, SweeperStartingActivity.SWEEPER_SAVE_FILENAME, getBoardManager());
+            SaveAndLoadBoardManager.saveToFile(context, SweeperStartingActivity.SAVE_FILENAME, getBoardManager());
         }
         // Save the game (Autosaving)
-        SaveAndLoadBoardManager.saveToFile(context, SweeperStartingActivity.SWEEPER_SAVE_FILENAME, getBoardManager());
+        SaveAndLoadBoardManager.saveToFile(context, SweeperStartingActivity.SAVE_FILENAME, getBoardManager());
     }
 
     /**
@@ -155,7 +155,7 @@ public class MovementModelSweeper extends MovementModelComplexPress<SweeperBoard
         if (!getBoardManager().isBombActive()) {
             Toast.makeText(context, "YOU LOSE!", Toast.LENGTH_SHORT).show();
         }
-        context.deleteFile(SweeperStartingActivity.SWEEPER_SAVE_FILENAME);
+        context.deleteFile(SweeperStartingActivity.SAVE_FILENAME);
         moveOnToScoreActivity(context, "Minesweeper.txt", ScoreScreenActivity.class, 0);
     }
 

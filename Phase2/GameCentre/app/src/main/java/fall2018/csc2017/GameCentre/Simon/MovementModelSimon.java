@@ -7,6 +7,7 @@ import java.util.ListIterator;
 import java.util.Observable;
 
 import fall2018.csc2017.GameCentre.MovementControllers.MovementModelSimplePress;
+import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
 import fall2018.csc2017.GameCentre.Score.ScoreScreenActivity;
 
 public class MovementModelSimon extends MovementModelSimplePress<SimonBoardManager> {
@@ -64,8 +65,8 @@ public class MovementModelSimon extends MovementModelSimplePress<SimonBoardManag
         }
         else{
             //This means the user lost
-                int score = getBoardManager().calculateScore(this.round);
-                moveOnToScoreActivity(context, "Simon.txt", ScoreScreenActivity.class, score);
+            int score = getBoardManager().calculateScore(this.round);
+            moveOnToScoreActivity(context, "Simon.txt", ScoreScreenActivity.class, score);
         }
 
     }

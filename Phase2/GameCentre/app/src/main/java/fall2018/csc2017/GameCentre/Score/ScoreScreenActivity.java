@@ -13,8 +13,12 @@ import android.widget.TextView;
 import fall2018.csc2017.GameCentre.ChooseDimensionActivity;
 import fall2018.csc2017.GameCentre.GameLauncherActivity;
 import fall2018.csc2017.GameCentre.MineSweeper.SweeperChooseDimensionActivity;
+import fall2018.csc2017.GameCentre.MineSweeper.SweeperStartingActivity;
 import fall2018.csc2017.GameCentre.R;
+import fall2018.csc2017.GameCentre.SaveAndLoadBoardManager;
 import fall2018.csc2017.GameCentre.SharedPreferenceManager;
+import fall2018.csc2017.GameCentre.Simon.SimonStartingActivity;
+import fall2018.csc2017.GameCentre.SlidingTiles.SlidingTilesStartingActivity;
 
 /**
  * The end screen after the puzzle is solved
@@ -69,6 +73,20 @@ public class ScoreScreenActivity extends AppCompatActivity implements View.OnCli
         // Saving score in specific user score file
         String gameName = gameFile.substring(0, gameFile.indexOf('.'));
         TextFileManager.saveToFile(this, user + "Score.txt", gameName, score);
+
+        currentGame = gameFile.substring(0, gameFile.indexOf("."));
+
+        switch(currentGame){
+            case("Simon"):
+                SaveAndLoadBoardManager.saveToFile(this,SimonStartingActivity.SAVE_FILENAME ,null);
+                break;
+            case("Minesweeper"):
+                SaveAndLoadBoardManager.saveToFile(this,SweeperStartingActivity.SAVE_FILENAME,null);
+                break;
+            case("SlidingTiles"):
+                SaveAndLoadBoardManager.saveToFile(this, SlidingTilesStartingActivity.SAVE_FILENAME, null);
+                break;
+        }
     }
 
     private void addButtonListeners() {
@@ -88,8 +106,6 @@ public class ScoreScreenActivity extends AppCompatActivity implements View.OnCli
     }
     @Override
     public void onClick(View view) {
-        //Getting the name of the game
-        currentGame = gameFile.substring(0, gameFile.indexOf("."));
         switch (view.getId()) {
             case R.id.NewGameButton:
                 if (currentGame.equals("Simon")){
