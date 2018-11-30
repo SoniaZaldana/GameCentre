@@ -60,7 +60,7 @@ public class SweeperChooseDimensionActivity extends AppCompatActivity implements
         complexityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         complexitySpinner.setAdapter(complexityAdapter);
         dimensionSpinner.setAdapter(dimensionAdapter);
-        startButton = (Button) findViewById(R.id.startButton);
+        startButton = findViewById(R.id.startButton);
         startButton.setOnClickListener(this);
 
 
@@ -85,22 +85,24 @@ public class SweeperChooseDimensionActivity extends AppCompatActivity implements
 
     }
     private int getComplexity(String complexityIndicator) {
-        if (complexityIndicator.equals("Easy")) {
-            return 15;
-        } else if (complexityIndicator.equals("Normal")) {
-            return 20;
-        } else {
-            return 30;
+        switch (complexityIndicator) {
+            case "Easy":
+                return 15;
+            case "Normal":
+                return 20;
+            default:
+                return 30;
         }
     }
 
     private int getDimension(String dimensionIndicator) {
-        if (dimensionIndicator.equals("Small")) {
-            return 8;
-        } else if (dimensionIndicator.equals("Medium")) {
-            return 13;
-        } else {
-            return 18;
+        switch (dimensionIndicator) {
+            case "Small":
+                return 8;
+            case "Medium":
+                return 13;
+            default:
+                return 18;
         }
     }
 }

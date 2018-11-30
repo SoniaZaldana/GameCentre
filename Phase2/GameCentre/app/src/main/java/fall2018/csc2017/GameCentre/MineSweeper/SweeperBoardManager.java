@@ -1,8 +1,6 @@
 package fall2018.csc2017.GameCentre.MineSweeper;
 
 import java.io.Serializable;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import fall2018.csc2017.GameCentre.BoardManager;
 
@@ -12,12 +10,21 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
      */
     private boolean bombActive = false;
 
+    /**
+     *
+     */
     private int activeBombRow;
 
-
+    /**
+     *
+     */
     private int activeBombCol;
 
-    public SweeperBoardManager(SweeperTilesBoard b){
+    /**
+     * Instantiates a sweeper board manager
+     * @param b
+     */
+    SweeperBoardManager(SweeperTilesBoard b){
         super(b);
     }
 
@@ -26,50 +33,65 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
         return ((100*mines) - getBoard().getTime());
     }
 
-    public boolean isBombActive() {
+    /**
+     * Returns whether the timer bomb is active
+     * @return
+     */
+    boolean isBombActive() {
         return bombActive;
     }
 
-
-    public void setBombActive(boolean active){
+    /**
+     * Sets the bomb timer active
+     * @param active
+     */
+    void setBombActive(boolean active){
         this.bombActive = active;
     }
 
-
-    public void setBombToExploded(int row, int col) {
+    /**
+     * Sets the bomb that will explode
+     * @param row - row the bomb is in the board
+     * @param col - col the bomb is in the board
+     */
+    void setBombToExploded(int row, int col) {
         this.getBoard().setBombToExploded(row, col);
     }
-    public void setTileToNotFlagged(int row, int col) {
-        this.getBoard().setTileToNotFlagged(row, col);
+
+
+    /**
+     * Sets a tile to flagged
+     * @param row - row in the board
+     * @param col - column in the board
+     * @param flag
+     */
+    void setTileToFlagged(int row, int col, boolean flag) {
+        this.getBoard().setTileToFlagged(row, col, flag);
     }
 
-    public void setTileToFlagged(int row, int col) {
-        this.getBoard().setTileToFlagged(row, col);
-    }
-
-    public void setsBombsAround(int row, int col, int numberOfBombs) {
+    void setsBombsAround(int row, int col, int numberOfBombs) {
         this.getBoard().setBombsAround(row, col, numberOfBombs);
     }
-    public SweeperTile getTileInPosition(int position) {
+    SweeperTile getTileInPosition(int position) {
         int row = getRow(position);
         int col = getCol(position);
         SweeperTile tile = getBoard().getTile(row,col);
         return tile;
     }
 
-    public int getActiveBombRow() {
+    int getActiveBombRow() {
         return activeBombRow;
     }
 
-    public int getActiveBombCol() {
+    int getActiveBombCol() {
         return activeBombCol;
     }
 
-    public void setActiveBombRow(int activeBombRow) {
+    void setActiveBombRow(int activeBombRow) {
         this.activeBombRow = activeBombRow;
     }
 
-    public void setActiveBombCol(int activeBombCol) {
+    void setActiveBombCol(int activeBombCol) {
         this.activeBombCol = activeBombCol;
     }
 }

@@ -21,12 +21,10 @@ public class MovementControllerSliding extends MovementControllerSimplePress<Sli
     }
     @Override
     public void processMove(Context context, int position){
-        if(moved(position)){
-            if(gameFinished){
+        if(moved(position) && gameFinished){
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
                 int score = getBoardManager().calculateScore(moves.getMoves());
                 moveOnToScoreActivity(context, "SlidingTiles.txt", ScoreScreenActivity.class, score);
-            }
         }
         else{
             Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
@@ -45,10 +43,7 @@ public class MovementControllerSliding extends MovementControllerSimplePress<Sli
             getBoardManager().setScore(moves.getMoves());
             gameFinished = isGameFinished();
             return true;
-        }
-        else{
-            return false;
-        }
+        } return false;
     }
 
     /**

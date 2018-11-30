@@ -21,9 +21,8 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
 
     private Timer timer = new Timer();
 
-    public MovementControllerSweeper(SweeperBoardManager boardManager) {
+    MovementControllerSweeper(SweeperBoardManager boardManager) {
         setBoardManager(boardManager);
-
     }
 
     @Override
@@ -31,65 +30,94 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         int row = getBoardManager().getRow(position);
         int col = getBoardManager().getCol(position);
         SweeperTile t = getBoardManager().getBoard().getTile(row, col);
-        // If single  tap, then reveal what's under
-        if (click == ClicksOnBoard.SHORT) {
-            // should be able to press only if the tile is not flagged.
-            if (!t.isFlagged()) {
-                if (t.hasBomb()) {// if there's a bomb check what bomb
-                    if (!t.isBombExploded()) {
-                        if (t.getBombType().equals(BombTypes.SMALL)) { // Takes damage if it's a small bomb
-                            getBoardManager().getBoard().takeDamage();
-                            getBoardManager().setBombToExploded(row, col);
-                            if (getBoardManager().getBoard().getHitPoints() == 0) {
-                                processLoss(context);
-                            }
-                        }
-                        if (t.getBombType().equals(BombTypes.BIG)) {// End the game if it's a big bomb
-                            getBoardManager().setBombToExploded(row, col);
-                            processLoss(context);
-                        }
-                        if (t.getBombType().equals(BombTypes.TIMED)) {
-                            // Start a timer, game ends after 10 seconds.
-                            getBoardManager().setBombToExploded(row, col);
-                            if (!getBoardManager().isBombActive()) {
-                                startTimer(row, col, context);
-                            }
+
+        // If single tap and the tile is not flagged, you want to reveal what is under
+        if ((click == ClicksOnBoard.SHORT) && !t.isFlagged()) {
+            // If the tile has a bomb and it has not yet exploded
+            if (t.hasBomb() && !t.isBombExploded()) {
+                processBombType(context, row, col, t);
+            }
+            //If it doesn't have a bomb display how many bombs are around
+            else if (!t.hasBomb()) {
+                checkAround(row, col, t);
+
+                //Check if game is finished
+                if (isGameFinished()) {
+                    timer.cancel();
+                    int mines = 0;
+                    for (SweeperTile tile : getBoardManager().getBoard()) {
+                        if (tile.hasBomb()) {
+                            mines++;
                         }
                     }
-                } else {// display how many bombs are around
-                    checkAround(row, col, t);
-                    if (isGameFinished()) {
-                        timer.cancel();
-                        int mines = 0;
-                        for (SweeperTile tile : getBoardManager().getBoard()) {
-                            if (tile.hasBomb()){
-                                mines++;
-                            }
-                        }
-                        Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
-                        int score = getBoardManager().calculateScore(mines);
-                        moveOnToScoreActivity(context, "Minesweeper.txt", ScoreScreenActivity.class, score);
-                    }
+                    Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
+
+                    //Calculate score and send it to score screen
+                    int score = getBoardManager().calculateScore(mines);
+                    moveOnToScoreActivity(context, "Minesweeper.txt", ScoreScreenActivity.class, score);
                 }
             }
+        } else if (click == ClicksOnBoard.LONG) {
+            processLongClick(row, col, t);
         }
-        // If long tap, change the flag.
-        if (click == ClicksOnBoard.LONG) {
-            if (t.isFlagged()) {
-                getBoardManager().setTileToNotFlagged(row, col);
-                flagCounter -= 1;
-                //TODO Disable the flag background
-                //TODO Display new flag counter on screen
-
-            } else if (t.getBombsAround() == -1){
-                getBoardManager().setTileToFlagged(row, col);
-                flagCounter += 1;
-            }
-        }
+        // Save the game (Autosaving)
         SaveAndLoadBoardManager.saveToFile(context, SweeperStartingActivity.SWEEPER_SAVE_FILENAME, getBoardManager());
     }
 
-    public void startTimer(int row, int col, Context context) {
+    /**
+     * Performs the necessary actions when doing a long click, such as flagging.
+     * @param row - row the clicked tile is in
+     * @param col - col the clicked tile is in
+     * @param t - the sweeper tile
+     */
+    private void processLongClick(int row, int col, SweeperTile t) {
+        if (t.isFlagged()) {
+            getBoardManager().setTileToFlagged(row, col, false);
+            this.flagCounter -= 1;
+
+        } else if (t.getBombsAround() == -1) {
+            getBoardManager().setTileToFlagged(row, col, true);
+            this.flagCounter += 1;
+        }
+    }
+
+    /**
+     * Performs the necessary action when the tile contains an undetonated bomb
+     * @param context - the context of the activity
+     * @param row - the row the tile is in
+     * @param col - the column the tile is in
+     * @param t - the sweeper tile
+     */
+    private void processBombType(Context context, int row, int col, SweeperTile t) {
+        BombTypes bomb = t.getBombType();
+        switch (bomb) {
+            case SMALL:
+                getBoardManager().getBoard().takeDamage();
+                getBoardManager().setBombToExploded(row, col);
+                if (getBoardManager().getBoard().getHitPoints() == 0) {
+                    processLoss(context);
+                }
+                break;
+            case BIG:
+                getBoardManager().setBombToExploded(row, col);
+                processLoss(context);
+                break;
+            case TIMED:
+                getBoardManager().setBombToExploded(row, col);
+                if (!getBoardManager().isBombActive()) {
+                    startTimer(row, col, context);
+                }
+                break;
+        }
+    }
+
+    /**
+     * Starts the game timer
+     * @param row - the row the tile is in
+     * @param col - the column the tile is in
+     * @param context - the context of this activity
+     */
+    void startTimer(int row, int col, Context context) {
         BombTask task = new BombTask(this, context, row, col);
         timer.schedule(task, 1000, 1000);
         getBoardManager().setBombActive(true);
@@ -101,7 +129,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
     /**
      * Helper function for when the player loses. Moves on to score activity
      */
-    public void processLoss(Context context) {
+    void processLoss(Context context) {
         if (!getBoardManager().isBombActive()) {
             Toast.makeText(context, "YOU LOSE!", Toast.LENGTH_SHORT).show();
         }
@@ -114,10 +142,9 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
      * If 0 bombs around, runs checkAround() on every tile around it.
      * around.
      *
-     * @param row
-     *
-     * @param col
-     * @param currTile
+     * @param row - the row the tile is in
+     * @param col - the col the tile is in
+     * @param currTile - the current tile
      */
     public void checkAround(int row, int col, SweeperTile currTile) {
         // Check if the current tile might have already been set.
@@ -146,7 +173,6 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                 }
             } else {
                 getBoardManager().setsBombsAround(row, col, bombCounter);
-                //TODO display visually
             }
         }
     }
@@ -155,10 +181,10 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
      * Get the map of all valid tiles around given tile, with the tile as the key
      * and its row and col as the value.
      *
-     * @param row
-     * @param col
-     * @param rowValues
-     * @param colValues
+     * @param row - the row the tile is in
+     * @param col - the column the tile is in
+     * @param rowValues - the values in the rows
+     * @param colValues - the values in the columns
      * @return
      */
     @NonNull
@@ -182,7 +208,6 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
                             c >= 0;
                     if (rInBounds && cInBounds) {
                         t = getBoardManager().getBoard().getTile(r, c);
-                        //TODO verify that it sets map correctly.
                         rowColPair = new ArrayList<>();
                         rowColPair.add(r);
                         rowColPair.add(c);
@@ -199,7 +224,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
      *
      * @return boolean True if game is finished
      */
-    public boolean isGameFinished() {
+    boolean isGameFinished() {
         boolean gameFinished = true;
         for (SweeperTile tile : getBoardManager().getBoard()) {
             if (!tile.hasBomb() && tile.getBombsAround() == -1) {
@@ -209,6 +234,10 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         return gameFinished;
     }
 
+    /**
+     * Returns the timer
+     * @return timer
+     */
     public Timer getTimer(){
         return timer;
     }
@@ -240,6 +269,11 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
             this.col = col;
         }
 
+        /**
+         * A timer that starts the bomb with a given movement controller and context
+         * @param movementControllerSweeper
+         * @param context
+         */
         public BombTask(MovementControllerSweeper movementControllerSweeper, Context context) {
             super();
             this.movementControllerSweeper = movementControllerSweeper;
