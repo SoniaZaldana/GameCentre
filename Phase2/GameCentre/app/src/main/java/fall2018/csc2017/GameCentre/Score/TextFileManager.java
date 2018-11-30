@@ -71,7 +71,7 @@ class TextFileManager {
 
     /**
      * Helper which returns the hashMap which contains the username and the score
-     * @param fileArray array where each row is a username and a score with the format: "[user, 980"
+     * @param fileArray array where each row is a username and a score with the format: "user, 980"
      * @return
      */
     public static Map<String, Double> getUsernameAndScoresMap(String[] fileArray){
@@ -164,7 +164,7 @@ class TextFileManager {
             index = line.indexOf(",");
             if (line.substring(0, index).equals(targetValue)) {
                 userExists = true;
-                scoreSaved = valueOf(line.substring(index + 1, line.length()));
+                scoreSaved = valueOf(line.substring(index + 2, line.length()));
                 if (userScore > scoreSaved) {
                     highScore = true;
                 }

@@ -1,6 +1,8 @@
+/**
+ * Excluded from tests because it is a view class.
+ */
 package fall2018.csc2017.GameCentre.Simon;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -92,7 +94,7 @@ public class SimonStartingActivity extends AppCompatActivity {
      * Starts activity for a new game
      */
     private void newGame() {
-        startActivity(new Intent(this, ChooseDimensionActivity.class).putExtra("Game", "simon"));
+        startActivity(new Intent(this, ChooseDimensionActivity.class).putExtra("Game", "Simon"));
     }
 
     @Override

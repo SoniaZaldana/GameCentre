@@ -11,6 +11,7 @@ public class GameInputValidatorTest {
     String dimension;
     String undo;
 
+
     @Test
     public void processInput() {
         // Testing dimension too small and correct undo

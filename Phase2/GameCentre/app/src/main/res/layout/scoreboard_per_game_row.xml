@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:layout_marginRight="10dp"
-    android:layout_marginLeft="10dp"
+    android:layout_marginRight="40dp"
+    android:layout_marginLeft="40dp"
     android:layout_columnSpan="2"
     >
 
@@ -12,16 +12,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/username"
-        android:textSize="12dp"
+        android:textSize="16dp"
         android:layout_gravity="left"
         android:layout_column="0"
+
      />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/score"
-        android:textSize="12dp"
+        android:textSize="16dp"
         android:layout_column="1"
          />
 

@@ -3,11 +3,12 @@ package fall2018.csc2017.GameCentre.MineSweeper;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 import fall2018.csc2017.GameCentre.Board;
 
-public class SweeperTilesBoard extends Board<SweeperTile> {
+class SweeperTilesBoard extends Board<SweeperTile> {
     /**
      * The number of seconds that has passed for this game
      */
@@ -23,7 +24,16 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
      */
     private int bombTime;
 
-    public SweeperTilesBoard(int dimension, int complexity) {
+    SweeperTilesBoard(int dimension, List<SweeperTile> listOfTiles) {
+        super(dimension,listOfTiles);
+        this.time = 0;
+        this.hitPoints = 3;
+        this.bombTime = 10;
+        hasChanged();
+        notifyObservers();
+    }
+
+    SweeperTilesBoard(int dimension, int complexity) {
         super();
         setDimension(dimension);
         ArrayList<ArrayList<SweeperTile>> tiles = new ArrayList<>();
@@ -108,7 +118,7 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
      *
      * @return int bombTime
      */
-    public int getBombTime() {
+    int getBombTime() {
         return bombTime;
     }
 
@@ -134,34 +144,23 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
      * @param row represents on which row tile is located
      * @param col represents on which column tile is located
      */
-    public void setBombToExploded(int row, int col) {
+    void setBombToExploded(int row, int col) {
         int[] locationOfTile = {row, col};
         this.getTile(row, col).setBombExploded();
         setChanged();
         notifyObservers(locationOfTile);
     }
 
-    /**
-     * Sets the tile located in a row row and column col to not flagged
-     *
-     * @param row represents on which row tile is located
-     * @param col represents on which column tile is located
-     */
-    public void setTileToNotFlagged(int row, int col) {
-        this.getTile(row, col).setTileToNotFlaged();
-        int[] locationOfTile = {row, col};
-        setChanged();
-        notifyObservers(locationOfTile);
-    }
 
     /**
      * Sets the tile located in a row row and column col to flagged
      *
      * @param row represents on which row tile is located
      * @param col represents on which column tile is located
+     * @param flag
      */
-    public void setTileToFlagged(int row, int col) {
-        this.getTile(row, col).setTileToFlaged();
+    void setTileToFlagged(int row, int col, boolean flag) {
+        this.getTile(row,col).setTileToFlagged(flag);
         int[] locationOfTile = {row, col};
         setChanged();
         notifyObservers(locationOfTile);
@@ -174,7 +173,7 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
      * @param col           represents on which column tile is located
      * @param numberOfBombs represent how many adjacent tiles contains bombs
      */
-    public void setBombsAround(int row, int col, int numberOfBombs) {
+    void setBombsAround(int row, int col, int numberOfBombs) {
         this.getTile(row, col).setBombsAround(numberOfBombs);
         int[] locationOfTile = {row, col};
         setChanged();
@@ -184,7 +183,7 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
     /**
      * Lowers the bombTime by one
      */
-    public void lowerBombTime() {
+    void lowerBombTime() {
         bombTime--;
         setChanged();
         notifyObservers();
@@ -207,12 +206,12 @@ public class SweeperTilesBoard extends Board<SweeperTile> {
         notifyObservers();
     }
 
-    public void swipeWithSafeTile(int row, int col) {
-        ArrayList location = findFirsSafeTile();
+    public void swapWithSafeTile(int row, int col) {
+        ArrayList location = findFirstSafeTile();
         swapTiles(row, col, (int) location.get(0), (int) location.get(1));
     }
 
-    public ArrayList findFirsSafeTile() {
+    public ArrayList findFirstSafeTile() {
         ArrayList<ArrayList<SweeperTile>> tiles = getAllTiles();
         for (int i = 0; i != tiles.size(); i++) {
             for (int b = 0; b != tiles.get(i).size(); b++) {
