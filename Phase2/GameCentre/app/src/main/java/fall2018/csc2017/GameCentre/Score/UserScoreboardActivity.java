@@ -34,7 +34,7 @@ public class UserScoreboardActivity extends AppCompatActivity {
         simonScore = findViewById(R.id.SimonScoreLabel);
         minesweeperScore = findViewById(R.id.MinesweeperScoreLabel);
         slidingScore.setText(getScorePerGame(user + "Score.txt", "SlidingTiles"));
-        simonScore.setText(getScorePerGame(user + "Score.txt", "simon"));
+        simonScore.setText(getScorePerGame(user + "Score.txt", "Simon"));
         minesweeperScore.setText(getScorePerGame(user + "Score.txt", "Minesweeper"));
     }
 

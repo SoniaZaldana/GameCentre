@@ -18,12 +18,14 @@ public class SweeperTileTest {
     public void getBombType() {
         // Checking tile without bomb
         sweeperTile = new SweeperTile(false);
-        assertEquals("none", sweeperTile.getBombType());
+        assertNull(sweeperTile.getBombType());
 
         // Checking tile with bomb
         sweeperTile = new SweeperTile(true);
         createBombList();
-        assertTrue(bombTypes.contains(sweeperTile.getBombType()));
+        assertTrue(sweeperTile.getBombType() == BombTypes.BIG ||
+                    sweeperTile.getBombType() == BombTypes.SMALL ||
+                    sweeperTile.getBombType() == BombTypes.TIMED);
     }
 
     /**
@@ -31,9 +33,9 @@ public class SweeperTileTest {
      */
     private void createBombList() {
         bombTypes = new ArrayList<>();
-        bombTypes.add("small");
-        bombTypes.add("timed");
-        bombTypes.add("big");
+        bombTypes.add("BIG");
+        bombTypes.add("TIMED");
+        bombTypes.add("SMALL");
     }
 
     @Test
