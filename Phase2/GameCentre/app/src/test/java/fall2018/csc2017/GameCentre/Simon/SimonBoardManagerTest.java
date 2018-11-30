@@ -6,6 +6,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import fall2018.csc2017.GameCentre.Board;
+
 import static org.junit.Assert.*;
 
 public class SimonBoardManagerTest {
@@ -48,7 +50,7 @@ public class SimonBoardManagerTest {
     @Test
     public void randomizer() {
         createValidTileList();
-        SimonTilesBoard board = new SimonTilesBoard(2, listTiles);
+        Board<SimonTile> board = new Board<>(2, listTiles);
         boardManager = new SimonBoardManager(board, 1);
         SimonTile randomTile = boardManager.randomizer();
         assertEquals(true, listTiles.contains(randomTile));

@@ -17,6 +17,8 @@ import java.util.ListIterator;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
+
+import fall2018.csc2017.GameCentre.Board;
 import fall2018.csc2017.GameCentre.CustomAdapter;
 import fall2018.csc2017.GameCentre.GestureDetectGridViews.GestureDetectGridViewShortPress;
 import fall2018.csc2017.GameCentre.MovementControllers.MovementModel;
@@ -29,7 +31,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
     private SimonBoardManager simonBoardManager;
     private MovementModelSimon movementControllerSimon;
     private ArrayList<Button> tileButtons;
-    ListIterator<SimonTile> i;
+    private ListIterator<SimonTile> i;
     private Button saveButton;
     private Button undoButton;
 
@@ -99,7 +101,7 @@ public class SimonGameActivity extends AppCompatActivity implements Observer {
      * @param context
      */
     private void createTileButtons(Context context){
-        SimonTilesBoard board = simonBoardManager.getBoard();
+        Board board = simonBoardManager.getBoard();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != board.getDimension(); row++) {
             for (int col = 0; col != board.getDimension(); col++) {

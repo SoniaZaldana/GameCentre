@@ -3,8 +3,10 @@ package fall2018.csc2017.GameCentre.Simon;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import fall2018.csc2017.GameCentre.Board;
 import fall2018.csc2017.GameCentre.BoardManager;
- public class SimonBoardManager extends BoardManager<SimonTilesBoard>{
+ public class SimonBoardManager extends BoardManager<Board<SimonTile>>{
     /**
      * How many undos a user has in a game
      */
@@ -19,7 +21,7 @@ import fall2018.csc2017.GameCentre.BoardManager;
      * @param board - the board for the game
      * @param undo - number of undos user has per game
      */
-    public SimonBoardManager(SimonTilesBoard board, int undo) {
+    public SimonBoardManager(Board<SimonTile> board, int undo) {
         super(board);
         this.undo = undo;
         this.gameQueue = new GameQueue<>();
@@ -38,8 +40,8 @@ import fall2018.csc2017.GameCentre.BoardManager;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tilesList.add(new SimonTile(tileNum));
         }
-        SimonTilesBoard simonTilesBoard = new SimonTilesBoard(dimension, tilesList);
-        setBoard(simonTilesBoard);
+        Board<SimonTile> board = new Board<>(dimension, tilesList);
+        setBoard(board);
     }
 
     /**
@@ -58,8 +60,8 @@ import fall2018.csc2017.GameCentre.BoardManager;
     }
 
     /**
-     * Returns the game queue for this object
-     * @return
+     *
+     * @return Returns the game queue for this object
      */
     GameQueue<SimonTile> getGameQueue(){
         return this.gameQueue;
