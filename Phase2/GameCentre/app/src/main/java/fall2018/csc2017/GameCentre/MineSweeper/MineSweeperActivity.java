@@ -284,9 +284,9 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         if (sweeperTilesBoard.getDimension() == 8) {
             minesButtons.get(buttonIndex).setTextSize(20);
         } else if (sweeperTilesBoard.getDimension() == 16) {
-            minesButtons.get(buttonIndex).setTextSize(10);
+            minesButtons.get(buttonIndex).setTextSize(20);
         } else {
-            minesButtons.get(buttonIndex).setTextSize(6);
+            minesButtons.get(buttonIndex).setTextSize(13);
         }
     }
 
