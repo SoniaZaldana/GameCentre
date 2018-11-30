@@ -1,3 +1,4 @@
+
 package fall2018.csc2017.GameCentre.MovementControllers;
 
 import android.content.Context;
@@ -40,7 +41,6 @@ public abstract class MovementController<T extends BoardManager> extends Observa
      * @param scoreClass scoreActivity which will display the score.
      * @param score score for this game.
      */
-    //TODO remove from here as it violates rules, and instead set parameter gamFinished, that is called from activity every time.
     public void moveOnToScoreActivity(Context context, String gameFile, Class scoreClass, int score) {
         Intent intent = new Intent(context, scoreClass);
         intent.putExtra("Score", score);
