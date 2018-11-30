@@ -258,7 +258,6 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         if (tile.isFlagged()) {
             minesButtons.get(buttonIndex).setBackground(
                     ContextCompat.getDrawable(this, R.drawable.flag));
-
         } else if (tile.getBombsAround() == 0) {
             minesButtons.get(buttonIndex).setBackground(
                     ContextCompat.getDrawable(this, R.drawable.empty_tile));
@@ -268,7 +267,37 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
                     ContextCompat.getDrawable(this, R.drawable.ms_tile));
             getSetTextSize(buttonIndex);
             setTextColor(buttonIndex, tile.getBombsAround());
-        } else {
+        } else if (tile.isBombExploded()) {
+            final int index = buttonIndex;
+            BombTypes bombType = tile.getBombType();
+            switch (bombType) {
+                case BIG:
+                    endGame(buttonIndex);
+                    break;
+                case SMALL:
+                    minesButtons.get(buttonIndex).setBackground(ContextCompat.getDrawable(this,
+                            R.drawable.smallbomb));
+                    if (sweeperBoardManager.getBoard().getHitPoints() == 0){
+                        endGame(buttonIndex);
+                    }
+                    break;
+                case TIMED:
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setTimerPicture(index);
+                        }
+                    });
+                    if (sweeperBoardManager.getBoard().getBombTime() == 0){
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                endGame(index);
+                            }
+                        });
+                    } break;
+            }
+        } else{
             minesButtons.get(buttonIndex).setBackground(ContextCompat.getDrawable(this, R.drawable.ms_tile));
         }
     }
