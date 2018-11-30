@@ -79,7 +79,7 @@ public class SweeperTile extends Tile {
      *
      * @return boolean
      */
-    boolean hasBomb() {
+    public boolean hasBomb() {
         return this.bomb;
     }
 

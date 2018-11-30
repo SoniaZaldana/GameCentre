@@ -24,6 +24,7 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
      * Timer used for decreasing the time on a time bomb.
      */
     private Timer timer = new Timer();
+    private int numberOfMove = 0;
 
     MovementControllerSweeper(SweeperBoardManager boardManager) {
         setBoardManager(boardManager);
@@ -41,7 +42,6 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
         int col = getBoardManager().getCol(position);
         boolean skipSave = false;
         SweeperTile t = getBoardManager().getBoard().getTile(row, col);
-
         // If single tap and the tile is not flagged, you want to reveal what is under
         if ((click == ClicksOnBoard.SHORT) && !t.isFlagged()) {
             // If the tile has a bomb and it has not yet exploded
@@ -155,16 +155,9 @@ public class MovementControllerSweeper extends MovementControllerComplexPress<Sw
      * displays on the tile how many bombs there are around.
      * If 0 bombs around, runs checkAround() on every tile around it.
      * around.
-     *
-<<<<<<< HEAD
-     * @param row - the row the tile is in
-     * @param col - the col the tile is in
-     * @param currTile - the current tile
-=======
      * @param row Row of the initial tile
      * @param col Column of the initial tile
      * @param currTile The tile itself
->>>>>>> 62071f9ccf62683db37093c505bccfa693c2e386
      */
     public void checkAround(int row, int col, SweeperTile currTile) {
         // Check if the current tile might have already been set.

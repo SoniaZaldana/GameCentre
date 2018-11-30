@@ -180,4 +180,44 @@ class SweeperTilesBoard extends Board<SweeperTile> {
 
     }
 
+    /**
+     * Swap the tiles at (row1, col1) and (row2, col2)
+     *
+     * @param row1 the first tile row
+     * @param col1 the first tile col
+     * @param row2 the second tile row
+     * @param col2 the second tile col
+     */
+    public void swapTiles(int row1, int col1, int row2, int col2) {
+        SweeperTile tempValue = getTile(row1, col1);
+        setTile(row1, col1, getTile(row2, col2));
+        setTile(row2, col2, tempValue);
+        setChanged();
+        notifyObservers();
+    }
+
+    public void swipeWithSafeTile(int row, int col) {
+        ArrayList location = findFirsSafeTile();
+        swapTiles(row, col, (int) location.get(0), (int) location.get(1));
+    }
+
+    public ArrayList findFirsSafeTile() {
+        ArrayList<ArrayList<SweeperTile>> tiles = getAllTiles();
+        for (int i = 0; i != tiles.size(); i++) {
+            for (int b = 0; b != tiles.get(i).size(); b++) {
+                if (!getTile(i, b).hasBomb()) {
+                    ArrayList location = new ArrayList();
+                    location.add(i);
+                    location.add(b);
+                    return location;
+                }
+            }
+        }
+        return new ArrayList();
+    }
 }
+
+
+
+
+
