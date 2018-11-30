@@ -3,6 +3,7 @@ package fall2018.csc2017.GameCentre.MineSweeper;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
@@ -68,6 +69,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         timerText = findViewById(R.id.timer);
         healthNumber = findViewById(R.id.HP);
         bombTimerText = findViewById(R.id.timeBomb);
+        addSaveButtonListener();
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -313,6 +315,27 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         } else if (numOfBombsAround == 5) {
             currentButton.setTextColor(Color.GRAY);
         }
+    }
+    /**
+     * Activate save button.
+     */
+    private void addSaveButtonListener() {
+        Button saveButton = findViewById(R.id.SaveButton);
+        final MineSweeperActivity sweeperGameActivity = this;
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SaveAndLoadBoardManager.saveToFile(sweeperGameActivity, SweeperStartingActivity.SWEEPER_SAVE_FILENAME, sweeperBoardManager);
+                makeToastSavedText();
+            }
+        });
+    }
+
+    /**
+     * Display that a game was saved successfully.
+     */
+    private void makeToastSavedText() {
+        Toast.makeText(this, "Game Saved", Toast.LENGTH_SHORT).show();
     }
 
     /**
