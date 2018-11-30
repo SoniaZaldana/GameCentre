@@ -5,7 +5,6 @@ package fall2018.csc2017.GameCentre.MineSweeper;
  */
 
 import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
@@ -40,13 +39,6 @@ public class SweeperBoardManagerTest {
         sweeperTileList.add(tile3);
         sweeperTileList.add(tile4);
     }
-    @Test
-    public void getBombTime() {
-        createValidTileList();
-        SweeperTilesBoard sweeperTilesBoard = new SweeperTilesBoard(2, sweeperTileList);
-        sweeperBoardManager = new SweeperBoardManager(sweeperTilesBoard);
-        assertEquals(10, sweeperBoardManager.getBombTime());
-    }
 
     @Test
     public void isBombActive() {
@@ -57,14 +49,7 @@ public class SweeperBoardManagerTest {
         assertTrue(sweeperBoardManager.isBombActive());
     }
 
-    @Test
-    public void lowerBombTime() {
-        createValidTileList();
-        SweeperTilesBoard sweeperTilesBoard = new SweeperTilesBoard(2, sweeperTileList);
-        sweeperBoardManager = new SweeperBoardManager(sweeperTilesBoard);
-        sweeperBoardManager.lowerBombTime();
-        assertEquals(9, sweeperBoardManager.getBombTime());
-    }
+
 
     @Test
     public void setBombActive() {
@@ -73,5 +58,38 @@ public class SweeperBoardManagerTest {
         sweeperBoardManager = new SweeperBoardManager(sweeperTilesBoard);
         sweeperBoardManager.setBombActive(false);
         assertFalse(sweeperBoardManager.isBombActive());
+    }
+
+
+    @Test
+    public void setBombToExploded() {
+    }
+
+    @Test
+    public void setTileToFlagged() {
+    }
+
+    @Test
+    public void setsBombsAround() {
+    }
+
+    @Test
+    public void getTileInPosition() {
+    }
+
+    @Test
+    public void getActiveBombRow() {
+    }
+
+    @Test
+    public void getActiveBombCol() {
+    }
+
+    @Test
+    public void setActiveBombRow() {
+    }
+
+    @Test
+    public void setActiveBombCol() {
     }
 }
