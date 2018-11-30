@@ -14,7 +14,6 @@ public class MovementControllerSliding extends MovementControllerSimplePress<Sli
      * Moves variable keeps track of number of moves
      */
     private MoveTracker moves;
-    //TODO force all the constructors to take a board.
     public MovementControllerSliding(SlidingBoardManager boardManager) {
         moves = new MoveTracker(boardManager.getScore());
         setBoardManager(boardManager);

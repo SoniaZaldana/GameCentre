@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import fall2018.csc2017.GameCentre.ChooseDimensionActivity;
 import fall2018.csc2017.GameCentre.GameLauncherActivity;
+import fall2018.csc2017.GameCentre.MineSweeper.SweeperChooseDimensionActivity;
 import fall2018.csc2017.GameCentre.R;
 import fall2018.csc2017.GameCentre.SharedPreferenceManager;
 
@@ -91,7 +92,7 @@ public class ScoreScreenActivity extends AppCompatActivity implements View.OnCli
         currentGame = gameFile.substring(0, gameFile.indexOf("."));
         switch (view.getId()) {
             case R.id.NewGameButton:
-                if (currentGame.equals("simon")){
+                if (currentGame.equals("Simon")){
                     startActivity(new Intent(this, ChooseDimensionActivity.class).
                             putExtra("Game", currentGame));
                     break;
@@ -101,8 +102,9 @@ public class ScoreScreenActivity extends AppCompatActivity implements View.OnCli
                             putExtra("Game", currentGame));
                     break;
                 }
-                //TODO: Add where to go for minesweeper
                 else if (currentGame.equals("Minesweeper")){
+                    startActivity(new Intent(this, SweeperChooseDimensionActivity.class).
+                            putExtra("Game", currentGame));
                     break;
                 }
             case R.id.MainMenuButton:

@@ -58,6 +58,10 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         startTimer();
         gridView = findViewById(R.id.grid);
         movementControllerSweeper = new MovementControllerSweeper(sweeperBoardManager);
+        if (sweeperBoardManager.isBombActive()){
+            movementControllerSweeper.startTimer(sweeperBoardManager.getActiveBombRow(),
+                    sweeperBoardManager.getActiveBombCol(), this);
+        }
         gridView.setMovementController(movementControllerSweeper);
         createTileButtons(this);
         gridView.createAndSetGestureDetector(this);
@@ -81,6 +85,21 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
     }
     public void displayInitialView() {
         createTileGUI();
+        for(int i=0;i<minesButtons.size();i++){
+            SweeperTile tile = sweeperBoardManager.getTileInPosition(i);
+            updateTileButtons(i, tile);
+        }
+//        int i = 0;
+//        int j = 0;
+//        while (i < sweeperTilesBoard.getDimension()){
+//            while (j < sweeperTilesBoard.getDimension()){
+//                SweeperTile tile = sweeperTilesBoard.getTile(i, j);
+//                int buttonIndex = (i * sweeperTilesBoard.getDimension()) + j;
+//                updateTileButtons(buttonIndex, tile);
+//                j++;
+//            }
+//            i++;
+//        }
         gridView.setAdapter(new CustomAdapter(minesButtons, columnWidth, columnHeight));
         updateTime();
         updateHealth();
@@ -240,6 +259,7 @@ public class MineSweeperActivity extends AppCompatActivity implements Observer {
         if (tile.isFlagged()) {
             minesButtons.get(buttonIndex).setBackground(
                     ContextCompat.getDrawable(this, R.drawable.flag));
+
         } else if (tile.getBombsAround() == 0) {
             minesButtons.get(buttonIndex).setBackground(
                     ContextCompat.getDrawable(this, R.drawable.empty_tile));

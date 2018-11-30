@@ -12,6 +12,11 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
      */
     private boolean bombActive = false;
 
+    private int activeBombRow;
+
+
+    private int activeBombCol;
+
     public SweeperBoardManager(SweeperTilesBoard b){
         super(b);
     }
@@ -44,5 +49,27 @@ public class SweeperBoardManager extends BoardManager<SweeperTilesBoard> impleme
 
     public void setsBombsAround(int row, int col, int numberOfBombs) {
         this.getBoard().setBombsAround(row, col, numberOfBombs);
+    }
+    public SweeperTile getTileInPosition(int position) {
+        int row = getRow(position);
+        int col = getCol(position);
+        SweeperTile tile = getBoard().getTile(row,col);
+        return tile;
+    }
+
+    public int getActiveBombRow() {
+        return activeBombRow;
+    }
+
+    public int getActiveBombCol() {
+        return activeBombCol;
+    }
+
+    public void setActiveBombRow(int activeBombRow) {
+        this.activeBombRow = activeBombRow;
+    }
+
+    public void setActiveBombCol(int activeBombCol) {
+        this.activeBombCol = activeBombCol;
     }
 }

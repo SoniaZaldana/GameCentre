@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fall2018.csc2017.GameCentre.MineSweeper.SweeperStartingActivity">
+    tools:context="fall2018.csc2017.GameCentre.MineSweeper.SweeperStartingActivity"
+    android:background="@drawable/background">
 
     <TextView
         android:id="@+id/GameText"
@@ -11,10 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="102dp"
-        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:text="Welcome To MineSweeper \n A game where you flag mines."
+        android:textStyle="bold"
+        android:textSize="20sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
     <LinearLayout
@@ -29,7 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="New Game"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:background="@color/FoxYellow"/>
 
         <Button
             android:id="@+id/LoadButton"
@@ -37,7 +39,8 @@
             android:layout_height="wrap_content"
             android:text="Load Saved Game"
             android:layout_weight="1"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:background="@color/FoxYellow"/>
 
     </LinearLayout>
 

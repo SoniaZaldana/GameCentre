@@ -1,12 +1,16 @@
 package fall2018.csc2017.GameCentre.MineSweeper;
 
-
+import java.lang.reflect.Array;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 
 import fall2018.csc2017.GameCentre.Board;
+import fall2018.csc2017.GameCentre.Tile;
 
 public class SweeperTilesBoard extends Board<SweeperTile> {
     /**
