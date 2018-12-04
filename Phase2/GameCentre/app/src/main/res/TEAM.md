@@ -33,6 +33,8 @@ current user from any activity/class.
 6. Integrate the creation of the text files where scores will be stored within the login/register activities.
 7. Implement the reading of text files in GameScoreboardActivity, whilst Suguru implements the display.
 8. Implement a shared preferences manager to delete duplicate code.
+9. Implemented Simon along with Nick
+10. Heavy refactoring so the model classes (Board, Tile and Board Manager) are extendable.
 
 
 
@@ -44,6 +46,7 @@ authentication purposes.
 3. Implement activity_login and LoginActivity to allow previously registered user to login into the system.
 4. Implement gamelauncheractivity which has to be flexible for future games.
 5. Maintain logical flow of backstack in between activity_login, activity_register and gamelauncheractivity.
+6. Implemented Minesweeper with Alex
 
 ### Nick:
 1. Allow user to choose dimensions of the board arbitrarily.
@@ -60,6 +63,7 @@ authentication purposes.
 2. Implement Undo
 3. Implement Undo bonus - allows user to choose the maximum number of steps they can go back in
 4. Helped with ScoreScreenActivity
+5. Implemented Minesweeper with Osman
 
 ### Suguru
 1. Implement Autosave with Alex.
